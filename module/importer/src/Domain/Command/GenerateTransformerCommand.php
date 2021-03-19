@@ -19,19 +19,10 @@ class GenerateTransformerCommand implements TransformerCommandInterface
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $type;
 
     /**

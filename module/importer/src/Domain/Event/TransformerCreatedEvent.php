@@ -20,14 +20,8 @@ class TransformerCreatedEvent implements AggregateEventInterface
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
     public function __construct(TransformerId $id, string $name, string $key)

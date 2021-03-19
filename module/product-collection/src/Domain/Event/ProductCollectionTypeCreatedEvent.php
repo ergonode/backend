@@ -27,9 +27,6 @@ class ProductCollectionTypeCreatedEvent implements AggregateEventInterface
      */
     private ProductCollectionTypeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     /**

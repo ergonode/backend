@@ -24,23 +24,11 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
      */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
-    /**
-     * @JMS\Type("string")
-     */
     private string $host;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientKey;
 
     /**
@@ -48,9 +36,6 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
      */
     private ?SegmentId $segment;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     /**
@@ -60,59 +45,26 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
      */
     private array $languages;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productName;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productActive;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productStock;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productPriceGross;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productPriceNet;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $productTax;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $productDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $productGallery;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $productMetaTitle;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $productMetaDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $productKeywords;
 
     /**

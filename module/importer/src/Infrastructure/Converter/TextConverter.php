@@ -15,9 +15,6 @@ class TextConverter implements ConverterInterface
 {
     public const TYPE = 'text';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     public function __construct(string $field)

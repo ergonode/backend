@@ -28,19 +28,10 @@ class TemplateCreatedEvent implements AggregateEventInterface
      */
     private TemplateGroupId $groupId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultLabel;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultImage;
 
     /**

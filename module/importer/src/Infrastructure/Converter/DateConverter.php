@@ -15,14 +15,8 @@ class DateConverter implements ConverterInterface
 {
     public const TYPE = 'date';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $format;
 
 

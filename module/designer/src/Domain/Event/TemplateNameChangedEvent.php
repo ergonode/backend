@@ -20,9 +20,6 @@ class TemplateNameChangedEvent implements AggregateEventInterface
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
     public function __construct(TemplateId $id, string $to)

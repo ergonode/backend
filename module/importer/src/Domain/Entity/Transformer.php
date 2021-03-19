@@ -25,14 +25,8 @@ class Transformer extends AbstractAggregateRoot
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**

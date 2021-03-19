@@ -27,9 +27,6 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
      */
     private array $tree;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
     /**

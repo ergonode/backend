@@ -15,9 +15,6 @@ class StringValue implements ValueInterface
 {
     public const TYPE = 'string';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $value)

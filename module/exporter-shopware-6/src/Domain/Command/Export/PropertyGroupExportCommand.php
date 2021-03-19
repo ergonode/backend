@@ -26,9 +26,6 @@ class PropertyGroupExportCommand implements ExporterCommandInterface
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, AttributeId $attributeId)

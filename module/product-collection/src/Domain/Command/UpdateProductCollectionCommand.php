@@ -21,14 +21,8 @@ class UpdateProductCollectionCommand implements ProductCollectionCommandInterfac
      */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
     /**

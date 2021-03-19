@@ -18,41 +18,18 @@ use JMS\Serializer\Annotation as JMS;
 
 class AttributeCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     private AttributeCode $code;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $type;
 
-    /**
-     * @var TranslatableString;
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $label;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $hint;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $placeholder;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
-     */
     private AttributeScope $scope;
 
     /**
@@ -62,9 +39,6 @@ class AttributeCreatedEvent implements AggregateEventInterface
      */
     private array $parameters;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $system;
 
     /**

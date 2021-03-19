@@ -29,9 +29,6 @@ class ProductCreatedEvent implements AggregateEventInterface
      */
     private Sku $sku;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $type;
 
     /**

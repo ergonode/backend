@@ -20,9 +20,6 @@ class TemplateRemovedEvent extends AbstractDeleteEvent
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $reason;
 
     public function __construct(TemplateId $id, ?string $reason = null)

@@ -21,9 +21,6 @@ class CategoryTreeCategoryRemovedEvent implements AggregateEventInterface
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     public function __construct(CategoryTreeId $id, CategoryId $categoryId)

@@ -17,9 +17,6 @@ class TranslatableStringValue implements ValueInterface
 {
     public const TYPE = 'translation';
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $value;
 
     public function __construct(TranslatableString $value)

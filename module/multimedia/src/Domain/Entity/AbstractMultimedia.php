@@ -25,19 +25,10 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
      */
     private MultimediaId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $extension;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $mime;
 
     /**
@@ -53,9 +44,6 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
      */
     private Hash $hash;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $alt;
 
     /**

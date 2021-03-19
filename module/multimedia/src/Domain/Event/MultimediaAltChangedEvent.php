@@ -21,9 +21,6 @@ class MultimediaAltChangedEvent implements AggregateEventInterface
      */
     private MultimediaId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $alt;
 
     public function __construct(MultimediaId $id, TranslatableString $alt)

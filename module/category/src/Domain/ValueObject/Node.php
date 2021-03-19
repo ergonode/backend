@@ -14,9 +14,6 @@ use JMS\Serializer\Annotation as JMS;
 
 class Node
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     /**

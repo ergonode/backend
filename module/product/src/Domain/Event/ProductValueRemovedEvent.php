@@ -22,9 +22,6 @@ class ProductValueRemovedEvent implements AggregateEventInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     private AttributeCode $code;
 
     public function __construct(ProductId $id, AttributeCode $code)

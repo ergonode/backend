@@ -21,19 +21,10 @@ class Shopware6Channel extends AbstractChannel
 {
     public const TYPE = 'shopware-6-api';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $host;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientKey;
 
     /**
@@ -41,9 +32,6 @@ class Shopware6Channel extends AbstractChannel
      */
     private ?SegmentId $segment;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     /**
@@ -53,59 +41,26 @@ class Shopware6Channel extends AbstractChannel
      */
     private array $languages;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductName;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductActive;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductStock;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductPriceGross;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductPriceNet;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductTax;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductGallery;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductMetaTitle;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductMetaDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductKeywords;
 
     /**

@@ -21,9 +21,6 @@ class TransformerFieldAddedEvent implements AggregateEventInterface
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     /**

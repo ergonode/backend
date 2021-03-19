@@ -26,9 +26,6 @@ class FileExportChannel extends AbstractChannel
         self::EXPORT_INCREMENTAL,
     ];
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $format;
 
     /**
@@ -38,9 +35,6 @@ class FileExportChannel extends AbstractChannel
      */
     protected array $languages;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $exportType;
 
     /**

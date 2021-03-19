@@ -24,9 +24,6 @@ class ProductCompletenessCondition implements ConditionInterface
     public const PRODUCT_COMPLETE = 'PRODUCT_COMPLETE';
     public const PRODUCT_NOT_COMPLETE = 'PRODUCT_NOT_COMPLETE';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $completeness;
 
     public function __construct(string $completeness)

@@ -20,9 +20,6 @@ class MultimediaNameChangedEvent implements AggregateEventInterface
      */
     private MultimediaId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     public function __construct(MultimediaId $id, string $name)

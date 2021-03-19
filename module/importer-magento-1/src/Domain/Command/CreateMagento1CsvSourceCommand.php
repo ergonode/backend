@@ -23,19 +23,10 @@ class CreateMagento1CsvSourceCommand implements CreateSourceCommandInterface
      */
     private SourceId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $host;
 
     /**

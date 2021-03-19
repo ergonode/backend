@@ -24,9 +24,6 @@ class Comment extends AbstractAggregateRoot
      */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $authorId;
 
     /**
@@ -44,9 +41,6 @@ class Comment extends AbstractAggregateRoot
      */
     private ?\DateTime $editedAt = null;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $content;
 
     /**

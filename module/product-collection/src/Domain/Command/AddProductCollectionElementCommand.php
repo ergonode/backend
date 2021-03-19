@@ -25,9 +25,6 @@ class AddProductCollectionElementCommand implements ProductCollectionCommandInte
      */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $visible;
 
     public function __construct(ProductCollectionId $productCollectionId, ProductId $productId, bool $visible = true)

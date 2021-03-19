@@ -25,9 +25,6 @@ class AttributeTemplateElement extends AbstractTemplateElement
      */
     private AttributeId $attributeId;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $required;
 
     public function __construct(Position $position, Size $size, AttributeId $attributeId, bool $required = true)

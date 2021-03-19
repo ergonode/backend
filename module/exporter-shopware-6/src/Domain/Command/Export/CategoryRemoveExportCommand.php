@@ -20,9 +20,6 @@ class CategoryRemoveExportCommand implements ExporterCommandInterface
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     public function __construct(ExportId $exportId, CategoryId $categoryId)

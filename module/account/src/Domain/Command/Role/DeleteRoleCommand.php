@@ -11,13 +11,9 @@ namespace Ergonode\Account\Domain\Command\Role;
 
 use Ergonode\Account\Domain\Command\AccountCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteRoleCommand implements AccountCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
-     */
     private RoleId $id;
 
     public function __construct(RoleId $id)

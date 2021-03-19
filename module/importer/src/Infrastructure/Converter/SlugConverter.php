@@ -15,9 +15,6 @@ class SlugConverter implements ConverterInterface
 {
     public const TYPE = 'slug';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     public function __construct(string $field)

@@ -18,9 +18,6 @@ abstract class AbstractSource
      */
     protected SourceId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
     public function __construct(SourceId $id, string $name)

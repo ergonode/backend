@@ -22,9 +22,6 @@ class ProductHasStatusCondition implements ConditionInterface
     public const HAS = 'HAS';
     public const NOT_HAS = 'NOT_HAS';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
     /**

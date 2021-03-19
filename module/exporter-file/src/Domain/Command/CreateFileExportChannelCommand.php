@@ -23,14 +23,8 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
      */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $format;
 
     /**
@@ -40,9 +34,6 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
      */
     protected array $languages;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $exportType;
 
     /**

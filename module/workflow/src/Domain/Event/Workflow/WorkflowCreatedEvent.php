@@ -22,14 +22,8 @@ class WorkflowCreatedEvent implements AggregateEventInterface
      */
     private WorkflowId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $class;
 
     /**

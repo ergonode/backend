@@ -17,9 +17,6 @@ use Money\Currency;
 
 class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
 {
-    /**
-     * @JMS\Type("Money\Currency")
-     */
     private Currency $currency;
 
     /**

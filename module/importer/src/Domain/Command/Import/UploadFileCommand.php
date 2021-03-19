@@ -25,9 +25,6 @@ class UploadFileCommand implements ImporterCommandInterface
      */
     private SourceId $sourceId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $fileName;
 
     public function __construct(ImportId $id, SourceId $sourceId, string $fileName)

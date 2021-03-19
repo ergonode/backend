@@ -18,9 +18,6 @@ class RoleExactlyCondition implements ConditionInterface
     public const TYPE = 'ROLE_EXACTLY_CONDITION';
     public const PHRASE = 'ROLE_EXACTLY_CONDITION_PHRASE';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
-     */
     private RoleId $role;
 
     public function __construct(RoleId $role)

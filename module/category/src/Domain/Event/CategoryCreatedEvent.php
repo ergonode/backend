@@ -18,24 +18,12 @@ use JMS\Serializer\Annotation as JMS;
 
 class CategoryCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
-     */
     private CategoryCode $code;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $type;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     /**

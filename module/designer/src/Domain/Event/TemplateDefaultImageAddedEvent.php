@@ -21,9 +21,6 @@ class TemplateDefaultImageAddedEvent implements AggregateEventInterface
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $defaultImage;
 
     public function __construct(TemplateId $id, AttributeId $defaultImage)

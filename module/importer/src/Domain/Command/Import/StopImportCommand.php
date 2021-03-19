@@ -20,9 +20,6 @@ class StopImportCommand implements ImporterCommandInterface
      */
     private ImportId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $message;
 
     /**

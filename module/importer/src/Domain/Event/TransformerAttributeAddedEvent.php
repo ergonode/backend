@@ -21,9 +21,6 @@ class TransformerAttributeAddedEvent implements AggregateEventInterface
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     /**
@@ -31,14 +28,8 @@ class TransformerAttributeAddedEvent implements AggregateEventInterface
      */
     private ConverterInterface $converter;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $attributeType;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $multilingual;
 
     public function __construct(

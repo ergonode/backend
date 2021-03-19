@@ -20,9 +20,6 @@ class UpdateProductCollectionTypeCommand implements ProductCollectionCommandInte
      */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(

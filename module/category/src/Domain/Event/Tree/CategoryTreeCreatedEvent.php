@@ -21,14 +21,8 @@ class CategoryTreeCreatedEvent implements AggregateEventInterface
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(CategoryTreeId $id, string $code, TranslatableString $name)

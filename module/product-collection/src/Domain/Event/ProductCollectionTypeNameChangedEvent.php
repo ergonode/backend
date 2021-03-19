@@ -21,9 +21,6 @@ class ProductCollectionTypeNameChangedEvent implements AggregateEventInterface
      */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
     /**

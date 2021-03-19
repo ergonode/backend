@@ -22,14 +22,8 @@ class CategoryTreeCategoryAddedEvent implements AggregateEventInterface
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private ?CategoryId $parentId;
 
     public function __construct(CategoryTreeId $id, CategoryId $categoryId, ?CategoryId $parentId = null)

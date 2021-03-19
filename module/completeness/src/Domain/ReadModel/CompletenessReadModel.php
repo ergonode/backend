@@ -31,9 +31,6 @@ class CompletenessReadModel
      */
     private array $missing;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $language;
 
     public function __construct(Language $language)

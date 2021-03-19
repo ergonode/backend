@@ -19,9 +19,6 @@ class UpdateErgonodeZipSourceCommand implements UpdateSourceCommandInterface
      */
     private SourceId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**

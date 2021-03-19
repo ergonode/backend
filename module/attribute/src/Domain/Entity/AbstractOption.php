@@ -16,28 +16,15 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractOption extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
-     */
     private OptionKey $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $label;
 
     /**

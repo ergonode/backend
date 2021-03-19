@@ -15,9 +15,6 @@ class ConstConverter implements ConverterInterface
 {
     public const TYPE = 'const';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $value)

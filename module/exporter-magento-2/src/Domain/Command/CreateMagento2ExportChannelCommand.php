@@ -20,19 +20,10 @@ class CreateMagento2ExportChannelCommand implements CreateChannelCommandInterfac
      */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $filename;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     public function __construct(ChannelId $id, string $name, string $filename, Language $defaultLanguage)

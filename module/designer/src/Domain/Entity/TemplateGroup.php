@@ -21,9 +21,6 @@ class TemplateGroup extends AbstractAggregateRoot
      */
     private TemplateGroupId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**

@@ -24,9 +24,6 @@ class CreateTemplateCommand implements TemplateCommandInterface
      */
     private TemplateId $templateId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**
@@ -34,14 +31,8 @@ class CreateTemplateCommand implements TemplateCommandInterface
      */
     private ?MultimediaId $imageId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultLabel;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultImage;
 
     /**

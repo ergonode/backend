@@ -29,9 +29,6 @@ class ProductCollectionType extends AbstractAggregateRoot
      */
     private ProductCollectionTypeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(ProductCollectionTypeId $id, ProductCollectionTypeCode $code, TranslatableString $name)

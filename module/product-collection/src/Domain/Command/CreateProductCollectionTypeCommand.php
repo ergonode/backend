@@ -26,9 +26,6 @@ class CreateProductCollectionTypeCommand implements ProductCollectionCommandInte
      */
     private ProductCollectionTypeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     /**

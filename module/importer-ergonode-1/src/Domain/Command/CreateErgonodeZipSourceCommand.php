@@ -19,9 +19,6 @@ class CreateErgonodeZipSourceCommand implements CreateSourceCommandInterface
      */
     private SourceId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**

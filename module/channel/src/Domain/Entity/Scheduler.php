@@ -18,14 +18,8 @@ class Scheduler
     public const HOURS = 2147483647;
     public const MINUTES = 59;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $active;
 
     /**

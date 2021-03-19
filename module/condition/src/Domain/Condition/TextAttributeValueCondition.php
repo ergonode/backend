@@ -21,19 +21,10 @@ class TextAttributeValueCondition implements ConditionInterface
     public const HAS = 'HAS';
     public const IS_EQUAL = 'IS_EQUAL';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attribute;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(AttributeId $attribute, string $operator, string $value)

@@ -19,9 +19,6 @@ class UpdateCommentCommand implements CommentCommandInterface
      */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $content;
 
     public function __construct(CommentId $id, string $content)

@@ -30,14 +30,8 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const WILDCARD_PHRASE = 'WILDCARD';
     public const REGEXP_PHRASE = 'REGEXP';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $operator, string $value)

@@ -14,7 +14,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
-use JMS\Serializer\ArrayTransformerInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

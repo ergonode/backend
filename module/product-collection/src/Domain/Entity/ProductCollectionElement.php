@@ -27,9 +27,6 @@ class ProductCollectionElement extends AbstractEntity
      */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $visible;
 
     /**

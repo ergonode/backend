@@ -26,14 +26,8 @@ class CategoryExportCommand implements ExporterCommandInterface
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private ?CategoryId $parentCategoryId;
 
     public function __construct(

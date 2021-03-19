@@ -21,9 +21,6 @@ class ProductRemovedFromCategoryEvent implements AggregateEventInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     public function __construct(ProductId $id, CategoryId $categoryId)

@@ -15,14 +15,8 @@ use JMS\Serializer\Annotation as JMS;
 
 class UpdateCategoryCommand implements CategoryCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(CategoryId $id, TranslatableString $name)

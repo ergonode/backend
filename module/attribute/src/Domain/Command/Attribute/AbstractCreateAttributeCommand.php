@@ -19,19 +19,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 abstract class AbstractCreateAttributeCommand implements CreateAttributeCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     private AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
-     */
     private AttributeScope $scope;
 
     /**
@@ -41,19 +32,10 @@ abstract class AbstractCreateAttributeCommand implements CreateAttributeCommandI
      */
     private array $groups;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $label;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $hint;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $placeholder;
 
     /**

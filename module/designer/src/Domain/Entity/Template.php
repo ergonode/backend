@@ -40,9 +40,6 @@ class Template extends AbstractAggregateRoot
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**
@@ -55,14 +52,8 @@ class Template extends AbstractAggregateRoot
      */
     private TemplateGroupId $groupId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultLabel;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultImage;
 
     /**

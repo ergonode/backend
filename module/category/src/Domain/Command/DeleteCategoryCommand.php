@@ -14,9 +14,6 @@ use JMS\Serializer\Annotation as JMS;
 
 class DeleteCategoryCommand implements CategoryCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $id;
 
     public function __construct(CategoryId $id)

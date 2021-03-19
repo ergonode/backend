@@ -19,9 +19,6 @@ abstract class AbstractChannel implements ChannelInterface
      */
     private ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**

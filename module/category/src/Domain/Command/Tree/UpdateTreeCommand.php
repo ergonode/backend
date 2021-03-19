@@ -24,9 +24,6 @@ class UpdateTreeCommand implements CategoryCommandInterface
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     /**

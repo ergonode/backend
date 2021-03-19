@@ -22,14 +22,8 @@ class RemoveProductAttributeCommand implements ProductCommandInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $language;
 
     public function __construct(ProductId $id, AttributeId $attributeId, Language $language)

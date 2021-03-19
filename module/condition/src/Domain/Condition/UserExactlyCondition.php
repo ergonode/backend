@@ -18,9 +18,6 @@ class UserExactlyCondition implements ConditionInterface
     public const TYPE = 'USER_EXACTLY_CONDITION';
     public const PHRASE = 'USER_EXACTLY_CONDITION_PHRASE';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $user;
 
     public function __construct(UserId $user)

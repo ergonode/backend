@@ -16,14 +16,8 @@ use Ergonode\Channel\Domain\Entity\Scheduler;
 
 class UpdateSchedulerCommand implements ChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $active;
 
     /**

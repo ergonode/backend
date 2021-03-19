@@ -19,14 +19,8 @@ class CreateTransformerCommand implements TransformerCommandInterface
      */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
     /**

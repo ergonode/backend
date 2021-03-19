@@ -18,9 +18,6 @@ class UiTemplateElement extends AbstractTemplateElement
 {
     public const TYPE = 'ui';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $label;
 
     public function __construct(Position $position, Size $size, string $label)

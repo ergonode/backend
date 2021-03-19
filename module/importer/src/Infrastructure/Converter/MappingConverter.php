@@ -16,9 +16,6 @@ class MappingConverter implements ConverterInterface
 {
     public const TYPE = 'mapping';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     /**

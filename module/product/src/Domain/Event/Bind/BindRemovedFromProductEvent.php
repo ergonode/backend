@@ -21,9 +21,6 @@ class BindRemovedFromProductEvent implements AggregateEventInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
     public function __construct(ProductId $id, AttributeId $attributeId)

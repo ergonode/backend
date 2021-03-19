@@ -28,47 +28,25 @@ use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractAttribute extends AbstractAggregateRoot implements AttributeInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     protected AttributeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     protected AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $label;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $hint;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
-     */
     protected AttributeScope $scope;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $placeholder;
 
     /**
      * @var AttributeGroupId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId>")
      */
     protected array $groups;
 
     /**
      * @var array
-     *
-     * @JMS\Type("array<string, string>")
      */
     protected array $parameters;
 

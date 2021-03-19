@@ -22,9 +22,6 @@ class CommentCreatedEvent implements AggregateEventInterface
      */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $authorId;
 
     /**
@@ -32,9 +29,6 @@ class CommentCreatedEvent implements AggregateEventInterface
      */
     private Uuid $objectId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $content;
 
     /**

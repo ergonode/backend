@@ -24,14 +24,8 @@ class CreateTreeCommand implements CategoryCommandInterface
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
     /**

@@ -21,9 +21,6 @@ class TemplateDefaultLabelRemovedEvent implements AggregateEventInterface
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $defaultLabel;
 
     public function __construct(TemplateId $id, AttributeId $defaultLabel)

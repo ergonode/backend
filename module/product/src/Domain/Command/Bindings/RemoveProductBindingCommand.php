@@ -22,9 +22,6 @@ class RemoveProductBindingCommand implements ProductCommandInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $bindingId;
 
     public function __construct(AbstractAssociatedProduct $product, AbstractAttribute $binding)

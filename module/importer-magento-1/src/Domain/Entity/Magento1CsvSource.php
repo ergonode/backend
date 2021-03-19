@@ -57,14 +57,8 @@ class Magento1CsvSource extends AbstractSource
      */
     private array $attributes;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $host;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     /**

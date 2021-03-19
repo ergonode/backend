@@ -26,9 +26,6 @@ class ProcessCategoryCommand implements ExporterCommandInterface
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, CategoryId $categoryId)

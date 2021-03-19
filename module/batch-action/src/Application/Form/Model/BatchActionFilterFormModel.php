@@ -24,8 +24,5 @@ class BatchActionFilterFormModel
      */
     public ?BatchActionFilterIdsFormModel $ids = null;
 
-    /**
-     * @JMS\Type("string")
-     */
     public ?string $query = null;
 }

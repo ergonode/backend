@@ -26,9 +26,6 @@ class ProcessOptionCommand implements ExporterCommandInterface
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $optionId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, AggregateId $optionId)

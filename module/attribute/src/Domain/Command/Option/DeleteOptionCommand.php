@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DeleteOptionCommand implements AttributeCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
     public function __construct(AggregateId $id, AttributeId $attributeId)

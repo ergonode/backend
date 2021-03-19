@@ -25,14 +25,8 @@ class LanguageCompletenessCondition implements ConditionInterface
     public const PRODUCT_TRANSLATION_COMPLETE = 'PRODUCT_TRANSLATION_COMPLETE';
     public const PRODUCT_TRANSLATION_NOT_COMPLETE = 'PRODUCT_TRANSLATION_NOT_COMPLETE';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $completeness;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $language;
 
     public function __construct(string $completeness, Language $language)

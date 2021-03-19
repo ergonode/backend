@@ -34,9 +34,6 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
      */
     protected WorkflowId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $code;
 
     /**

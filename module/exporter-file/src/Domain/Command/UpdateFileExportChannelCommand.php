@@ -23,19 +23,10 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
      */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $format;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $exportType;
 
     /**

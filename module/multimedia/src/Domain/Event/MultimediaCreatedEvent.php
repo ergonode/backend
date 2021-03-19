@@ -21,19 +21,10 @@ class MultimediaCreatedEvent implements AggregateEventInterface
      */
     private MultimediaId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $extension;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $mime;
 
     /**

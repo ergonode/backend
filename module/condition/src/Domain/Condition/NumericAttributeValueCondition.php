@@ -18,14 +18,8 @@ class NumericAttributeValueCondition implements ConditionInterface
     public const TYPE = 'NUMERIC_ATTRIBUTE_VALUE_CONDITION';
     public const PHRASE = 'NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attribute;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
     /**

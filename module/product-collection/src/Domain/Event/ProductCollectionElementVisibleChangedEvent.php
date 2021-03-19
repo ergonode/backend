@@ -26,9 +26,6 @@ class ProductCollectionElementVisibleChangedEvent implements AggregateEventInter
      */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $visible;
 
     /**

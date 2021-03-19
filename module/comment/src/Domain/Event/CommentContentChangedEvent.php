@@ -21,9 +21,6 @@ class CommentContentChangedEvent implements AggregateEventInterface
      */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
     /**

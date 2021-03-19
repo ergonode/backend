@@ -27,14 +27,8 @@ class UpdateStatusCommand implements WorkflowCommandInterface
      */
     private Color $color;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
     public function __construct(StatusId $id, Color $color, TranslatableString $name, TranslatableString $description)

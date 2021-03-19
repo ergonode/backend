@@ -21,9 +21,6 @@ class TemplateDefaultLabelChangedEvent implements AggregateEventInterface
      */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $to;
 
     public function __construct(TemplateId $id, AttributeId $to)

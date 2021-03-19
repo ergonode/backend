@@ -21,9 +21,6 @@ class CreateWorkflowCommand implements CreateWorkflowCommandInterface
      */
     private WorkflowId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
     /**

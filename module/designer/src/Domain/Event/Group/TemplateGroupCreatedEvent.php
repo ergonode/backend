@@ -19,9 +19,6 @@ class TemplateGroupCreatedEvent implements AggregateEventInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $id;
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     public function __construct(TemplateGroupId $id, string $name)
