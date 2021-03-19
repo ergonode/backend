@@ -11,8 +11,8 @@ namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
-use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,16 +22,16 @@ class ProductHasStatusConditionConfigurationStrategy implements ConditionConfigu
 
     private StatusQueryInterface $statusQuery;
 
-    private LanguageQueryInterface $languageQuery;
+    private LanguageProviderInterface $languageProvider;
 
     public function __construct(
         TranslatorInterface $translator,
         StatusQueryInterface $statusQuery,
-        LanguageQueryInterface $languageQuery
+        LanguageProviderInterface $languageProvider
     ) {
         $this->translator = $translator;
         $this->statusQuery = $statusQuery;
-        $this->languageQuery = $languageQuery;
+        $this->languageProvider = $languageProvider;
     }
 
     /**
@@ -49,9 +49,6 @@ class ProductHasStatusConditionConfigurationStrategy implements ConditionConfigu
     {
         $statuses = $this->statusQuery->getDictionary($language);
         asort($statuses);
-
-        $languages = $this->languageQuery->getDictionaryActive();
-        asort($languages);
 
         return [
             'type' => ProductHasStatusCondition::TYPE,
@@ -90,7 +87,7 @@ class ProductHasStatusConditionConfigurationStrategy implements ConditionConfigu
                 [
                     'name' => 'language',
                     'type' => 'MULTI_SELECT',
-                    'options' => $languages,
+                    'options' => $this->languageProvider->getActiveLanguages($language),
                 ],
             ],
         ];
