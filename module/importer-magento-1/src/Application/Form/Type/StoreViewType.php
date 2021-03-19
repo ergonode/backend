@@ -12,7 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Ergonode\Core\Application\Form\Type\LanguageType;
+use Ergonode\Core\Application\Form\Type\LanguageActiveType;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 
 class StoreViewType extends AbstractType
@@ -25,7 +25,7 @@ class StoreViewType extends AbstractType
         $builder
             ->add(
                 'default_language',
-                LanguageType::class,
+                LanguageActiveType::class,
                 [
                     'property_path' => 'defaultLanguage',
                     'empty_data' => 'en_GB',

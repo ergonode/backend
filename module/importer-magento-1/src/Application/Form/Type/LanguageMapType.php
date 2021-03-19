@@ -11,7 +11,7 @@ namespace Ergonode\ImporterMagento1\Application\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Ergonode\Core\Application\Form\Type\LanguageType;
+use Ergonode\Core\Application\Form\Type\LanguageActiveType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 
@@ -32,7 +32,7 @@ class LanguageMapType extends AbstractType
             )
             ->add(
                 'language',
-                LanguageType::class,
+                LanguageActiveType::class,
                 [
                     'label' => 'Language',
                 ]

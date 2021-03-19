@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\LanguageType;
+use Ergonode\Core\Application\Form\Type\LanguageActiveType;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,14 +30,14 @@ class TranslationDeeplForm extends AbstractType
             )
             ->add(
                 'source_language',
-                LanguageType::class,
+                LanguageActiveType::class,
                 [
                     'property_path' => 'sourceLanguage',
                 ]
             )
             ->add(
                 'target_language',
-                LanguageType::class,
+                LanguageActiveType::class,
                 [
                     'property_path' => 'targetLanguage',
                 ]

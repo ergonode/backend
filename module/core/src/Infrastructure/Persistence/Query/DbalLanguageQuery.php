@@ -180,6 +180,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $qb = $this->getQuery(self::DICTIONARY_FIELD);
 
         return $qb
+            ->join('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
             ->where($qb->expr()->eq('active', ':active'))
             ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
