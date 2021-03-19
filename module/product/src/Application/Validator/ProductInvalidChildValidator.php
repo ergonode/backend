@@ -23,6 +23,7 @@ use Webmozart\Assert\Assert;
 class ProductInvalidChildValidator extends ConstraintValidator
 {
     private ProductQueryInterface $query;
+
     private ProductRepositoryInterface $productRepository;
 
     public function __construct(ProductQueryInterface $query, ProductRepositoryInterface $productRepository)
@@ -47,14 +48,14 @@ class ProductInvalidChildValidator extends ConstraintValidator
         }
 
         if (!$value->getParentId() instanceof ProductId) {
-            throw new UnexpectedTypeException($value->getParentId(), VariableProduct::class);
+            throw new UnexpectedTypeException($value->getParentId(), ProductId::class);
         }
 
         if (null === $value->childId || !Uuid::isValid($value->childId)) {
             return;
         }
-        /** @var  $variableProduct VariableProduct */
         $variableProductId = $value->getParentId();
+        /** @var VariableProduct $variableProduct */
         $variableProduct = $this->productRepository->load($variableProductId);
 
         Assert::isInstanceOf($variableProduct, VariableProduct::class);

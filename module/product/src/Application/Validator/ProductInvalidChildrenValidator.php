@@ -46,7 +46,7 @@ class ProductInvalidChildrenValidator extends ConstraintValidator
         if (null === $value->skus) {
             return;
         }
-        /** @var  $variableProduct VariableProduct */
+        /** @var VariableProduct $variableProduct */
         $variableProduct = $value->parentProduct;
         $bindings = $variableProduct->getBindings();
         $bindingsValues = [];
