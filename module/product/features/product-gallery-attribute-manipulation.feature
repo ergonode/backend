@@ -5,36 +5,16 @@ Feature: Product edit and inheritance value for product product with gallery att
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Get language en
-    When I send a GET request to "/api/v1/en_GB/languages/en_GB"
+  Scenario Outline: Get language <language>
+    When I send a GET request to "/api/v1/en_GB/languages/<language>"
     Then the response status code should be 200
-    And store response param "id" as "language_id_en"
-
-  Scenario: Get language pl
-    When I send a GET request to "/api/v1/en_GB/languages/pl_PL"
-    Then the response status code should be 200
-    And store response param "id" as "language_id_pl"
-
-  Scenario: Get language fr
-    When I send a GET request to "/api/v1/en_GB/languages/fr_FR"
-    Then the response status code should be 200
-    And store response param "id" as "language_id_fr"
-
-  Scenario: Get language de
-    When I send a GET request to "/api/v1/en_GB/languages/de_DE"
-    Then the response status code should be 200
-    And store response param "id" as "language_id_de"
-
-  Scenario: Activate languages
-    When I send a PUT request to "api/v1/en_GB/languages" with body:
-      """
-      {
-        "collection": [
-          "en_GB","pl_PL", "fr_FR", "de_DE"
-        ]
-      }
-      """
-    Then the response status code should be 204
+    And store response param "id" as "<id>"
+    Examples:
+      | language | id             |
+      | en_GB    | language_id_en |
+      | pl_PL    | language_id_pl |
+      | fr_FR    | language_id_fr |
+      | de_DE    | language_id_de |
 
   Scenario: Update Tree
     When I send a PUT request to "/api/v1/en_GB/language/tree" with body:

@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalLanguageQuery implements LanguageQueryInterface
 {
@@ -39,17 +38,13 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     private Connection $connection;
 
-    private TranslatorInterface $translator;
-
     private DbalDataSetFactory $dataSetFactory;
 
     public function __construct(
         Connection $connection,
-        TranslatorInterface $translator,
         DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
-        $this->translator = $translator;
         $this->dataSetFactory = $dataSetFactory;
     }
 
@@ -203,45 +198,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
         }
 
         return $result;
-    }
-
-    /**
-     * @return array
-     */
-    public function autocomplete(
-        string $search = null,
-        int $limit = null,
-        string $field = null,
-        ?string $order = 'ASC'
-    ): array {
-        $query = $this->connection->createQueryBuilder()
-            ->select([
-                'id',
-                'iso AS code',
-                'iso AS label',
-            ])
-            ->from(self::TABLE);
-
-        if ($search) {
-            $query->orWhere(\sprintf('iso ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
-        }
-        if ($field) {
-            $query->orderBy($field, $order);
-        }
-
-        if ($limit) {
-            $query->setMaxResults($limit);
-        }
-
-        $records = $query
-            ->execute()
-            ->fetchAll();
-
-        foreach (array_keys($records) as $key) {
-            $records[$key]['label'] = $this->translator->trans($records[$key]['label'], [], 'language');
-        }
-
-        return $records;
     }
 
     /**

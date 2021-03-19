@@ -14,16 +14,6 @@ nelmio_api_doc:
                         required: true
                         description: Unit symbol
                         example: m
-            languages_request:
-                type: object
-                properties:
-                    collection:
-                        type: array
-                        items:
-                            type: string
-                        description: Collection of languages
-                        example:
-                          [ pl_PL, en_GB ]
             language_response:
                 type: object
                 properties:
