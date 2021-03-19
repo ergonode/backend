@@ -402,6 +402,31 @@ class DbalProductQuery implements ProductQueryInterface
             ->fetch(\PDO::FETCH_COLUMN);
     }
 
+    public function findAttributeIdsBySku(string $sku): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('attribute_id')
+            ->from(self::VALUE_TABLE, 'vt')
+            ->join('vt', self::PRODUCT_TABLE, 'pt', 'pt.id = vt.product_id')
+            ->where($qb->expr()->eq('sku', ':sku'))
+            ->setParameter(':sku', $sku)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function findAttributeIdsByProductId(string $productId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('attribute_id')
+            ->from(self::VALUE_TABLE, 'vt')
+            ->where($qb->expr()->eq('product_id', ':productId'))
+            ->setParameter(':productId', $productId)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

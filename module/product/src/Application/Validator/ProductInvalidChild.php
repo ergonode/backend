@@ -14,7 +14,15 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class ProductNoBindings extends Constraint
+class ProductInvalidChild extends Constraint
 {
-    public string $message = 'Can\'t add child, parent product doesn\'t have binding attributes.';
+    public string $message =  'Product doesn\'t have required attribute.';
+
+    /**
+     * @return array|string
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Product\Tests\Application\Validator;
 
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
-use Ergonode\Product\Application\Validator\ProductNoBindings;
-use Ergonode\Product\Application\Validator\ProductNoBindingsValidator;
+use Ergonode\Product\Application\Validator\ProductInvalidChild;
+use Ergonode\Product\Application\Validator\ProductInvalidChildValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
@@ -34,7 +34,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        $this->validator->validate(new \stdClass(), new ProductNoBindings());
+        $this->validator->validate(new \stdClass(), new ProductInvalidChild());
     }
 
     public function testWrongConstraintProvided(): void
@@ -45,7 +45,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
 
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new ProductNoBindings());
+        $this->validator->validate('', new ProductInvalidChild());
 
         $this->assertNoViolation();
     }
@@ -54,7 +54,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->query->method('getBindings')->willReturn([Uuid::uuid4()->toString()]);
         $uuid = Uuid::uuid4()->toString();
-        $constraint = new ProductNoBindings();
+        $constraint = new ProductInvalidChild();
         $this->validator->validate($uuid, $constraint);
 
         $this->assertNoViolation();
@@ -64,7 +64,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->query->method('getBindings')->willReturn(array());
         $uuid = Uuid::uuid4()->toString();
-        $constraint = new ProductNoBindings();
+        $constraint = new ProductInvalidChild();
         $this->validator->validate($uuid, $constraint);
 
         $assertion = $this->buildViolation($constraint->message);
@@ -72,8 +72,8 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    protected function createValidator(): ProductNoBindingsValidator
+    protected function createValidator(): ProductInvalidChildValidator
     {
-        return new ProductNoBindingsValidator($this->query);
+        return new ProductInvalidChildValidator($this->query);
     }
 }
