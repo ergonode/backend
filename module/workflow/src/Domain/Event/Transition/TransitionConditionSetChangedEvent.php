@@ -26,9 +26,6 @@ class TransitionConditionSetChangedEvent implements AggregateEventInterface
      */
     private TransitionId $transitionId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     public function __construct(WorkflowId $id, TransitionId $transitionId, ?ConditionSetId $conditionSetId = null)

@@ -22,9 +22,6 @@ class ProcessTemplateCommand implements ExporterCommandInterface
 
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, TemplateId $templateId)

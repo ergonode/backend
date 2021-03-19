@@ -15,14 +15,12 @@ use Webmozart\Assert\Assert;
 class UpdateLanguageCommand implements CoreCommandInterface
 {
     /**
-     * @var array<Language>
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
+     * @var Language[]
      */
     private array $languages;
 
     /**
-     * @param array $languages
+     * @param Language[] $languages
      */
     public function __construct(array $languages)
     {

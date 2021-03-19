@@ -21,9 +21,6 @@ class SegmentConditionSetChangedEvent implements AggregateEventInterface
      */
     private SegmentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $to;
 
     public function __construct(SegmentId $id, ?ConditionSetId $to = null)

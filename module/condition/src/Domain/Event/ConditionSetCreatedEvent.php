@@ -10,20 +10,15 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 
 class ConditionSetCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
+     * @var ConditionInterface[]
      */
     private array $conditions;
 

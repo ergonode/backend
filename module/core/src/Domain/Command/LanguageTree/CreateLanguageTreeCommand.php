@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
 class CreateLanguageTreeCommand implements CoreCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\LanguageId")
-     */
     private LanguageId $rootLanguage;
 
     public function __construct(LanguageId $rootLanguage)

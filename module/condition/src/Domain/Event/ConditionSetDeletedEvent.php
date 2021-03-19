@@ -15,9 +15,6 @@ use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 class ConditionSetDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     public function __construct(ConditionSetId $id)

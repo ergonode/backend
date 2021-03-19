@@ -15,20 +15,15 @@ use Webmozart\Assert\Assert;
 
 class UpdateConditionSetCommand implements ConditionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
-     *
-     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private array $conditions;
 
     /**
-     * @param array $conditions
+     * @param ConditionInterface[] $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {

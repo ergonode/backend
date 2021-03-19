@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class MultimediaAltChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
     private TranslatableString $alt;

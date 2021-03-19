@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class MultimediaNameChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
     private string $name;

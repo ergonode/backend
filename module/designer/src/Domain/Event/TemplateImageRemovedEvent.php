@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
 class TemplateImageRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $imageId;
 
     public function __construct(TemplateId $id, MultimediaId $imageId)

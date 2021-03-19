@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateDefaultLabelRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     private AttributeId $defaultLabel;

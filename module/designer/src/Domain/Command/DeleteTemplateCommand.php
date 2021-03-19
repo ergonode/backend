@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class DeleteTemplateCommand implements TemplateCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     public function __construct(TemplateId $id)

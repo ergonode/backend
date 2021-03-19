@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateRemovedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     private ?string $reason;

@@ -15,14 +15,8 @@ use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateElementAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElementInterface")
-     */
     private TemplateElementInterface $element;
 
     public function __construct(TemplateId $id, TemplateElementInterface $element)

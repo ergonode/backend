@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateDefaultImageAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     private AttributeId $defaultImage;

@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateGroupChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $to;
 
     public function __construct(TemplateId $id, TemplateGroupId $to)

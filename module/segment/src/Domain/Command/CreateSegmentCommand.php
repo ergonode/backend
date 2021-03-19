@@ -30,9 +30,6 @@ class CreateSegmentCommand implements SegmentCommandInterface
 
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     /**

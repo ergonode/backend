@@ -34,21 +34,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class Template extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private ?MultimediaId $imageId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $groupId;
 
     private ?AttributeId $defaultLabel;
@@ -57,8 +48,6 @@ class Template extends AbstractAggregateRoot
 
     /**
      * @var TemplateElementInterface[]
-     *
-     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElementInterface>")
      */
     private array $elements;
 

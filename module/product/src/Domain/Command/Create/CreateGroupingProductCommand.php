@@ -28,9 +28,6 @@ class CreateGroupingProductCommand implements CreateProductCommandInterface
      */
     private Sku $sku;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     /**

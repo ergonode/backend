@@ -34,9 +34,6 @@ class Transition extends AbstractEntity
      */
     private StatusId $to;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     /**

@@ -19,9 +19,6 @@ use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
 abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
     private string $name;

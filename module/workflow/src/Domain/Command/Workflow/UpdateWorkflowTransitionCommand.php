@@ -39,9 +39,6 @@ class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface
      */
     private array $roleIds;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     /**

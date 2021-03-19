@@ -18,16 +18,10 @@ use Webmozart\Assert\Assert;
 
 class CreateTemplateCommand implements TemplateCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private ?MultimediaId $imageId;
 
     private ?AttributeId $defaultLabel;
@@ -36,15 +30,10 @@ class CreateTemplateCommand implements TemplateCommandInterface
 
     /**
      * @var ArrayCollection|TemplateElementInterface[]
-     *
-     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private ArrayCollection $elements;
 
     /**
-     * CreateTemplateCommand constructor.
-     *
-     *
      * @throws \Exception
      */
     public function __construct(

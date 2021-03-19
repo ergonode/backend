@@ -18,16 +18,10 @@ use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class UpdateTemplateCommand implements TemplateCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private ?MultimediaId $imageId;
 
     private ?AttributeId $defaultLabel;
@@ -36,8 +30,6 @@ class UpdateTemplateCommand implements TemplateCommandInterface
 
     /**
      * @var ArrayCollection|TemplateElementInterface[]
-     *
-     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElementInterface>")
      */
     private ArrayCollection $elements;
 

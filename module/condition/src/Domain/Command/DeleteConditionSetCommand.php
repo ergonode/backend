@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 class DeleteConditionSetCommand implements ConditionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     public function __construct(ConditionSetId $id)

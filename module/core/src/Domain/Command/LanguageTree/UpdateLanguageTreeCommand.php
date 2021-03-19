@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
 class UpdateLanguageTreeCommand implements CoreCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\LanguageNode")
-     */
     private LanguageNode $languages;
 
     public function __construct(LanguageTreeNodeFormModel $language)

@@ -17,14 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $groupId;
 
     private string $name;
@@ -33,14 +27,8 @@ class TemplateCreatedEvent implements AggregateEventInterface
 
     private ?AttributeId $defaultImage;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private ?MultimediaId $imageId;
 
-    /**
-     * TemplateCreatedEvent constructor.
-     */
     public function __construct(
         TemplateId $id,
         TemplateGroupId $groupId,

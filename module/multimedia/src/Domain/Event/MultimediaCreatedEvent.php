@@ -15,9 +15,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 class MultimediaCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
     private string $name;

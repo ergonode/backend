@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 class MultimediaDeletedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
     public function __construct(MultimediaId $id)

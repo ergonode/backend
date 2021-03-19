@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 class TemplateGroup extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $id;
 
     private string $name;

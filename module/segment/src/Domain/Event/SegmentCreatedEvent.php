@@ -32,9 +32,6 @@ class SegmentCreatedEvent implements AggregateEventInterface
 
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     public function __construct(

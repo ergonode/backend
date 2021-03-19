@@ -22,9 +22,6 @@ class UpdateGroupingProductCommand implements ProductCommandInterface
      */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     /**

@@ -51,9 +51,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
      */
     protected array $categories;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     protected TemplateId $templateId;
 
     /**

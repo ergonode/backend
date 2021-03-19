@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 class TemplateGroupCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $id;
     private string $name;
 

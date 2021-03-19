@@ -30,9 +30,6 @@ class ProductCreatedEvent implements AggregateEventInterface
 
     private string $type;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     /**

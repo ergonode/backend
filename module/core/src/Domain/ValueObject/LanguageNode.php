@@ -17,9 +17,6 @@ class LanguageNode
      */
     private ?LanguageNode $parent;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\LanguageId")
-     */
     private LanguageId $languageId;
 
     /**

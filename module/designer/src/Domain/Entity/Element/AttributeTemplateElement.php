@@ -19,7 +19,6 @@ class AttributeTemplateElement extends AbstractTemplateElement
     public const TYPE = 'attribute';
 
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      * @JMS\SerializedName("attribute_id")
      */
     private AttributeId $attributeId;

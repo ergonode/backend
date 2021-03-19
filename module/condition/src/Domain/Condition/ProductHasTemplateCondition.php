@@ -22,9 +22,6 @@ class ProductHasTemplateCondition implements ConditionInterface
 
     private string $operator;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     public function __construct(string $operator, TemplateId $templateId)
