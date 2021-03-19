@@ -26,10 +26,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Core\Application\Provider\SimpleDirectoryProvider:
         arguments:
             $directory: '%kernel.project_dir%'

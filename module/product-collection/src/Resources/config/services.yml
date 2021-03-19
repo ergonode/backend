@@ -26,11 +26,7 @@ services:
     Ergonode\ProductCollection\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
-    
-    Ergonode\ProductCollection\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-    
+
     Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\EventStoreProductCollectionRepository'
     Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\EventStoreProductCollectionTypeRepository'
 

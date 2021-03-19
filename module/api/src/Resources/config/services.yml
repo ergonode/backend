@@ -10,10 +10,6 @@ services:
     Ergonode\Api\Infrastructure\:
         resource: '../../Infrastructure/*'
 
-    Ergonode\Api\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Api\Application\EventListener\RequestBodyListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', priority: 1024 }
@@ -25,13 +21,6 @@ services:
     Ergonode\Api\Application\EventListener\ExceptionListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: -127 }
-
-    Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
-        arguments:
-            - '@translator'
-            - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
-
-    jms_serializer.form_error_handler: '@Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
 
     Ergonode\Api\Application\Mapper\ExceptionMapper:
         arguments:

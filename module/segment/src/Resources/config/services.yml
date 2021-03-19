@@ -27,9 +27,5 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
-    Ergonode\Segment\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Repository\EventStoreSegmentRepository'
     Ergonode\Segment\Domain\Query\SegmentQueryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Query\DbalSegmentQuery'
