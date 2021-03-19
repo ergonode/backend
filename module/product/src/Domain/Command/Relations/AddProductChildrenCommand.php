@@ -19,8 +19,6 @@ class AddProductChildrenCommand implements ProductCommandInterface
 
     /**
      * @var ProductId[] $children
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductId>")
      */
     private array $children;
 

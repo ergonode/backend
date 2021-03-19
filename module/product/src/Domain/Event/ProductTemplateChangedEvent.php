@@ -18,8 +18,6 @@ class ProductTemplateChangedEvent implements AggregateEventInterface
 
     /**
      * @var TemplateId $templateId;
-     *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
 

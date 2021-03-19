@@ -20,24 +20,17 @@ class CreateGroupingProductCommand implements CreateProductCommandInterface
 {
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
-     */
     private Sku $sku;
 
     private TemplateId $templateId;
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

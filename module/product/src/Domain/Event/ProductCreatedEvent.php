@@ -20,9 +20,6 @@ class ProductCreatedEvent implements AggregateEventInterface
 {
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
-     */
     private Sku $sku;
 
     private string $type;
@@ -31,21 +28,17 @@ class ProductCreatedEvent implements AggregateEventInterface
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string,Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 
     /**
-     * @param array $categories
-     * @param array $attributes
+     * @param CategoryId[] $categories
+     * @param ValueInterface[] $attributes
      */
     public function __construct(
         ProductId $id,

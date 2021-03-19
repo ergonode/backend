@@ -21,9 +21,6 @@ class ProductCollectionDescriptionChangedEvent implements AggregateEventInterfac
 
     private \DateTime $editedAt;
 
-    /**
-     * ProductCollectionDescriptionChangedEvent constructor.
-     */
     public function __construct(
         ProductCollectionId $id,
         TranslatableString $to,

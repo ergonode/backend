@@ -23,8 +23,6 @@ class UpdateGroupingProductCommand implements ProductCommandInterface
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 

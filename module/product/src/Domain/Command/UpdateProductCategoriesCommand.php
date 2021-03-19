@@ -18,13 +18,11 @@ class UpdateProductCategoriesCommand implements ProductCommandInterface
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 
     /**
-     * @param array $categories
+     * @param CategoryId[] $categories
      */
     public function __construct(ProductId $productId, array $categories = [])
     {

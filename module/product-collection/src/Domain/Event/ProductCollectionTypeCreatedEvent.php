@@ -16,21 +16,12 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 
 class ProductCollectionTypeCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode")
-     */
     private ProductCollectionTypeCode $code;
 
     private TranslatableString $name;
 
-    /**
-     * ProductCollectionTypeCreatedEvent constructor.
-     */
     public function __construct(ProductCollectionTypeId $id, ProductCollectionTypeCode $code, TranslatableString $name)
     {
         $this->id = $id;

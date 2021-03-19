@@ -17,16 +17,10 @@ class ProductCollectionTypeIdChangedEvent implements AggregateEventInterface
 {
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $newTypeId;
 
     private \DateTime $editedAt;
 
-    /**
-     * ProductCollectionTypeIdChangedEvent constructor.
-     */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionTypeId $newTypeId,

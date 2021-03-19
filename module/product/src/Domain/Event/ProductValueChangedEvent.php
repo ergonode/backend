@@ -21,14 +21,8 @@ class ProductValueChangedEvent implements AggregateEventInterface
 
     private AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $from;
 
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $to;
 
     public function __construct(ProductId $id, AttributeCode $code, ValueInterface $from, ValueInterface $to)

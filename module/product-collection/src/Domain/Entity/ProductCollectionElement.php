@@ -16,9 +16,6 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChang
 
 class ProductCollectionElement extends AbstractEntity
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId")
-     */
     private ProductCollectionElementId $id;
 
     private ProductId $productId;

@@ -28,24 +28,16 @@ class ProductCollection extends AbstractAggregateRoot
 {
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
-     */
     private ProductCollectionCode $code;
 
     private TranslatableString $name;
 
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $typeId;
 
     /**
      * @var ProductCollectionElement[]
-     *
-     * @JMS\Type("array<string, Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement>")
      */
     private array $elements;
 

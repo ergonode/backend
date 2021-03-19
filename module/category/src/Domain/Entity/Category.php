@@ -14,10 +14,7 @@ class Category extends AbstractCategory implements CategoryInterface
 {
     public const TYPE = 'DEFAULT';
 
-    /**
-     * @JMS\Type("string");
-     */
-    public function getType(): string
+    /public function getType(): string
     {
         return self::TYPE;
     }

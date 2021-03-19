@@ -29,15 +29,9 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
 
     /**
      * The file size in bytes.
-     *
-     *
-     * @JMS\Type("int")
      */
     private int $size;
 
-    /**
-     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
-     */
     private Hash $hash;
 
     private TranslatableString $alt;

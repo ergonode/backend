@@ -18,14 +18,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 class ProductCollectionType extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode")
-     */
     private ProductCollectionTypeCode $code;
 
     private TranslatableString $name;

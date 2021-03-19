@@ -29,22 +29,15 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
 {
     protected ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
-     */
     protected Sku $sku;
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     protected array $attributes;
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     protected array $categories;
 

@@ -20,9 +20,6 @@ class ValueChangedEvent implements AggregateEventInterface
 
     private AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $to;
 
     public function __construct(AggregateId $id, AttributeCode $code, ValueInterface $to)

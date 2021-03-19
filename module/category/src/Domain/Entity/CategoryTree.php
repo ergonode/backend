@@ -29,10 +29,7 @@ class CategoryTree extends AbstractAggregateRoot
      */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("string");
-     */
-    private string $code;
+    /private string $code;
 
     /**
      * @JMS\Type(" Ergonode\Core\Domain\ValueObject\TranslatableString");

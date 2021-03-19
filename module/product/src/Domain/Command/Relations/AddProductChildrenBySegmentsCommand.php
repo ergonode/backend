@@ -21,8 +21,6 @@ class AddProductChildrenBySegmentsCommand implements ProductCommandInterface
 
     /**
      * @var SegmentId[] $segmentId
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\SegmentId>")
      */
     private array $segments;
 

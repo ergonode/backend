@@ -14,9 +14,6 @@ class SimpleProduct extends AbstractProduct
 {
     public const TYPE = 'SIMPLE-PRODUCT';
 
-    /**
-     * @JMS\Type("string");
-     */
     public function getType(): string
     {
         return self::TYPE;

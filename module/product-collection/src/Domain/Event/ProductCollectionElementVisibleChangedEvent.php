@@ -21,9 +21,6 @@ class ProductCollectionElementVisibleChangedEvent implements AggregateEventInter
 
     private bool $visible;
 
-    /**
-     * ProductCollectionElementVisibleChangedEvent constructor.
-     */
     public function __construct(ProductCollectionId $id, ProductId $productId, bool $visible)
     {
         $this->id = $id;

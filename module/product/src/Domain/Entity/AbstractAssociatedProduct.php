@@ -18,8 +18,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
 {
     /**
      * @var ProductId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductId>");
      */
     private array $children = [];
 

@@ -24,8 +24,6 @@ class ChangeProductAttributeCommand implements ProductCommandInterface
 
     /**
      * @var string|array|null
-     *
-     * @JMS\Type("string")
      */
     private $value;
 

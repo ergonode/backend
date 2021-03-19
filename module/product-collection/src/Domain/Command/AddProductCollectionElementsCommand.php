@@ -18,8 +18,6 @@ class AddProductCollectionElementsCommand implements ProductCollectionCommandInt
 
     /**
      * @var ProductId[]
-     *
-     * @JMS\Type("array")
      */
     private array $productIds;
 

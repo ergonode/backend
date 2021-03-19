@@ -18,9 +18,6 @@ class DeleteProductCollectionElementCommand implements ProductCollectionCommandI
 
     private ProductId $productId;
 
-    /**
-     * DeleteProductCollectionElementCommand constructor.
-     */
     public function __construct(ProductCollectionId $productCollectionId, ProductId $productId)
     {
         $this->productCollectionId = $productCollectionId;

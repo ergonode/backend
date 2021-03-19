@@ -21,14 +21,9 @@ class VariableProduct extends AbstractAssociatedProduct
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\AttributeId>");
      */
     private array $bindings = [];
 
-    /**
-     * @JMS\Type("string");
-     */
     public function getType(): string
     {
         return self::TYPE;

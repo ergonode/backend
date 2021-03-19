@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 class ProductCollectionTypeDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
     public function __construct(ProductCollectionTypeId $id)

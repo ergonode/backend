@@ -15,16 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 class ProductCollectionTypeNameChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
     private TranslatableString $to;
 
-    /**
-     * ProductCollectionTypeNameChangedEvent constructor.
-     */
     public function __construct(ProductCollectionTypeId $id, TranslatableString $to)
     {
         $this->id = $id;

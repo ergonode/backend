@@ -17,9 +17,6 @@ class ProductCollectionElementAddedEvent implements AggregateEventInterface
 {
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement")
-     */
     private ProductCollectionElement $element;
 
     private \DateTime $currentDateTime;

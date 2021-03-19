@@ -21,9 +21,6 @@ class UpdateProductCollectionCommand implements ProductCollectionCommandInterfac
 
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $typeId;
 
     public function __construct(

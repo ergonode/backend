@@ -18,18 +18,12 @@ class CreateProductCollectionCommand implements ProductCollectionCommandInterfac
 {
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
-     */
     private ProductCollectionCode $code;
 
     private TranslatableString $name;
 
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $typeId;
 
     /**

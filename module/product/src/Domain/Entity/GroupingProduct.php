@@ -14,9 +14,6 @@ class GroupingProduct extends AbstractAssociatedProduct
 {
     public const TYPE = 'GROUPING-PRODUCT';
 
-    /**
-     * @JMS\Type("string");
-     */
     public function getType(): string
     {
         return self::TYPE;
