@@ -51,12 +51,17 @@ class DbalLanguageQuery implements LanguageQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, code, code AS name, active')
-            ->from(sprintf(
-                '(SELECT %s FROM %s)',
-                implode(', ', self::ALL_FIELDS),
-                self::TABLE
-            ), 'l');
+            ->select(
+                [
+                    'l.id',
+                    'l.iso AS code',
+                    'l.iso AS name',
+                    'l.active',
+                    'CASE WHEN lt.id is null THEN false ELSE true END AS tree',
+                ]
+            )
+            ->from(self::TABLE, 'l')
+            ->leftJoin('l', self::TABLE_TREE, 'lt', 'lt.id = l.id');
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
