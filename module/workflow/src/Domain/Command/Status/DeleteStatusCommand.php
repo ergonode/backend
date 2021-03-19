@@ -14,9 +14,6 @@ use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 
 class DeleteStatusCommand implements WorkflowCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
     public function __construct(StatusId $id)

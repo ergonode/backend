@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 class WorkflowDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
     public function __construct(WorkflowId $id)

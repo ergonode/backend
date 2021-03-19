@@ -24,9 +24,6 @@ class Segment extends AbstractAggregateRoot
 {
     private SegmentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
-     */
     private SegmentCode $code;
 
     private TranslatableString $name;

@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class StatusDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
     public function __construct(StatusId $id)

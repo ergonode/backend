@@ -16,9 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class WorkflowCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
     private string $code;
@@ -27,8 +24,6 @@ class WorkflowCreatedEvent implements AggregateEventInterface
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $statuses;
 

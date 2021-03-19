@@ -18,20 +18,12 @@ use Webmozart\Assert\Assert;
 
 class TransitionRoleIdsChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
-     */
     private TransitionId $transitionId;
 
     /**
      * @var RoleId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
     private array $roleIds;
 

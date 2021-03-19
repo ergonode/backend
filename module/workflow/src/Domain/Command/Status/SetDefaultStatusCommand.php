@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class SetDefaultStatusCommand implements WorkflowCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $workflowId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $statusId;
 
     public function __construct(WorkflowId $workflowId, StatusId $statusId)

@@ -17,8 +17,6 @@ class StringCollectionValue implements ValueInterface
 
     /**
      * @var string[]
-     *
-     * @JMS\Type("array<string, string>")
      */
     private array $value;
 

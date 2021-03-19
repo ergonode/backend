@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 class WorkflowTransitionAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\Transition")
-     */
     private Transition $transition;
 
     public function __construct(WorkflowId $id, Transition $transition)

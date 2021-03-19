@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class StatusNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
     public function __construct(StatusId $id, TranslatableString $to)

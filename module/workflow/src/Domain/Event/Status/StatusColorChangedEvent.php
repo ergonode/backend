@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class StatusColorChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
-     */
     private Color $to;
 
     public function __construct(StatusId $id, Color $to)

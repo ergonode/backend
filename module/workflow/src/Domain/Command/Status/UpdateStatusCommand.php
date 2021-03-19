@@ -16,14 +16,8 @@ use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 
 class UpdateStatusCommand implements WorkflowCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
-     */
     private Color $color;
 
     private TranslatableString $name;

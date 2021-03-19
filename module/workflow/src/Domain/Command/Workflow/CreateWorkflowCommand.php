@@ -15,17 +15,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class CreateWorkflowCommand implements CreateWorkflowCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
     private string $code;
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $statuses;
 

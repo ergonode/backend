@@ -28,30 +28,20 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 {
     public const DEFAULT = 'default';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     protected WorkflowId $id;
 
     protected string $code;
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     protected array $statuses;
 
     /**
      * @var Transition[]
-     *
-     * @JMS\Type("array<string, Ergonode\Workflow\Domain\Entity\Transition>")
      */
     protected array $transitions;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     protected ?StatusId $defaultId;
 
     /**
