@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateTransformerCommand implements TransformerCommandInterface
 {

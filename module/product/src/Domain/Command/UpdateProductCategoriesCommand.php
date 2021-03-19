@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateProductCategoriesCommand implements ProductCommandInterface
 {

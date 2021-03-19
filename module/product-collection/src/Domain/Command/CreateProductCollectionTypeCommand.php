@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Command;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateProductCollectionTypeCommand implements ProductCollectionCommandInterface
 {

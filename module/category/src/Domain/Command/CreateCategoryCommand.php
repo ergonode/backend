@@ -12,7 +12,6 @@ namespace Ergonode\Category\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateCategoryCommand implements CreateCategoryCommandInterface
 {

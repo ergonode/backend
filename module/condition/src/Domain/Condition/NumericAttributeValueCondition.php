@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class NumericAttributeValueCondition implements ConditionInterface
 {

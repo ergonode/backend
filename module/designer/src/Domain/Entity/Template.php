@@ -31,7 +31,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class Template extends AbstractAggregateRoot
 {

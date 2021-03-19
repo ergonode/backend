@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateImageRemovedEvent implements AggregateEventInterface
 {

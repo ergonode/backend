@@ -12,7 +12,6 @@ namespace Ergonode\Segment\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateSegmentCommand implements SegmentCommandInterface
 {

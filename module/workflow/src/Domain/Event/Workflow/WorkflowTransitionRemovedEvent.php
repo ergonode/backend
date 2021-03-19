@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class WorkflowTransitionRemovedEvent implements AggregateEventInterface

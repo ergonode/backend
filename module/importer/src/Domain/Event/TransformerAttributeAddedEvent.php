@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TransformerAttributeAddedEvent implements AggregateEventInterface
 {

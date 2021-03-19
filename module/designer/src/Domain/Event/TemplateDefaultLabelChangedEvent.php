@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateDefaultLabelChangedEvent implements AggregateEventInterface
 {

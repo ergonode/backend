@@ -13,7 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateStatusCommand implements WorkflowCommandInterface
 {

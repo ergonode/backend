@@ -11,7 +11,6 @@ namespace Ergonode\ExporterFile\Domain\Command\Export;
 use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class ProcessCategoryCommand implements ExporterCommandInterface
@@ -21,9 +20,6 @@ class ProcessCategoryCommand implements ExporterCommandInterface
      */
     private ExportLineId $lineId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
-     */
     private ExportId $exportId;
 
     private CategoryId $categoryId;

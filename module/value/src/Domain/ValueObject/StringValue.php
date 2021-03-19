@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Value\Domain\ValueObject;
 
-use JMS\Serializer\Annotation as JMS;
 
 class StringValue implements ValueInterface
 {

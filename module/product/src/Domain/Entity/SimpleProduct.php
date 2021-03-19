@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
-use JMS\Serializer\Annotation as JMS;
 
 class SimpleProduct extends AbstractProduct
 {

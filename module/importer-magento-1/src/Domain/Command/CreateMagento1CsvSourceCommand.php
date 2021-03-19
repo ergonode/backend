@@ -11,7 +11,6 @@ namespace Ergonode\ImporterMagento1\Domain\Command;
 
 use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;

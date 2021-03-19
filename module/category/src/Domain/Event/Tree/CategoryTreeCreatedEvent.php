@@ -12,7 +12,6 @@ namespace Ergonode\Category\Domain\Event\Tree;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryTreeCreatedEvent implements AggregateEventInterface
 {

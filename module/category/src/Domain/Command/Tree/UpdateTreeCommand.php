@@ -15,7 +15,6 @@ use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateTreeCommand implements CategoryCommandInterface
 {

@@ -10,13 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractChannel implements ChannelInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
-     */
     private ChannelId $id;
 
     private string $name;

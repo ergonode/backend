@@ -19,7 +19,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryTree extends AbstractAggregateRoot
 {

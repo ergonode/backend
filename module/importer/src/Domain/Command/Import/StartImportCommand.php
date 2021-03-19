@@ -11,7 +11,6 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use JMS\Serializer\Annotation as JMS;
 
 class StartImportCommand implements ImporterCommandInterface
 {

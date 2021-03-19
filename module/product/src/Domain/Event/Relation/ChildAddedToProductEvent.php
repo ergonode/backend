@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Event\Relation;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use JMS\Serializer\Annotation as JMS;
 
 class ChildAddedToProductEvent implements AggregateEventInterface
 {

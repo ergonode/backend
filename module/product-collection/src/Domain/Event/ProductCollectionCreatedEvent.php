@@ -14,7 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionCreatedEvent implements AggregateEventInterface
 {
@@ -37,9 +36,6 @@ class ProductCollectionCreatedEvent implements AggregateEventInterface
      */
     private ProductCollectionTypeId $typeId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
     /**

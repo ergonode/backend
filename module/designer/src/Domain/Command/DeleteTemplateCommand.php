@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteTemplateCommand implements TemplateCommandInterface
 {

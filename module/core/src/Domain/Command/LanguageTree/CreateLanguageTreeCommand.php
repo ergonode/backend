@@ -10,7 +10,6 @@ namespace Ergonode\Core\Domain\Command\LanguageTree;
 
 use Ergonode\Core\Domain\Command\CoreCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateLanguageTreeCommand implements CoreCommandInterface
 {

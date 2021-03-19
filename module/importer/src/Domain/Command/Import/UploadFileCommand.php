@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 
 class UploadFileCommand implements ImporterCommandInterface
 {

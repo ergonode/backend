@@ -11,7 +11,6 @@ namespace Ergonode\Category\Domain\Command\Tree;
 
 use Ergonode\Category\Domain\Command\CategoryCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteTreeCommand implements CategoryCommandInterface
 {

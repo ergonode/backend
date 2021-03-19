@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateStatusCommand implements WorkflowCommandInterface
 {

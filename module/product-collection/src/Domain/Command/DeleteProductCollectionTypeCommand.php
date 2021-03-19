@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteProductCollectionTypeCommand implements ProductCollectionCommandInterface
 {

@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
-use JMS\Serializer\Annotation as JMS;
 
 class SegmentCreatedEvent implements AggregateEventInterface
 {

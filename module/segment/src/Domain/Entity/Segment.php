@@ -19,7 +19,6 @@ use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 class Segment extends AbstractAggregateRoot
 {

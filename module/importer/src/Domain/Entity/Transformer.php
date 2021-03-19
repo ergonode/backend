@@ -16,7 +16,6 @@ use Ergonode\Importer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Importer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Importer\Domain\Event\TransformerAttributeAddedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class Transformer extends AbstractAggregateRoot
 {

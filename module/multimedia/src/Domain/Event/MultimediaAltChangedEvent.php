@@ -12,7 +12,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use JMS\Serializer\Annotation as JMS;
 
 class MultimediaAltChangedEvent implements AggregateEventInterface
 {

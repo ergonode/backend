@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling;
 
-use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractAssignedProduct
 {

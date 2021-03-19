@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Domain\ValueObject\OptionValue;
 
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class StringOption implements OptionInterface
 {

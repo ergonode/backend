@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionElementRemovedEvent implements AggregateEventInterface
 {
@@ -26,9 +25,6 @@ class ProductCollectionElementRemovedEvent implements AggregateEventInterface
      */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $collectionEditedAt;
 
     public function __construct(ProductCollectionId $id, ProductId $productId, \DateTime $collectionEditedAt)

@@ -13,7 +13,6 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionElement extends AbstractEntity
 {
@@ -29,9 +28,6 @@ class ProductCollectionElement extends AbstractEntity
 
     private bool $visible;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
     public function __construct(

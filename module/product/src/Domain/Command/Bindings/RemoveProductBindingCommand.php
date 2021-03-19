@@ -13,7 +13,6 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use JMS\Serializer\Annotation as JMS;
 
 class RemoveProductBindingCommand implements ProductCommandInterface
 {

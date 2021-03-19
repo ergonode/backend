@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteSourceCommand implements ImporterCommandInterface
 {

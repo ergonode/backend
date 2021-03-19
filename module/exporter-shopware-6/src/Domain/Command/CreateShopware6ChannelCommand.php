@@ -15,13 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
-     */
     protected ChannelId $id;
 
     protected string $name;

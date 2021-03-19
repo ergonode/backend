@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class ProductCompletenessCondition implements ConditionInterface

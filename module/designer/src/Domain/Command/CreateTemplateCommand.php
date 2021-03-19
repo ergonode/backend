@@ -14,7 +14,6 @@ use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class CreateTemplateCommand implements TemplateCommandInterface

@@ -12,7 +12,6 @@ namespace Ergonode\Category\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryDeletedEvent extends AbstractDeleteEvent
 {

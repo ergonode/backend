@@ -12,7 +12,6 @@ namespace Ergonode\Segment\Domain\Event;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {

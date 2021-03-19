@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class SetDefaultStatusCommand implements WorkflowCommandInterface

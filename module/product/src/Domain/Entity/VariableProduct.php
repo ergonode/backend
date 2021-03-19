@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class VariableProduct extends AbstractAssociatedProduct

@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface

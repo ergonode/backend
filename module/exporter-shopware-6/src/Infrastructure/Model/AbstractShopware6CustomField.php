@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
-use JMS\Serializer\Annotation as JMS;
 
 class AbstractShopware6CustomField
 {

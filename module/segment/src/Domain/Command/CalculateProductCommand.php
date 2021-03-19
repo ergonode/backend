@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class CalculateProductCommand implements SegmentCommandInterface
 {

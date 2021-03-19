@@ -16,7 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractMultimedia extends AbstractAggregateRoot
 {

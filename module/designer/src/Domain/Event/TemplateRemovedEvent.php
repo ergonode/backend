@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateRemovedEvent extends AbstractDeleteEvent
 {

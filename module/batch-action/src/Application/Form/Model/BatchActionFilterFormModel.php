@@ -10,7 +10,6 @@ namespace Ergonode\BatchAction\Application\Form\Model;
 
 use Ergonode\BatchAction\Application\Validator\BatchActionFilter;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  * @BatchActionFilter()

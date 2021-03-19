@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Domain\Command;
 
 use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateErgonodeZipSourceCommand implements CreateSourceCommandInterface
 {

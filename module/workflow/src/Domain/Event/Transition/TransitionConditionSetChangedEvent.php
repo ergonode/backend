@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TransitionConditionSetChangedEvent implements AggregateEventInterface
 {

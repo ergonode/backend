@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Domain\Condition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductHasStatusCondition implements ConditionInterface
 {

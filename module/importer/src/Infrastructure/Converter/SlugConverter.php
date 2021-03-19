@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
 
 class SlugConverter implements ConverterInterface
 {

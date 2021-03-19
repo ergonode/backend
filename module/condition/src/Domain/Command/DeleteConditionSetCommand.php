@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteConditionSetCommand implements ConditionCommandInterface
 {

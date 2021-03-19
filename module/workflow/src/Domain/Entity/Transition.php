@@ -14,7 +14,6 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 

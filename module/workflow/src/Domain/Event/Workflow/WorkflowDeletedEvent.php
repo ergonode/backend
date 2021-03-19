@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use JMS\Serializer\Annotation as JMS;
 
 class WorkflowDeletedEvent extends AbstractDeleteEvent
 {

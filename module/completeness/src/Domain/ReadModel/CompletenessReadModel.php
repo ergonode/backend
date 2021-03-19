@@ -10,18 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Domain\ReadModel;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
 
 class CompletenessReadModel
 {
-    /**
-     * @JMS\Type("integer")
-     */
     private int $required;
 
-    /**
-     * @JMS\Type("integer")
-     */
     private int $filled;
 
     /**

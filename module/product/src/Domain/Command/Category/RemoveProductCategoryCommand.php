@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Command\Category;
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class RemoveProductCategoryCommand implements ProductCommandInterface
 {

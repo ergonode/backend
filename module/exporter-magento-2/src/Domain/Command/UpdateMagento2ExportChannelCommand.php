@@ -11,13 +11,9 @@ namespace Ergonode\ExporterMagento2\Domain\Command;
 use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateMagento2ExportChannelCommand implements ChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
-     */
     protected ChannelId $id;
 
     protected string $name;

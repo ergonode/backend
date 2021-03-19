@@ -14,7 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\ExclusionPolicy("all")

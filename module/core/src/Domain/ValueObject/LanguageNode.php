@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Core\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
-use JMS\Serializer\Annotation as JMS;
 
 class LanguageNode
 {

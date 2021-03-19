@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateElementRemovedEvent implements AggregateEventInterface
 {

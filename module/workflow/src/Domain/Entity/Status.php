@@ -18,7 +18,6 @@ use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use JMS\Serializer\Annotation as JMS;
 
 class Status extends AbstractAggregateRoot
 {

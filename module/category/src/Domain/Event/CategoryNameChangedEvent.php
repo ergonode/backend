@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryNameChangedEvent implements AggregateEventInterface
 {

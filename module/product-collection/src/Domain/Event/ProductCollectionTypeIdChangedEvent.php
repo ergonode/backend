@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionTypeIdChangedEvent implements AggregateEventInterface
 {
@@ -26,9 +25,6 @@ class ProductCollectionTypeIdChangedEvent implements AggregateEventInterface
      */
     private ProductCollectionTypeId $newTypeId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $editedAt;
 
     /**

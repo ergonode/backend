@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateElementChangedEvent implements AggregateEventInterface

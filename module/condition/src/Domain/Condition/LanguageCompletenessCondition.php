@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class LanguageCompletenessCondition implements ConditionInterface

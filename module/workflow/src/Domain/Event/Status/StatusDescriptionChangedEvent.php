@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use JMS\Serializer\Annotation as JMS;
 
 class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {

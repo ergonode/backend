@@ -11,7 +11,6 @@ namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use JMS\Serializer\Annotation as JMS;
 
 class MultimediaDeletedEvent implements AggregateEventInterface
 {

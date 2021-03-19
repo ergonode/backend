@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionDescriptionChangedEvent implements AggregateEventInterface
 {
@@ -23,9 +22,6 @@ class ProductCollectionDescriptionChangedEvent implements AggregateEventInterfac
 
     private TranslatableString $to;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $editedAt;
 
     /**

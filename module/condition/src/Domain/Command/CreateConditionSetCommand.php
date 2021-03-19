@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateConditionSetCommand implements ConditionCommandInterface
 {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Category\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use JMS\Serializer\Annotation as JMS;
 
 class Node
 {

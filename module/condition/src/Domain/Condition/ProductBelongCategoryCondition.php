@@ -10,7 +10,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductBelongCategoryCondition implements ConditionInterface
 {

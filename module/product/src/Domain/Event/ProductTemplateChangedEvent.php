@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 

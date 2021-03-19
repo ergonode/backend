@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class ConditionSetCreatedEvent implements AggregateEventInterface
 {

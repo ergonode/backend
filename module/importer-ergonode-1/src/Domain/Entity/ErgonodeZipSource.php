@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class ErgonodeZipSource extends AbstractSource

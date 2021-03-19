@@ -11,7 +11,6 @@ namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 class SegmentDeletedEvent extends AbstractDeleteEvent
 {

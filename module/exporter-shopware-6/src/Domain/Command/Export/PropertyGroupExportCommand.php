@@ -12,7 +12,6 @@ use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
 
 class PropertyGroupExportCommand implements ExporterCommandInterface
 {
@@ -21,9 +20,6 @@ class PropertyGroupExportCommand implements ExporterCommandInterface
      */
     private ExportLineId $lineId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
-     */
     private ExportId $exportId;
 
     private AttributeId $attributeId;

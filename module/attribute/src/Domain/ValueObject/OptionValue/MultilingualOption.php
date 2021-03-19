@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Domain\ValueObject\OptionValue;
 
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 class MultilingualOption implements OptionInterface
 {

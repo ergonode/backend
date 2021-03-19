@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryTreeCategoryAddedEvent implements AggregateEventInterface
 {

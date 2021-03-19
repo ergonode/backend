@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 class TranslatableStringValue implements ValueInterface

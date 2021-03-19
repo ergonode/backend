@@ -12,7 +12,6 @@ use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 class AddProductBindingCommand implements ProductCommandInterface
 {

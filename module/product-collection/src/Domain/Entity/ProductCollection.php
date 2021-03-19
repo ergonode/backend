@@ -23,7 +23,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollection extends AbstractAggregateRoot
 {
@@ -53,14 +52,8 @@ class ProductCollection extends AbstractAggregateRoot
      */
     private array $elements;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private ?\DateTime $editedAt = null;
 
     public function __construct(

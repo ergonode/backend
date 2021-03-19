@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Entity\Element;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;

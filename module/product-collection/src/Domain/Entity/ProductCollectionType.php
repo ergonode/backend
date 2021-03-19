@@ -15,7 +15,6 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeCreatedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionType extends AbstractAggregateRoot
 {
