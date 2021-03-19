@@ -72,8 +72,8 @@ services:
         arguments:
             $serializer: '@jms_serializer'
 
-    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
-    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
+    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
+    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
 
     Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
         $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'

@@ -19,10 +19,10 @@ use Psr\Log\LoggerInterface;
 
 class JMSSerializer implements SerializerInterface, NormalizerInterface
 {
-    private const SERIALIZE = 'Can\'t serialize data "%s" to "%s" format';
-    private const DESERIALIZE = 'Can\'t deserialize data "%s" as "%s" from "%s" format';
-    private const NORMALIZE = 'Can\'t normalize data "%s"';
-    private const DENORMALIZE = 'Can\'t denormalize data from "%s" to "%s" type';
+    private const SERIALIZE = 'Can\'t JMS serialize data "%s" to "%s" format';
+    private const DESERIALIZE = 'Can\'t JMS deserialize data "%s" as "%s" from "%s" format';
+    private const NORMALIZE = 'Can\'t JMS normalize data "%s"';
+    private const DENORMALIZE = 'Can\'t JMS denormalize data from "%s" to "%s" type';
 
     private Serializer $serializer;
 

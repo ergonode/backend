@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
 
 /**
  * @Route(
@@ -36,19 +37,19 @@ class ConditionSetChangeAction
 
     private CommandBusInterface $commandBus;
 
-    private ArrayTransformerInterface $transformer;
+    private NormalizerInterface $normalizer;
 
     private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
     public function __construct(
         ValidatorInterface $validator,
         CommandBusInterface $commandBus,
-        ArrayTransformerInterface $transformer,
+        NormalizerInterface $normalizer,
         ConditionSetValidatorBuilder $conditionSetValidatorBuilder
     ) {
         $this->validator = $validator;
         $this->commandBus = $commandBus;
-        $this->transformer = $transformer;
+        $this->normalizer = $normalizer;
         $this->conditionSetValidatorBuilder = $conditionSetValidatorBuilder;
     }
 
@@ -97,7 +98,7 @@ class ConditionSetChangeAction
             $data['id'] = $conditionSet->getId()->getValue();
 
             /** @var UpdateConditionSetCommand $command */
-            $command = $this->transformer->fromArray($data, UpdateConditionSetCommand::class);
+            $command = $this->normalizer->denormalize($data, UpdateConditionSetCommand::class);
             $this->commandBus->dispatch($command);
 
             return new EmptyResponse();
