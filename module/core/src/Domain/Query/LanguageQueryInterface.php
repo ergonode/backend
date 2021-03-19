@@ -54,16 +54,6 @@ interface LanguageQueryInterface
     public function getDataSet(): DataSetInterface;
 
     /**
-     * @return array
-     */
-    public function autocomplete(
-        string $search = null,
-        int $limit = null,
-        string $field = null,
-        ?string $order = 'ASC'
-    ): array;
-
-    /**
      * @return array|null
      */
     public function getLanguageById(string $id): ?array;
