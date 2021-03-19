@@ -15,16 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class ProductCrossSellingExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
-     */
     private ExportLineId $lineId;
 
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $productCollectionId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, ProductCollectionId $productCollectionId)

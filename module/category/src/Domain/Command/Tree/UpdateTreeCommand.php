@@ -18,9 +18,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class UpdateTreeCommand implements CategoryCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     private TranslatableString $name;

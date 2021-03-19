@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 class CreateTransformerCommand implements TransformerCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     private string $name;

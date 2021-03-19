@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 class EndImportCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
-     */
     private ImportId $id;
 
     public function __construct(ImportId $id)

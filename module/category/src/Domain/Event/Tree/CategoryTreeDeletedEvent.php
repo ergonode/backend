@@ -15,9 +15,6 @@ use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 class CategoryTreeDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     public function __construct(CategoryTreeId $id)

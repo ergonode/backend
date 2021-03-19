@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class ProductCollectionElementRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     private \DateTime $collectionEditedAt;

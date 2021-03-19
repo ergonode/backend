@@ -16,9 +16,6 @@ use Ergonode\Product\Domain\Command\ProductCommandInterface;
 
 class ChangeProductAttributeCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private AttributeId $attributeId;

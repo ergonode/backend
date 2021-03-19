@@ -22,9 +22,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class Segment extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     /**

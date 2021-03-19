@@ -14,17 +14,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 class StopImportCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
-     */
     private ImportId $id;
 
     private ?string $message;
 
     /**
      * @var string[];
-     *
-     * @JMS\Type(array<string, string>)
      */
     private array $parameters;
 

@@ -29,8 +29,6 @@ class FileExportChannel extends AbstractChannel
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     protected array $languages;
 

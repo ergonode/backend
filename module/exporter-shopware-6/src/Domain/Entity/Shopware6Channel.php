@@ -26,17 +26,12 @@ class Shopware6Channel extends AbstractChannel
 
     private string $clientKey;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private ?SegmentId $segment;
 
     private Language $defaultLanguage;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
@@ -62,9 +57,6 @@ class Shopware6Channel extends AbstractChannel
 
     private ?AttributeId $attributeProductKeywords;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private ?CategoryTreeId $categoryTree;
 
     /**

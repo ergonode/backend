@@ -17,9 +17,6 @@ use Webmozart\Assert\Assert;
 
 class CreateMagento1CsvSourceCommand implements CreateSourceCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $id;
 
     private string $name;

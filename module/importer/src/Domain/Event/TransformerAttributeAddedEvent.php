@@ -15,16 +15,10 @@ use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
 
 class TransformerAttributeAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     private string $field;
 
-    /**
-     * @JMS\Type("Ergonode\Importer\Infrastructure\Converter\ConverterInterface")
-     */
     private ConverterInterface $converter;
 
     private string $attributeType;

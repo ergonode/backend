@@ -16,9 +16,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
 class CategoryTreeCategoryAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     private CategoryId $categoryId;

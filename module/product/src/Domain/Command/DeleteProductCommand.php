@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class DeleteProductCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     public function __construct(ProductId $id)

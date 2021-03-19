@@ -14,14 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class UpdateProductCollectionElementCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $productCollectionId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     private bool $visible;

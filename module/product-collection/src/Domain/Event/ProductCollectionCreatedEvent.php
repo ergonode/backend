@@ -17,9 +17,6 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 
 class ProductCollectionCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
     /**

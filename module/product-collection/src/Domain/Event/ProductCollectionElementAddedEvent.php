@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class ProductCollectionElementAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
     /**

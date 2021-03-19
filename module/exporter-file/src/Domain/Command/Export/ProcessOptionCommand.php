@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class ProcessOptionCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
-     */
     private ExportLineId $lineId;
 
     private ExportId $exportId;

@@ -12,9 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 abstract class AbstractSource
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     protected SourceId $id;
 
     protected string $name;

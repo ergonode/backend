@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class BindAddedToProductEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private AttributeId $attributeId;

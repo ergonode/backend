@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class UpdateProductCategoriesCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**

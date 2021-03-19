@@ -26,9 +26,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductCollection extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
     /**

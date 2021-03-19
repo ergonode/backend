@@ -14,14 +14,8 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
 class AddProductChildCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $childId;
 
     public function __construct(AbstractAssociatedProduct $product, ProductId $childId)

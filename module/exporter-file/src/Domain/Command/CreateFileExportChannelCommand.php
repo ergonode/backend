@@ -25,15 +25,13 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     protected array $languages;
 
     protected string $exportType;
 
     /**
-     * @param array $languages
+     * @param Language[] $languages
      */
     public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {

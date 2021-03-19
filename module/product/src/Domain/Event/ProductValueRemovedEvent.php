@@ -16,9 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductValueRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private AttributeCode $code;

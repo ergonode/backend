@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class SegmentNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     public function __construct(SegmentId $id, TranslatableString $to)

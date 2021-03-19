@@ -15,13 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 class UploadFileCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
-     */
     private ImportId $id;
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $sourceId;
 
     private string $fileName;

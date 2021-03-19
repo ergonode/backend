@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 class DeleteTransformerCommand implements TransformerCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     public function __construct(TransformerId $id)

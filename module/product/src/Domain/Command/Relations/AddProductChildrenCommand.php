@@ -15,9 +15,6 @@ use Webmozart\Assert\Assert;
 
 class AddProductChildrenCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**

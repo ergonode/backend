@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class ProductCollectionDescriptionChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
     private TranslatableString $to;

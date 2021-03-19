@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class AddProductCollectionElementsCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $productCollectionId;
 
     /**

@@ -15,14 +15,8 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class RemoveProductChildCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $childId;
 
     public function __construct(AbstractAssociatedProduct $product, AbstractProduct $child)

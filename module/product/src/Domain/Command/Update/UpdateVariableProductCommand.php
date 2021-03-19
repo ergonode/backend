@@ -17,9 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class UpdateVariableProductCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private TemplateId $templateId;

@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 class ProductCollectionElementVisibleChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     private bool $visible;

@@ -18,9 +18,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 
 class SegmentCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     /**

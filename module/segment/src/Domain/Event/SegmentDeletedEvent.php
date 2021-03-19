@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class SegmentDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     public function __construct(SegmentId $id)

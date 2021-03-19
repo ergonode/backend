@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class ProductAddedToCategoryEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private CategoryId $categoryId;

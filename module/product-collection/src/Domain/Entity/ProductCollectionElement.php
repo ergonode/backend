@@ -21,9 +21,6 @@ class ProductCollectionElement extends AbstractEntity
      */
     private ProductCollectionElementId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     private bool $visible;

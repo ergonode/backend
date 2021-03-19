@@ -27,9 +27,6 @@ use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
 abstract class AbstractProduct extends AbstractAggregateRoot implements ProductInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     protected ProductId $id;
 
     /**

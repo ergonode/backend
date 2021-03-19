@@ -21,23 +21,19 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
     protected ChannelId $id;
 
     protected string $name;
+
     private string $host;
 
     private string $clientId;
 
     private string $clientKey;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private ?SegmentId $segment;
 
     private Language $defaultLanguage;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
@@ -63,29 +59,20 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
 
     private ?AttributeId $productKeywords;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private ?CategoryTreeId $categoryTree;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $propertyGroup;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $customField;
 
     /**
      * @var ProductCollectionId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
      */
     private array $crossSelling;
 

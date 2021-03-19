@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 class CreateErgonodeZipSourceCommand implements CreateSourceCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $id;
 
     private string $name;

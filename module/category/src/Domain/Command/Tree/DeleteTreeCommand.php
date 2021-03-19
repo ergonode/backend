@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 class DeleteTreeCommand implements CategoryCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     public function __construct(CategoryTreeId $id)

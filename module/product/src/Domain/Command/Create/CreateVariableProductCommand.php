@@ -18,9 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class CreateVariableProductCommand implements CreateProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**

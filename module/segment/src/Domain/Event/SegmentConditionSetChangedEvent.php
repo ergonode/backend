@@ -16,9 +16,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
 class SegmentConditionSetChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     private ?ConditionSetId $to;

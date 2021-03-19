@@ -16,9 +16,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 
 class CreateSegmentCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     /**

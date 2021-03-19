@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class UpdateSegmentCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     private TranslatableString $name;

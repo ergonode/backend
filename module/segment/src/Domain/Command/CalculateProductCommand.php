@@ -12,9 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class CalculateProductCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     public function __construct(ProductId $productId)

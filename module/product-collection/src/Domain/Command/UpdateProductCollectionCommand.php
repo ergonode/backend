@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 class UpdateProductCollectionCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
     private TranslatableString $name;

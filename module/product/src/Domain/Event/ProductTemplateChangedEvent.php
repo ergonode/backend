@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductTemplateChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**

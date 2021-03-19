@@ -15,9 +15,6 @@ use Ergonode\Core\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 
 class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     public function __construct(CategoryTreeId $id, TranslatableString $to)

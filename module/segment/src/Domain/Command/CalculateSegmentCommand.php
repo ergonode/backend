@@ -12,9 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class CalculateSegmentCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $segmentId;
 
     public function __construct(SegmentId $segmentId)

@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
 class TransformerCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     private string $name;

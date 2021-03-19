@@ -15,16 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
-     */
     private ExportLineId $lineId;
 
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, ProductId $productId)

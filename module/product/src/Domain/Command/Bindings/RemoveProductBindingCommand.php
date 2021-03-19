@@ -16,9 +16,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class RemoveProductBindingCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private AttributeId $bindingId;

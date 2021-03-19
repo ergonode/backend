@@ -17,9 +17,6 @@ use Webmozart\Assert\Assert;
 
 class UpdateMagento1CsvSourceCommand implements UpdateSourceCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $id;
 
     private string $name;

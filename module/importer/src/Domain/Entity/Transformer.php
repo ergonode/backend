@@ -19,9 +19,6 @@ use Ergonode\Importer\Domain\Event\TransformerAttributeAddedEvent;
 
 class Transformer extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     private string $key;
@@ -30,29 +27,21 @@ class Transformer extends AbstractAggregateRoot
 
     /**
      * @var ConverterInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Importer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $fields;
 
     /**
      * @var ConverterInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Importer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $attributes;
 
     /**
      * @var string[]
-     *
-     * @JMS\Type("array<string, string>")
      */
     private array $attributeType;
 
     /**
      * @var bool[]
-     *
-     * @JMS\Type("array<string, boolean>")
      */
     private array $multilingual;
 

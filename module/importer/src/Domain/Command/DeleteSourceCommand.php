@@ -12,9 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 class DeleteSourceCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $id;
 
     public function __construct(SourceId $id)

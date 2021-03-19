@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class PropertyGroupExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
-     */
     private ExportLineId $lineId;
 
     private ExportId $exportId;

@@ -16,9 +16,6 @@ use Webmozart\Assert\Assert;
 
 class CategoryTreeCategoriesChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     /**

@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class AddProductBindingCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     private AttributeId $bindingId;
