@@ -4,6 +4,7 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringArrayNormalizer: ~
     Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringNormalizer: ~
     Ergonode\Value\Application\Serializer\Normalizer\ValueInterfaceArrayDenormalizer: ~
 

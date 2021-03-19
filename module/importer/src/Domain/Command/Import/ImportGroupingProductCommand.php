@@ -35,7 +35,7 @@ class ImportGroupingProductCommand implements ImporterCommandInterface
     private array $children;
 
     /**
-     * @var string[]
+     * @var TranslatableString[]
      */
     private array $attributes;
 

@@ -30,7 +30,7 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
     private array $categories;
 
     /**
-     * @var string[]
+     * @var TranslatableString[]
      */
     private array $attributes;
 

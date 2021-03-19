@@ -19,6 +19,11 @@ use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Ergonode\Authentication\Application\Security\User\CachedUser;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class AuthenticationMiddlewareTest extends TestCase
 {
@@ -56,8 +61,18 @@ class AuthenticationMiddlewareTest extends TestCase
 
     public function testHandleReceivedStamp(): void
     {
+        $user = new CachedUser(
+            $this->createMock(UserId::class),
+            'Name',
+            'Surname',
+            $this->createMock(RoleId::class),
+            $this->createMock(Email::class),
+            $this->createMock(Language::class),
+            true
+        );
+
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
-        $envelope = $envelope->with(new UserStamp($this->createMock(UserInterface::class)));
+        $envelope = $envelope->with(new UserStamp($user));
         $user = $this->createMock(User::class);
         $user->method('getRoles')->willReturn([]);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
