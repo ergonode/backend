@@ -24,11 +24,6 @@ class AttributeExistsCondition implements ConditionInterface
         $this->attribute = $attribute;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

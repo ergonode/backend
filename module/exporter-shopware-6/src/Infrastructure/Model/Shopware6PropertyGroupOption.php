@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use JMS\Serializer\Annotation as JMS;
 
 class Shopware6PropertyGroupOption
 {
@@ -18,19 +19,16 @@ class Shopware6PropertyGroupOption
     protected ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("mediaId")
      */
     protected ?string $mediaId;
 
     /**
-     * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
     protected ?int $position;
@@ -38,7 +36,6 @@ class Shopware6PropertyGroupOption
     /**
      * @var array|null
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("translations")
      */
     protected ?array $translations;

@@ -36,11 +36,6 @@ class LanguageCompletenessCondition implements ConditionInterface
         $this->language = $language;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

@@ -24,11 +24,6 @@ class RoleExactlyCondition implements ConditionInterface
         $this->role = $role;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

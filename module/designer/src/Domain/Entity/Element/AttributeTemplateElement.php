@@ -18,9 +18,6 @@ class AttributeTemplateElement extends AbstractTemplateElement
 {
     public const TYPE = 'attribute';
 
-    /**
-     * @JMS\SerializedName("attribute_id")
-     */
     private AttributeId $attributeId;
 
     private bool $required;
@@ -43,9 +40,6 @@ class AttributeTemplateElement extends AbstractTemplateElement
         return $this->required;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

@@ -23,11 +23,6 @@ class TranslatableStringValue implements ValueInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

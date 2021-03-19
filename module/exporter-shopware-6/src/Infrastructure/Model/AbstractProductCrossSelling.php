@@ -10,6 +10,8 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
 
+use JMS\Serializer\Annotation as JMS;
+
 abstract class AbstractProductCrossSelling
 {
     /**
@@ -18,25 +20,21 @@ abstract class AbstractProductCrossSelling
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("productId")
      */
     protected ?string $productId;
 
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("active")
      */
     protected bool $active;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("type")
      */
     protected ?string $type;
@@ -44,7 +42,6 @@ abstract class AbstractProductCrossSelling
     /**
      * @var AbstractAssignedProduct[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct>")
      * @JMS\SerializedName("assignedProducts")
      */
     protected ?array $assignedProducts;

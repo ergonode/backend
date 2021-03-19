@@ -18,9 +18,7 @@ class MappingConverter implements ConverterInterface
     private string $field;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, string>")
+     * @var string[]
      */
     private array $map;
 

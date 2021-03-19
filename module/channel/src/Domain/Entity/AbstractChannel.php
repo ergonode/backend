@@ -31,10 +31,6 @@ abstract class AbstractChannel implements ChannelInterface
         return $this->id;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     * @JMS\SerializedName("type")
-     */
     abstract public static function getType(): string;
 
     /**

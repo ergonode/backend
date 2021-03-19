@@ -8,22 +8,21 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling;
 
+use JMS\Serializer\Annotation as JMS;
+
 abstract class AbstractAssignedProduct
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("id")
      */
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("productId")
      */
     protected ?string $productId;
 
     /**
-     * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
     protected ?int $position;

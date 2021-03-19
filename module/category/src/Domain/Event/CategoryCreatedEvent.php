@@ -27,8 +27,6 @@ class CategoryCreatedEvent implements AggregateEventInterface
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

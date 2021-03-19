@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\EventSourcing\Domain;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\ExclusionPolicy("all")

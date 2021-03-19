@@ -32,8 +32,6 @@ abstract class AbstractCategory extends AbstractAggregateRoot
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

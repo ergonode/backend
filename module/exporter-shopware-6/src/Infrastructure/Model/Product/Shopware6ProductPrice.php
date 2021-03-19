@@ -11,25 +11,21 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 class Shopware6ProductPrice
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("currencyId")
      */
     private string $currencyId;
 
     /**
-     * @JMS\Type("float")
      * @JMS\SerializedName("net")
      */
     private float $net;
 
     /**
-     * @JMS\Type("float")
      * @JMS\SerializedName("gross")
      */
     private float $gross;
 
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("linked")
      */
     private bool $linked;

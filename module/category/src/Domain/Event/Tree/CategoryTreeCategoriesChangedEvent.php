@@ -20,8 +20,6 @@ class CategoryTreeCategoriesChangedEvent implements AggregateEventInterface
 
     /**
      * @var Node[]
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
      */
     private array $categories;
 

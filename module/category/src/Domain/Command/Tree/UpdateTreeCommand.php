@@ -24,8 +24,6 @@ class UpdateTreeCommand implements CategoryCommandInterface
 
     /**
      * @var Node[]
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
      */
     private array $categories;
 

@@ -34,9 +34,6 @@ class ErgonodeZipSource extends AbstractSource
         self::OPTIONS,
     ];
 
-    /**
-     * @JMS\Type("array<string>")
-     */
     private array $import;
 
     public function __construct(

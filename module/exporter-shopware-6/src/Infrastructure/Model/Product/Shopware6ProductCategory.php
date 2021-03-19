@@ -11,7 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 class Shopware6ProductCategory
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("id")
      */
     private ?string $id;

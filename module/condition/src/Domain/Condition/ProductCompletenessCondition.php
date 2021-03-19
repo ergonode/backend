@@ -32,11 +32,6 @@ class ProductCompletenessCondition implements ConditionInterface
         $this->completeness = $completeness;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

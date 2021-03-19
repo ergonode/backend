@@ -11,6 +11,8 @@ namespace Ergonode\Completeness\Domain\ReadModel;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
+use JMS\Serializer\Annotation as JMS;
+
 class CompletenessElementReadModel
 {
     private AttributeId $id;

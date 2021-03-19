@@ -26,8 +26,6 @@ abstract class AbstractCreateAttributeCommand implements CreateAttributeCommandI
 
     /**
      * @var array
-     *
-     * @JMS\Type("array")
      */
     private array $groups;
 

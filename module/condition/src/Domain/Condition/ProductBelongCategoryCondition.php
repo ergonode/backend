@@ -21,8 +21,6 @@ class ProductBelongCategoryCondition implements ConditionInterface
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $category;
 
@@ -37,11 +35,6 @@ class ProductBelongCategoryCondition implements ConditionInterface
         $this->operator = $operator;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

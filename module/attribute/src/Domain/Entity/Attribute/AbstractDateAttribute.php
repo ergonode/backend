@@ -45,10 +45,6 @@ abstract class AbstractDateAttribute extends AbstractAttribute
         );
     }
 
-    /**
-     * @JMS\VirtualProperty();
-     * @JMS\SerializedName("type")
-     */
     public function getType(): string
     {
         return self::TYPE;

@@ -20,15 +20,11 @@ class BatchActionFilterIdsFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Uuid(strict=true)
      * })
-     *
-     * @JMS\Type("array")
      */
     public array $list = [];
 
     /**
      * @Assert\Type(type="bool")
-     *
-     * @JMS\Type("bool")
      */
     public ?bool $included = null;
 }

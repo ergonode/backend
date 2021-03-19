@@ -16,7 +16,6 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const TYPE = 'PRODUCT_SKU_EXISTS_CONDITION';
     public const PHRASE = 'PRODUCT_SKU_EXISTS_CONDITION_PHRASE';
 
-
     public const IS_EQUAL = '=';
     public const IS_NOT_EQUAL = '<>';
     public const HAS = 'HAS';
@@ -39,12 +38,6 @@ class ProductSkuExistsCondition implements ConditionInterface
         $this->value = $value;
     }
 
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

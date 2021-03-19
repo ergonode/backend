@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class Shopware6MediaDefaultFolder
 {
     /**
@@ -16,13 +18,11 @@ class Shopware6MediaDefaultFolder
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("entity")
      */
     private ?string $entity;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("mediaFolderId")
      */
     private ?string $mediaFolderId;

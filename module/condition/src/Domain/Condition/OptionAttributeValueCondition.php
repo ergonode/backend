@@ -27,11 +27,6 @@ class OptionAttributeValueCondition implements ConditionInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

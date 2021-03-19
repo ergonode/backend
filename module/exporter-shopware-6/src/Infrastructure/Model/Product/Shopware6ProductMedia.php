@@ -11,19 +11,16 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 class Shopware6ProductMedia
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("id")
      */
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("mediaId")
      */
     private ?string $mediaId;
 
     /**
-     * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
     private int $position;

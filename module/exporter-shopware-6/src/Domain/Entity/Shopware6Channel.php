@@ -61,22 +61,16 @@ class Shopware6Channel extends AbstractChannel
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $propertyGroup;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $customField;
 
     /**
      * @var ProductCollectionId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
      */
     private array $crossSelling;
 

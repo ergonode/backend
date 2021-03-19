@@ -12,9 +12,7 @@ namespace Ergonode\Core\Domain\ValueObject;
 class TranslatableString implements \IteratorAggregate
 {
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string,string>")
+     * @var string[]
      */
     private array $translations;
 

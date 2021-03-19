@@ -18,9 +18,7 @@ class CompletenessReadModel
     private int $filled;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel>")
+     * @var CompletenessElementReadModel[]
      */
     private array $missing;
 

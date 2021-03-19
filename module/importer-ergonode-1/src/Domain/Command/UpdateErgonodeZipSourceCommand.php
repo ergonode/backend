@@ -17,9 +17,6 @@ class UpdateErgonodeZipSourceCommand implements UpdateSourceCommandInterface
 
     private string $name;
 
-    /**
-     * @JMS\Type("array<string, bool>")
-     */
     private array $import;
 
     public function __construct(

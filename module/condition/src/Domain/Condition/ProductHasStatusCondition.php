@@ -25,15 +25,11 @@ class ProductHasStatusCondition implements ConditionInterface
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $value;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $language;
 
@@ -48,11 +44,6 @@ class ProductHasStatusCondition implements ConditionInterface
         $this->language = $language;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

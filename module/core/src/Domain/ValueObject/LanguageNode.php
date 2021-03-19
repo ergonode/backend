@@ -10,6 +10,8 @@ namespace Ergonode\Core\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
+use JMS\Serializer\Annotation as JMS;
+
 class LanguageNode
 {
     /**
@@ -21,8 +23,6 @@ class LanguageNode
 
     /**
      * @var LanguageNode[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\LanguageNode>")
      */
     private array $children;
 

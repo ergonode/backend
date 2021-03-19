@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 abstract class AbstractShopware6CustomFieldSet
 {
     /**
@@ -16,13 +18,11 @@ abstract class AbstractShopware6CustomFieldSet
     protected ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldSetConfig")
      * @JMS\SerializedName("config")
      */
     protected ?AbstractShopware6CustomFieldSetConfig $config;
@@ -30,7 +30,6 @@ abstract class AbstractShopware6CustomFieldSet
     /**
      * @var ?array
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("relations")
      */
     protected ?array $relations;

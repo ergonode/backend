@@ -16,9 +16,7 @@ class Node
     private CategoryId $categoryId;
 
     /**
-     * @var Node[];
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
+     * @var Node[]
      */
     private array $children;
 

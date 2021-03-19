@@ -21,9 +21,6 @@ class NumericAttributeValueCondition implements ConditionInterface
 
     private string $operator;
 
-    /**
-     * @JMS\Type("float")
-     */
     private float $value;
 
     public function __construct(AttributeId $attribute, string $operator, float $value)
@@ -33,11 +30,6 @@ class NumericAttributeValueCondition implements ConditionInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

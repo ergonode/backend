@@ -24,11 +24,6 @@ class UserExactlyCondition implements ConditionInterface
         $this->user = $user;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

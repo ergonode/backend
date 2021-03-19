@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class Shopware6Category
 {
     /**
@@ -16,25 +18,21 @@ class Shopware6Category
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     private ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("parentId")
      */
     private ?string $parentId;
 
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("active")
      */
     private bool $active;
 
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("visible")
      */
     private bool $visible;

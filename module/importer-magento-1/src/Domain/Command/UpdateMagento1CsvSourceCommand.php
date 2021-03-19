@@ -27,22 +27,16 @@ class UpdateMagento1CsvSourceCommand implements UpdateSourceCommandInterface
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $attributes;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, bool>")
+     * @var bool[]
      */
     private array $import;
 

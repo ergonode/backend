@@ -13,19 +13,16 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField
 class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("dateType")
      */
     protected ?string $dateType;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("numberType")
      */
     protected ?string $numberType;
 
     /**
-     * @JMS\Type("array")
      * @JMS\SerializedName("options")
      */
     protected ?array $options;

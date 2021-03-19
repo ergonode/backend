@@ -12,14 +12,8 @@ use Webmozart\Assert\Assert;
 
 class Progress
 {
-    /**
-     * @JMS\Type("int")
-     */
     private int $position;
 
-    /**
-     * @JMS\Type("int")
-     */
     private int $count;
 
     public function __construct(int $position, int $count)

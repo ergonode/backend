@@ -30,11 +30,6 @@ class ProductHasTemplateCondition implements ConditionInterface
         $this->templateId = $templateId;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

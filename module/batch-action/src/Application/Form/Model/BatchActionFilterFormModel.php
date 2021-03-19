@@ -18,8 +18,6 @@ class BatchActionFilterFormModel
 {
     /**
      * @Assert\Valid()
-     *
-     * @JMS\Type("Ergonode\BatchAction\Application\Form\Model\BatchActionFilterIdsFormModel")
      */
     public ?BatchActionFilterIdsFormModel $ids = null;
 

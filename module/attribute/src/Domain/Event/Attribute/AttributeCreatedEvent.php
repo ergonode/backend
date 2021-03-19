@@ -33,8 +33,6 @@ class AttributeCreatedEvent implements AggregateEventInterface
 
     /**
      * @var array
-     *
-     * @JMS\Type("array")
      */
     private array $parameters;
 

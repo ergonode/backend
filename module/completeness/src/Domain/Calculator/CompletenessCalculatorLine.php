@@ -10,6 +10,8 @@ namespace Ergonode\Completeness\Domain\Calculator;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
+use JMS\Serializer\Annotation as JMS;
+
 class CompletenessCalculatorLine
 {
     private AttributeId $id;

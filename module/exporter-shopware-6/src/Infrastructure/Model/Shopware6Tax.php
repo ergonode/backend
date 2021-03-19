@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class Shopware6Tax
 {
     /**
@@ -16,13 +18,11 @@ class Shopware6Tax
     protected ?string $id;
 
     /**
-     * @JMS\Type("float")
      * @JMS\SerializedName("taxRate")
      */
     private ?float $rate;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     private ?string $name;

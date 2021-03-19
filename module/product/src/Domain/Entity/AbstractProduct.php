@@ -74,10 +74,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     * @JMS\SerializedName("type")
-     */
     abstract public function getType(): string;
 
     public function getId(): ProductId

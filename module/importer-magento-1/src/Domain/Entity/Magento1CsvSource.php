@@ -44,15 +44,11 @@ class Magento1CsvSource extends AbstractSource
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $attributes;
 
@@ -61,9 +57,7 @@ class Magento1CsvSource extends AbstractSource
     private Language $defaultLanguage;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string>")
+     * @var string[]
      */
     private array $import;
 

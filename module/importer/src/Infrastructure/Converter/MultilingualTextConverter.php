@@ -14,9 +14,7 @@ class MultilingualTextConverter implements ConverterInterface
     public const TYPE = 'multilingual_text';
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, string>")
+     * @var string[]
      */
     private array $fields;
 
