@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-
 class TextConverter implements ConverterInterface
 {
     public const TYPE = 'text';

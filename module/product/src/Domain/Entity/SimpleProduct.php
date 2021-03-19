@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
-
 class SimpleProduct extends AbstractProduct
 {
     public const TYPE = 'SIMPLE-PRODUCT';

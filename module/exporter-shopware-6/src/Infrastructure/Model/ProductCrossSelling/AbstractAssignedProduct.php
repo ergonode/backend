@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling;
 
-
 abstract class AbstractAssignedProduct
 {
     /**

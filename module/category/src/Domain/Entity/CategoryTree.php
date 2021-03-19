@@ -24,22 +24,14 @@ class CategoryTree extends AbstractAggregateRoot
 {
     public const DEFAULT = 'Default';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId");
-     */
     private CategoryTreeId $id;
 
-    /private string $code;
+    private string $code;
 
-    /**
-     * @JMS\Type(" Ergonode\Core\Domain\ValueObject\TranslatableString");
-     */
     private TranslatableString $name;
 
     /**
      * @var Node[]
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>");
      */
     private array $categories;
 

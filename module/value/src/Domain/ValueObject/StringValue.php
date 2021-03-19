@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Value\Domain\ValueObject;
 
-
 class StringValue implements ValueInterface
 {
     public const TYPE = 'string';

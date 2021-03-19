@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Domain\Entity;
 
-
 class Category extends AbstractCategory implements CategoryInterface
 {
     public const TYPE = 'DEFAULT';
 
-    /public function getType(): string
+    public function getType(): string
     {
         return self::TYPE;
     }
