@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Serializer\Normalizer;
 
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -17,16 +15,14 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
+use Symfony\Component\Serializer\SerializerAwareTrait;
 
 class LanguagePrivilegesArrayDenormalizer implements
     ContextAwareDenormalizerInterface,
     SerializerAwareInterface,
     CacheableSupportsMethodInterface
 {
-    /**
-     * @var SerializerInterface|DenormalizerInterface
-     */
-    private $serializer;
+    use SerializerAwareTrait;
 
     /**
      * {@inheritdoc}
@@ -45,11 +41,11 @@ class LanguagePrivilegesArrayDenormalizer implements
             throw new InvalidArgumentException(sprintf('Unsupported class: %s', $type));
         }
 
-        $serializer = $this->serializer;
         $type = substr($type, 0, -2);
 
         foreach ($data as $key => $value) {
-            $data[$key] = $serializer->denormalize($value, $type, $format, $context);
+            /* @phpstan-ignore-next-line */
+            $data[$key] = $this->serializer->denormalize($value, $type, $format, $context);
         }
 
         return $data;
@@ -67,20 +63,12 @@ class LanguagePrivilegesArrayDenormalizer implements
             ));
         }
 
-        return LanguagePrivileges::class.'[]' === $type
-            && $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setSerializer(SerializerInterface $serializer)
-    {
-        if (!$serializer instanceof DenormalizerInterface) {
-            throw new InvalidArgumentException('Expected  implement DenormalizerInterface.');
+        if (LanguagePrivileges::class.'[]' !== $type) {
+            return false;
         }
 
-        $this->serializer = $serializer;
+        /* @phpstan-ignore-next-line */
+        return $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
     }
 
     /**

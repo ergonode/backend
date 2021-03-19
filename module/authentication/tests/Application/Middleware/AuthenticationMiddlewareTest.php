@@ -12,7 +12,6 @@ namespace Ergonode\Authentication\Tests\Application\Middleware;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\Core\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
