@@ -68,6 +68,7 @@ class UpdateUserFormModel
      * @AccountAssert\LanguagePrivilegesRelations()
      * @AccountAssert\LanguageActive()
      * @AccountAssert\LanguageCodeExists()
+     * @AccountAssert\LanguageRead()
      */
     public ?array $languagePrivilegesCollection;
 
