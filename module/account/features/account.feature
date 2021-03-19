@@ -1168,7 +1168,7 @@ Feature: Account module
            }
       }
       """
-    Then the response status code should be 204
+    Then the response status code should be 400
 
   Scenario: Get user
     Given I am Authenticated as "test@ergonode.com"
