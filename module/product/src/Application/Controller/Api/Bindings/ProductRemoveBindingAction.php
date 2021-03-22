@@ -4,12 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Ergonode\Product\Application\Validator\ProductHasChildren;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -19,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Product\Domain\Command\Bindings\RemoveProductBindingCommand;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(
@@ -35,10 +39,14 @@ class ProductRemoveBindingAction
 {
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
+    private ValidatorInterface $validator;
+
+    public function __construct(CommandBusInterface $commandBus, ValidatorInterface $validator)
     {
         $this->commandBus = $commandBus;
+        $this->validator = $validator;
     }
+
 
     /**
      * @IsGranted("PRODUCT_DELETE_BINDING")
@@ -72,8 +80,16 @@ class ProductRemoveBindingAction
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractAttribute $binding): Response
     {
-        $this->commandBus->dispatch(new RemoveProductBindingCommand($product, $binding));
+        $data = new ProductBindFormModel($product);
+        $data->bindId = $binding->getId()->getValue();
+        $constraint = new ProductHasChildren();
+        $violations = $this->validator->validate($data, $constraint);
+        
+        if ($violations->count() === 0) {
+            $this->commandBus->dispatch(new RemoveProductBindingCommand($product, $binding));
 
-        return new EmptyResponse();
+            return new EmptyResponse();
+        }
+        throw new ViolationsHttpException($violations);
     }
 }
