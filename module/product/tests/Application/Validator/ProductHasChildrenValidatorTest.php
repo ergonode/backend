@@ -65,7 +65,7 @@ class ProductHasChildrenValidatorTest extends ConstraintValidatorTestCase
         $this->model->bindId = '06c6969a-c645-41c1-adad-a63cee70d5ea';
         $attributeId = $this->createMock(AttributeId::class);
         $variableProduct = $this->createMock(VariableProduct::class);
-        $variableProduct->method('getBindings')->willReturn([$attributeId]);
+        $variableProduct->method('getChildren')->willReturn([$attributeId]);
         $this->model->product = $variableProduct;
         $constraint = new ProductHasChildren();
         $this->validator->validate($this->model, $constraint);
