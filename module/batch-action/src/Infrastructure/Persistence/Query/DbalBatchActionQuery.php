@@ -78,7 +78,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                             when (select bool_and(success)
                                                   from batch_action_entry
                                                   where batch_action_id = ba.id) then \'ENDED\'
-                                            else \'PROCESSED\' end) as status)')
+                                            else \'PRECESSED\' end) as status)')
             ->addSelect('created_at as started_at')
             ->addSelect('(select MAX(processed_at)
                                  from batch_action_entry
