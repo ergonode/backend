@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
@@ -84,7 +84,7 @@ class ProductRemoveBindingAction
         $data->bindId = $binding->getId()->getValue();
         $constraint = new ProductHasChildren();
         $violations = $this->validator->validate($data, $constraint);
-        
+
         if ($violations->count() === 0) {
             $this->commandBus->dispatch(new RemoveProductBindingCommand($product, $binding));
 

@@ -49,7 +49,7 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
-  Scenario: Create select attribute
+  Scenario: Create second select attribute
     And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
