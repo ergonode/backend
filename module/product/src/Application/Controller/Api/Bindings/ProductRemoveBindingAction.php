@@ -12,7 +12,6 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
-use Ergonode\Product\Application\Validator\ProductHasChildren;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -82,8 +81,7 @@ class ProductRemoveBindingAction
     {
         $data = new ProductBindFormModel($product);
         $data->bindId = $binding->getId()->getValue();
-        $constraint = new ProductHasChildren();
-        $violations = $this->validator->validate($data, $constraint);
+        $violations = $this->validator->validate($data);
 
         if ($violations->count() === 0) {
             $this->commandBus->dispatch(new RemoveProductBindingCommand($product, $binding));

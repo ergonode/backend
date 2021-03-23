@@ -16,12 +16,12 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductHasChildren extends Constraint
 {
-    public string $message = 'Can\'t change binding attribute in product with variations.';
+    public string $message = 'Can\'t change binding attribute in product with variants.';
 
     /**
-     * @return array|string
+     * {@inheritdoc}
      */
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
