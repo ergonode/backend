@@ -10,15 +10,8 @@ namespace Ergonode\Core\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
-use JMS\Serializer\Annotation as JMS;
-
 class LanguageNode
 {
-    /**
-     * @JMS\Exclude()
-     */
-    private ?LanguageNode $parent;
-
     private LanguageId $languageId;
 
     /**
@@ -30,11 +23,6 @@ class LanguageNode
     {
         $this->languageId = $languageId;
         $this->children = [];
-    }
-
-    public function getParent(): ?LanguageNode
-    {
-        return $this->parent;
     }
 
     public function getLanguageId(): LanguageId
@@ -53,12 +41,6 @@ class LanguageNode
     public function addChild(LanguageNode $child): void
     {
         $this->children[] = $child;
-        $child->setParent($this);
-    }
-
-    public function setParent(?LanguageNode $parent = null): void
-    {
-        $this->parent = $parent;
     }
 
     public function hasChild(LanguageId $languageId): bool
