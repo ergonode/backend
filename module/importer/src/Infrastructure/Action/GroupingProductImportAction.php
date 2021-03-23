@@ -25,6 +25,9 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\Product\Application\Event\ProductCreatedEvent;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
 class GroupingProductImportAction
 {
@@ -40,13 +43,16 @@ class GroupingProductImportAction
 
     protected ProductFactoryInterface $productFactory;
 
+    private MessageBusInterface $messageBus;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory
+        ProductFactoryInterface $productFactory,
+        MessageBusInterface $messageBus
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
@@ -54,17 +60,9 @@ class GroupingProductImportAction
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
         $this->productFactory = $productFactory;
+        $this->messageBus = $messageBus;
     }
 
-    /**
-     * @param array $categories
-     * @param array $children
-     * @param array $attributes
-     *
-     * @throws ImportRelatedProductIncorrectTypeException
-     * @throws ImportRelatedProductNotFoundException
-     * @throws \Exception
-     */
     public function action(
         Sku $sku,
         string $template,
@@ -91,6 +89,8 @@ class GroupingProductImportAction
                 $categories,
                 $attributes,
             );
+            $this->productRepository->save($product);
+            $this->messageBus->dispatch(new ProductCreatedEvent($product));
         } else {
             $product = $this->productRepository->load($productId);
             if (!$product instanceof GroupingProduct) {
@@ -100,9 +100,9 @@ class GroupingProductImportAction
             $product->changeCategories($categories);
             $product->changeAttributes($attributes);
             $product->changeChildren($children);
+            $this->productRepository->save($product);
+            $this->messageBus->dispatch(new ProductUpdatedEvent($product));
         }
-
-        $this->productRepository->save($product);
 
         return $product;
     }

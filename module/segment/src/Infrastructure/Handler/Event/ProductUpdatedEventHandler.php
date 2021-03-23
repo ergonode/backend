@@ -11,9 +11,9 @@ namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
-use Ergonode\Product\Application\Event\ProductCreatedEvent;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
-class ProductCreatedEventHandler
+class ProductUpdatedEventHandler
 {
     private CommandBusInterface $commandBus;
 
@@ -22,7 +22,7 @@ class ProductCreatedEventHandler
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ProductCreatedEvent $event): void
+    public function __invoke(ProductUpdatedEvent $event): void
     {
         $this->commandBus->dispatch(new CalculateProductCommand($event->getProduct()->getId()), true);
     }

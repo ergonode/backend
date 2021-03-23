@@ -13,6 +13,7 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
 class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
 {
@@ -30,5 +31,6 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->updateAudit($product);
 
         $this->productRepository->save($product);
+        $this->messageBus->dispatch(new ProductUpdatedEvent($product));
     }
 }

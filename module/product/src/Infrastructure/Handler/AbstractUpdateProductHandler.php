@@ -16,6 +16,7 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class AbstractUpdateProductHandler
 {
@@ -23,15 +24,19 @@ abstract class AbstractUpdateProductHandler
 
     protected AttributeRepositoryInterface $attributeRepository;
 
+    protected MessageBusInterface $messageBus;
+
     protected Security $security;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
+        MessageBusInterface $messageBus,
         Security $security
     ) {
         $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
+        $this->messageBus = $messageBus;
         $this->security = $security;
     }
 

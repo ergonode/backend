@@ -22,6 +22,9 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\Product\Application\Event\ProductCreatedEvent;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
 class SimpleProductImportAction
 {
@@ -37,13 +40,16 @@ class SimpleProductImportAction
 
     protected ProductFactoryInterface $productFactory;
 
+    private MessageBusInterface $messageBus;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $repository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory
+        ProductFactoryInterface $productFactory,
+        MessageBusInterface $messageBus
     ) {
         $this->productQuery = $productQuery;
         $this->repository = $repository;
@@ -51,6 +57,7 @@ class SimpleProductImportAction
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
         $this->productFactory = $productFactory;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -82,6 +89,8 @@ class SimpleProductImportAction
                 $categories,
                 $attributes,
             );
+            $this->repository->save($product);
+            $this->messageBus->dispatch(new ProductCreatedEvent($product));
         } else {
             $product = $this->repository->load($productId);
             if (!$product instanceof SimpleProduct) {
@@ -90,9 +99,9 @@ class SimpleProductImportAction
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);
             $product->changeAttributes($attributes);
+            $this->repository->save($product);
+            $this->messageBus->dispatch(new ProductUpdatedEvent($product));
         }
-
-        $this->repository->save($product);
 
         return $product;
     }

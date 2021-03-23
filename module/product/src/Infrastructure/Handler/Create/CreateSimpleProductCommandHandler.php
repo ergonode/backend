@@ -11,21 +11,11 @@ namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
-use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Application\Event\ProductCreatedEvent;
+use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 
-class CreateSimpleProductCommandHandler
+class CreateSimpleProductCommandHandler extends AbstractCreateProductHandler
 {
-    protected ProductRepositoryInterface $productRepository;
-
-    protected ProductFactoryInterface $productFactory;
-
-    public function __construct(ProductRepositoryInterface $productRepository, ProductFactoryInterface $productFactory)
-    {
-        $this->productRepository = $productRepository;
-        $this->productFactory = $productFactory;
-    }
-
     /**
      * @throws \Exception
      */
@@ -41,5 +31,6 @@ class CreateSimpleProductCommandHandler
         );
 
         $this->productRepository->save($product);
+        $this->messageBus->dispatch(new ProductCreatedEvent($product));
     }
 }

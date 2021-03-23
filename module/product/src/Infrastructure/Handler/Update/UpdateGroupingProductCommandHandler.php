@@ -12,6 +12,7 @@ namespace Ergonode\Product\Infrastructure\Handler\Update;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
 class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
 {
@@ -28,5 +29,6 @@ class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->updateAudit($product);
 
         $this->productRepository->save($product);
+        $this->messageBus->dispatch(new ProductUpdatedEvent($product));
     }
 }

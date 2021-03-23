@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Persistence\Projector\Product;
 
-use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Doctrine\DBAL\Connection;
+use Ergonode\Product\Application\Event\ProductCreatedEvent;
 
 class ProductCreatedEventProjector
 {
@@ -26,7 +26,7 @@ class ProductCreatedEventProjector
         $this->connection->insert(
             'product_completeness',
             [
-               'product_id' => $event->getAggregateId()->getValue(),
+               'product_id' => $event->getProduct()->getId()->getValue(),
             ]
         );
     }

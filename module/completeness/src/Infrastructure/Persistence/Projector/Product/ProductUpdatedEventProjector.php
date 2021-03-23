@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Persistence\Projector\Product;
 
-use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 use Ergonode\Completeness\Infrastructure\Persistence\Projector\AbstractProductCompletenessProjector;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 
-class ProductValueRemovedEventProjector extends AbstractProductCompletenessProjector
+class ProductUpdatedEventProjector extends AbstractProductCompletenessProjector
 {
-    public function __invoke(ProductValueRemovedEvent $event): void
+    public function __invoke(ProductUpdatedEvent $event): void
     {
-        $this->update($event->getAggregateId());
+        $this->update($event->getProduct()->getId());
     }
 }
