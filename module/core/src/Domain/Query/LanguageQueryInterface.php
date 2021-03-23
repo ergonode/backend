@@ -53,8 +53,5 @@ interface LanguageQueryInterface
 
     public function getDataSet(): DataSetInterface;
 
-    /**
-     * @return array|null
-     */
-    public function getLanguageById(string $id): ?array;
+    public function getLanguageById(string $id): ?Language;
 }

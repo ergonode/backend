@@ -53,7 +53,7 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
     }
 
     /**
-     * @return array
+     * @return ConditionSetId[]
      */
     public function findAttributeIdConditionRelations(AttributeId $attributeId): array
     {
@@ -64,6 +64,29 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
             ->from('jsonb_array_elements(conditions) AS condition')
             ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
             ->setParameter(':attribute_id', $attributeId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new ConditionSetId($record);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return ConditionSetId[]
+     */
+    public function findLanguageConditionRelations(Language $language): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $records = $qb->select('DISTINCT id')
+            ->from(self::TABLE)
+            ->from('jsonb_array_elements(conditions) AS condition')
+            ->andWhere('condition::jsonb->>\'language\' ILIKE :search')
+            ->setParameter(':search', '%'.$language->getCode().'%')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 

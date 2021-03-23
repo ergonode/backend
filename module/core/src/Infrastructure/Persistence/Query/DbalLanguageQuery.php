@@ -206,10 +206,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         return $result;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getLanguageById(string $id): ?array
+    public function getLanguageById(string $id): ?Language
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
@@ -219,7 +216,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->execute()
             ->fetch();
         if ($result) {
-            return $result;
+            return new Language($result['code']);
         }
 
         return null;
