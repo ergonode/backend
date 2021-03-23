@@ -81,4 +81,4 @@ jobs:
         run: bin/phing check:style
 
       - name: Check doc header
-        run: bin/docheader check config/ features module public src tests
+        run: bin/docheader check config features module public src tests
