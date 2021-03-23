@@ -63,7 +63,7 @@ class ProductInvalidChildrenValidatorTest extends ConstraintValidatorTestCase
         $variableProduct = $this->createMock(VariableProduct::class);
         $variableProduct->method('getBindings')->willReturn([$attributeId]);
         $this->model->parentProduct = $variableProduct;
-        $this->query->method('findAttributeIdsBySku')->willReturn([$uuid]);
+        $this->query->method('findAttributeIdsBySku')->willReturn([$attributeId]);
         $constraint = new ProductInvalidChildren();
         $this->validator->validate($this->model, $constraint);
 
@@ -73,12 +73,14 @@ class ProductInvalidChildrenValidatorTest extends ConstraintValidatorTestCase
     public function testInCorrectValueValidation(): void
     {
         $this->model->skus = ['sku1'];
-        $attributeId = $this->createMock(AttributeId::class);
-        $attributeId->method('getValue')->willReturn(Uuid::uuid4()->toString());
+        $attributeId1 = $this->createMock(AttributeId::class);
+        $attributeId1->method('getValue')->willReturn(Uuid::uuid4()->toString());
+        $attributeId2 = $this->createMock(AttributeId::class);
+        $attributeId2->method('getValue')->willReturn(Uuid::uuid4()->toString());
         $variableProduct = $this->createMock(VariableProduct::class);
-        $variableProduct->method('getBindings')->willReturn([$attributeId]);
+        $variableProduct->method('getBindings')->willReturn([$attributeId1]);
         $this->model->parentProduct = $variableProduct;
-        $this->query->method('findAttributeIdsBySku')->willReturn([Uuid::uuid4()->toString()]);
+        $this->query->method('findAttributeIdsBySku')->willReturn([$attributeId2]);
         $constraint = new ProductInvalidChildren();
         $this->validator->validate($this->model, $constraint);
 

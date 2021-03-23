@@ -14,7 +14,6 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -51,7 +50,7 @@ class ProductInvalidChildValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value->getParentId(), ProductId::class);
         }
 
-        if (null === $value->childId || !Uuid::isValid($value->childId)) {
+        if (null === $value->childId || !ProductId::isValid($value->childId)) {
             return;
         }
         $variableProductId = $value->getParentId();
@@ -61,12 +60,18 @@ class ProductInvalidChildValidator extends ConstraintValidator
         Assert::isInstanceOf($variableProduct, VariableProduct::class);
 
         $bindings = $variableProduct->getBindings();
-        $bindingsValues = [];
-        foreach ($bindings as $binding) {
-            $bindingsValues[] = $binding->getValue();
-        }
-        $attributeIds = $this->query->findAttributeIdsByProductId($value->childId);
-        if (empty(array_intersect($bindingsValues, $attributeIds))) {
+
+        $bindingsValues = array_map(static function ($attributeId) {
+            return $attributeId->getValue();
+        }, $bindings);
+
+        $attributeIds = $this->query->findAttributeIdsByProductId(new ProductId($value->childId));
+
+        $attributeIdsValues = array_map(static function ($attributeId) {
+            return $attributeId->getValue();
+        }, $attributeIds);
+
+        if (empty(array_intersect($bindingsValues, $attributeIdsValues))) {
             $this->context->buildViolation($constraint->message)
                 ->atPath('childId')
                 ->addViolation();

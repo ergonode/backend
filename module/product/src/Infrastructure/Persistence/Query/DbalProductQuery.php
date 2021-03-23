@@ -402,29 +402,55 @@ class DbalProductQuery implements ProductQueryInterface
             ->fetch(\PDO::FETCH_COLUMN);
     }
 
-    public function findAttributeIdsBySku(string $sku): array
+    /**
+     * @return ProductId[]
+     */
+    public function findAttributeIdsBySku(Sku $sku): array
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('attribute_id')
+        $result = $qb->select('attribute_id')
             ->from(self::VALUE_TABLE, 'vt')
             ->join('vt', self::PRODUCT_TABLE, 'pt', 'pt.id = vt.product_id')
             ->where($qb->expr()->eq('sku', ':sku'))
-            ->setParameter(':sku', $sku)
+            ->setParameter(':sku', $sku->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
     }
 
-    public function findAttributeIdsByProductId(string $productId): array
+    /**
+     * @return AttributeId[]
+     */
+    public function findAttributeIdsByProductId(ProductId $productId): array
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('attribute_id')
+        $result = $qb->select('attribute_id')
             ->from(self::VALUE_TABLE, 'vt')
             ->where($qb->expr()->eq('product_id', ':productId'))
-            ->setParameter(':productId', $productId)
+            ->setParameter(':productId', $productId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new AttributeId($item);
+        }
+
+        return $result;
     }
 
     private function getQuery(): QueryBuilder
