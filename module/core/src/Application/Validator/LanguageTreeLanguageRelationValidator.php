@@ -82,7 +82,10 @@ class LanguageTreeLanguageRelationValidator extends ConstraintValidator
      */
     private function createArray(LanguageTreeNodeFormModel $languages): array
     {
-        $children = [new LanguageId($languages->languageId)];
+        $children = [];
+        if ($languages->languageId && LanguageId::isValid($languages->languageId)) {
+            $children = [new LanguageId($languages->languageId)];
+        }
 
         foreach ($languages->children as $child) {
             $children = array_merge($children, $this->createArray($child));
