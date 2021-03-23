@@ -75,6 +75,7 @@
         "escapestudios/symfony2-coding-standard": "^3.10",
         "friends-of-behat/symfony-extension": "^2.0.5",
         "infection/infection": "^0.17.5",
+        "malukenho/docheader": "^0.1.8",
         "nelmio/alice": "^3.6",
         "phpstan/phpstan": "^0.12.42",
         "phpunit/phpunit": "^9.0",

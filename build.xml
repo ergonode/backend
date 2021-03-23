@@ -171,4 +171,12 @@
     <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
         <property name="APP_ENV" value="test" override="true" />
     </target>
+
+    <!-- PHP files doc headers -->
+    <target name="check:doc" description="DocHeader checker">
+        <exec command="bin/docheader check config/ features module public src tests"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
 </project>
