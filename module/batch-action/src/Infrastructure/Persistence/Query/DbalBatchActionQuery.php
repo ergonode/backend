@@ -73,7 +73,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return  $qb->select('id')
+        return $qb->select('id')
             ->addSelect('(select (case
                                             when (select count(*)
                                                   from batch_action_entry
@@ -103,6 +103,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                    and fail_reason is not null) as errors')
             ->orderBy('started_at', 'DESC')
             ->from(self::TABLE_BATCH_ACTION, 'ba')
+            ->where('exists(select id from batch_action_entry where batch_action_id=ba.id)')
             ->setMaxResults(self::PROFILE_RESULT)
             ->execute()
             ->fetchAll();
