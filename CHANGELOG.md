@@ -1,3 +1,4 @@
+- bugfix [#1305](https://github.com/ergonode/backend/issues/1305) Adding validation for editing binding attributes in variable product.(wiewiurdp)
 - feature [#1283](https://github.com/ergonode/backend/issues/1283) Adding endpoint for status in batch actions  (wiewiurdp)
 - bugfix [#1299](https://github.com/ergonode/backend/issues/1299) Creating validation for adding simple product to variable product (wiewiurdp)
 - refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
