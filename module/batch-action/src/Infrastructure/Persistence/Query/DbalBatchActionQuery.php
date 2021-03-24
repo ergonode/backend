@@ -73,11 +73,12 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('id')
+        return  $qb->select('id')
             ->addSelect('(select (case
-                                            when (select bool_and(success)
+                                            when (select count(*)
                                                   from batch_action_entry
-                                                  where batch_action_id = ba.id) then \'ENDED\'
+                                                  where batch_action_id = ba.id 
+                                                    and success is not null ) = 0 then \'ENDED\'
                                             else \'PRECESSED\' end) as status)')
             ->addSelect('created_at as started_at')
             ->addSelect('(select MAX(processed_at)
