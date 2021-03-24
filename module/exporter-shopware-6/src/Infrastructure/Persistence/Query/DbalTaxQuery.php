@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */

@@ -6,6 +6,7 @@ services:
 
     Ergonode\EventSourcing\Infrastructure\:
         resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/Manager/Decorator'
 
     Ergonode\EventSourcing\Infrastructure\Middleware\:
         resource: '../../Infrastructure/Middleware/*'
@@ -26,9 +27,3 @@ services:
         $builder: '@Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator.inner'
 
     Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface: '@Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager'
-
-    Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator:
-      decorates: Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface
-      arguments:
-        $adapter: '@aggregate.cache'
-        $manager: '@Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator.inner'

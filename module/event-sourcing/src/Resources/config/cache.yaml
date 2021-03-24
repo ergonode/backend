@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator:
+        decorates: Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface
+        arguments:
+            $manager: '@Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator.inner'
