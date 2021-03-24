@@ -16,8 +16,6 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('ergonode_completeness');
-
-        return $treeBuilder;
+        return new TreeBuilder('ergonode_completeness');
     }
 }
