@@ -11,18 +11,11 @@ namespace Ergonode\Designer\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateRemovedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $reason;
 
     public function __construct(TemplateId $id, ?string $reason = null)

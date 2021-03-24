@@ -31,10 +31,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
-    Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-        
     Ergonode\Category\Domain\Entity\Category:
         autowire: true
 

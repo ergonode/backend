@@ -10,20 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Reader\Infrastructure\Formatter;
 
 use Ergonode\Reader\Infrastructure\FormatterInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class ReplaceFormatter implements FormatterInterface
 {
     public const TYPE = 'replace';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $from;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
     public function __construct(string $from, string $to)

@@ -16,50 +16,32 @@ use Ergonode\Importer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Importer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Importer\Domain\Event\TransformerAttributeAddedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class Transformer extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     /**
      * @var ConverterInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Importer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $fields;
 
     /**
      * @var ConverterInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Importer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $attributes;
 
     /**
      * @var string[]
-     *
-     * @JMS\Type("array<string, string>")
      */
     private array $attributeType;
 
     /**
      * @var bool[]
-     *
-     * @JMS\Type("array<string, boolean>")
      */
     private array $multilingual;
 

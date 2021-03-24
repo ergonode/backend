@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
-
 class MultilingualTextConverter implements ConverterInterface
 {
     public const TYPE = 'multilingual_text';
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, string>")
+     * @var string[]
      */
     private array $fields;
 

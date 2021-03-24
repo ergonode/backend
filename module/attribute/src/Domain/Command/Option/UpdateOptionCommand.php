@@ -12,30 +12,17 @@ namespace Ergonode\Attribute\Domain\Command\Option;
 use Ergonode\Attribute\Domain\Command\AttributeCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
 class UpdateOptionCommand implements AttributeCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
-     */
     private OptionKey $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $label;
 
     /**

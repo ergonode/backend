@@ -9,20 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
-
 class DateConverter implements ConverterInterface
 {
     public const TYPE = 'date';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $format;
 
 

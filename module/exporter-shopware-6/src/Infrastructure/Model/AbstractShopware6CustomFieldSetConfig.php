@@ -8,18 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
 abstract class AbstractShopware6CustomFieldSetConfig
 {
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("translated")
      */
     protected bool $translated;
 
     /**
-     * @JMS\Type("array")
      * @JMS\SerializedName("label")
      */
     protected ?array $label;

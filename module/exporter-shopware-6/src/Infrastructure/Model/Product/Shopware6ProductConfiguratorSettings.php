@@ -8,18 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
-use JMS\Serializer\Annotation as JMS;
-
 class Shopware6ProductConfiguratorSettings
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("id")
      */
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("optionId")
      */
     private ?string $optionId;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
+
 use JMS\Serializer\Annotation as JMS;
 
 class AbstractShopware6CustomField
@@ -19,25 +20,21 @@ class AbstractShopware6CustomField
     protected ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("type")
      */
     protected ?string $type;
 
     /**
-     * @JMS\Type("Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldConfig")
      * @JMS\SerializedName("config")
      */
     protected ?AbstractShopware6CustomFieldConfig $config;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("customFieldSetId")
      */
     protected ?string $customFieldSetId;

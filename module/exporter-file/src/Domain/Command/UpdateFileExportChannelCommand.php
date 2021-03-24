@@ -11,42 +11,27 @@ namespace Ergonode\ExporterFile\Domain\Command;
 
 use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class UpdateFileExportChannelCommand implements ChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
-     */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $format;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $exportType;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     protected array $languages;
 
     /**
-     * @param array $languages
+     * @param Language[] $languages
      */
     public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {

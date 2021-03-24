@@ -12,23 +12,13 @@ namespace Ergonode\Importer\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TransformerFieldAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
-    /**
-     * @JMS\Type("Ergonode\Importer\Infrastructure\Converter\ConverterInterface")
-     */
     private ConverterInterface $converter;
 
     public function __construct(TransformerId $id, string $field, ConverterInterface $converter)

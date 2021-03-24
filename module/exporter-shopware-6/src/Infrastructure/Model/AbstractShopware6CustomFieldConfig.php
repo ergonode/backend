@@ -13,25 +13,21 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractShopware6CustomFieldConfig
 {
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("type")
      */
     protected ?string $type;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("customFieldType")
      */
     protected ?string $customFieldType;
 
     /**
-     * @JMS\Type("array")
      * @JMS\SerializedName("label")
      */
     protected ?array $label;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("componentName")
      */
     protected ?string $componentName;

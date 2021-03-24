@@ -3,7 +3,3 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-
-    Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']

@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class DeleteSegmentCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
     public function __construct(SegmentId $id)

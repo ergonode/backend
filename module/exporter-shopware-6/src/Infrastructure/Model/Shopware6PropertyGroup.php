@@ -22,19 +22,16 @@ class Shopware6PropertyGroup
     protected ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("displayType")
      */
     protected ?string $displayType;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("sortingType")
      */
     protected ?string $sortingType;
@@ -42,7 +39,6 @@ class Shopware6PropertyGroup
     /**
      * @var array
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("translations")
      */
     protected ?array $translations;

@@ -33,7 +33,7 @@ class LanguageTreeBuilder
 
 
         foreach ($node->getChildren() as $child) {
-            $this->buildBranch($nestedSetTree, $child);
+            $this->buildBranch($nestedSetTree, $child, $node);
         }
 
 
@@ -43,16 +43,16 @@ class LanguageTreeBuilder
     /**
      * @throws \Exception
      */
-    private function buildBranch(NestedSetTree $nestedSetTree, LanguageNode $node): void
+    private function buildBranch(NestedSetTree $nestedSetTree, LanguageNode $node, LanguageNode $parent): void
     {
         $nestedSetTree->addNode(
             $node->getLanguageId(),
             $this->query->getLanguageById($node->getLanguageId()->getValue())['code'],
-            $node->getParent()->getLanguageId()
+            $parent->getLanguageId()
         );
 
         foreach ($node->getChildren() as $child) {
-            $this->buildBranch($nestedSetTree, $child);
+            $this->buildBranch($nestedSetTree, $child, $node);
         }
     }
 }

@@ -14,14 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class UpdateAttributeGroupCommand implements AttributeCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
-     */
     private AttributeGroupId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(AttributeGroupId $id, TranslatableString $name)

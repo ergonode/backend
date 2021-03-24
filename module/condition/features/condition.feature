@@ -87,7 +87,7 @@ Feature: Condition module
             {
               "type": "OPTION_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@condition_text_attribute@",
-              "value": 123
+              "value": "123"
             }
          ]
       }

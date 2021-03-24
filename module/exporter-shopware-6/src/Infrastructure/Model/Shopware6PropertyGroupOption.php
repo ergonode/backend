@@ -19,19 +19,16 @@ class Shopware6PropertyGroupOption
     protected ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("mediaId")
      */
     protected ?string $mediaId;
 
     /**
-     * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
     protected ?int $position;
@@ -39,7 +36,6 @@ class Shopware6PropertyGroupOption
     /**
      * @var array|null
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("translations")
      */
     protected ?array $translations;

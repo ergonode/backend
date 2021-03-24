@@ -9,18 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
-use JMS\Serializer\Annotation as JMS;
-
 class LanguagePrivileges
 {
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $read;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $edit;
 
     public function __construct(bool $read, bool $edit)

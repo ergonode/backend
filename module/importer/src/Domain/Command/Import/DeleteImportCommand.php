@@ -10,13 +10,9 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteImportCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
-     */
     private ImportId $id;
 
     public function __construct(ImportId $id)

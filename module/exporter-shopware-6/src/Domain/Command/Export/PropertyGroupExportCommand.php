@@ -12,23 +12,13 @@ use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
 
 class PropertyGroupExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
-     */
     private ExportLineId $lineId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
-     */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeId;
 
     public function __construct(ExportLineId $lineId, ExportId $exportId, AttributeId $attributeId)

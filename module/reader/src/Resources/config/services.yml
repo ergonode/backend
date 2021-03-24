@@ -10,15 +10,6 @@ services:
     Ergonode\Reader\Infrastructure\:
         resource: '../../Infrastructure/*'
 
-    Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\FormatterInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Reader\Infrastructure\Formatter\ReplaceFormatter']]
-            - ['set', ['Ergonode\Reader\Infrastructure\Formatter\EncodingFormatter']]
-
     Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider:
         calls:
             - method: setReader

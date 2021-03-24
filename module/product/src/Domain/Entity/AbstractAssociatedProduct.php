@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 use Webmozart\Assert\Assert;
@@ -19,8 +18,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
 {
     /**
      * @var ProductId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductId>");
      */
     private array $children = [];
 

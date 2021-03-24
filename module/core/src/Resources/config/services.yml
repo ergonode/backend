@@ -26,10 +26,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Core\Application\Provider\SimpleDirectoryProvider:
         arguments:
             $directory: '%kernel.project_dir%'
@@ -76,8 +72,8 @@ services:
         arguments:
             $serializer: '@jms_serializer'
 
-    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
-    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
+    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
+    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
 
     Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
         $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'

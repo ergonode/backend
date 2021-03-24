@@ -11,13 +11,9 @@ namespace Ergonode\Account\Domain\Event\Role;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class RoleNameChangedEvent extends AbstractStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
-     */
     private RoleId $id;
 
     public function __construct(RoleId $id, string $to)

@@ -9,15 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Value\Domain\ValueObject;
 
-use JMS\Serializer\Annotation as JMS;
-
 class StringValue implements ValueInterface
 {
     public const TYPE = 'string';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $value)
@@ -29,11 +24,6 @@ class StringValue implements ValueInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

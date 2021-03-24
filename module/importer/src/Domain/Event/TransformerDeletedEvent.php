@@ -11,13 +11,9 @@ namespace Ergonode\Importer\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
-use JMS\Serializer\Annotation as JMS;
 
 class TransformerDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
     public function __construct(TransformerId $id)

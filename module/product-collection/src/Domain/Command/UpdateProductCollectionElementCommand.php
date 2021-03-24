@@ -11,23 +11,13 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateProductCollectionElementCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $productCollectionId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $visible;
 
     public function __construct(ProductCollectionId $productCollectionId, ProductId $productId, bool $visible)

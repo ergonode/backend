@@ -18,13 +18,11 @@ class Shopware6MediaDefaultFolder
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("entity")
      */
     private ?string $entity;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("mediaFolderId")
      */
     private ?string $mediaFolderId;

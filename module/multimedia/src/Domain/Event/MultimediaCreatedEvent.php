@@ -12,41 +12,22 @@ namespace Ergonode\Multimedia\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
-use JMS\Serializer\Annotation as JMS;
 
 class MultimediaCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $extension;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $mime;
 
     /**
      * The file size in bytes.
-     *
-     *
-     * @JMS\Type("int")
      */
     private int $size;
 
-    /**
-     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
-     */
     private Hash $hash;
 
     /**

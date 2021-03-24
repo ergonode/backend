@@ -22,19 +22,16 @@ class Shopware6Product
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("productNumber")
      */
     private ?string $sku;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     private ?string $name;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("description")
      */
     private ?string $description;
@@ -42,7 +39,6 @@ class Shopware6Product
     /**
      * @var Shopware6ProductCategory[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory>")
      * @JMS\SerializedName("categories")
      */
     private ?array $categories = null;
@@ -50,7 +46,6 @@ class Shopware6Product
     /**
      * @var array|null
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("properties")
      */
     private ?array $properties;
@@ -58,25 +53,21 @@ class Shopware6Product
     /**
      * @var array|null
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("customFields")
      */
     private ?array $customFields;
 
     /**
-     * @JMS\Type("bool")
      * @JMS\SerializedName("active")
      */
     private bool $active;
 
     /**
-     * @JMS\Type("int")
      * @JMS\SerializedName("stock")
      */
     private ?int $stock;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("taxId")
      */
     private ?string $taxId;
@@ -84,13 +75,11 @@ class Shopware6Product
     /**
      * @var Shopware6ProductPrice[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice>")
      * @JMS\SerializedName("price")
      */
     private ?array $price;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("parentId")
      */
     private ?string $parentId;
@@ -98,7 +87,6 @@ class Shopware6Product
     /**
      * @var array|null
      *
-     * @JMS\Type("array")
      * @JMS\SerializedName("options")
      */
     private ?array $options;
@@ -106,7 +94,6 @@ class Shopware6Product
     /**
      * @var Shopware6ProductMedia[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia>")
      * @JMS\SerializedName("media")
      */
     private ?array $media = null;
@@ -114,31 +101,26 @@ class Shopware6Product
     /**
      * @var Shopware6ProductConfiguratorSettings[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings>")
      * @JMS\SerializedName("configuratorSettings")
      */
     private ?array $configuratorSettings = null;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("coverId")
      */
     private ?string $coverId;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("metaTitle")
      */
     private ?string $metaTitle;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("metaDescription")
      */
     private ?string $metaDescription;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("keywords")
      */
     private ?string $keywords;

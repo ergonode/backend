@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "628e102fe3446cb2c2cb65fb207f9b50",
+    "content-hash": "0cec31711f5c02eaf4f09b69e2252643",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3275,67 +3275,6 @@
                 "source": "https://github.com/Limenius/LiformBundle/tree/v0.15.0"
             },
             "time": "2020-01-25T10:05:41+00:00"
-        },
-        {
-            "name": "mhujer/jms-serializer-uuid",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mhujer/jms-serializer-uuid.git",
-                "reference": "c71c96ecef4018dc95189a624f29efc944d75e93"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mhujer/jms-serializer-uuid/zipball/c71c96ecef4018dc95189a624f29efc944d75e93",
-                "reference": "c71c96ecef4018dc95189a624f29efc944d75e93",
-                "shasum": ""
-            },
-            "require": {
-                "jms/serializer": "~2.0|~3.0",
-                "php": "~7.2",
-                "ramsey/uuid": "~3.0"
-            },
-            "require-dev": {
-                "consistence/coding-standard": "3.5",
-                "jakub-onderka/php-parallel-lint": "1.0.0",
-                "php-coveralls/php-coveralls": "2.1.0",
-                "phpunit/phpunit": "7.4.4",
-                "squizlabs/php_codesniffer": "3.3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Mhujer\\JmsSerializer\\": [
-                        "src"
-                    ]
-                },
-                "classmap": [
-                    "src"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Hujer",
-                    "email": "mhujer@gmail.com",
-                    "homepage": "https://www.martinhujer.cz"
-                }
-            ],
-            "description": "Uuid serializer and deserializer for JMS Serializer library",
-            "homepage": "https://github.com/mhujer/jms-serializer-uuid",
-            "keywords": [
-                "jms",
-                "serializer",
-                "uuid"
-            ],
-            "support": {
-                "issues": "https://github.com/mhujer/jms-serializer-uuid/issues",
-                "source": "https://github.com/mhujer/jms-serializer-uuid/tree/3.1.0"
-            },
-            "time": "2019-05-31T10:42:45+00:00"
         },
         {
             "name": "moneyphp/money",
@@ -12371,7 +12310,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-16T06:02:39+00:00"
+            "time": "2021-03-03T23:02:20+00:00"
         },
         {
             "name": "sanmai/pipeline",
@@ -14241,5 +14180,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

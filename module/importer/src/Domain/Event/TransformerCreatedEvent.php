@@ -11,23 +11,13 @@ namespace Ergonode\Importer\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TransformerCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
-     */
     private TransformerId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $key;
 
     public function __construct(TransformerId $id, string $name, string $key)

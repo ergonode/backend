@@ -12,13 +12,9 @@ use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeNodeFormModel;
 use Ergonode\Core\Domain\Command\CoreCommandInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateLanguageTreeCommand implements CoreCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\LanguageNode")
-     */
     private LanguageNode $languages;
 
     public function __construct(LanguageTreeNodeFormModel $language)

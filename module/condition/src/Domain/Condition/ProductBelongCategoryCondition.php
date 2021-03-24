@@ -10,7 +10,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductBelongCategoryCondition implements ConditionInterface
 {
@@ -22,14 +21,9 @@ class ProductBelongCategoryCondition implements ConditionInterface
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $category;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
     /**
@@ -41,11 +35,6 @@ class ProductBelongCategoryCondition implements ConditionInterface
         $this->operator = $operator;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

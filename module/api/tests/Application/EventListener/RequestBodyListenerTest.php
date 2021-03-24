@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Api\Tests\Application\EventListener;
 
 use Ergonode\Api\Application\EventListener\RequestBodyListener;
-use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,47 +17,31 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class RequestBodyListenerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface|MockObject
-     */
-    private $serializer;
+    private GetResponseEvent $event;
 
-    /**
-     * @var GetResponseEvent|MockObject
-     */
-    private $event;
-
-    /**
-     * @var Request|MockObject
-     */
-    private $request;
+    private Request $request;
 
     protected function setUp(): void
     {
-        $this->serializer = $this->createMock(SerializerInterface::class);
         $this->event = $this->createMock(GetResponseEvent::class);
         $this->request = $this->createMock(Request::class);
     }
 
     /**
-     * @param array $deserialize
-     *
      * @dataProvider dataProviderHappy
      */
     public function testInvokeHappy(
         string $contentType,
         string $method,
         string $content,
-        array $deserialize,
         string $expected
     ): void {
         $this->event->expects($this->once())->method('getRequest')->willReturn($this->request);
         $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
         $this->request->expects($this->once())->method('getMethod')->willReturn($method);
         $this->request->expects($this->once())->method('getContent')->willReturn($content);
-        $this->serializer->expects($this->once())->method('deserialize')->willReturn($deserialize);
 
-        $listener = new RequestBodyListener($this->serializer);
+        $listener = new RequestBodyListener();
         $listener($this->event);
         $this->assertInstanceOf($expected, $this->request->request);
     }
@@ -81,12 +63,6 @@ class RequestBodyListenerTest extends TestCase
     }
   ]
 }',
-                'deserialize' => [
-                    "collection" => [
-                        "code" => "EN",
-                        "active" => true,
-                    ],
-                ],
                 'expected' => ParameterBag::class,
             ],
         ];
@@ -104,9 +80,8 @@ class RequestBodyListenerTest extends TestCase
         $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
         $this->request->expects($this->once())->method('getMethod')->willReturn($method);
         $this->request->expects($this->once())->method('getContent')->willReturn($content);
-        $this->serializer->expects($this->never())->method('deserialize');
 
-        $listener = new RequestBodyListener($this->serializer);
+        $listener = new RequestBodyListener();
         $listener($this->event);
     }
 

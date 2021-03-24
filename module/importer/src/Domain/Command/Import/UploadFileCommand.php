@@ -12,22 +12,12 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 
 class UploadFileCommand implements ImporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
-     */
     private ImportId $id;
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $sourceId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $fileName;
 
     public function __construct(ImportId $id, SourceId $sourceId, string $fileName)

@@ -9,15 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
-
 class JoinConverter implements ConverterInterface
 {
     public const TYPE = 'join';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $pattern;
 
     public function __construct(string $pattern)

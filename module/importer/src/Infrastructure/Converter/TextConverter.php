@@ -9,15 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
-
 class TextConverter implements ConverterInterface
 {
     public const TYPE = 'text';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     public function __construct(string $field)

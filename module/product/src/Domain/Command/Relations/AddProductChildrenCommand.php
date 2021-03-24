@@ -11,20 +11,14 @@ namespace Ergonode\Product\Domain\Command\Relations;
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class AddProductChildrenCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**
      * @var ProductId[] $children
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductId>")
      */
     private array $children;
 

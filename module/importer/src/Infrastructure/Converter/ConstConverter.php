@@ -9,15 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
-
 class ConstConverter implements ConverterInterface
 {
     public const TYPE = 'const';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $value)

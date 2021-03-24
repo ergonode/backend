@@ -18,7 +18,6 @@ class Shopware6Media
     private ?string $id;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("fileName")
      */
     protected ?string $fileName;

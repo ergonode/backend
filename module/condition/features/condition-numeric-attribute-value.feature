@@ -63,7 +63,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "@attribute_id@",
-              "value": 100
+              "value": 100.0
             }
           ]
         }
@@ -80,7 +80,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "abc",
-              "value": 100
+              "value": 100.0
             }
           ]
         }
@@ -110,7 +110,7 @@ Feature: Condition Product sku exists
             {
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@attribute_id@",
-              "value": 100
+              "value": 100.0
             }
           ]
         }
@@ -141,7 +141,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "@text_attribute_id@",
-              "value": 100
+              "value": 100.0
             }
           ]
         }
@@ -167,7 +167,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@attribute_id@",
               "operator": "<>",
-              "value": 200
+              "value": 200.0
             }
          ]
       }
@@ -193,7 +193,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "abc",
               "operator": "=",
-              "value": 123
+              "value": 123.0
             }
          ]
       }
@@ -209,7 +209,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@text_attribute_id@",
               "operator": "=",
-              "value": 123
+              "value": 123.0
             }
          ]
       }
@@ -239,7 +239,7 @@ Feature: Condition Product sku exists
             {
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@condition_text_attribute@",
-              "value": 123
+              "value": 123.0
             }
          ]
       }
@@ -255,7 +255,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@condition_text_attribute@",
               "operator": "123",
-              "value": 123
+              "value": 123.0
             }
          ]
       }
@@ -270,7 +270,7 @@ Feature: Condition Product sku exists
             {
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
-              "value": 123
+              "value": 123.0
             }
          ]
       }
@@ -286,7 +286,7 @@ Feature: Condition Product sku exists
               "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@@static_uuid@@",
               "operator": "=",
-              "value": 123
+              "value": 123.0
             }
          ]
       }

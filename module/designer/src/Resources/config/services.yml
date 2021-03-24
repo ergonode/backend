@@ -27,15 +27,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
-    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Designer\Domain\Entity\Element\UiTemplateElement']]
-            - ['set', ['Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement']]
-
     Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\EventStoreTemplateRepository'
     Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\EventStoreTemplateGroupRepository'
     Ergonode\Designer\Domain\Query\TemplateElementGridQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementGridQuery'

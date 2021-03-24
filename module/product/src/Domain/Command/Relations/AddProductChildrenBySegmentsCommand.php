@@ -10,7 +10,6 @@ namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
@@ -18,15 +17,10 @@ use Webmozart\Assert\Assert;
 
 class AddProductChildrenBySegmentsCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**
      * @var SegmentId[] $segmentId
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\SegmentId>")
      */
     private array $segments;
 

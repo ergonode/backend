@@ -9,22 +9,16 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Converter;
 
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class MappingConverter implements ConverterInterface
 {
     public const TYPE = 'mapping';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $field;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, string>")
+     * @var string[]
      */
     private array $map;
 

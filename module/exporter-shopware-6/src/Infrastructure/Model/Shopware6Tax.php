@@ -18,13 +18,11 @@ class Shopware6Tax
     protected ?string $id;
 
     /**
-     * @JMS\Type("float")
      * @JMS\SerializedName("taxRate")
      */
     private ?float $rate;
 
     /**
-     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     private ?string $name;

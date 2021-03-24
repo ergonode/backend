@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class LanguageCompletenessCondition implements ConditionInterface
@@ -25,14 +24,8 @@ class LanguageCompletenessCondition implements ConditionInterface
     public const PRODUCT_TRANSLATION_COMPLETE = 'PRODUCT_TRANSLATION_COMPLETE';
     public const PRODUCT_TRANSLATION_NOT_COMPLETE = 'PRODUCT_TRANSLATION_NOT_COMPLETE';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $completeness;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $language;
 
     public function __construct(string $completeness, Language $language)
@@ -43,11 +36,6 @@ class LanguageCompletenessCondition implements ConditionInterface
         $this->language = $language;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;
