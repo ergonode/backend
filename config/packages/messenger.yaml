@@ -33,10 +33,6 @@ ergonode_category:
     messenger:
         transport_name: 'core'
 
-ergonode_completeness:
-    messenger:
-        transport_name: 'completeness'
-
 ergonode_designer:
     messenger:
         transport_name: 'core'

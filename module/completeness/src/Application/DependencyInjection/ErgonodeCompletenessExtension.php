@@ -42,19 +42,6 @@ class ErgonodeCompletenessExtension extends Extension implements PrependExtensio
 
     private function prependMessenger(ContainerBuilder $container): void
     {
-        $configs = $container->getExtensionConfig($this->getAlias());
-        $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
-
-        if (!$this->isConfigEnabled($container, $config['messenger'])) {
-            return;
-        }
-
-        $container->setParameter(
-            'ergonode.completeness.messenger_transport_name',
-            $config['messenger']['transport_name'],
-        );
-
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('messenger.yaml');
