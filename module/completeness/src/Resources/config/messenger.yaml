@@ -3,4 +3,4 @@ framework:
         transports:
             completeness: "completeness://"
         routing:
-            Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand: '%ergonode.completeness.messenger_transport_name%'
+            Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand: 'completeness'

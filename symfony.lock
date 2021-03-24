@@ -246,6 +246,9 @@
     "limenius/liform-bundle": {
         "version": "v0.15.0"
     },
+    "malukenho/docheader": {
+        "version": "0.1.8"
+    },
     "moneyphp/money": {
         "version": "v3.1.3"
     },

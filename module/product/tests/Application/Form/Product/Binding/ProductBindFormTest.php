@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Application\Form\Product\Binding;
 
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
@@ -16,14 +17,15 @@ class ProductBindFormTest extends TypeTestCase
 {
     public function testSubmitValidData(): void
     {
+        $product = $this->createMock(AbstractProduct::class);
         $formData = [
             'bind_id' => '78750d71-b5d4-4e5b-a9df-25ff619e2148',
         ];
 
-        $object = new ProductBindFormModel();
+        $object = new ProductBindFormModel($product);
         $object->bindId = '78750d71-b5d4-4e5b-a9df-25ff619e2148';
 
-        $objectToCompare = new ProductBindFormModel();
+        $objectToCompare = new ProductBindFormModel($product);
         $form = $this->factory->create(ProductBindForm::class, $objectToCompare);
         $form->submit($formData);
 

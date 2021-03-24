@@ -31,6 +31,11 @@ services:
             $factory: '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
             $count: '@Ergonode\BatchAction\Domain\Count\CountInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\Notification\BatchActionNotificationAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
+            
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
             $forms: !tagged_iterator 'ergonode.batch_action.form_provider'
