@@ -28,7 +28,7 @@ class AttributeIdArrayNormalizer implements
     /**
      * @var ContextAwareDenormalizerInterface;
      */
-    protected $denormalizer;
+    protected ContextAwareDenormalizerInterface $denormalizer;
 
     /**
      * {@inheritdoc}
