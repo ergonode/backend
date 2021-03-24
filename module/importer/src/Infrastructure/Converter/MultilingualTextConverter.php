@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Converter;
 
 class MultilingualTextConverter implements ConverterInterface
 {
-    public const TYPE = 'multilingual_text';
-
     /**
      * @var string[]
      */
@@ -24,16 +22,6 @@ class MultilingualTextConverter implements ConverterInterface
     public function __construct(array $fields)
     {
         $this->fields = $fields;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     /**

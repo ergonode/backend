@@ -22,16 +22,6 @@ class StringOption implements OptionInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
     public function getValue(): string
     {
         return $this->value;

@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Converter;
 
 class DateConverter implements ConverterInterface
 {
-    public const TYPE = 'date';
-
     private string $field;
 
     private string $format;
@@ -22,16 +20,6 @@ class DateConverter implements ConverterInterface
     {
         $this->field = $field;
         $this->format = $format;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     public function getField(): string

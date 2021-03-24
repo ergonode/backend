@@ -13,8 +13,6 @@ use Webmozart\Assert\Assert;
 
 class MappingConverter implements ConverterInterface
 {
-    public const TYPE = 'mapping';
-
     private string $field;
 
     /**
@@ -31,16 +29,6 @@ class MappingConverter implements ConverterInterface
 
         $this->map = $map;
         $this->field = $field;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     public function getField(): string

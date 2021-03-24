@@ -11,5 +11,4 @@ namespace Ergonode\Importer\Infrastructure\Converter;
 
 interface ConverterInterface
 {
-    public function getType(): string;
 }

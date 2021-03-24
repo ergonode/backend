@@ -11,23 +11,11 @@ namespace Ergonode\Importer\Infrastructure\Converter;
 
 class TextConverter implements ConverterInterface
 {
-    public const TYPE = 'text';
-
     private string $field;
 
     public function __construct(string $field)
     {
         $this->field = $field;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     public function getField(): string
