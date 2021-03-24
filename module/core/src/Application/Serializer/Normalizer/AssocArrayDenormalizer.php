@@ -31,10 +31,10 @@ class AssocArrayDenormalizer implements
 
     public function __construct(array $supportedTypes)
     {
-        $this->supportedTypes = array_map(
-            fn (string $type) => trim($type, '\\'),
-            $supportedTypes,
-        );
+        $this->supportedTypes = [];
+        foreach ($supportedTypes as $supportedType) {
+            $this->supportedTypes[trim($supportedType, '\\')] = true;
+        }
     }
 
     /**
