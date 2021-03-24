@@ -25,7 +25,7 @@ class LanguageArrayNormalizer implements
     CacheableSupportsMethodInterface
 {
     /**
-     * @var SerializerInterface|DenormalizerInterface
+     * @var SerializerInterface|ContextAwareDenormalizerInterface
      */
     private $serializer;
 
@@ -76,8 +76,8 @@ class LanguageArrayNormalizer implements
      */
     public function setSerializer(SerializerInterface $serializer)
     {
-        if (!$serializer instanceof DenormalizerInterface) {
-            throw new InvalidArgumentException('Expected  implement DenormalizerInterface.');
+        if (!$serializer instanceof ContextAwareDenormalizerInterface) {
+            throw new InvalidArgumentException('Expected  implement ContextAwareDenormalizerInterface.');
         }
 
         $this->serializer = $serializer;

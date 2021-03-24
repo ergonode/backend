@@ -12,22 +12,23 @@ namespace Ergonode\Attribute\Application\Serializer\Normalizer;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class AttributeIdArrayNormalizer implements
     ContextAwareDenormalizerInterface,
-    SerializerAwareInterface,
+    DenormalizerAwareInterface,
     CacheableSupportsMethodInterface
 {
+    use DenormalizerAwareTrait;
+
     /**
-     * @var SerializerInterface|DenormalizerInterface
+     * @var ContextAwareDenormalizerInterface;
      */
-    private $serializer;
+    protected $denormalizer;
 
     /**
      * {@inheritdoc}
@@ -36,8 +37,8 @@ class AttributeIdArrayNormalizer implements
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        if (null === $this->serializer) {
-            throw new BadMethodCallException('Please set a serializer before calling denormalize()!');
+        if (null === $this->denormalizer) {
+            throw new BadMethodCallException('Please set a denormalizer before calling denormalize()!');
         }
         if (!\is_array($data)) {
             throw new InvalidArgumentException(sprintf('Expected type array, %s given.', \gettype($data)));
@@ -46,11 +47,11 @@ class AttributeIdArrayNormalizer implements
             throw new InvalidArgumentException(sprintf('Unsupported class: %s', $type));
         }
 
-        $serializer = $this->serializer;
+        $denormalizer = $this->denormalizer;
         $type = substr($type, 0, -2);
 
         foreach ($data as $key => $value) {
-            $data[$key] = $serializer->denormalize($value, $type, $format, $context);
+            $data[$key] = $denormalizer->denormalize($value, $type, $format, $context);
         }
 
         return $data;
@@ -61,26 +62,14 @@ class AttributeIdArrayNormalizer implements
      */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        if (null === $this->serializer) {
+        if (null === $this->denormalizer) {
             throw new BadMethodCallException(
-                sprintf('The serializer needs to be set to allow "%s()" to be used.', __METHOD__)
+                sprintf('The denormalizer needs to be set to allow "%s()" to be used.', __METHOD__)
             );
         }
 
         return AttributeId::class.'[]' === $type
-            && $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setSerializer(SerializerInterface $serializer)
-    {
-        if (!$serializer instanceof DenormalizerInterface) {
-            throw new InvalidArgumentException('Expected  implement DenormalizerInterface.');
-        }
-
-        $this->serializer = $serializer;
+            && $this->denormalizer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
     }
 
     /**
@@ -88,7 +77,7 @@ class AttributeIdArrayNormalizer implements
      */
     public function hasCacheableSupportsMethod(): bool
     {
-        return $this->serializer instanceof CacheableSupportsMethodInterface
-            && $this->serializer->hasCacheableSupportsMethod();
+        return $this->denormalizer instanceof CacheableSupportsMethodInterface
+            && $this->denormalizer->hasCacheableSupportsMethod();
     }
 }
