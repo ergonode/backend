@@ -12,7 +12,6 @@ namespace Ergonode\Core\Application\Serializer\Normalizer;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
@@ -25,7 +24,7 @@ class LanguageArrayNormalizer implements
     CacheableSupportsMethodInterface
 {
     /**
-     * @var SerializerInterface|DenormalizerInterface
+     * @var SerializerInterface|ContextAwareDenormalizerInterface
      */
     private $serializer;
 
@@ -76,8 +75,8 @@ class LanguageArrayNormalizer implements
      */
     public function setSerializer(SerializerInterface $serializer)
     {
-        if (!$serializer instanceof DenormalizerInterface) {
-            throw new InvalidArgumentException('Expected  implement DenormalizerInterface.');
+        if (!$serializer instanceof ContextAwareDenormalizerInterface) {
+            throw new InvalidArgumentException('Expected  implement ContextAwareDenormalizerInterface.');
         }
 
         $this->serializer = $serializer;

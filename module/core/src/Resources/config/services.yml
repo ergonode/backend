@@ -75,6 +75,9 @@ services:
     Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
     Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
 
+    Ergonode\Core\Application\Serializer\Normalizer\EntityNormalizer:
+        $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+
     Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
         $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
 
