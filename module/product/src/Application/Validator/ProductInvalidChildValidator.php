@@ -61,9 +61,7 @@ class ProductInvalidChildValidator extends ConstraintValidator
 
         $bindings = $variableProduct->getBindings();
 
-        $bindingsValues = array_map(static function ($attributeId) {
-            return $attributeId->getValue();
-        }, $bindings);
+        $bindingsValues = array_map(fn ($attributeId) => $attributeId->getValue(), $bindings);
 
         $attributeIds = $this->query->findAttributeIdsByProductId(new ProductId($value->childId));
 

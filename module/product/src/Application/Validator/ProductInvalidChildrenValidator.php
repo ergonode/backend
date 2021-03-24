@@ -62,9 +62,7 @@ class ProductInvalidChildrenValidator extends ConstraintValidator
             $attributeIds = $this->query->findAttributeIdsBySku(new SkuObject($sku));
         }
 
-        $attributeIdsValues = array_map(static function ($attributeId) {
-            return $attributeId->getValue();
-        }, $attributeIds);
+        $attributeIdsValues = array_map(fn ($attributeId) => $attributeId->getValue(), $attributeIds);
 
         if (empty(array_intersect($bindingsValues, $attributeIdsValues))) {
             $this->context->buildViolation($constraint->message)
