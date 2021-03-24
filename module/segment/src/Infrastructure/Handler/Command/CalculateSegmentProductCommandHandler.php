@@ -12,12 +12,12 @@ namespace Ergonode\Segment\Infrastructure\Handler\Command;
 use Ergonode\Condition\Domain\Service\ConditionCalculator;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
-use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Webmozart\Assert\Assert;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
+use Ergonode\Segment\Domain\Command\CalculateSegmentProductCommand;
 
-class CalculateProductInSegmentCommandHandler
+class CalculateSegmentProductCommandHandler
 {
     private ConditionCalculator $calculator;
 
@@ -46,7 +46,7 @@ class CalculateProductInSegmentCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CalculateProductInSegmentCommand $command): void
+    public function __invoke(CalculateSegmentProductCommand $command): void
     {
         $productId = $command->getProductId();
         $segmentId = $command->getSegmentId();

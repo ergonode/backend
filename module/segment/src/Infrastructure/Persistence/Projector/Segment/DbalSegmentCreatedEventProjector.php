@@ -43,5 +43,10 @@ class DbalSegmentCreatedEventProjector
                 'condition_set_id' => $event->getConditionSetId() ? $event->getConditionSetId()->getValue() : null,
             ]
         );
+
+        $this->connection->executeQuery(
+            'INSERT INTO segment_product (segment_id, product_id) SELECT ?, id FROM product',
+            [$event->getAggregateId()->getValue()]
+        );
     }
 }

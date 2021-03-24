@@ -8,11 +8,13 @@ framework:
             messenger.bus.sync:
                 default_middleware: false
                 middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
                     - 'Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware'
                     - 'handle_message'
             messenger.bus.async:
                 default_middleware: false
                 middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
                     - 'Ergonode\Authentication\Application\Middleware\GetUserMiddleware'
                     - 'send_message'
                     - 'handle_message'
@@ -21,7 +23,7 @@ framework:
             import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
             export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
             core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
-            segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
+            segment: "segment://"
             notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
             batch_action: "%env(MESSENGER_TRANSPORT_BATCH_ACTION_DSN)%"
 
