@@ -33,6 +33,9 @@ final class Configuration implements ConfigurationInterface
                             More frequent snapshots slow persist operations but make the read operations faster.'
                         )
                     ->end()
+                    ->scalarNode('aggregate_root_cache')
+                        ->info('Cache service id implementing `\Symfony\Component\Cache\Adapter\AdapterInterface`')
+                    ->end()
                 ->end()
             ->end();
 
