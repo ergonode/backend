@@ -18,21 +18,6 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('ergonode_completeness');
 
-        /** @phpstan-ignore-next-line */
-        $treeBuilder
-            ->getRootNode()
-                ->children()
-                    ->arrayNode('messenger')
-                        ->canBeDisabled()
-                        ->children()
-                            ->scalarNode('transport_name')
-                                ->defaultValue('completeness')
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-
         return $treeBuilder;
     }
 }
