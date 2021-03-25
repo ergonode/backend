@@ -48,10 +48,10 @@ class ImportProductAttributeBuilder
             $code = new AttributeCode($code);
             $id = $this->attributeQuery->findAttributeIdByCode($code);
             if (null === $id) {
-                throw new ImportException('Missing {code} attribute.', ['{code}' => $code]);
+                throw new ImportException('Missing {code} attribute.', ['{code}' => $code->getValue()]);
             }
             $type = $this->attributeQuery->findAttributeType($id);
-            Assert::notNull($type, sprintf('Attribute type %s not exists', $code));
+            Assert::notNull($type, sprintf('Attribute type %s not exists', $code->getValue()));
 
             $result[$code->getValue()] = null;
 

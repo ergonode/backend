@@ -9,24 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
+use Ergonode\Segment\Infrastructure\Persistence\Projector\AbstractDbalSegmentUpdateEventProjector;
 
-class DbalSegmentConditionSetChangedEventProjector
+class DbalSegmentConditionSetChangedEventProjector extends AbstractDbalSegmentUpdateEventProjector
 {
     private const TABLE = 'segment';
 
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
-
-    /**
-     * @throws DBALException
-     */
     public function __invoke(SegmentConditionSetChangedEvent $event): void
     {
         $this->connection->update(
@@ -38,5 +27,7 @@ class DbalSegmentConditionSetChangedEventProjector
                 'id' => $event->getAggregateId()->getValue(),
             ]
         );
+
+        $this->update($event->getAggregateId());
     }
 }

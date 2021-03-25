@@ -49,6 +49,19 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create second select attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "SELECT_BIND_@@random_code@@",
+          "type": "SELECT",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id_2"
+
   Scenario: Create simple product 1
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
@@ -184,6 +197,19 @@ Feature: Variable product
       }
       """
     Then the response status code should be 204
+
+  Scenario: Add bind attribute to product with children
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@attribute_id_2@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Remove bind attribute from product with children
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/binding/@attribute_id@"
+    Then the response status code should be 400
 
   Scenario: Add parent as children product
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:

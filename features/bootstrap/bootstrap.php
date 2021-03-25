@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 use Symfony\Component\Dotenv\Dotenv;
 
 // The check is to ensure we don't use .env in production

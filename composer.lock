@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "628e102fe3446cb2c2cb65fb207f9b50",
+    "content-hash": "6b567a2d1816bc09d83a4b12cb45ce44",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -11001,6 +11001,62 @@
                 "source": "https://github.com/justinrainbow/json-schema/tree/5.2.9"
             },
             "time": "2019-09-25T14:49:45+00:00"
+        },
+        {
+            "name": "malukenho/docheader",
+            "version": "0.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/malukenho/docheader.git",
+                "reference": "a15c22ba8a44add72a2b2bca5e40af244a53497c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/malukenho/docheader/zipball/a15c22ba8a44add72a2b2bca5e40af244a53497c",
+                "reference": "a15c22ba8a44add72a2b2bca5e40af244a53497c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 | ^8.0",
+                "symfony/console": "^3.0 || ^4.0 || ^5.0",
+                "symfony/finder": "^3.0 || ^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^6.0",
+                "phpunit/phpunit": "^7.0 || ^8.0",
+                "vimeo/psalm": "^3.3"
+            },
+            "bin": [
+                "bin/docheader"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DocHeader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jefersson Nathan",
+                    "email": "malukenho.dev@gmail.com"
+                }
+            ],
+            "description": "A small library to check header docs",
+            "homepage": "https://github.com/malukenho/docheader",
+            "keywords": [
+                "Code style",
+                "code standard",
+                "license"
+            ],
+            "support": {
+                "issues": "https://github.com/malukenho/docheader/issues",
+                "source": "https://github.com/malukenho/docheader/tree/master"
+            },
+            "time": "2019-11-22T07:32:36+00:00"
         },
         {
             "name": "myclabs/deep-copy",
