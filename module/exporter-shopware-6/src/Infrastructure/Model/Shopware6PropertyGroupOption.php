@@ -100,17 +100,18 @@ class Shopware6PropertyGroupOption implements \JsonSerializable
     public function jsonSerialize(): array
     {
         $data = [
-            'name' => $this->name
+            'name' => $this->name,
         ];
         if ($this->mediaId) {
             $data['mediaId'] = $this->mediaId;
         }
-        if ($this->position) {
+        if (is_numeric($this->position)) {
             $data['position'] = $this->position;
         }
         if ($this->translations) {
             $data['translations'] = $this->translations;
         }
+
         return $data;
     }
 }
