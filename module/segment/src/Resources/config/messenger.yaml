@@ -1,6 +1,6 @@
 framework:
     messenger:
+        transports:
+            segment: "segment://"
         routing:
-            Ergonode\Segment\Domain\Command\CalculateProductCommand: '%ergonode.segment.messenger_transport_name%'
-            Ergonode\Segment\Domain\Command\CalculateSegmentCommand: '%ergonode.segment.messenger_transport_name%'
-            Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand: '%ergonode.segment.messenger_transport_name%'
+            Ergonode\Segment\Domain\Command\CalculateSegmentProductCommand: 'segment'

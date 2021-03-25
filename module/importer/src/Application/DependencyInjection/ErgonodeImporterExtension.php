@@ -26,12 +26,6 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ConverterCompilerPass;
-use Ergonode\Importer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
-use Ergonode\Importer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
-use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
 
 class ErgonodeImporterExtension extends Extension implements PrependExtensionInterface
 {
@@ -67,18 +61,6 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(SourceImportProcessorInterface::class)
             ->addTag(ServiceImportCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(ConverterMapperInterface::class)
-            ->addTag(ConverterMapperCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(TransformerGeneratorStrategyInterface::class)
-            ->addTag(TransformerGeneratorProviderStrategyCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(ConverterInterface::class)
-            ->addTag(ConverterCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(ImportProductAttributeStrategyInterface::class)

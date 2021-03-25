@@ -63,6 +63,8 @@ class ExporterFileConfigurationForm extends AbstractType
                     'label' => 'Export type',
                     'choices' => $exportType,
                     'property_path' => 'exportType',
+                    'help' => 'Option "incremental" works only within the context of products. '
+                        .'Once you edit or add new products only those changes will appear in the export.',
                 ]
             )
             ->add(

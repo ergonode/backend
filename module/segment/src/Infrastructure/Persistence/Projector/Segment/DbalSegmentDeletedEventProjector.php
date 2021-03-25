@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 
 class DbalSegmentDeletedEventProjector
@@ -25,9 +24,6 @@ class DbalSegmentDeletedEventProjector
         $this->connection = $connection;
     }
 
-    /**
-     * @throws DBALException
-     */
     public function __invoke(SegmentDeletedEvent $event): void
     {
         $this->connection->delete(
