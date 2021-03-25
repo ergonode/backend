@@ -78,7 +78,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                             when (select count(*)
                                                   from batch_action_entry
                                                   where batch_action_id = ba.id 
-                                                    and success is not null ) = 0 then \'ENDED\'
+                                                    and success is null ) = 0 then \'ENDED\'
                                             else \'PRECESSED\' end) as status)')
             ->addSelect('created_at as started_at')
             ->addSelect('(select MAX(processed_at)
