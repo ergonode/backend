@@ -14,23 +14,11 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class MultilingualOption implements OptionInterface
 {
-    public const TYPE = 'translation';
-
     private TranslatableString $value;
 
     public function __construct(TranslatableString $value)
     {
         $this->value = $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     public function getValue(): TranslatableString

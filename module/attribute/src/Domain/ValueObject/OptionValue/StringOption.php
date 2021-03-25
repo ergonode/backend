@@ -13,23 +13,11 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 
 class StringOption implements OptionInterface
 {
-    public const TYPE = 'string';
-
     private string $value;
 
     public function __construct(string $value)
     {
         $this->value = $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     public function getValue(): string
