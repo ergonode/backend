@@ -44,8 +44,6 @@ services:
         arguments:
             $targetDirectory: '%import_directory%'
 
-    Ergonode\Importer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Importer\Infrastructure\Persistence\Repository\EventStoreTransformerRepository'
-
     Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder:
         arguments:
             $strategies: !tagged_iterator ergonode.importer.attribute_strategy
