@@ -76,10 +76,16 @@ services:
     Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
 
     Ergonode\Core\Application\Serializer\Normalizer\EntityNormalizer:
-        $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        arguments:
+            $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        tags:
+            - { name: 'serializer.normalizer', priority: -100 }
 
     Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
-        $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        arguments:
+            $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        tags:
+            - {name: 'serializer.normalizer', priority: -100}
 
     Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer:
         arguments:

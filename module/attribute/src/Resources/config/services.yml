@@ -64,3 +64,6 @@ services:
         arguments:
             $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
 
+    Ergonode\Attribute\Application\Serializer\Normalizer\AttributeNormalizer:
+        tags:
+            - {name: 'serializer.normalizer', priority: -10}
