@@ -10,20 +10,10 @@ namespace Ergonode\Completeness\Domain\Calculator;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-use JMS\Serializer\Annotation as JMS;
-
 class CompletenessCalculatorLine
 {
     private AttributeId $id;
-
-    /**
-     * @JMS\Exclude()
-     */
     private bool $required;
-
-    /**
-     * @JMS\Exclude()
-     */
     private bool $filled;
 
     public function __construct(AttributeId $id, bool $required, bool $filled)

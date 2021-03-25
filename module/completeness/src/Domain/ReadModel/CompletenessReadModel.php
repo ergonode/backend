@@ -55,7 +55,7 @@ class CompletenessReadModel
     }
 
     /**
-     * @return array
+     * @return CompletenessElementReadModel[]
      */
     public function getMissing(): array
     {
@@ -67,9 +67,6 @@ class CompletenessReadModel
         return $this->language;
     }
 
-    /**
-     * @JMS\VirtualProperty(name="percent")
-     */
     public function getPercent(): float
     {
         return $this->required ? round($this->filled/ $this->required * 100, 2) : 100;
