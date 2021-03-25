@@ -3,6 +3,7 @@
 - feature [#1318](https://github.com/ergonode/backend/issues/1318) Remove legacy Transformer Aggregate class (rprzedzik) 
 - refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
 - refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
+- refactor [#1321](https://github.com/ergonode/backend/issues/1321) Segment calculation refactoring  (rprzedzik)
 - bugfix [#1268](https://github.com/ergonode/backend/issues/1268) Export Shopware6 Configuration Segment list  (wfajczyk)
 - feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
 - bugfix [#1273](https://github.com/ergonode/backend/issues/1273) Validation of Batch Action Type(wfajczyk)
