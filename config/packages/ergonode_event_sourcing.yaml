@@ -1,2 +1,3 @@
 ergonode_event_sourcing:
   snapshot_frequency: 1
+  aggregate_root_cache: aggregate.cache
