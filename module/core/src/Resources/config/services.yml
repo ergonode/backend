@@ -96,3 +96,15 @@ services:
 
     Ergonode\Core\Application\Serializer\SymfonySerializer:
         $serializer: '@serializer'
+
+    Ergonode\Core\Application\Serializer\Normalizer\AssocArrayDenormalizer:
+        $supportedTypes:
+            - Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId
+            - Ergonode\Core\Domain\ValueObject\LanguagePrivileges
+            - Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement
+            - Ergonode\SharedKernel\Domain\Aggregate\StatusId
+            - Ergonode\Workflow\Domain\Entity\Transition
+            - Ergonode\Value\Domain\ValueObject\ValueInterface
+            - Ergonode\SharedKernel\Domain\Aggregate\AttributeId
+            - Ergonode\Core\Domain\ValueObject\Language
+            - Ergonode\Core\Domain\ValueObject\TranslatableString
