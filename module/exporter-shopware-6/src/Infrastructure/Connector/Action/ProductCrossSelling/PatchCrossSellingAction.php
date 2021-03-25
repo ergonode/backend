@@ -12,7 +12,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use GuzzleHttp\Psr7\Request;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PatchCrossSellingAction extends AbstractAction implements ActionInterface
@@ -46,9 +45,7 @@ class PatchCrossSellingAction extends AbstractAction implements ActionInterface
 
     private function buildBody(): string
     {
-        $serializer = SerializerBuilder::create()->build();
-
-        return $serializer->serialize($this->productCrossSelling, 'json');
+        return json_encode($this->productCrossSelling->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 
     private function getUri(): string

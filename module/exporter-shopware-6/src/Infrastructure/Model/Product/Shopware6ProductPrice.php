@@ -8,26 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
-class Shopware6ProductPrice
+class Shopware6ProductPrice implements \JsonSerializable
 {
-    /**
-     * @JMS\SerializedName("currencyId")
-     */
     private string $currencyId;
 
-    /**
-     * @JMS\SerializedName("net")
-     */
     private float $net;
 
-    /**
-     * @JMS\SerializedName("gross")
-     */
     private float $gross;
 
-    /**
-     * @JMS\SerializedName("linked")
-     */
     private bool $linked;
 
     public function __construct(string $currencyId, float $net, float $gross, bool $linked = false)
@@ -83,5 +71,15 @@ class Shopware6ProductPrice
         return $price->getCurrencyId() === $this->currencyId
             && $price->getNet() === $this->net
             && $price->getGross() === $this->gross;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'currencyId' => $this->currencyId,
+            'net' => $this->net,
+            'gross' => $this->gross,
+            'linked' => $this->linked,
+        ];
     }
 }

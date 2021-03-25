@@ -8,38 +8,18 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6Category
+class Shopware6Category implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     private ?string $id;
 
-    /**
-     * @JMS\SerializedName("name")
-     */
     private ?string $name;
 
-    /**
-     * @JMS\SerializedName("parentId")
-     */
     private ?string $parentId;
 
-    /**
-     * @JMS\SerializedName("active")
-     */
     private bool $active;
 
-    /**
-     * @JMS\SerializedName("visible")
-     */
     private bool $visible;
 
-    /**
-     * @JMS\Exclude()
-     */
     private bool $modified = false;
 
     public function __construct(
@@ -116,5 +96,20 @@ class Shopware6Category
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data =
+            [
+                'name' => $this->name,
+                'active' => $this->active,
+                'visible' => $this->visible,
+            ];
+        if ($this->parentId) {
+            $data['parentId'] = $this->parentId;
+        }
+
+        return $data;
     }
 }

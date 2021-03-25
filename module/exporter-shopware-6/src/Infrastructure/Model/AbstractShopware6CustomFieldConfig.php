@@ -8,33 +8,16 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-abstract class AbstractShopware6CustomFieldConfig
+abstract class AbstractShopware6CustomFieldConfig implements \JsonSerializable
 {
-    /**
-     * @JMS\SerializedName("type")
-     */
     protected ?string $type;
 
-    /**
-     * @JMS\SerializedName("customFieldType")
-     */
     protected ?string $customFieldType;
 
-    /**
-     * @JMS\SerializedName("label")
-     */
     protected ?array $label;
 
-    /**
-     * @JMS\SerializedName("componentName")
-     */
     protected ?string $componentName;
 
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
     public function __construct(
@@ -110,5 +93,21 @@ abstract class AbstractShopware6CustomFieldConfig
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'type' => $this->type,
+            'customFieldType' => $this->customFieldType,
+        ];
+        if ($this->label) {
+            $data['label'] = $this->label;
+        }
+        if ($this->componentName) {
+            $data['componentName'] = $this->componentName;
+        }
+
+        return $data;
     }
 }

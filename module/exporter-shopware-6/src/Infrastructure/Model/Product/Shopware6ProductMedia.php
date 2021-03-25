@@ -8,21 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
-class Shopware6ProductMedia
+class Shopware6ProductMedia implements \JsonSerializable
 {
-    /**
-     * @JMS\SerializedName("id")
-     */
     private ?string $id;
 
-    /**
-     * @JMS\SerializedName("mediaId")
-     */
     private ?string $mediaId;
 
-    /**
-     * @JMS\SerializedName("position")
-     */
     private int $position;
 
     public function __construct(?string $id = null, ?string $mediaId = null, int $position = 1)
@@ -55,5 +46,21 @@ class Shopware6ProductMedia
     public function setPosition(int $position): void
     {
         $this->position = $position;
+    }
+
+    public function jsonSerialize(): array
+    {
+        if ($this->id) {
+            return [
+                'id' => $this->id,
+                'mediaId' => $this->mediaId,
+                'position' => $this->position,
+            ];
+        }
+
+        return [
+            'mediaId' => $this->mediaId,
+            'position' => $this->position,
+        ];
     }
 }

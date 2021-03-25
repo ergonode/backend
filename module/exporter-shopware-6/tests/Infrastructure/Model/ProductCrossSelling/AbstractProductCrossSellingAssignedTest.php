@@ -19,11 +19,14 @@ class AbstractProductCrossSellingAssignedTest extends TestCase
 
     private int $position;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->productId = 'any_product_id';
         $this->position = 5;
+        $this->json = '{"id":"any_id","productId":"any_product_id","position":5}';
     }
 
     public function testCreateModel(): void
@@ -50,6 +53,13 @@ class AbstractProductCrossSellingAssignedTest extends TestCase
         self::assertEquals($position, $model->getPosition());
 
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = $this->getClass();
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 
     private function getClass(): AbstractAssignedProduct
