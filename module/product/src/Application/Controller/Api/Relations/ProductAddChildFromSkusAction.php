@@ -80,8 +80,12 @@ class ProductAddChildFromSkusAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductChildBySkusFormModel();
-            $form = $this->formFactory->create(ProductChildBySkusForm::class, $model);
+            $model = new ProductChildBySkusFormModel($product);
+            $form = $this->formFactory->create(
+                ProductChildBySkusForm::class,
+                $model,
+                ['validation_groups' => [$product->getType()]]
+            );
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

@@ -1,6 +1,7 @@
 - bugfix [#1305](https://github.com/ergonode/backend/issues/1305) Adding validation for editing binding attributes in variable product.(wiewiurdp)
 - feature [#1283](https://github.com/ergonode/backend/issues/1283) Adding endpoint for status in batch actions  (wiewiurdp)
 - feature [#1318](https://github.com/ergonode/backend/issues/1318) Remove legacy Transformer Aggregate class (rprzedzik) 
+- bugfix [#1299](https://github.com/ergonode/backend/issues/1299) Creating validation for adding simple product to variable product (wiewiurdp)
 - refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
 - refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
 - refactor [#1321](https://github.com/ergonode/backend/issues/1321) Segment calculation refactoring  (rprzedzik)
