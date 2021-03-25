@@ -10,38 +10,18 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 
-use JMS\Serializer\Annotation as JMS;
-
-class AbstractShopware6CustomField
+class AbstractShopware6CustomField implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     protected ?string $id;
 
-    /**
-     * @JMS\SerializedName("name")
-     */
     protected ?string $name;
 
-    /**
-     * @JMS\SerializedName("type")
-     */
     protected ?string $type;
 
-    /**
-     * @JMS\SerializedName("config")
-     */
     protected ?AbstractShopware6CustomFieldConfig $config;
 
-    /**
-     * @JMS\SerializedName("customFieldSetId")
-     */
     protected ?string $customFieldSetId;
 
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
     public function __construct(
@@ -114,5 +94,20 @@ class AbstractShopware6CustomField
     public function isModified(): bool
     {
         return $this->modified || $this->getConfig()->isModified();
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'name' => $this->name,
+            'type' => $this->type,
+
+            'customFieldSetId' => $this->customFieldSetId,
+        ];
+        if ($this->config) {
+            $data['config'] = $this->config->jsonSerialize();
+        }
+
+        return $data;
     }
 }

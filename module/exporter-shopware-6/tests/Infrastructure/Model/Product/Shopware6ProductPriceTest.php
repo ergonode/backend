@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
+namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use PHPUnit\Framework\TestCase;
@@ -21,12 +21,15 @@ class Shopware6ProductPriceTest extends TestCase
 
     private bool $linked;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->currencyId = 'any_id';
         $this->net = 1.00;
         $this->gross = 1.23;
         $this->linked = true;
+        $this->json = '{"currencyId":"any_id","net":1,"gross":1.23,"linked":true}';
     }
 
     public function testCreateModel(): void
@@ -57,5 +60,12 @@ class Shopware6ProductPriceTest extends TestCase
         self::assertEquals($net, $model->getNet());
         self::assertEquals($gross, $model->getGross());
         self::assertEquals($linked, $model->isLinked());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6ProductPrice($this->currencyId, $this->net, $this->gross, $this->linked);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

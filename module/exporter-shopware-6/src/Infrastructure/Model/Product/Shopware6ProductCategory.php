@@ -8,11 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
-class Shopware6ProductCategory
+class Shopware6ProductCategory implements \JsonSerializable
 {
-    /**
-     * @JMS\SerializedName("id")
-     */
     private ?string $id;
 
     public function __construct(?string $id)
@@ -23,5 +20,10 @@ class Shopware6ProductCategory
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['id' => $this->id];
     }
 }

@@ -12,143 +12,84 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCate
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
-use JMS\Serializer\Annotation as JMS;
 
-class Shopware6Product
+class Shopware6Product implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
+
     private ?string $id;
 
-    /**
-     * @JMS\SerializedName("productNumber")
-     */
     private ?string $sku;
 
-    /**
-     * @JMS\SerializedName("name")
-     */
     private ?string $name;
 
-    /**
-     * @JMS\SerializedName("description")
-     */
     private ?string $description;
 
     /**
      * @var Shopware6ProductCategory[]|null
-     *
-     * @JMS\SerializedName("categories")
      */
     private ?array $categories = null;
 
     /**
      * @var array|null
-     *
-     * @JMS\SerializedName("properties")
      */
     private ?array $properties;
 
     /**
      * @var array|null
-     *
-     * @JMS\SerializedName("customFields")
      */
     private ?array $customFields;
 
-    /**
-     * @JMS\SerializedName("active")
-     */
     private bool $active;
 
-    /**
-     * @JMS\SerializedName("stock")
-     */
     private ?int $stock;
 
-    /**
-     * @JMS\SerializedName("taxId")
-     */
     private ?string $taxId;
 
     /**
      * @var Shopware6ProductPrice[]|null
-     *
-     * @JMS\SerializedName("price")
      */
     private ?array $price;
 
-    /**
-     * @JMS\SerializedName("parentId")
-     */
     private ?string $parentId;
 
     /**
      * @var array|null
-     *
-     * @JMS\SerializedName("options")
      */
     private ?array $options;
 
     /**
      * @var Shopware6ProductMedia[]|null
-     *
-     * @JMS\SerializedName("media")
      */
     private ?array $media = null;
 
     /**
      * @var Shopware6ProductConfiguratorSettings[]|null
-     *
-     * @JMS\SerializedName("configuratorSettings")
      */
     private ?array $configuratorSettings = null;
 
-    /**
-     * @JMS\SerializedName("coverId")
-     */
     private ?string $coverId;
 
-    /**
-     * @JMS\SerializedName("metaTitle")
-     */
     private ?string $metaTitle;
 
-    /**
-     * @JMS\SerializedName("metaDescription")
-     */
     private ?string $metaDescription;
 
-    /**
-     * @JMS\SerializedName("keywords")
-     */
     private ?string $keywords;
 
     /**
      * @var array
-     *
-     * @JMS\Exclude()
      */
     private array $propertyToRemove = [];
 
     /**
      * @var array
-     *
-     * @JMS\Exclude()
      */
     private array $categoryToRemove = [];
 
     /**
      * @var array
-     *
-     * @JMS\Exclude()
      */
     private array $mediaToRemove = [];
 
-    /**
-     * @JMS\Exclude()
-     */
     private bool $modified = false;
 
     /**
@@ -641,6 +582,73 @@ class Shopware6Product
         return count($this->propertyToRemove) > 0
             || count($this->categoryToRemove) > 0
             || count($this->mediaToRemove) > 0;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'productNumber' => $this->sku,
+            'name' => $this->name,
+        ];
+
+        if ($this->description) {
+            $data['description'] = $this->description;
+        }
+        if ($this->categories) {
+            foreach ($this->categories as $category) {
+                $data['categories'][] = $category->jsonSerialize();
+            }
+        }
+        if ($this->properties) {
+            $data['properties'] = $this->properties;
+        }
+        if ($this->customFields) {
+            $data['customFields'] = $this->customFields;
+        }
+
+        $data['active'] = $this->active;
+
+        if ($this->stock) {
+            $data['stock'] = $this->stock;
+        }
+        if ($this->taxId) {
+            $data['taxId'] = $this->taxId;
+        }
+        if ($this->price) {
+            foreach ($this->price as $price) {
+                $data['price'][] = $price->jsonSerialize();
+            }
+        }
+        if ($this->parentId) {
+            $data['parentId'] = $this->parentId;
+        }
+        if ($this->options) {
+            $data['options'] = $this->options;
+        }
+        if ($this->media) {
+            foreach ($this->media as $media) {
+                $data['media'][] = $media->jsonSerialize();
+            }
+        }
+        if ($this->configuratorSettings) {
+            foreach ($this->configuratorSettings as $configuratorSetting) {
+                $data['configuratorSettings'][] = $configuratorSetting->jsonSerialize();
+            }
+        }
+        if ($this->coverId) {
+            $data['coverId'] = $this->coverId;
+        }
+        if ($this->metaTitle) {
+            $data['metaTitle'] = $this->metaTitle;
+        }
+        if ($this->metaDescription) {
+            $data['metaDescription'] = $this->metaDescription;
+        }
+        if ($this->keywords) {
+            $data['keywords'] = $this->keywords;
+        }
+
+        return $data;
     }
 
     /**
