@@ -75,9 +75,10 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
 
         return $qb->select('id')
             ->addSelect('(select (case
-                                            when (select bool_and(success)
+                                            when (select count(*)
                                                   from batch_action_entry
-                                                  where batch_action_id = ba.id) then \'ENDED\'
+                                                  where batch_action_id = ba.id 
+                                                    and success is not null ) = 0 then \'ENDED\'
                                             else \'PRECESSED\' end) as status)')
             ->addSelect('created_at as started_at')
             ->addSelect('(select MAX(processed_at)
@@ -102,6 +103,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                    and fail_reason is not null) as errors')
             ->orderBy('started_at', 'DESC')
             ->from(self::TABLE_BATCH_ACTION, 'ba')
+            ->where('exists(select id from batch_action_entry where batch_action_id=ba.id)')
             ->setMaxResults(self::PROFILE_RESULT)
             ->execute()
             ->fetchAll();
