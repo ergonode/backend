@@ -107,7 +107,7 @@ Feature: Completeness module
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product text value in "en_GB", "pl_PL" and "de_DE" language
+  Scenario: Edit product text value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
