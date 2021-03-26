@@ -30,9 +30,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
-use Ergonode\Product\Application\Event\ProductCreatedEvent;
-use Ergonode\Product\Application\Event\ProductUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class VariableProductImportAction
 {
@@ -52,8 +49,6 @@ class VariableProductImportAction
 
     protected ProductFactoryInterface $productFactory;
 
-    private ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
@@ -62,8 +57,7 @@ class VariableProductImportAction
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory,
-        ApplicationEventBusInterface $eventBus
+        ProductFactoryInterface $productFactory
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
@@ -73,9 +67,18 @@ class VariableProductImportAction
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
         $this->productFactory = $productFactory;
-        $this->eventBus = $eventBus;
     }
 
+    /**
+     * @param array $categories
+     * @param array $bindings
+     * @param array $children
+     * @param array $attributes
+     *
+     * @throws ImportRelatedProductIncorrectTypeException
+     * @throws ImportRelatedProductNotFoundException
+     * @throws \Exception
+     */
     public function action(
         Sku $sku,
         string $template,
@@ -104,9 +107,6 @@ class VariableProductImportAction
                 $categories,
                 $attributes,
             );
-
-            $this->productRepository->save($product);
-            $this->eventBus->dispatch(new ProductCreatedEvent($product));
         } else {
             $product = $this->productRepository->load($productId);
             if (!$product instanceof VariableProduct) {
@@ -117,10 +117,9 @@ class VariableProductImportAction
             $product->changeAttributes($attributes);
             $product->changeBindings($bindings);
             $product->changeChildren($children);
-
-            $this->productRepository->save($product);
-            $this->eventBus->dispatch(new ProductUpdatedEvent($product));
         }
+
+        $this->productRepository->save($product);
 
         return $product;
     }
