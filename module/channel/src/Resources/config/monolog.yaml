@@ -1,9 +1,2 @@
 monolog:
     channels: ['channel']
-    handlers:
-        channel:
-            # log all messages (since debug is the lowest level)
-            level: debug
-            type: stream
-            path: '%kernel.logs_dir%/channel.log'
-            channels: channel

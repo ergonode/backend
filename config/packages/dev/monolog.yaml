@@ -7,6 +7,12 @@ monolog:
             type: stream
             path: '%kernel.logs_dir%/import.log'
             channels: import
+        channel:
+            # log all messages (since debug is the lowest level)
+            level: debug
+            type: stream
+            path: '%kernel.logs_dir%/channel.log'
+            channels: channel
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
