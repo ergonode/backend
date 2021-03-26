@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
-use Ergonode\Product\Application\Event\ProductCreatedEvent;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 
 class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
@@ -31,6 +30,5 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
         );
 
         $this->productRepository->save($product);
-        $this->eventBus->dispatch(new ProductCreatedEvent($product));
     }
 }

@@ -16,7 +16,6 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 abstract class AbstractUpdateProductHandler
 {
@@ -24,19 +23,15 @@ abstract class AbstractUpdateProductHandler
 
     protected AttributeRepositoryInterface $attributeRepository;
 
-    protected ApplicationEventBusInterface $eventBus;
-
     protected Security $security;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus,
         Security $security
     ) {
         $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
         $this->security = $security;
     }
 

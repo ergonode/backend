@@ -10,7 +10,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 abstract class AbstractCreateProductHandler
 {
@@ -18,15 +17,11 @@ abstract class AbstractCreateProductHandler
 
     protected ProductFactoryInterface $productFactory;
 
-    protected ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        ProductFactoryInterface $productFactory,
-        ApplicationEventBusInterface $eventBus
+        ProductFactoryInterface $productFactory
     ) {
         $this->productRepository = $productRepository;
         $this->productFactory = $productFactory;
-        $this->eventBus = $eventBus;
     }
 }

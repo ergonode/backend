@@ -15,8 +15,6 @@ use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Product\Application\Event\ProductDeletedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteProductCommandHandler
 {
@@ -24,16 +22,12 @@ class DeleteProductCommandHandler
 
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    private ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         ProductRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver,
-        ApplicationEventBusInterface $eventBus
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->repository = $repository;
         $this->relationshipsResolver = $relationshipsResolver;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -54,6 +48,5 @@ class DeleteProductCommandHandler
         }
 
         $this->repository->delete($product);
-        $this->eventBus->dispatch(new ProductDeletedEvent($product));
     }
 }
