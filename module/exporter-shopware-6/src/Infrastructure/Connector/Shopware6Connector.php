@@ -76,10 +76,10 @@ class Shopware6Connector
 
             return $action->parseContent($contents);
         } catch (GuzzleException $exception) {
-            //todo log
+            $this->logger->error($exception);
             throw  $exception;
         } catch (\Exception $exception) {
-            //todo log
+            $this->logger->error($exception);
             throw  $exception;
         }
     }
