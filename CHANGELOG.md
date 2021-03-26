@@ -1,3 +1,4 @@
+- feature [#1334](https://github.com/ergonode/backend/issues/1334) Adding behat tests for completeness endpoint (wiewiurdp)
 - bugfix [#1327](https://github.com/ergonode/backend/issues/1327) Fixed Shopware API usage to v2 (piotrkreft)
 - bugfix [#1305](https://github.com/ergonode/backend/issues/1305) Adding validation for editing binding attributes in variable product.(wiewiurdp)
 - feature [#1336](https://github.com/ergonode/backend/issues/1336) Add application events (rprzedzik)
