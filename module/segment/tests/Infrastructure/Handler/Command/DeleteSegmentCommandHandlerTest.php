@@ -16,21 +16,31 @@ use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Handler\Command\DeleteSegmentCommandHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteSegmentCommandHandlerTest extends TestCase
 {
-    private DeleteSegmentCommand $command;
+    /**
+     * @var DeleteSegmentCommand|MockObject
+     */
+    private $command;
 
-    private SegmentRepositoryInterface $repository;
+    /**
+     * @var SegmentRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private RelationshipsResolverInterface $resolver;
+    /**
+     * @var RelationshipsResolverInterface|MockObject
+     */
+    private $resolver;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    private CommandBusInterface $commandBus;
+    /**
+     * @var CommandBusInterface|MockObject
+     */
+    private $commandBus;
 
     protected function setUp(): void
     {
@@ -38,7 +48,6 @@ class DeleteSegmentCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
         $this->resolver = $this->createMock(RelationshipsResolverInterface::class);
         $this->commandBus = $this->createMock(CommandBusInterface::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     /**
@@ -53,13 +62,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
         $this->commandBus->expects($this->once())->method('dispatch');
         $this->repository->expects($this->once())->method('delete');
 
-        $handler = new DeleteSegmentCommandHandler(
-            $this->repository,
-            $this->resolver,
-            $this->commandBus,
-            $this->eventBus
-        );
-
+        $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver, $this->commandBus);
         $handler->__invoke($this->command);
     }
 
@@ -78,12 +81,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
         $this->commandBus->expects($this->never())->method('dispatch');
         $this->repository->expects($this->once())->method('delete');
 
-        $handler = new DeleteSegmentCommandHandler(
-            $this->repository,
-            $this->resolver,
-            $this->commandBus,
-            $this->eventBus
-        );
+        $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver, $this->commandBus);
         $handler->__invoke($this->command);
     }
 
@@ -99,12 +97,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
         $this->commandBus->expects($this->never())->method('dispatch');
         $this->repository->expects($this->once())->method('delete');
 
-        $handler = new DeleteSegmentCommandHandler(
-            $this->repository,
-            $this->resolver,
-            $this->commandBus,
-            $this->eventBus
-        );
+        $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver, $this->commandBus);
         $handler->__invoke($this->command);
     }
 }

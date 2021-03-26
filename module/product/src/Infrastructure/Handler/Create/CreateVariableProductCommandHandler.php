@@ -11,10 +11,20 @@ namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
-use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
+use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
-class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
+class CreateVariableProductCommandHandler
 {
+    protected ProductRepositoryInterface $productRepository;
+
+    protected ProductFactoryInterface $productFactory;
+
+    public function __construct(ProductRepositoryInterface $productRepository, ProductFactoryInterface $productFactory)
+    {
+        $this->productRepository = $productRepository;
+        $this->productFactory = $productFactory;
+    }
     /**
      * @throws \Exception
      */

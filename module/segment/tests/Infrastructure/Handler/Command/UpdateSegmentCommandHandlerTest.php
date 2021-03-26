@@ -12,22 +12,25 @@ use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Handler\Command\UpdateSegmentCommandHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateSegmentCommandHandlerTest extends TestCase
 {
-    private UpdateSegmentCommand $command;
+    /**
+     * @var UpdateSegmentCommand|MockObject
+     */
+    private $command;
 
-    private SegmentRepositoryInterface $repository;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var SegmentRepositoryInterface|MockObject
+     */
+    private $repository;
 
     protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testCommandHandlingExistsSegment(): void
@@ -35,7 +38,7 @@ class UpdateSegmentCommandHandlerTest extends TestCase
         $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Segment::class));
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdateSegmentCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateSegmentCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 
@@ -46,7 +49,7 @@ class UpdateSegmentCommandHandlerTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $handler = new UpdateSegmentCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateSegmentCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }

@@ -17,8 +17,6 @@ use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Segment\Application\Event\SegmentDeletedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteSegmentCommandHandler
 {
@@ -28,18 +26,14 @@ class DeleteSegmentCommandHandler
 
     private CommandBusInterface $commandBus;
 
-    private ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         SegmentRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver,
-        CommandBusInterface $commandBus,
-        ApplicationEventBusInterface $eventBus
+        CommandBusInterface $commandBus
     ) {
         $this->repository = $repository;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->commandBus = $commandBus;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -65,6 +59,5 @@ class DeleteSegmentCommandHandler
         }
 
         $this->repository->delete($segment);
-        $this->eventBus->dispatch(new SegmentDeletedEvent($segment));
     }
 }

@@ -11,10 +11,20 @@ namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
-use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
+use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
-class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
+class CreateGroupingProductCommandHandler
 {
+    protected ProductRepositoryInterface $productRepository;
+
+    protected ProductFactoryInterface $productFactory;
+
+    public function __construct(ProductRepositoryInterface $productRepository, ProductFactoryInterface $productFactory)
+    {
+        $this->productRepository = $productRepository;
+        $this->productFactory = $productFactory;
+    }
     /**
      * @throws \Exception
      */
