@@ -15,18 +15,25 @@ use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateGalleryAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateGalleryAttributeCommandHandlerTest extends TestCase
 {
-    private UpdateGalleryAttributeCommand $command;
+    /**
+     * @var UpdateGalleryAttributeCommand|MockObject
+     */
+    private $command;
 
-    private AttributeRepositoryInterface $repository;
+    /**
+     * @var AttributeRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private AbstractAttribute $attribute;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var AbstractAttribute|MockObject
+     */
+    private $attribute;
 
     protected function setUp(): void
     {
@@ -37,7 +44,6 @@ class UpdateGalleryAttributeCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(GalleryAttribute::class);
         $this->attribute->method('getGroups')->willReturn([]);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testAttributeNotFound(): void
@@ -45,7 +51,7 @@ class UpdateGalleryAttributeCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new UpdateGalleryAttributeCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateGalleryAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 
@@ -54,7 +60,7 @@ class UpdateGalleryAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdateGalleryAttributeCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateGalleryAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }

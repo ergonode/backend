@@ -14,18 +14,25 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateMultiSelectAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateMultiSelectAttributeCommandHandlerTest extends TestCase
 {
-    private CreateMultiSelectAttributeCommand $command;
+    /**
+     * @var CreateMultiSelectAttributeCommand|MockObject
+     */
+    private $command;
 
-    private AttributeRepositoryInterface $repository;
+    /**
+     * @var AttributeRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private AbstractAttribute $attribute;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var AbstractAttribute|MockObject
+     */
+    private $attribute;
 
     protected function setUp(): void
     {
@@ -35,7 +42,6 @@ class CreateMultiSelectAttributeCommandHandlerTest extends TestCase
         $this->command->method('getHint')->willReturn(new TranslatableString());
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(AbstractAttribute::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandleCommand(): void
@@ -43,7 +49,7 @@ class CreateMultiSelectAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new CreateMultiSelectAttributeCommandHandler($this->repository, $this->eventBus);
+        $handler = new CreateMultiSelectAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }

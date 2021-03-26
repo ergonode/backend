@@ -13,25 +13,31 @@ use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\DeleteAttributeCommandHandler;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteAttributeCommandHandlerTest extends TestCase
 {
-    private DeleteAttributeCommand $command;
+    /**
+     * @var DeleteAttributeCommand|MockObject
+     */
+    private $command;
 
-    private AttributeRepositoryInterface $repository;
+    /**
+     * @var AttributeRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private RelationshipsResolver $relationshipResolver;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var RelationshipsResolver|MockObject
+     */
+    private $relationshipResolver;
 
     protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeCommand::class);
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->relationshipResolver = $this->createMock(RelationshipsResolver::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testAttributeNotFound(): void
@@ -39,7 +45,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new DeleteAttributeCommandHandler($this->repository, $this->relationshipResolver, $this->eventBus);
+        $handler = new DeleteAttributeCommandHandler($this->repository, $this->relationshipResolver);
         $handler->__invoke($this->command);
     }
 }

@@ -15,18 +15,25 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreatePriceAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Money\Currency;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreatePriceAttributeCommandHandlerTest extends TestCase
 {
-    private CreatePriceAttributeCommand $command;
+    /**
+     * @var CreatePriceAttributeCommand|MockObject
+     */
+    private $command;
 
-    private AttributeRepositoryInterface $repository;
+    /**
+     * @var AttributeRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private AbstractAttribute $attribute;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var AbstractAttribute|MockObject
+     */
+    private $attribute;
 
     protected function setUp(): void
     {
@@ -37,7 +44,6 @@ class CreatePriceAttributeCommandHandlerTest extends TestCase
         $this->command->method('getCurrency')->willReturn(new Currency('PLN'));
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(AbstractAttribute::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandleCommand(): void
@@ -45,7 +51,7 @@ class CreatePriceAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new CreatePriceAttributeCommandHandler($this->repository, $this->eventBus);
+        $handler = new CreatePriceAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }
