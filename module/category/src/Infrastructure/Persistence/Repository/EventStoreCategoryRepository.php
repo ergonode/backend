@@ -15,14 +15,21 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
+use Ergonode\Category\Application\Event\CategoryCreateEvent;
+use Ergonode\Category\Application\Event\CategoryUpdatedEvent;
+use Ergonode\Category\Application\Event\CategoryDeletedEvent as CategoryDeletedApplicationEvent;
 
 class EventStoreCategoryRepository implements CategoryRepositoryInterface
 {
     private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManagerInterface $manager)
+    protected ApplicationEventBusInterface $eventBus;
+
+    public function __construct(EventStoreManagerInterface $manager, ApplicationEventBusInterface $eventBus)
     {
         $this->manager = $manager;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -52,7 +59,15 @@ class EventStoreCategoryRepository implements CategoryRepositoryInterface
      */
     public function save(AbstractCategory $aggregateRoot): void
     {
+        $isNew = $aggregateRoot->isNew();
+
         $this->manager->save($aggregateRoot);
+
+        if ($isNew) {
+            $this->eventBus->dispatch(new CategoryCreateEvent($aggregateRoot));
+        } else {
+            $this->eventBus->dispatch(new CategoryUpdatedEvent($aggregateRoot));
+        }
     }
 
     /**
@@ -63,8 +78,9 @@ class EventStoreCategoryRepository implements CategoryRepositoryInterface
     public function delete(AbstractCategory $category): void
     {
         $category->apply(new CategoryDeletedEvent($category->getId()));
-        $this->save($category);
+        $this->manager->save($category);
 
         $this->manager->delete($category);
+        $this->eventBus->dispatch(new CategoryDeletedApplicationEvent($category));
     }
 }

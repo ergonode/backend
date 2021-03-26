@@ -12,8 +12,6 @@ namespace Ergonode\Category\Infrastructure\Handler;
 use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\Category\Application\Event\CategoryCreateEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateCategoryCommandHandler
 {
@@ -21,16 +19,10 @@ class CreateCategoryCommandHandler
 
     private CategoryRepositoryInterface $repository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        CategoryFactory $factory,
-        CategoryRepositoryInterface $repository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(CategoryFactory $factory, CategoryRepositoryInterface $repository)
+    {
         $this->factory = $factory;
         $this->repository = $repository;
-        $this->eventBus = $eventBus;
     }
 
     public function __invoke(CreateCategoryCommand $command): void
@@ -42,6 +34,5 @@ class CreateCategoryCommandHandler
         );
 
         $this->repository->save($category);
-        $this->eventBus->dispatch(new CategoryCreateEvent($category));
     }
 }

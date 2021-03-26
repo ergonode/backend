@@ -16,7 +16,6 @@ use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateNumericAttr
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateNumericAttributeCommandHandlerTest extends TestCase
 {

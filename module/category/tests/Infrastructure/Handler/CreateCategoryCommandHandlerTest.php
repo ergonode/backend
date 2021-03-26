@@ -13,18 +13,25 @@ use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\CreateCategoryCommandHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateCategoryCommandHandlerTest extends TestCase
 {
-    private CategoryFactory $factory;
+    /**
+     * @var CategoryFactory|MockObject
+     */
+    private $factory;
 
-    private CategoryRepositoryInterface $repository;
+    /**
+     * @var CategoryRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private CreateCategoryCommand $command;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var CreateCategoryCommand|MockObject
+     */
+    private $command;
 
     protected function setUp(): void
     {
@@ -34,12 +41,11 @@ class CreateCategoryCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->repository->expects($this->once())->method('save');
         $this->command = $this->createMock(CreateCategoryCommand::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandling(): void
     {
-        $handler = new CreateCategoryCommandHandler($this->factory, $this->repository, $this->eventBus);
+        $handler = new CreateCategoryCommandHandler($this->factory, $this->repository);
         $handler->__invoke($this->command);
     }
 }

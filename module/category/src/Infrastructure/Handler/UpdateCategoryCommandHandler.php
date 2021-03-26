@@ -12,19 +12,14 @@ namespace Ergonode\Category\Infrastructure\Handler;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Category\Application\Event\CategoryUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateCategoryCommandHandler
 {
     private CategoryRepositoryInterface $repository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(CategoryRepositoryInterface $repository, ApplicationEventBusInterface $eventBus)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -36,6 +31,5 @@ class UpdateCategoryCommandHandler
         Assert::notNull($category);
         $category->changeName($command->getName());
         $this->repository->save($category);
-        $this->eventBus->dispatch(new CategoryUpdatedEvent($category));
     }
 }

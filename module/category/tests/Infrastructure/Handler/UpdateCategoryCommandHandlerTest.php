@@ -12,22 +12,25 @@ use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\UpdateCategoryCommandHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateCategoryCommandHandlerTest extends TestCase
 {
-    private CategoryRepositoryInterface $repository;
+    /**
+     * @var CategoryRepositoryInterface|MockObject
+     */
+    private $repository;
 
-    private UpdateCategoryCommand $command;
-
-    private ApplicationEventBusInterface $eventBus;
+    /**
+     * @var UpdateCategoryCommand|MockObject
+     */
+    private $command;
 
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->command = $this->createMock(UpdateCategoryCommand::class);
-        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandlingExistsCategory(): void
@@ -37,7 +40,7 @@ class UpdateCategoryCommandHandlerTest extends TestCase
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdateCategoryCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateCategoryCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 
@@ -46,7 +49,7 @@ class UpdateCategoryCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load')->willReturn(null);
         $this->repository->expects($this->never())->method('save');
-        $handler = new UpdateCategoryCommandHandler($this->repository, $this->eventBus);
+        $handler = new UpdateCategoryCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }
