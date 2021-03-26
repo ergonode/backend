@@ -9,13 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PostPropertyGroupAction extends AbstractAction implements ActionInterface
+class PostPropertyGroupAction extends AbstractAction
 {
     private const URI = '/api/v2/property-group?%s';
 

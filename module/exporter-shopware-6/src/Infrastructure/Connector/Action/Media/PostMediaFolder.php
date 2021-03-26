@@ -9,11 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PostMediaFolder extends AbstractAction implements ActionInterface
+class PostMediaFolder extends AbstractAction
 {
     private const URI = '/api/v2/media-folder?%s';
     private string $mediaFolder;

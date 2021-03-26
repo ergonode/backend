@@ -9,12 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Media;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PostCreateMediaAction extends AbstractAction implements ActionInterface
+class PostCreateMediaAction extends AbstractAction
 {
     private const URI = '/api/v2/media?%s';
 

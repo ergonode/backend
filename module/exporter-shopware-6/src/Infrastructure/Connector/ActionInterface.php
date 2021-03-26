@@ -18,4 +18,6 @@ interface ActionInterface
      * @return string|null|object|array
      */
     public function parseContent(?string $content);
+
+    public function isLoggable(): bool;
 }

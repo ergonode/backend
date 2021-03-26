@@ -9,11 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Media;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class DeleteProductMedia extends AbstractAction implements ActionInterface
+class DeleteProductMedia extends AbstractAction
 {
     private const URI = '/api/v2/product/%s/media/%s';
 

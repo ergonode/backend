@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
-abstract class AbstractAction implements HeaderProviderInterface
+abstract class AbstractAction implements HeaderProviderInterface, ActionInterface
 {
     /**
      * @var array
@@ -26,5 +26,10 @@ abstract class AbstractAction implements HeaderProviderInterface
     public function addHeader(string $key, string $value): void
     {
         $this->header[$key] = $value;
+    }
+
+    public function isLoggable(): bool
+    {
+        return true;
     }
 }
