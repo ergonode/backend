@@ -12,14 +12,21 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Application\Event\AttributeCreatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateImageAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
+    private ApplicationEventBusInterface $eventBus;
+
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        ApplicationEventBusInterface $eventBus
+    ) {
         $this->attributeRepository = $attributeRepository;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -41,5 +48,6 @@ class CreateImageAttributeCommandHandler
         }
 
         $this->attributeRepository->save($attribute);
+        $this->eventBus->dispatch(new AttributeCreatedEvent($attribute));
     }
 }

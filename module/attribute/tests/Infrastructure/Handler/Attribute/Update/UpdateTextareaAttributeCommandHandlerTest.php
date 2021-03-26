@@ -15,25 +15,18 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateTextareaAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateTextareaAttributeCommandHandlerTest extends TestCase
 {
-    /**
-     * @var UpdateTextareaAttributeCommand|MockObject
-     */
-    private $command;
+    private UpdateTextareaAttributeCommand $command;
 
-    /**
-     * @var AttributeRepositoryInterface|MockObject
-     */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AbstractAttribute|MockObject
-     */
-    private $attribute;
+    private AbstractAttribute $attribute;
+
+    private ApplicationEventBusInterface $eventBus;
 
     protected function setUp(): void
     {
@@ -44,6 +37,7 @@ class UpdateTextareaAttributeCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(TextareaAttribute::class);
         $this->attribute->method('getGroups')->willReturn([]);
+        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testAttributeNotFound(): void
@@ -51,7 +45,7 @@ class UpdateTextareaAttributeCommandHandlerTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new UpdateTextareaAttributeCommandHandler($this->repository);
+        $handler = new UpdateTextareaAttributeCommandHandler($this->repository, $this->eventBus);
         $handler->__invoke($this->command);
     }
 
@@ -60,7 +54,7 @@ class UpdateTextareaAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdateTextareaAttributeCommandHandler($this->repository);
+        $handler = new UpdateTextareaAttributeCommandHandler($this->repository, $this->eventBus);
         $handler->__invoke($this->command);
     }
 }

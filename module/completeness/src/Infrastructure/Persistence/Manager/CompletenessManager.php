@@ -10,6 +10,7 @@ namespace Ergonode\Completeness\Infrastructure\Persistence\Manager;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class CompletenessManager
 {
@@ -22,7 +23,50 @@ class CompletenessManager
         $this->connection = $connection;
     }
 
-    public function update(ProductId $id, array $completeness): void
+    public function addProduct(ProductId $productId): void
+    {
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'product_id' => $productId->getValue(),
+            ]
+        );
+    }
+
+    public function recalculateProduct(ProductId $productId): void
+    {
+        $this->connection->update(
+            self::TABLE,
+            [
+                'calculated_at' => null,
+            ],
+            [
+                'product_id' => $productId->getValue(),
+            ]
+        );
+    }
+
+    public function removeProduct(ProductId $productId): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'product_id' => $productId->getValue(),
+            ]
+        );
+    }
+
+    public function recalculateTemplate(TemplateId $templateId): void
+    {
+        $this->connection->executeQuery(
+            'UPDATE product_completeness 
+            SET calculated_at = null 
+            WHERE product_id IN (SELECT id FROM product WHERE template_id = ?)',
+            [$templateId->getValue()],
+        );
+    }
+
+    public function updateCompleteness(ProductId $id, array $completeness): void
     {
         $this->connection->update(
             self::TABLE,

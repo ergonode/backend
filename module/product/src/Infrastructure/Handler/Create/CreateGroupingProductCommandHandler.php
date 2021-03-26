@@ -31,6 +31,6 @@ class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
         );
 
         $this->productRepository->save($product);
-        $this->messageBus->dispatch(new ProductCreatedEvent($product));
+        $this->eventBus->dispatch(new ProductCreatedEvent($product));
     }
 }

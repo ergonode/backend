@@ -10,7 +10,7 @@ namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 abstract class AbstractCreateProductHandler
 {
@@ -18,15 +18,15 @@ abstract class AbstractCreateProductHandler
 
     protected ProductFactoryInterface $productFactory;
 
-    protected MessageBusInterface $messageBus;
+    protected ApplicationEventBusInterface $eventBus;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductFactoryInterface $productFactory,
-        MessageBusInterface $messageBus
+        ApplicationEventBusInterface $eventBus
     ) {
         $this->productRepository = $productRepository;
         $this->productFactory = $productFactory;
-        $this->messageBus = $messageBus;
+        $this->eventBus = $eventBus;
     }
 }

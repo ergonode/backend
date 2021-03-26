@@ -14,25 +14,18 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateTextAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateTextAttributeCommandHandlerTest extends TestCase
 {
-    /**
-     * @var CreateTextAttributeCommand|MockObject
-     */
-    private $command;
+    private CreateTextAttributeCommand $command;
 
-    /**
-     * @var AttributeRepositoryInterface|MockObject
-     */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AbstractAttribute|MockObject
-     */
-    private $attribute;
+    private AbstractAttribute $attribute;
+
+    private ApplicationEventBusInterface $eventBus;
 
     protected function setUp(): void
     {
@@ -42,6 +35,7 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
         $this->command->method('getHint')->willReturn(new TranslatableString());
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(AbstractAttribute::class);
+        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandleCommand(): void
@@ -49,7 +43,7 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new CreateTextAttributeCommandHandler($this->repository);
+        $handler = new CreateTextAttributeCommandHandler($this->repository, $this->eventBus);
         $handler->__invoke($this->command);
     }
 }

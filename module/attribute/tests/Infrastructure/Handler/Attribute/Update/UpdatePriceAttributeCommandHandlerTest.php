@@ -16,25 +16,18 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdatePriceAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Money\Currency;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdatePriceAttributeCommandHandlerTest extends TestCase
 {
-    /**
-     * @var UpdatePriceAttributeCommand|MockObject
-     */
-    private $command;
+    private UpdatePriceAttributeCommand $command;
 
-    /**
-     * @var AttributeRepositoryInterface|MockObject
-     */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AbstractAttribute|MockObject
-     */
-    private $attribute;
+    private AbstractAttribute $attribute;
+
+    private ApplicationEventBusInterface $eventBus;
 
     protected function setUp(): void
     {
@@ -46,6 +39,7 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(PriceAttribute::class);
         $this->attribute->method('getGroups')->willReturn([]);
+        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testAttributeNotFound(): void
@@ -53,7 +47,7 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
         $this->expectException(\LogicException::class);
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new UpdatePriceAttributeCommandHandler($this->repository);
+        $handler = new UpdatePriceAttributeCommandHandler($this->repository, $this->eventBus);
         $handler->__invoke($this->command);
     }
 
@@ -62,7 +56,7 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdatePriceAttributeCommandHandler($this->repository);
+        $handler = new UpdatePriceAttributeCommandHandler($this->repository, $this->eventBus);
         $handler->__invoke($this->command);
     }
 }

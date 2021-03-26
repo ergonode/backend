@@ -9,8 +9,9 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Event;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Application\ApplicationEventInterface;
 
-class ProductCreatedEvent
+class ProductCreatedEvent implements ApplicationEventInterface
 {
     private AbstractProduct $product;
 

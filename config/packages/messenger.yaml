@@ -1,10 +1,10 @@
 framework:
     messenger:
         buses:
-            event.bus:
+            application.event.bus:
                 default_middleware: allow_no_handlers
-                middleware:
-                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+            domain.event.bus:
+                default_middleware: allow_no_handlers
             messenger.bus.sync:
                 default_middleware: false
                 middleware:

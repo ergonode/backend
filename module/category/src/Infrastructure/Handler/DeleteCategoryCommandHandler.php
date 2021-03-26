@@ -15,6 +15,8 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Category\Application\Event\CategoryDeletedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteCategoryCommandHandler
 {
@@ -22,12 +24,16 @@ class DeleteCategoryCommandHandler
 
     private RelationshipsResolverInterface $relationshipsResolver;
 
+    private ApplicationEventBusInterface $eventBus;
+
     public function __construct(
         CategoryRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ApplicationEventBusInterface $eventBus
     ) {
         $this->repository = $repository;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -48,5 +54,6 @@ class DeleteCategoryCommandHandler
         }
 
         $this->repository->delete($category);
+        $this->eventBus->dispatch(new CategoryDeletedEvent($category));
     }
 }

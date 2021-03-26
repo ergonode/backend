@@ -15,7 +15,7 @@ use Ergonode\Generator\Builder\BuilderInterface;
 use Ergonode\Generator\Builder\FileBuilder;
 use Ergonode\Generator\Builder\MethodBuilder;
 use Ergonode\Generator\Builder\PropertyBuilder;
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 
@@ -55,7 +55,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
 
         $properties = [
             'store' => DomainEventStoreInterface::class,
-            'dispatcher' => EventBusInterface::class,
+            'dispatcher' => DomainEventBusInterface::class,
         ];
 
         foreach ($properties as $name => $type) {

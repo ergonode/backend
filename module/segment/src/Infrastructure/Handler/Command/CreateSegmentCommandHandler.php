@@ -12,14 +12,19 @@ namespace Ergonode\Segment\Infrastructure\Handler\Command;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
+use Ergonode\Segment\Application\Event\SegmentCreateEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateSegmentCommandHandler
 {
     private SegmentRepositoryInterface $repository;
 
-    public function __construct(SegmentRepositoryInterface $repository)
+    private ApplicationEventBusInterface $eventBus;
+
+    public function __construct(SegmentRepositoryInterface $repository, ApplicationEventBusInterface $eventBus)
     {
         $this->repository = $repository;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -36,5 +41,6 @@ class CreateSegmentCommandHandler
         );
 
         $this->repository->save($segment);
+        $this->eventBus->dispatch(new SegmentCreateEvent($segment));
     }
 }

@@ -12,14 +12,19 @@ namespace Ergonode\Segment\Infrastructure\Handler\Command;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Segment\Application\Event\SegmentUpdatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateSegmentCommandHandler
 {
     private SegmentRepositoryInterface $repository;
 
-    public function __construct(SegmentRepositoryInterface $repository)
+    private ApplicationEventBusInterface $eventBus;
+
+    public function __construct(SegmentRepositoryInterface $repository, ApplicationEventBusInterface $eventBus)
     {
         $this->repository = $repository;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -36,5 +41,6 @@ class UpdateSegmentCommandHandler
         $segment->changeConditionSet($command->getConditionSetId());
 
         $this->repository->save($segment);
+        $this->eventBus->dispatch(new SegmentUpdatedEvent($segment));
     }
 }

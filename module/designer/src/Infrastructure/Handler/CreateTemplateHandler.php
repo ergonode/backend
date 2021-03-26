@@ -13,6 +13,8 @@ use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Factory\TemplateFactory;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\Designer\Application\Event\TemplateCreatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateTemplateHandler
 {
@@ -22,14 +24,18 @@ class CreateTemplateHandler
 
     private TemplateGroupQueryInterface $templateGroupQuery;
 
+    private ApplicationEventBusInterface $eventBus;
+
     public function __construct(
         TemplateRepositoryInterface $templateRepository,
         TemplateFactory $templateFactory,
-        TemplateGroupQueryInterface $templateGroupQuery
+        TemplateGroupQueryInterface $templateGroupQuery,
+        ApplicationEventBusInterface $eventBus
     ) {
         $this->templateRepository = $templateRepository;
         $this->templateFactory = $templateFactory;
         $this->templateGroupQuery = $templateGroupQuery;
+        $this->eventBus = $eventBus;
     }
 
     public function __invoke(CreateTemplateCommand $command): void
@@ -47,5 +53,6 @@ class CreateTemplateHandler
         );
 
         $this->templateRepository->save($template);
+        $this->eventBus->dispatch(new TemplateCreatedEvent($template));
     }
 }

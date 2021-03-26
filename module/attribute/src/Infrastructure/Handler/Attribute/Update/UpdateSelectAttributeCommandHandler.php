@@ -14,14 +14,21 @@ use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeC
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateSelectAttributeCommand;
+use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
+    private ApplicationEventBusInterface $eventBus;
+
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        ApplicationEventBusInterface $eventBus
+    ) {
         $this->attributeRepository = $attributeRepository;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -36,5 +43,6 @@ class UpdateSelectAttributeCommandHandler extends AbstractUpdateAttributeCommand
         $attribute = $this->update($command, $attribute);
 
         $this->attributeRepository->save($attribute);
+        $this->eventBus->dispatch(new AttributeUpdatedEvent($attribute));
     }
 }

@@ -14,14 +14,21 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateTextAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
+    private ApplicationEventBusInterface $eventBus;
+
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        ApplicationEventBusInterface $eventBus
+    ) {
         $this->attributeRepository = $attributeRepository;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -35,5 +42,6 @@ class UpdateTextAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
         $attribute = $this->update($command, $attribute);
 
         $this->attributeRepository->save($attribute);
+        $this->eventBus->dispatch(new AttributeUpdatedEvent($attribute));
     }
 }

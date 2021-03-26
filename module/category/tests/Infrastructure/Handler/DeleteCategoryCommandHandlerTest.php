@@ -14,29 +14,26 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\DeleteCategoryCommandHandler;
 use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteCategoryCommandHandlerTest extends TestCase
 {
-    /**
-     * @var CategoryRepositoryInterface|MockObject
-     */
-    private $repository;
+    private CategoryRepositoryInterface $repository;
 
-    /**
-     * @var DeleteCategoryCommand|MockObject
-     */
-    private $command;
+    private DeleteCategoryCommand $command;
 
     private RelationshipsResolverInterface $resolver;
+
+    private ApplicationEventBusInterface $eventBus;
 
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->command = $this->createMock(DeleteCategoryCommand::class);
         $this->resolver = $this->createMock(RelationshipsResolverInterface::class);
+        $this->eventBus = $this->createMock(ApplicationEventBusInterface::class);
     }
 
     public function testHandlingExistsCategoryWithoutRelations(): void
@@ -45,7 +42,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->once())->method('delete');
 
-        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver);
+        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver, $this->eventBus);
         $handler->__invoke($this->command);
     }
 
@@ -58,7 +55,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->never())->method('delete');
 
-        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver);
+        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver, $this->eventBus);
         $handler->__invoke($this->command);
     }
 
@@ -67,7 +64,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load')->willReturn(null);
         $this->repository->expects($this->never())->method('save');
-        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver);
+        $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver, $this->eventBus);
         $handler->__invoke($this->command);
     }
 }

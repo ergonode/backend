@@ -22,8 +22,4 @@ services:
     resource: '../../Application/Controller/*'
     tags: [ 'controller.service_arguments' ]
 
-  Ergonode\Completeness\Infrastructure\Persistence\Projector\:
-    resource: '../../Infrastructure/Persistence/Projector/*'
-    tags: [ 'ergonode.event_sourcing.projector' ]
-
   Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery'

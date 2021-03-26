@@ -25,9 +25,9 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Ergonode\Product\Application\Event\ProductCreatedEvent;
 use Ergonode\Product\Application\Event\ProductUpdatedEvent;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class GroupingProductImportAction
 {
@@ -43,7 +43,7 @@ class GroupingProductImportAction
 
     protected ProductFactoryInterface $productFactory;
 
-    private MessageBusInterface $messageBus;
+    private ApplicationEventBusInterface $eventBus;
 
     public function __construct(
         ProductQueryInterface $productQuery,
@@ -52,7 +52,7 @@ class GroupingProductImportAction
         CategoryQueryInterface $categoryQuery,
         ImportProductAttributeBuilder $builder,
         ProductFactoryInterface $productFactory,
-        MessageBusInterface $messageBus
+        ApplicationEventBusInterface $eventBus
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
@@ -60,7 +60,7 @@ class GroupingProductImportAction
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
         $this->productFactory = $productFactory;
-        $this->messageBus = $messageBus;
+        $this->eventBus = $eventBus;
     }
 
     public function action(
@@ -90,7 +90,7 @@ class GroupingProductImportAction
                 $attributes,
             );
             $this->productRepository->save($product);
-            $this->messageBus->dispatch(new ProductCreatedEvent($product));
+            $this->eventBus->dispatch(new ProductCreatedEvent($product));
         } else {
             $product = $this->productRepository->load($productId);
             if (!$product instanceof GroupingProduct) {
@@ -101,7 +101,7 @@ class GroupingProductImportAction
             $product->changeAttributes($attributes);
             $product->changeChildren($children);
             $this->productRepository->save($product);
-            $this->messageBus->dispatch(new ProductUpdatedEvent($product));
+            $this->eventBus->dispatch(new ProductUpdatedEvent($product));
         }
 
         return $product;

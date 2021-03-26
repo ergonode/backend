@@ -29,6 +29,6 @@ class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->updateAudit($product);
 
         $this->productRepository->save($product);
-        $this->messageBus->dispatch(new ProductUpdatedEvent($product));
+        $this->eventBus->dispatch(new ProductUpdatedEvent($product));
     }
 }

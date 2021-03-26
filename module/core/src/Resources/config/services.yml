@@ -63,7 +63,16 @@ services:
         arguments:
             - '@Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator.inner'
 
-    Ergonode\SharedKernel\Domain\Bus\EventBusInterface: '@Ergonode\Core\Application\Messenger\EventBus'
+    Ergonode\Core\Application\Messenger\DomainEventBus:
+        arguments:
+            $eventBus: '@domain.event.bus'
+
+    Ergonode\Core\Application\Messenger\ApplicationEventBus:
+        arguments:
+            $eventBus: '@application.event.bus'
+
+    Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface: '@Ergonode\Core\Application\Messenger\DomainEventBus'
+    Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface: '@Ergonode\Core\Application\Messenger\ApplicationEventBus'
 
     Ergonode\SharedKernel\Domain\Bus\CommandBusInterface: '@Ergonode\Core\Application\Messenger\CommandBus'
     Ergonode\Core\Application\Messenger\CommandBus:
