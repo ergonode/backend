@@ -17,7 +17,7 @@ services:
 
     Ergonode\Attribute\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Handler,JMS}'
+        exclude: '../../Infrastructure/{Handler}'
 
     Ergonode\Attribute\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'

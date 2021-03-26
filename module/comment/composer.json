@@ -20,7 +20,6 @@
         "ergonode/es": "^1.0.0-rc.1",
         "ergonode/grid": "^1.0.0-rc.1",
         "ergonode/shared-kernel": "^1.0.0-rc.1",
-        "jms/serializer": "^3.4",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",

@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Serializer\Normalizer;
 
-use JMS\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

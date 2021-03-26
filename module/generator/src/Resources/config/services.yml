@@ -23,7 +23,6 @@ services:
             - '@Ergonode\Generator\Builder\Persistence\Dbal\Repository\EntityDbalRepositoryBuilder'
             - '@Ergonode\Generator\Builder\Domain\Factory\EntityFactoryInterfaceBuilder'
             - '@Ergonode\Generator\Builder\Domain\Factory\EntityFactoryBuilder'
-#            - '@Ergonode\Generator\Builder\Infrastructure\JMS\Serializer\Handler\EntityIdHandlerClassBuilder'
             - '@Ergonode\Generator\Builder\Domain\Command\CreateCommandClassBuilder'
             - '@Ergonode\Generator\Builder\Domain\Event\CreateEventBuilder'
             - '@Ergonode\Generator\Builder\Infrastructure\Handler\CreateCommandHandlerClassBuilder'
