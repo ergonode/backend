@@ -27,3 +27,6 @@ services:
     tags: [ 'ergonode.event_sourcing.projector' ]
 
   Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery'
+
+  Ergonode\Completeness\Application\Serializer\Normalizer\CompletenessReadModelNormalizer:
+    $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
