@@ -13,21 +13,14 @@ use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Designer\Application\Event\TemplateUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateTemplateHandler
 {
     private TemplateRepositoryInterface $designerTemplateRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        TemplateRepositoryInterface $designerTemplateRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(TemplateRepositoryInterface $designerTemplateRepository)
+    {
         $this->designerTemplateRepository = $designerTemplateRepository;
-        $this->eventBus = $eventBus;
     }
 
     public function __invoke(UpdateTemplateCommand $command): void
@@ -86,6 +79,5 @@ class UpdateTemplateHandler
         }
 
         $this->designerTemplateRepository->save($template);
-        $this->eventBus->dispatch(new TemplateUpdatedEvent($template));
     }
 }

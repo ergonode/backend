@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Designer\Application\Event\TemplateDeletedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteTemplateHandler
 {
@@ -24,16 +22,12 @@ class DeleteTemplateHandler
 
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    private ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         TemplateRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver,
-        ApplicationEventBusInterface $eventBus
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->repository = $repository;
         $this->relationshipsResolver = $relationshipsResolver;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -54,6 +48,5 @@ class DeleteTemplateHandler
         }
 
         $this->repository->delete($template);
-        $this->eventBus->dispatch(new TemplateDeletedEvent($template));
     }
 }
