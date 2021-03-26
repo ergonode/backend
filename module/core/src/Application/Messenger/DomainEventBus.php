@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Messenger;
 
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Ergonode\SharedKernel\Domain\DomainEventInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 
-class EventBus implements EventBusInterface
+class DomainEventBus implements DomainEventBusInterface
 {
     private MessageBusInterface $eventBus;
 

@@ -16,14 +16,21 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
+use Ergonode\Product\Application\Event\ProductCreatedEvent;
+use Ergonode\Product\Application\Event\ProductDeletedEvent as ProductDeletedApplicationEvent;
 
 class EventStoreProductRepository implements ProductRepositoryInterface
 {
     private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManagerInterface $manager)
+    protected ApplicationEventBusInterface $eventBus;
+
+    public function __construct(EventStoreManagerInterface $manager, ApplicationEventBusInterface $eventBus)
     {
         $this->manager = $manager;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -45,7 +52,15 @@ class EventStoreProductRepository implements ProductRepositoryInterface
      */
     public function save(AbstractProduct $aggregateRoot): void
     {
+        $isNew = $aggregateRoot->isNew();
+
         $this->manager->save($aggregateRoot);
+
+        if ($isNew) {
+            $this->eventBus->dispatch(new ProductCreatedEvent($aggregateRoot));
+        } else {
+            $this->eventBus->dispatch(new ProductUpdatedEvent($aggregateRoot));
+        }
     }
 
     public function exists(ProductId $id): bool
@@ -61,8 +76,8 @@ class EventStoreProductRepository implements ProductRepositoryInterface
     public function delete(AbstractProduct $aggregateRoot): void
     {
         $aggregateRoot->apply(new ProductDeletedEvent($aggregateRoot->getId()));
-        $this->save($aggregateRoot);
-
+        $this->manager->save($aggregateRoot);
         $this->manager->delete($aggregateRoot);
+        $this->eventBus->dispatch(new ProductDeletedApplicationEvent($aggregateRoot));
     }
 }

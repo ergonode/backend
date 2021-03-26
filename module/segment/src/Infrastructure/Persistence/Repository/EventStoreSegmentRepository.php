@@ -15,14 +15,21 @@ use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
+use Ergonode\Segment\Application\Event\SegmentDeletedEvent as SegmentDeletedApplicationEvent;
+use Ergonode\Segment\Application\Event\SegmentCreateEvent;
+use Ergonode\Segment\Application\Event\SegmentUpdatedEvent;
 
 class EventStoreSegmentRepository implements SegmentRepositoryInterface
 {
     private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManagerInterface $manager)
+    protected ApplicationEventBusInterface $eventBus;
+
+    public function __construct(EventStoreManagerInterface $manager, ApplicationEventBusInterface $eventBus)
     {
         $this->manager = $manager;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -44,7 +51,13 @@ class EventStoreSegmentRepository implements SegmentRepositoryInterface
      */
     public function save(Segment $segment): void
     {
+        $isNew = $segment->isNew();
         $this->manager->save($segment);
+        if ($isNew) {
+            $this->eventBus->dispatch(new SegmentCreateEvent($segment));
+        } else {
+            $this->eventBus->dispatch(new SegmentUpdatedEvent($segment));
+        }
     }
 
     /**
@@ -63,8 +76,9 @@ class EventStoreSegmentRepository implements SegmentRepositoryInterface
     public function delete(Segment $segment): void
     {
         $segment->apply(new SegmentDeletedEvent($segment->getId()));
-        $this->save($segment);
+        $this->manager->save($segment);
 
         $this->manager->delete($segment);
+        $this->eventBus->dispatch(new SegmentDeletedApplicationEvent($segment));
     }
 }

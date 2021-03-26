@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Domain\Bus;
 
-use Ergonode\SharedKernel\Domain\DomainEventInterface;
+use Ergonode\SharedKernel\Application\ApplicationEventInterface;
 
-interface EventBusInterface
+interface ApplicationEventBusInterface
 {
-    public function dispatch(DomainEventInterface $event): void;
+    public function dispatch(ApplicationEventInterface $event): void;
 }
