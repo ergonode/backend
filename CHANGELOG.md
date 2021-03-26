@@ -1,4 +1,5 @@
 - bugfix [#1305](https://github.com/ergonode/backend/issues/1305) Adding validation for editing binding attributes in variable product.(wiewiurdp)
+- feature [#1336](https://github.com/ergonode/backend/issues/1336) Add application events (rprzedzik)
 - feature [#1283](https://github.com/ergonode/backend/issues/1283) Adding endpoint for status in batch actions  (wiewiurdp)
 - feature [#1318](https://github.com/ergonode/backend/issues/1318) Remove legacy Transformer Aggregate class (rprzedzik) 
 - refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
