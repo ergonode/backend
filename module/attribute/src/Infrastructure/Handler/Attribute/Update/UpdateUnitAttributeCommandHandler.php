@@ -13,21 +13,14 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateUnitAttributeComman
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
-use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    {
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -51,6 +44,5 @@ class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
         $attribute->changeUnit($command->getUnitId());
 
         $this->attributeRepository->save($attribute);
-        $this->eventBus->dispatch(new AttributeUpdatedEvent($attribute));
     }
 }

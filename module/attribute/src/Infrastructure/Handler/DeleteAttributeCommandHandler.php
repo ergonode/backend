@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Application\Event\AttributeDeletedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DeleteAttributeCommandHandler
 {
@@ -24,16 +22,12 @@ class DeleteAttributeCommandHandler
 
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    private ApplicationEventBusInterface $eventBus;
-
     public function __construct(
         AttributeRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver,
-        ApplicationEventBusInterface $eventBus
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->repository = $repository;
         $this->relationshipsResolver = $relationshipsResolver;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -54,6 +48,5 @@ class DeleteAttributeCommandHandler
         }
 
         $this->repository->delete($attribute);
-        $this->eventBus->dispatch(new AttributeDeletedEvent($attribute));
     }
 }

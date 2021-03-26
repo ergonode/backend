@@ -14,21 +14,14 @@ use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeC
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateMultiSelectAttributeCommand;
-use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdateMultiSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    {
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -43,6 +36,5 @@ class UpdateMultiSelectAttributeCommandHandler extends AbstractUpdateAttributeCo
         $attribute = $this->update($command, $attribute);
 
         $this->attributeRepository->save($attribute);
-        $this->eventBus->dispatch(new AttributeUpdatedEvent($attribute));
     }
 }

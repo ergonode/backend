@@ -13,21 +13,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
-use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    {
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -51,6 +44,5 @@ class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandH
         $attribute->changeCurrency($command->getCurrency());
 
         $this->attributeRepository->save($attribute);
-        $this->eventBus->dispatch(new AttributeUpdatedEvent($attribute));
     }
 }

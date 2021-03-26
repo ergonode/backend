@@ -12,21 +12,14 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Application\Event\AttributeCreatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreateMultiSelectAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    {
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -48,6 +41,5 @@ class CreateMultiSelectAttributeCommandHandler
         }
 
         $this->attributeRepository->save($attribute);
-        $this->eventBus->dispatch(new AttributeCreatedEvent($attribute));
     }
 }

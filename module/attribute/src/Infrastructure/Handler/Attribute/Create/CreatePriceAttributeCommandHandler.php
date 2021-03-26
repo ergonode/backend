@@ -12,21 +12,14 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Application\Event\AttributeCreatedEvent;
-use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class CreatePriceAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private ApplicationEventBusInterface $eventBus;
-
-    public function __construct(
-        AttributeRepositoryInterface $attributeRepository,
-        ApplicationEventBusInterface $eventBus
-    ) {
+    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    {
         $this->attributeRepository = $attributeRepository;
-        $this->eventBus = $eventBus;
     }
 
     /**
@@ -49,6 +42,5 @@ class CreatePriceAttributeCommandHandler
         }
 
         $this->attributeRepository->save($attribute);
-        $this->eventBus->dispatch(new AttributeCreatedEvent($attribute));
     }
 }
