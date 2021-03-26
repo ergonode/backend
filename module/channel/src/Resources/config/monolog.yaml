@@ -1,0 +1,9 @@
+monolog:
+    channels: ['channel']
+    handlers:
+        export:
+            # log all messages (since debug is the lowest level)
+            level: debug
+            type: stream
+            path: '%kernel.logs_dir%/channel.log'
+            channels: channel
