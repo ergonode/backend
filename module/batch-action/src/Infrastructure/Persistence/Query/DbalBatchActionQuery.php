@@ -78,12 +78,18 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                             when (select count(*)
                                                   from batch_action_entry
                                                   where batch_action_id = ba.id 
-                                                    and success is not null ) = 0 then \'ENDED\'
+                                                    and success is null ) = 0 then \'ENDED\'
                                             else \'PRECESSED\' end) as status)')
             ->addSelect('created_at as started_at')
-            ->addSelect('(select MAX(processed_at)
-                                 from batch_action_entry
-                                 where batch_action_id = ba.id) AS ended_at')
+            ->addSelect('(select (case
+                                when (select count(*)
+                                    from batch_action_entry
+                                    where batch_action_id = ba.id 
+                                        and success is null ) = 0 then (
+                                            select MAX(processed_at)
+                                                from batch_action_entry
+                                                where batch_action_id = ba.id
+                                        ) end) AS ended_at)')
             ->addSelect('type as name')
             ->addSelect('(select count(*)
                                 from batch_action_entry
@@ -91,16 +97,15 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             ->addSelect('(select count(*)
                                 from batch_action_entry
                                 where batch_action_id = ba.id
-                                  and success = true) as processed')
+                                  and success is not null) as processed')
             ->addSelect('(select count(*)
                                  from batch_action_entry
                                  where batch_action_id = ba.id
-                                   and success = true
-                                   and fail_reason is null) as succeeded')
+                                   and success = true) as succeeded')
             ->addSelect('(select count(*)
                                  from batch_action_entry
                                  where batch_action_id = ba.id
-                                   and fail_reason is not null) as errors')
+                                   and success = false) as errors')
             ->orderBy('started_at', 'DESC')
             ->from(self::TABLE_BATCH_ACTION, 'ba')
             ->where('exists(select id from batch_action_entry where batch_action_id=ba.id)')
