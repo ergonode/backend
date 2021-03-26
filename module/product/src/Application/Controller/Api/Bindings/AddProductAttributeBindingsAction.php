@@ -80,7 +80,7 @@ class AddProductAttributeBindingsAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductBindFormModel();
+            $model = new ProductBindFormModel($product);
             $form = $this->formFactory->create(ProductBindForm::class, $model);
             $form->handleRequest($request);
 

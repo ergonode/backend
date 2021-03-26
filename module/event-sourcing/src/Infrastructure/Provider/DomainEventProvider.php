@@ -30,9 +30,13 @@ class DomainEventProvider implements DomainEventProviderInterface
     public function provideEventId(string $eventClass): string
     {
         $cacheItem = $this->cache->getItem(sha1($eventClass));
-        $eventId = $cacheItem->isHit() ? $cacheItem->get() : $this->fetchFromDatabase($eventClass);
 
-        return (string) $eventId;
+        if (!$cacheItem->isHit()) {
+            $class = $this->fetchFromDatabase($eventClass);
+            $cacheItem->set($class);
+        }
+
+        return (string) $cacheItem->get();
     }
 
     /**

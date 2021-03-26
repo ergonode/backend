@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -18,6 +18,5 @@ final class Version20201125121919 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE segment ALTER COLUMN code TYPE VARCHAR(128)');
-        $this->addSql('ALTER TABLE workflow ALTER COLUMN code TYPE VARCHAR(128)');
     }
 }

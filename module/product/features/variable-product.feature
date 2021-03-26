@@ -49,6 +49,33 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create second select attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "SELECT_BIND_@@random_code@@",
+          "type": "SELECT",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id_2"
+
+  Scenario: Create option for attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "option_1",
+        "label":  {
+          "pl_PL": "Option pl 1",
+          "en_GB": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_id_1"
+
   Scenario: Create simple product 1
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
@@ -60,6 +87,27 @@ Feature: Variable product
       """
     Then the response status code should be 201
     And store response param "id" as "simple_product_id_1"
+
+  Scenario: Edit product select value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@simple_product_id_1@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": "@option_id_1@"
+        }
+      """
+    Then the response status code should be 200
+
+  Scenario: Create simple product 2
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "simple_product_id_2"
 
   Scenario: Create variable product
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -185,6 +233,29 @@ Feature: Variable product
       """
     Then the response status code should be 204
 
+  Scenario: Add bind attribute to product with children
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@attribute_id_2@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Remove bind attribute from product with children
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/binding/@attribute_id@"
+    Then the response status code should be 400
+
+  Scenario: Add children product without correct binding attribute
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:
+      """
+      {
+        "child_id": "@simple_product_id_2@"
+      }
+      """
+    Then the response status code should be 400
+
+
   Scenario: Add parent as children product
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:
       """
@@ -197,6 +268,7 @@ Feature: Variable product
       | code               | 400                           |
       | message            | Form validation error         |
       | errors.child_id[0] | Can't add parent as children. |
+      | errors.child_id[1] | Product doesn't have required attribute. |
 
   Scenario: Add variable second as children product
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:
@@ -209,7 +281,8 @@ Feature: Variable product
     And the JSON nodes should contain:
       | code               | 400                     |
       | message            | Form validation error   |
-      | errors.child_id[0] | Incorrect product type. |
+      | errors.child_id[0] | Product doesn't have required attribute. |
+      | errors.child_id[1] | Incorrect product type. |
 
   Scenario: Request child grid filtered for given product
     When I send a GET request to "api/v1/en_GB/products/@product_id@/children"

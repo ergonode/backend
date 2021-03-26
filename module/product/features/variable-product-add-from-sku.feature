@@ -45,7 +45,21 @@ Feature: Variable product
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "option_id"
+    And store response param "id" as "option_id_1"
+
+  Scenario: Create second option for attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "option_2",
+        "label":  {
+          "pl_PL": "Option pl 2",
+          "en_GB": "Option en 2"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_id_2"
 
   Scenario: Create simple product
     Given remember param "simple_product_sku" with value "SIMPLE_SKU_1_@@random_code@@"
@@ -72,6 +86,18 @@ Feature: Variable product
       """
     Then the response status code should be 201
     And store response param "id" as "second_simple_product_id"
+
+  Scenario: Create third simple product
+    Given remember param "third_simple_product_sku" with value "SIMPLE_SKU_3_@@random_code@@"
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "sku": "@third_simple_product_sku@",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 201
 
   Scenario: Create grouping product
     Given remember param "grouping_product_sku" with value "GROUPING_SKU_@@random_code@@"
@@ -119,6 +145,24 @@ Feature: Variable product
     And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
     And the JSON node "id" should be equal to "@product_id@"
 
+  Scenario: Edit product select value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@simple_product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": "@option_id_1@"
+        }
+      """
+    Then the response status code should be 200
+
+  Scenario: Edit second product select value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@second_simple_product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": "@option_id_2@"
+        }
+      """
+    Then the response status code should be 200
+
   Scenario: Add product children by skus
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children/add-from-skus" with body:
       """
@@ -131,6 +175,17 @@ Feature: Variable product
       """
     Then the response status code should be 204
 
+  Scenario: Add product children without correct binding attribute by skus
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/children/add-from-skus" with body:
+      """
+      {
+        "skus": [
+          "@third_simple_product_sku@"
+        ]
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Add not exists children
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children/add-from-skus" with body:
       """
@@ -142,7 +197,7 @@ Feature: Variable product
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.skus.element-0[0] | Product sku not exists. |
+      | errors.skus.element-0[0] | Product not _exists doesn't have required attribute. |
 
   Scenario: Get product children element (checking multiple add)
     When I send a GET request to "/api/v1/en_GB/products/@product_id@/children?field=sku&order=ASC"

@@ -168,4 +168,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         return $this->query->getCount();
     }
+
+    public function findAttributeIdsBySku(Sku $sku): array
+    {
+        return $this->query->findAttributeIdsBySku($sku);
+    }
+
+    public function findAttributeIdsByProductId(ProductId $productId): array
+    {
+        return $this->query->findAttributeIdsByProductId($productId);
+    }
 }
