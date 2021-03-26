@@ -19,9 +19,6 @@
         "ergonode/grid": "^1.0.0-rc.1",
         "ergonode/migration": "^1.0.0-rc.1",
         "ergonode/shared-kernel": "^1.0.0-rc.1",
-        "jms/serializer": "^3.4",
-        "jms/serializer-bundle": "^3.4",
-        "mhujer/jms-serializer-uuid": "^3.1",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
@@ -29,6 +26,7 @@
         "symfony/form": "^4.4.11",
         "symfony/messenger": "^4.4",
         "symfony/polyfill-php80": "^1.0",
+        "symfony/serializer": "^4.4",
         "symfony/translation": "^4.4"
     },
     "require-dev": {
