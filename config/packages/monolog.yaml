@@ -1,0 +1,3 @@
+services:
+    Monolog\Processor\ProcessIdProcessor:
+        autoconfigure: true
