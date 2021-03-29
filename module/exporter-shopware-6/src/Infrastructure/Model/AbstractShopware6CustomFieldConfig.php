@@ -104,7 +104,7 @@ abstract class AbstractShopware6CustomFieldConfig implements \JsonSerializable
         if ($this->label) {
             $data['label'] = $this->label;
         }
-        if ($this->componentName) {
+        if (null !== $this->componentName) {
             $data['componentName'] = $this->componentName;
         }
 

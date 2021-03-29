@@ -78,10 +78,10 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
     public function jsonSerialize(): array
     {
         $data = parent::jsonSerialize();
-        if ($this->dateType) {
+        if (null !== $this->dateType) {
             $data['dateType'] = $this->dateType;
         }
-        if ($this->numberType) {
+        if (null !== $this->numberType) {
             $data['numberType'] = $this->numberType;
         }
         if ($this->options) {

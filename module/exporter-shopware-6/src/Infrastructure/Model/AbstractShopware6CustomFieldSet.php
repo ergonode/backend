@@ -85,10 +85,10 @@ abstract class AbstractShopware6CustomFieldSet implements \JsonSerializable
             'name' => $this->name,
         ];
 
-        if ($this->config) {
+        if (null !== $this->config) {
             $data['config'] = $this->config->jsonSerialize();
         }
-        if ($this->relations) {
+        if (null !== $this->relations) {
             $data['relations'] = $this->relations;
         }
 

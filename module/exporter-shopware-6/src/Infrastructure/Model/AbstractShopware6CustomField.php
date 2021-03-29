@@ -101,10 +101,9 @@ class AbstractShopware6CustomField implements \JsonSerializable
         $data = [
             'name' => $this->name,
             'type' => $this->type,
-
             'customFieldSetId' => $this->customFieldSetId,
         ];
-        if ($this->config) {
+        if (null !== $this->config) {
             $data['config'] = $this->config->jsonSerialize();
         }
 
