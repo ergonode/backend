@@ -10,7 +10,6 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
@@ -30,12 +29,12 @@ class ImportVariableProductCommand implements ImporterCommandInterface
     private array $categories;
 
     /**
-     * @var TranslatableString[]
+     * @var string[]
      */
     private array $bindings;
 
     /**
-     * @var Sku[]
+     * @var string[]
      */
     private array $children;
 
