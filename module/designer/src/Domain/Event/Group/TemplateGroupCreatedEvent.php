@@ -11,17 +11,10 @@ namespace Ergonode\Designer\Domain\Event\Group;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateGroupCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $id;
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
     public function __construct(TemplateGroupId $id, string $name)

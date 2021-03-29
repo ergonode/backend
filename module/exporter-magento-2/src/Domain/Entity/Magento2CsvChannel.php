@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\ExporterMagento2\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
@@ -17,14 +16,8 @@ class Magento2CsvChannel extends AbstractChannel
 {
     public const TYPE = 'magento-2-csv';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $filename;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     public function __construct(ChannelId $id, string $name, string $filename, Language $defaultLanguage)

@@ -23,3 +23,6 @@ services:
     tags: [ 'controller.service_arguments' ]
 
   Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery'
+
+  Ergonode\Completeness\Application\Serializer\Normalizer\CompletenessReadModelNormalizer:
+    $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'

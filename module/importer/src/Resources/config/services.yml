@@ -29,9 +29,6 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Importer\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Importer\Domain\Repository\ImportRepositoryInterface: '@Ergonode\Importer\Infrastructure\Persistence\Repository\DbalImportRepository'
 

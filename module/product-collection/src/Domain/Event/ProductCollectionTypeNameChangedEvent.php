@@ -12,23 +12,13 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionTypeNameChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
-    /**
-     * ProductCollectionTypeNameChangedEvent constructor.
-     */
     public function __construct(ProductCollectionTypeId $id, TranslatableString $to)
     {
         $this->id = $id;

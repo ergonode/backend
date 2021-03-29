@@ -11,27 +11,20 @@ namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class ConditionSetConditionsChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
-     *
-     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private array $to;
 
     /**
-     * @param array $to
+     * @param ConditionInterface[] $to
      */
     public function __construct(ConditionSetId $id, array $to)
     {

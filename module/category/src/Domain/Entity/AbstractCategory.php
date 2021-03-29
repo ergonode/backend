@@ -20,30 +20,18 @@ use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 abstract class AbstractCategory extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
-     */
     private CategoryCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

@@ -12,28 +12,15 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionElementVisibleChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $visible;
 
-    /**
-     * ProductCollectionElementVisibleChangedEvent constructor.
-     */
     public function __construct(ProductCollectionId $id, ProductId $productId, bool $visible)
     {
         $this->id = $id;

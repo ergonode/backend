@@ -13,23 +13,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class AttributeGroupCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
-     */
     private AttributeGroupId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
-     */
     private AttributeGroupCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name)

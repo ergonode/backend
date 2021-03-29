@@ -136,6 +136,3 @@ services:
         arguments:
             $strategies: !tagged_iterator 'batch_action.processor_provider.interface'
 
-    Ergonode\BatchAction\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']

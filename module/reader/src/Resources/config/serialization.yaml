@@ -1,0 +1,6 @@
+Ergonode\Reader\Infrastructure\FormatterInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            encoding: Ergonode\Reader\Infrastructure\Formatter\EncodingFormatter
+            replace: Ergonode\Reader\Infrastructure\Formatter\ReplaceFormatter

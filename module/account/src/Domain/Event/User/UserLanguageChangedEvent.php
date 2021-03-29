@@ -13,18 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class UserLanguageChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $to;
 
     public function __construct(UserId $id, Language $to)

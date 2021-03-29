@@ -69,6 +69,7 @@ class Shopware6ProductTest extends TestCase
 
     private string $keywords;
 
+    private string $json;
 
     protected function setUp(): void
     {
@@ -91,9 +92,16 @@ class Shopware6ProductTest extends TestCase
         $this->active = true;
         $this->stock = 10;
         $this->taxId = 'any_tax_id';
-        $this->price = [
-            $this->createMock(Shopware6ProductPrice::class),
-        ];
+        $price = $this->createMock(Shopware6ProductPrice::class);
+        $price->method('jsonSerialize')->willReturn(
+            [
+                'currency_id' => 'any_currency_id',
+                'net' => 1.0,
+                'gross' => 1.23,
+                'linked' => false,
+            ]
+        );
+        $this->price = [$price];
         $this->parentId = 'any_parent_id';
         $this->options = [
             [
@@ -112,6 +120,13 @@ class Shopware6ProductTest extends TestCase
         $this->metaDescription = 'any_meta_description';
 
         $this->keywords = 'any_keywords';
+
+        $this->json = '{"productNumber":"any_sku","name":"any_name","description":"any_description",'
+            .'"properties":[{"id":"property_1"},{"id":"property_2"}],"active":true,"stock":10,'
+            .'"taxId":"any_tax_id","price":[{"currency_id":"any_currency_id","net":1,"gross":1.23,"linked":false}],'
+            .'"parentId":"any_parent_id","options":[{"id":"property_1"},{"id":"property_2"}],'
+            .'"coverId":"any_product_media_id","metaTitle":"any_meta_title","metaDescription":"any_meta_description",'
+            .'"keywords":"any_keywords"}';
     }
 
     public function testCreateModel(): void
@@ -205,5 +220,29 @@ class Shopware6ProductTest extends TestCase
 
         self::assertTrue($model->isNew());
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6Product(
+            $this->id,
+            $this->sku,
+            $this->name,
+            $this->description,
+            $this->properties,
+            $this->customFields,
+            $this->parentId,
+            $this->options,
+            $this->active,
+            $this->stock,
+            $this->taxId,
+            $this->price,
+            $this->coverId,
+            $this->metaTitle,
+            $this->metaDescription,
+            $this->keywords
+        );
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

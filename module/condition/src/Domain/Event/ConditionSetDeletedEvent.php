@@ -12,13 +12,9 @@ namespace Ergonode\Condition\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class ConditionSetDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     public function __construct(ConditionSetId $id)

@@ -10,13 +10,9 @@ namespace Ergonode\Channel\Domain\Command\Export;
 
 use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProcessExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
-     */
     private ExportId $exportId;
 
     public function __construct(ExportId $exportId)

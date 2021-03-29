@@ -4,6 +4,10 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringArrayNormalizer: ~
+    Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringNormalizer: ~
+    Ergonode\Value\Application\Serializer\Normalizer\ValueInterfaceArrayDenormalizer: ~
+
     Ergonode\Value\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
@@ -12,13 +16,3 @@ services:
         - '@Ergonode\Value\Domain\Service\Strategy\StringValueUpdateStrategy'
         - '@Ergonode\Value\Domain\Service\Strategy\StringCollectionValueUpdateStrategy'
         - '@Ergonode\Value\Domain\Service\Strategy\TranslatableStringValueUpdateStrategy'
-
-    Ergonode\Value\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Value\Infrastructure\JMS\Serializer\Handler\ValueInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Value\Domain\ValueObject\StringValue']]
-            - ['set', ['Ergonode\Value\Domain\ValueObject\StringCollectionValue']]
-            - ['set', ['Ergonode\Value\Domain\ValueObject\TranslatableStringValue']]

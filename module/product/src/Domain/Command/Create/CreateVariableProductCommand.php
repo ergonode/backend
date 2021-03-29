@@ -13,38 +13,24 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class CreateVariableProductCommand implements CreateProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
-     */
     private Sku $sku;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 
     /**
      * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

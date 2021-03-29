@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Domain\Entity;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -26,21 +25,13 @@ class FileExportChannel extends AbstractChannel
         self::EXPORT_INCREMENTAL,
     ];
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $format;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     protected array $languages;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $exportType;
 
     /**

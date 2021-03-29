@@ -19,11 +19,14 @@ class Shopware6ProductMediaTest extends TestCase
 
     private int $position;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->mediaId = 'any_media_id';
         $this->position = 0;
+        $this->json = '{"id":"any_id","mediaId":"any_media_id","position":0}';
     }
 
     public function testCreateModel(): void
@@ -45,5 +48,12 @@ class Shopware6ProductMediaTest extends TestCase
 
         self::assertEquals($this->mediaId, $model->getMediaId());
         self::assertEquals($this->position, $model->getPosition());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6ProductMedia($this->id, $this->mediaId, $this->position);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

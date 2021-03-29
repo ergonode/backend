@@ -12,20 +12,14 @@ namespace Ergonode\Category\Domain\Event\Tree;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class CategoryTreeCategoriesChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     /**
      * @var Node[]
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
      */
     private array $categories;
 

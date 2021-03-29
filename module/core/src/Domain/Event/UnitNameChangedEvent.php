@@ -11,18 +11,11 @@ namespace Ergonode\Core\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use JMS\Serializer\Annotation as JMS;
 
 class UnitNameChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
-     */
     private UnitId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
     public function __construct(UnitId $id, string $to)

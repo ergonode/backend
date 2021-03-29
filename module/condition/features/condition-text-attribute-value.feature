@@ -63,7 +63,7 @@ Feature: Condition Product sku exists
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "@attribute_id@",
-              "value": 100
+              "value": "100"
             }
           ]
         }
@@ -80,7 +80,7 @@ Feature: Condition Product sku exists
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "abc",
-              "value": 100
+              "value": "100"
             }
           ]
         }
@@ -95,7 +95,7 @@ Feature: Condition Product sku exists
             {
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
-              "value": 100
+              "value": "100"
             }
           ]
         }
@@ -110,7 +110,7 @@ Feature: Condition Product sku exists
             {
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@attribute_id@",
-              "value": 100
+              "value": "100"
             }
           ]
         }
@@ -141,7 +141,7 @@ Feature: Condition Product sku exists
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "operator": "=",
               "attribute": "@numeric_attribute_id@",
-              "value": 100
+              "value": "100"
             }
           ]
         }
@@ -156,7 +156,7 @@ Feature: Condition Product sku exists
       | conditions[0].type      | TEXT_ATTRIBUTE_VALUE_CONDITION |
       | conditions[0].attribute | @attribute_id@                 |
       | conditions[0].operator  | =                              |
-      | conditions[0].value     | 100.0                          |
+      | conditions[0].value     | 100                            |
 
   Scenario: Update condition set
     Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:
@@ -167,7 +167,7 @@ Feature: Condition Product sku exists
               "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
               "attribute": "@attribute_id@",
               "operator": "=",
-              "value": 200
+              "value": "200"
             }
          ]
       }
@@ -182,7 +182,7 @@ Feature: Condition Product sku exists
       | conditions[0].type      | TEXT_ATTRIBUTE_VALUE_CONDITION |
       | conditions[0].attribute | @attribute_id@                 |
       | conditions[0].operator  | =                              |
-      | conditions[0].value     | 200.0                          |
+      | conditions[0].value     | 200                            |
 
   Scenario: Update condition set (numeric attribute with not uuid attribute)
     Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:

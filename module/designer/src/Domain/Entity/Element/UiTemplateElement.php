@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Entity\Element;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
@@ -18,9 +17,6 @@ class UiTemplateElement extends AbstractTemplateElement
 {
     public const TYPE = 'ui';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $label;
 
     public function __construct(Position $position, Size $size, string $label)
@@ -35,9 +31,6 @@ class UiTemplateElement extends AbstractTemplateElement
         return $this->label;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return  self::TYPE;

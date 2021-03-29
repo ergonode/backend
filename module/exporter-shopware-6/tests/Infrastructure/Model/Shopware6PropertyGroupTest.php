@@ -21,12 +21,15 @@ class Shopware6PropertyGroupTest extends TestCase
 
     private string $sortingType;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->name = 'any_name';
         $this->displayType = 'color';
         $this->sortingType = 'numeric';
+        $this->json = '{"name":"any_name","displayType":"color","sortingType":"numeric"}';
     }
 
     public function testCreateModel(): void
@@ -52,5 +55,12 @@ class Shopware6PropertyGroupTest extends TestCase
         self::assertEquals($this->displayType, $model->getDisplayType());
         self::assertEquals($this->sortingType, $model->getSortingType());
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6PropertyGroup($this->id, $this->name, $this->displayType, $this->sortingType);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

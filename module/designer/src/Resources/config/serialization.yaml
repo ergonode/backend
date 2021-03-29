@@ -1,0 +1,6 @@
+Ergonode\Designer\Domain\Entity\TemplateElementInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            ui: Ergonode\Designer\Domain\Entity\Element\UiTemplateElement
+            attribute: Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement

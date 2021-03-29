@@ -18,33 +18,17 @@ use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use JMS\Serializer\Annotation as JMS;
 
 class Status extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
-     */
     private StatusCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
-     */
     private Color $color;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
     /**

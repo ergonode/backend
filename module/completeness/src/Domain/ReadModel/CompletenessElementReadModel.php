@@ -10,20 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Domain\ReadModel;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 class CompletenessElementReadModel
 {
     private AttributeId $id;
     private string $name;
-    /**
-     * @JMS\Exclude()
-     */
     private bool $required;
-
-    /**
-     * @JMS\Exclude()
-     */
     private bool $filled;
 
     public function __construct(AttributeId $id, string $name, bool $required, bool $filled)

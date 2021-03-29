@@ -11,7 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use GuzzleHttp\Psr7\Request;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PostTaxCreate extends AbstractAction
@@ -45,9 +44,7 @@ class PostTaxCreate extends AbstractAction
 
     private function buildBody(): string
     {
-        $serializer = SerializerBuilder::create()->build();
-
-        return $serializer->serialize($this->tax, 'json');
+        return json_encode($this->tax->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 
     private function getUri(): string

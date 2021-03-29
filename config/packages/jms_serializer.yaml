@@ -1,9 +1,0 @@
-jms_serializer:
-    handlers:
-        datetime:
-            default_format: !php/const DateTimeInterface::RFC3339
-    default_context:
-        serialization:
-            serialize_null: true
-        deserialization:
-            serialize_null: true

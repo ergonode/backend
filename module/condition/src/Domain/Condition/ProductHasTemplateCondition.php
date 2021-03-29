@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class ProductHasTemplateCondition implements ConditionInterface
@@ -21,14 +20,8 @@ class ProductHasTemplateCondition implements ConditionInterface
     public const HAS = 'HAS';
     public const NOT_HAS = 'NOT_HAS';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
     public function __construct(string $operator, TemplateId $templateId)
@@ -37,11 +30,6 @@ class ProductHasTemplateCondition implements ConditionInterface
         $this->templateId = $templateId;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

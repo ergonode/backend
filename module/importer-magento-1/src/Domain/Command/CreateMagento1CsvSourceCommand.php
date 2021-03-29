@@ -11,51 +11,32 @@ namespace Ergonode\ImporterMagento1\Domain\Command;
 
 use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
 class CreateMagento1CsvSourceCommand implements CreateSourceCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
-     */
     private SourceId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $host;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $attributes;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string, bool>")
+     * @var bool[]
      */
     private array $import;
 

@@ -14,39 +14,20 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
-use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
 class Comment extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
-     */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $authorId;
 
-    /**
-     * @JMS\Type("uuid")
-     */
     private Uuid $objectId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private ?\DateTime $editedAt = null;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $content;
 
     /**

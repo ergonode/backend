@@ -11,24 +11,18 @@ namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateProductCategoriesCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     /**
      * @var CategoryId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private array $categories;
 
     /**
-     * @param array $categories
+     * @param CategoryId[] $categories
      */
     public function __construct(ProductId $productId, array $categories = [])
     {

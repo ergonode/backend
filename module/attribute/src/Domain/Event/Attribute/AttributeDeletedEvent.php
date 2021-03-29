@@ -12,13 +12,9 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class AttributeDeletedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $id;
 
     public function __construct(AttributeId $id)

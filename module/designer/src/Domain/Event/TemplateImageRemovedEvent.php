@@ -12,18 +12,11 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateImageRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private MultimediaId $imageId;
 
     public function __construct(TemplateId $id, MultimediaId $imageId)

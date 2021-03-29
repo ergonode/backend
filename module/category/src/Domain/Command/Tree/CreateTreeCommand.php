@@ -15,29 +15,17 @@ use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateTreeCommand implements CategoryCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
     /**
      * @var Node[]
-     *
-     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
      */
     private array $categories;
 

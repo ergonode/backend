@@ -14,36 +14,21 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class Transition extends AbstractEntity
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
-     */
     private TransitionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $from;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $to;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     /**
      * @var RoleId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
     private array $roleIds;
 

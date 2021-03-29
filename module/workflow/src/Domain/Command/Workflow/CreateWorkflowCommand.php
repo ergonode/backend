@@ -10,26 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class CreateWorkflowCommand implements CreateWorkflowCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
     private WorkflowId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $code;
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $statuses;
 

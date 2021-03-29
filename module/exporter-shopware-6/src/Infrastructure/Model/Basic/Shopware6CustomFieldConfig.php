@@ -9,26 +9,13 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Basic;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldConfig;
-use JMS\Serializer\Annotation as JMS;
 
 class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
 {
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("dateType")
-     */
     protected ?string $dateType;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("numberType")
-     */
     protected ?string $numberType;
 
-    /**
-     * @JMS\Type("array")
-     * @JMS\SerializedName("options")
-     */
     protected ?array $options;
 
     public function __construct(
@@ -86,6 +73,22 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
         } else {
             $this->changeOrCreateOption($option);
         }
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = parent::jsonSerialize();
+        if (null !== $this->dateType) {
+            $data['dateType'] = $this->dateType;
+        }
+        if (null !== $this->numberType) {
+            $data['numberType'] = $this->numberType;
+        }
+        if ($this->options) {
+            $data['options'] = $this->options;
+        }
+
+        return $data;
     }
 
     private function changeOrCreateOption(array $option): void

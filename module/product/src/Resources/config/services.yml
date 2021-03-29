@@ -32,10 +32,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
-    Ergonode\Product\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Product\Infrastructure\Processor\BatchAction\:
         resource: '../../Infrastructure/Processor/BatchAction/*'
         tags: ['batch_action.processor_provider.interface']

@@ -10,13 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Comment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteCommentCommand implements CommentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
-     */
     private CommentId $id;
 
     public function __construct(CommentId $id)

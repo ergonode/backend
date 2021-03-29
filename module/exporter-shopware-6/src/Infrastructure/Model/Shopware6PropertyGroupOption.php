@@ -9,44 +9,19 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
 
-class Shopware6PropertyGroupOption
+class Shopware6PropertyGroupOption implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     protected ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     */
     protected ?string $name;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("mediaId")
-     */
     protected ?string $mediaId;
 
-    /**
-     * @JMS\Type("int")
-     * @JMS\SerializedName("position")
-     */
     protected ?int $position;
 
-    /**
-     * @var array|null
-     *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("translations")
-     */
     protected ?array $translations;
 
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
     /**
@@ -110,14 +85,6 @@ class Shopware6PropertyGroupOption
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getTranslations(): array
-    {
-        return $this->translations;
-    }
-
     public function addTranslations(Language $language, string $field, string $value): void
     {
         $code = str_replace('_', '-', $language->getCode());
@@ -128,5 +95,23 @@ class Shopware6PropertyGroupOption
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'name' => $this->name,
+        ];
+        if (null !== $this->mediaId) {
+            $data['mediaId'] = $this->mediaId;
+        }
+        if (null !== $this->position) {
+            $data['position'] = $this->position;
+        }
+        if (null !== $this->translations) {
+            $data['translations'] = $this->translations;
+        }
+
+        return $data;
     }
 }

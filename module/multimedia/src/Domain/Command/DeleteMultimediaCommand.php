@@ -9,13 +9,9 @@ declare(strict_types=1);
 namespace Ergonode\Multimedia\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteMultimediaCommand implements MultimediaCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\MultimediaId")
-     */
     private MultimediaId $id;
 
     public function __construct(MultimediaId $id)

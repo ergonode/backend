@@ -17,7 +17,7 @@ services:
 
     Ergonode\Attribute\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Handler,JMS}'
+        exclude: '../../Infrastructure/{Handler}'
 
     Ergonode\Attribute\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
@@ -26,15 +26,6 @@ services:
     Ergonode\Attribute\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: [ 'ergonode.event_sourcing.projector' ]
-
-    Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\OptionInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption']]
-            - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
 
     Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeRepository'
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeGroupRepository'
@@ -73,3 +64,6 @@ services:
         arguments:
             $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
 
+    Ergonode\Attribute\Application\Serializer\Normalizer\AttributeNormalizer:
+        tags:
+            - {name: 'serializer.normalizer', priority: -10}

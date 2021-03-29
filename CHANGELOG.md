@@ -1,4 +1,5 @@
 
+- feature [#1162](https://github.com/ergonode/backend/issues/1162) Symfony serializer (piotrkreft) (rprzedzik)
 - feature [#1337](https://github.com/ergonode/backend/issues/1337) Adding application debug logger (wfajczyk)
 - feature [#1334](https://github.com/ergonode/backend/issues/1334) Adding behat tests for completeness endpoint (wiewiurdp)
 - bugfix [#1327](https://github.com/ergonode/backend/issues/1327) Fixed Shopware API usage to v2 (piotrkreft)

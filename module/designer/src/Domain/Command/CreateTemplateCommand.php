@@ -14,47 +14,26 @@ use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class CreateTemplateCommand implements TemplateCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $templateId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
     private ?MultimediaId $imageId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultLabel;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $defaultImage;
 
     /**
      * @var ArrayCollection|TemplateElementInterface[]
-     *
-     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private ArrayCollection $elements;
 
     /**
-     * CreateTemplateCommand constructor.
-     *
-     *
      * @throws \Exception
      */
     public function __construct(

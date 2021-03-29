@@ -12,23 +12,13 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionElementAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement")
-     */
     private ProductCollectionElement $element;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $currentDateTime;
 
     public function __construct(ProductCollectionId $id, ProductCollectionElement $element, \DateTime $currentDateTime)

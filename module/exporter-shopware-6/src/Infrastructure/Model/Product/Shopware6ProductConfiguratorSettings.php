@@ -8,20 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6ProductConfiguratorSettings
+class Shopware6ProductConfiguratorSettings implements \JsonSerializable
 {
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("id")
-     */
     private ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("optionId")
-     */
     private ?string $optionId;
 
     public function __construct(?string $id = null, ?string $optionId = null)
@@ -43,5 +33,19 @@ class Shopware6ProductConfiguratorSettings
     public function setOptionId(?string $optionId): void
     {
         $this->optionId = $optionId;
+    }
+
+    public function jsonSerialize(): array
+    {
+        if ($this->id) {
+            return [
+                'id' => $this->id,
+                'optionId' => $this->optionId,
+            ];
+        }
+
+        return [
+            'optionId' => $this->optionId,
+        ];
     }
 }

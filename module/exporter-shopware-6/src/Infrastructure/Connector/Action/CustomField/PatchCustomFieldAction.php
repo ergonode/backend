@@ -11,7 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 use GuzzleHttp\Psr7\Request;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PatchCustomFieldAction extends AbstractAction
@@ -44,9 +43,7 @@ class PatchCustomFieldAction extends AbstractAction
 
     private function buildBody(): string
     {
-        $serializer = SerializerBuilder::create()->build();
-
-        return $serializer->serialize($this->customField, 'json');
+        return json_encode($this->customField->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 
     private function getUri(): string

@@ -12,18 +12,11 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\Annotation as JMS;
 
 class TemplateDefaultImageAddedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
-     */
     private TemplateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $defaultImage;
 
     public function __construct(TemplateId $id, AttributeId $defaultImage)

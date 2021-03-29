@@ -8,20 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-abstract class AbstractShopware6CustomFieldSetConfig
+abstract class AbstractShopware6CustomFieldSetConfig implements \JsonSerializable
 {
-    /**
-     * @JMS\Type("bool")
-     * @JMS\SerializedName("translated")
-     */
     protected bool $translated;
 
-    /**
-     * @JMS\Type("array")
-     * @JMS\SerializedName("label")
-     */
     protected ?array $label;
 
     public function __construct(bool $translated = false, array $label = null)
@@ -38,5 +28,15 @@ abstract class AbstractShopware6CustomFieldSetConfig
     public function getLabel(): ?array
     {
         return $this->label;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = ['translated' => $this->translated];
+        if ($this->label) {
+            $data['label'] = $this->label;
+        }
+
+        return $data;
     }
 }

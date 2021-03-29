@@ -11,13 +11,9 @@ namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Command\AccountCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteUserAvatarCommand implements AccountCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $id;
 
     public function __construct(UserId $id)

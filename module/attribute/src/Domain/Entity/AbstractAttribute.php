@@ -24,51 +24,28 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 abstract class AbstractAttribute extends AbstractAggregateRoot implements AttributeInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     protected AttributeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     protected AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $label;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $hint;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
-     */
     protected AttributeScope $scope;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     protected TranslatableString $placeholder;
 
     /**
      * @var AttributeGroupId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId>")
      */
     protected array $groups;
 
     /**
      * @var array
-     *
-     * @JMS\Type("array<string, string>")
      */
     protected array $parameters;
 
@@ -101,10 +78,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         );
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     * @JMS\SerializedName("type")
-     */
     abstract public function getType(): string;
 
     public function getId(): AttributeId

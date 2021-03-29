@@ -14,43 +14,21 @@ use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
-     */
     private ProductCollectionCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $typeId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
-    /**
-     * ProductCollectionCreatedEvent constructor.
-     */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionCode $code,

@@ -1,5 +1,7 @@
 framework:
     messenger:
+        serializer:
+            default_serializer: 'messenger.transport.symfony_serializer'
         buses:
             application.event.bus:
                 default_middleware: allow_no_handlers

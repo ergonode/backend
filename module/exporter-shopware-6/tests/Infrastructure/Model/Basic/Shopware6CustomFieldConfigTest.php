@@ -27,6 +27,7 @@ class Shopware6CustomFieldConfigTest extends TestCase
 
     private array $option;
 
+    private string $json;
 
     protected function setUp(): void
     {
@@ -37,6 +38,8 @@ class Shopware6CustomFieldConfigTest extends TestCase
         $this->dateType = 'any_dateType';
         $this->numberType = 'any_numberType';
         $this->option = [];
+        $this->json = '{"type":"any_type","customFieldType":"any_customFieldType","componentName":"any_componentName",';
+        $this->json .= '"dateType":"any_dateType","numberType":"any_numberType"}';
     }
 
     public function testCreateModel(): void
@@ -81,5 +84,20 @@ class Shopware6CustomFieldConfigTest extends TestCase
         self::assertEquals($this->numberType, $model->getNumberType());
         self::assertEquals([$this->option], $model->getOptions());
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6CustomFieldConfig(
+            $this->type,
+            $this->customFieldType,
+            $this->label,
+            $this->componentName,
+            $this->dateType,
+            $this->numberType,
+            $this->option
+        );
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

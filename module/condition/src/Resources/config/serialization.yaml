@@ -1,0 +1,17 @@
+Ergonode\Condition\Domain\ConditionInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            ATTRIBUTE_EXISTS_CONDITION: Ergonode\Condition\Domain\Condition\AttributeExistsCondition
+            LANGUAGE_COMPLETENESS_CONDITION: Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition
+            NUMERIC_ATTRIBUTE_VALUE_CONDITION: Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition
+            OPTION_ATTRIBUTE_VALUE_CONDITION: Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition
+            PRODUCT_BELONG_CATEGORY_CONDITION: Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition
+            PRODUCT_BELONG_CATEGORY_TREE_CONDITION: Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition
+            PRODUCT_COMPLETENESS_CONDITION: Ergonode\Condition\Domain\Condition\ProductCompletenessCondition
+            PRODUCT_HAS_STATUS_CONDITION: Ergonode\Condition\Domain\Condition\ProductHasStatusCondition
+            PRODUCT_HAS_TEMPLATE_CONDITION: Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition
+            PRODUCT_SKU_EXISTS_CONDITION: Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition
+            ROLE_EXACTLY_CONDITION: Ergonode\Condition\Domain\Condition\RoleExactlyCondition
+            TEXT_ATTRIBUTE_VALUE_CONDITION: Ergonode\Condition\Domain\Condition\TextAttributeValueCondition
+            USER_EXACTLY_CONDITION: Ergonode\Condition\Domain\Condition\UserExactlyCondition

@@ -21,13 +21,17 @@ class Shopware6PropertyGroupOptionTest extends TestCase
 
     private int $position;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->name = 'any_name';
         $this->mediaId = 'any_media_id';
         $this->position = 0;
+        $this->json = '{"name":"any_name","mediaId":"any_media_id","position":0}';
     }
+
     public function testCreateModel(): void
     {
         $model = new Shopware6PropertyGroupOption($this->id, $this->name, $this->mediaId, $this->position);
@@ -53,5 +57,12 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $this->assertEquals($this->position, $model->getPosition());
         $this->assertIsInt($model->getPosition());
         $this->assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6PropertyGroupOption($this->id, $this->name, $this->mediaId, $this->position);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

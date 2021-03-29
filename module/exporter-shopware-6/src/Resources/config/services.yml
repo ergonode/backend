@@ -12,7 +12,7 @@ services:
 
     Ergonode\ExporterShopware6\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Model}'
+        exclude: ['../../Infrastructure/{Model}', '../../Infrastructure/Connector/{Action}']
 
     Ergonode\ExporterShopware6\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'

@@ -11,7 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGro
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use GuzzleHttp\Psr7\Request;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PostPropertyGroupOptionsAction extends AbstractAction
@@ -66,9 +65,7 @@ class PostPropertyGroupOptionsAction extends AbstractAction
 
     private function buildBody(): string
     {
-        $serializer = SerializerBuilder::create()->build();
-
-        return $serializer->serialize($this->propertyGroupOption, 'json');
+        return json_encode($this->propertyGroupOption->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 
     private function getUri(): string

@@ -11,7 +11,6 @@ namespace Ergonode\ImporterMagento1\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -45,32 +44,20 @@ class Magento1CsvSource extends AbstractSource
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $attributes;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $host;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     /**
-     * @var array
-     *
-     * @JMS\Type("array<string>")
+     * @var string[]
      */
     private array $import;
 

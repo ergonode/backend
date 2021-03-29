@@ -11,34 +11,18 @@ namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
 class UpdateSchedulerCommand implements ChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $active;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $start;
 
-    /**
-     * @JMS\Type("integer")
-     */
     private int $hour;
 
-    /**
-     * @JMS\Type("integer")
-     */
     private int $minute;
 
     public function __construct(AggregateId $id, bool $active, \DateTime $start, int $hour, int $minute)

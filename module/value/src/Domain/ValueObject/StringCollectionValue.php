@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Value\Domain\ValueObject;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 class StringCollectionValue implements ValueInterface
@@ -18,8 +17,6 @@ class StringCollectionValue implements ValueInterface
 
     /**
      * @var string[]
-     *
-     * @JMS\Type("array<string, string>")
      */
     private array $value;
 
@@ -31,11 +28,6 @@ class StringCollectionValue implements ValueInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

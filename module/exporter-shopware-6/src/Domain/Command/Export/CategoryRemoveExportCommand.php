@@ -11,18 +11,11 @@ namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryRemoveExportCommand implements ExporterCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
-     */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $categoryId;
 
     public function __construct(ExportId $exportId, CategoryId $categoryId)

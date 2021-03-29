@@ -1,0 +1,7 @@
+Ergonode\Value\Domain\ValueObject\ValueInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            collection: Ergonode\Value\Domain\ValueObject\StringCollectionValue
+            translation: Ergonode\Value\Domain\ValueObject\TranslatableStringValue
+            string: Ergonode\Value\Domain\ValueObject\StringValue

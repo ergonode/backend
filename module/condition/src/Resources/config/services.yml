@@ -26,9 +26,5 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Repository\EventStoreConditionSetRepository'

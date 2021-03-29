@@ -15,23 +15,13 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeCreatedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionType extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode")
-     */
     private ProductCollectionTypeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(ProductCollectionTypeId $id, ProductCollectionTypeCode $code, TranslatableString $name)

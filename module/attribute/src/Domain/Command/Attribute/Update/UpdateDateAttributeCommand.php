@@ -14,13 +14,9 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateDateAttributeCommand extends AbstractUpdateAttributeCommand
 {
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\DateFormat")
-     */
     private DateFormat $format;
 
     /**

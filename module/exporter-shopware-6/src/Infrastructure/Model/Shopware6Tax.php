@@ -8,25 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6Tax
+class Shopware6Tax implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     protected ?string $id;
 
-    /**
-     * @JMS\Type("float")
-     * @JMS\SerializedName("taxRate")
-     */
     private ?float $rate;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     */
     private ?string $name;
 
     public function __construct(?string $id = null, ?float $rate = null, ?string $name = null)
@@ -59,5 +46,13 @@ class Shopware6Tax
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'taxRate' => $this->rate,
+            'name' => $this->name,
+        ];
     }
 }
