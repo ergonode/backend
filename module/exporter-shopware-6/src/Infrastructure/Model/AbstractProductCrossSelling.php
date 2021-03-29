@@ -158,7 +158,7 @@ abstract class AbstractProductCrossSelling implements \JsonSerializable
             'type' => $this->type,
         ];
 
-        if ($this->assignedProducts) {
+        if (null !== $this->assignedProducts) {
             foreach ($this->assignedProducts as $assigned) {
                 $data['assignedProducts'][] = $assigned->jsonSerialize();
             }

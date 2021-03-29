@@ -591,15 +591,15 @@ class Shopware6Product implements \JsonSerializable
             'name' => $this->name,
         ];
 
-        if ($this->description) {
+        if (null !== $this->description) {
             $data['description'] = $this->description;
         }
-        if ($this->categories) {
+        if (null !== $this->categories) {
             foreach ($this->categories as $category) {
                 $data['categories'][] = $category->jsonSerialize();
             }
         }
-        if ($this->properties) {
+        if (null !== $this->properties) {
             $data['properties'] = $this->properties;
         }
         if ($this->customFields) {
@@ -608,43 +608,43 @@ class Shopware6Product implements \JsonSerializable
 
         $data['active'] = $this->active;
 
-        if (is_numeric($this->stock)) {
+        if (null !== $this->stock) {
             $data['stock'] = $this->stock;
         }
-        if ($this->taxId) {
+        if (null !== $this->taxId) {
             $data['taxId'] = $this->taxId;
         }
-        if ($this->price) {
+        if (null !== $this->price) {
             foreach ($this->price as $price) {
                 $data['price'][] = $price->jsonSerialize();
             }
         }
-        if ($this->parentId) {
+        if (null !== $this->parentId) {
             $data['parentId'] = $this->parentId;
         }
-        if ($this->options) {
+        if (null !== $this->options) {
             $data['options'] = $this->options;
         }
-        if ($this->media) {
+        if (null !== $this->media) {
             foreach ($this->media as $media) {
                 $data['media'][] = $media->jsonSerialize();
             }
         }
-        if ($this->configuratorSettings) {
+        if (null !== $this->configuratorSettings) {
             foreach ($this->configuratorSettings as $configuratorSetting) {
                 $data['configuratorSettings'][] = $configuratorSetting->jsonSerialize();
             }
         }
-        if ($this->coverId) {
+        if (null !== $this->coverId) {
             $data['coverId'] = $this->coverId;
         }
-        if ($this->metaTitle) {
+        if (null !== $this->metaTitle) {
             $data['metaTitle'] = $this->metaTitle;
         }
-        if ($this->metaDescription) {
+        if (null !== $this->metaDescription) {
             $data['metaDescription'] = $this->metaDescription;
         }
-        if ($this->keywords) {
+        if (null !== $this->keywords) {
             $data['keywords'] = $this->keywords;
         }
 

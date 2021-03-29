@@ -101,10 +101,10 @@ abstract class AbstractShopware6CustomFieldConfig implements \JsonSerializable
             'type' => $this->type,
             'customFieldType' => $this->customFieldType,
         ];
-        if ($this->label) {
+        if (null !== $this->label) {
             $data['label'] = $this->label;
         }
-        if ($this->componentName) {
+        if (null !== $this->componentName) {
             $data['componentName'] = $this->componentName;
         }
 

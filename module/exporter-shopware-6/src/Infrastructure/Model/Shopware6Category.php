@@ -106,7 +106,7 @@ class Shopware6Category implements \JsonSerializable
                 'active' => $this->active,
                 'visible' => $this->visible,
             ];
-        if ($this->parentId) {
+        if (null !== $this->parentId) {
             $data['parentId'] = $this->parentId;
         }
 
