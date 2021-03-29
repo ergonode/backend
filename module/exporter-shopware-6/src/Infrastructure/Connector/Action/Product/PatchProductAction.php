@@ -9,13 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PatchProductAction extends AbstractAction implements ActionInterface
+class PatchProductAction extends AbstractAction
 {
     private const URI = '/api/v2/product/';
 
@@ -46,9 +44,7 @@ class PatchProductAction extends AbstractAction implements ActionInterface
 
     private function buildBody(): string
     {
-        $serializer = SerializerBuilder::create()->build();
-
-        return $serializer->serialize($this->product, 'json');
+        return json_encode($this->product->jsonSerialize(), JSON_THROW_ON_ERROR);
     }
 
     private function getUri(): string

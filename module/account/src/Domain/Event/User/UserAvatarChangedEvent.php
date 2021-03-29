@@ -11,18 +11,11 @@ namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class UserAvatarChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $avatarFilename;
 
     public function __construct(UserId $id, string $avatarFilename = null)

@@ -13,18 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class AttributeLabelChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
     public function __construct(AttributeId $id, TranslatableString $to)

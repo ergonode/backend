@@ -26,10 +26,6 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Core\Application\Provider\SimpleDirectoryProvider:
         arguments:
             $directory: '%kernel.project_dir%'
@@ -47,12 +43,6 @@ services:
     Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\Builder\DbalDefaultLabelQueryBuilder'
     Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\Builder\DbalDefaultImageQueryBuilder'
 
-    Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:
-        decorates: 'jms_serializer.handler_registry'
-        arguments:
-            $handlers: !tagged 'jms_serializer.subscribing_handler'
-            $registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry.inner'
-
     # overriding message serializer
     messenger.transport.serializer:
         class: 'Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer'
@@ -63,7 +53,16 @@ services:
         arguments:
             - '@Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator.inner'
 
-    Ergonode\SharedKernel\Domain\Bus\EventBusInterface: '@Ergonode\Core\Application\Messenger\EventBus'
+    Ergonode\Core\Application\Messenger\DomainEventBus:
+        arguments:
+            $eventBus: '@domain.event.bus'
+
+    Ergonode\Core\Application\Messenger\ApplicationEventBus:
+        arguments:
+            $eventBus: '@application.event.bus'
+
+    Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface: '@Ergonode\Core\Application\Messenger\DomainEventBus'
+    Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface: '@Ergonode\Core\Application\Messenger\ApplicationEventBus'
 
     Ergonode\SharedKernel\Domain\Bus\CommandBusInterface: '@Ergonode\Core\Application\Messenger\CommandBus'
     Ergonode\Core\Application\Messenger\CommandBus:
@@ -72,9 +71,45 @@ services:
             $asyncBus: '@messenger.bus.async'
             $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
 
-    Ergonode\Core\Application\Serializer\JMSSerializer:
-        arguments:
-            $serializer: '@jms_serializer'
+    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
+    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
 
-    Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
-    Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
+    Ergonode\Core\Application\Serializer\Normalizer\EntityNormalizer:
+        arguments:
+            $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        tags:
+            - { name: 'serializer.normalizer', priority: -100 }
+
+    Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
+        arguments:
+            $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        tags:
+            - {name: 'serializer.normalizer', priority: -100}
+
+    Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer:
+        arguments:
+            - '@serializer.mapping.class_discriminator_resolver'
+            - '@serializer.mapping.class_metadata_factory'
+            - '@serializer.name_converter.metadata_aware'
+            - '@property_info'
+        tags:
+            - {name: 'serializer.normalizer', priority: -999}
+
+    Ergonode\Core\Application\Serializer\Normalizer\ScalarValueObjectNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: -990 }
+
+    Ergonode\Core\Application\Serializer\SymfonySerializer:
+        $serializer: '@serializer'
+
+    Ergonode\Core\Application\Serializer\Normalizer\AssocArrayDenormalizer:
+        $supportedTypes:
+            - Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId
+            - Ergonode\Core\Domain\ValueObject\LanguagePrivileges
+            - Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement
+            - Ergonode\SharedKernel\Domain\Aggregate\StatusId
+            - Ergonode\Workflow\Domain\Entity\Transition
+            - Ergonode\Value\Domain\ValueObject\ValueInterface
+            - Ergonode\SharedKernel\Domain\Aggregate\AttributeId
+            - Ergonode\Core\Domain\ValueObject\Language
+            - Ergonode\Core\Domain\ValueObject\TranslatableString

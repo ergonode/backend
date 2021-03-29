@@ -9,15 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Event\Option;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 class OptionRemovedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
     public function __construct(AggregateId $id)

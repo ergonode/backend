@@ -8,31 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling;
 
-use JMS\Serializer\Annotation as JMS;
-
-abstract class AbstractAssignedProduct
+abstract class AbstractAssignedProduct implements \JsonSerializable
 {
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("id")
-     */
     private ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("productId")
-     */
     protected ?string $productId;
 
-    /**
-     * @JMS\Type("int")
-     * @JMS\SerializedName("position")
-     */
     protected ?int $position;
 
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
     public function __construct(?string $id = null, ?string $productId = null, ?int $position = 1)
@@ -81,5 +64,21 @@ abstract class AbstractAssignedProduct
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        if ($this->id) {
+            return [
+                'id' => $this->id,
+                'productId' => $this->productId,
+                'position' => $this->position,
+            ];
+        }
+
+        return [
+            'productId' => $this->productId,
+            'position' => $this->position,
+        ];
     }
 }

@@ -40,7 +40,7 @@ class ImportVariableProductCommand implements ImporterCommandInterface
     private array $children;
 
     /**
-     * @var string[]
+     * @var TranslatableString[]
      */
     private array $attributes;
 
@@ -48,7 +48,7 @@ class ImportVariableProductCommand implements ImporterCommandInterface
      * @param string[] $categories
      * @param string[] $bindings
      * @param string[] $children
-     * @param string[] $attributes
+     * @param TranslatableString[] $attributes
      */
     public function __construct(
         ImportLineId $id,

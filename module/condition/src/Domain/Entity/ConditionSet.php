@@ -14,25 +14,19 @@ use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class ConditionSet extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
-     *
-     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private array $conditions;
 
     /**
-     * @param array $conditions
+     * @param ConditionInterface[] $conditions
      *
      * @throws \Exception
      */

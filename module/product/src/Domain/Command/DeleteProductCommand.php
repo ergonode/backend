@@ -10,13 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class DeleteProductCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
     public function __construct(ProductId $id)

@@ -13,23 +13,13 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class ValueChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     private AttributeCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $to;
 
     public function __construct(AggregateId $id, AttributeCode $code, ValueInterface $to)

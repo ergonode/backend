@@ -9,50 +9,24 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
-use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractProductCrossSelling
+abstract class AbstractProductCrossSelling implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     private ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     */
     protected ?string $name;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("productId")
-     */
     protected ?string $productId;
 
-    /**
-     * @JMS\Type("bool")
-     * @JMS\SerializedName("active")
-     */
     protected bool $active;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("type")
-     */
     protected ?string $type;
 
     /**
      * @var AbstractAssignedProduct[]|null
-     *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct>")
-     * @JMS\SerializedName("assignedProducts")
      */
     protected ?array $assignedProducts;
 
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
     /**
@@ -173,5 +147,23 @@ abstract class AbstractProductCrossSelling
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $data = [
+            'name' => $this->name,
+            'productId' => $this->productId,
+            'active' => $this->active,
+            'type' => $this->type,
+        ];
+
+        if (null !== $this->assignedProducts) {
+            foreach ($this->assignedProducts as $assigned) {
+                $data['assignedProducts'][] = $assigned->jsonSerialize();
+            }
+        }
+
+        return $data;
     }
 }

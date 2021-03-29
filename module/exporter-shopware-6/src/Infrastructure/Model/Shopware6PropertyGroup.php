@@ -8,65 +8,31 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6PropertyGroup
+class Shopware6PropertyGroup implements \JsonSerializable
 {
     private const DISPLAY_TYPES = ['media', 'text', 'color'];
     private const SORTING_TYPES = ['numeric', 'alphanumeric', 'position'];
 
-    /**
-     * @JMS\Exclude()
-     */
     protected ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     */
     protected ?string $name;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("displayType")
-     */
     protected ?string $displayType;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("sortingType")
-     */
     protected ?string $sortingType;
 
-    /**
-     * @var array
-     *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("translations")
-     */
-    protected ?array $translations;
-
-    /**
-     * @JMS\Exclude()
-     */
     protected bool $modified = false;
 
-    /**
-     * @param array|null $translations
-     */
     public function __construct(
         ?string $id = null,
         ?string $name = null,
         ?string $displayType = 'text',
-        ?string $sortingType = 'alphanumeric',
-        ?array $translations = null
+        ?string $sortingType = 'alphanumeric'
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->displayType = $displayType;
         $this->sortingType = $sortingType;
-        $this->translations = $translations;
     }
 
     public function getId(): ?string
@@ -118,23 +84,17 @@ class Shopware6PropertyGroup
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getTranslations(): array
-    {
-        return $this->translations;
-    }
-
-    public function addTranslations(Language $language, string $field, string $value): void
-    {
-        $code = str_replace('_', '-', $language->getCode());
-
-        $this->translations[$code][$field] = $value;
-    }
-
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'name' => $this->name,
+            'displayType' => $this->displayType,
+            'sortingType' => $this->sortingType,
+        ];
     }
 }

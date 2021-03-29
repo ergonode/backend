@@ -14,13 +14,13 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
-use JMS\Serializer\ArrayTransformerInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
 
 /**
  * @Route("/conditionsets", methods={"POST"})
@@ -31,19 +31,19 @@ class ConditionSetCreateAction
 
     private CommandBusInterface $commandBus;
 
-    private ArrayTransformerInterface $transformer;
+    private NormalizerInterface $normalizer;
 
     private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
     public function __construct(
         ValidatorInterface $validator,
         CommandBusInterface $commandBus,
-        ArrayTransformerInterface $transformer,
+        NormalizerInterface $normalizer,
         ConditionSetValidatorBuilder $conditionSetValidatorBuilder
     ) {
         $this->validator = $validator;
         $this->commandBus = $commandBus;
-        $this->transformer = $transformer;
+        $this->normalizer = $normalizer;
         $this->conditionSetValidatorBuilder = $conditionSetValidatorBuilder;
     }
 
@@ -79,6 +79,7 @@ class ConditionSetCreateAction
      */
     public function __invoke(Request $request): Response
     {
+
         $data = $request->request->all();
 
         $violations = $this->validator->validate($data, $this->conditionSetValidatorBuilder->build($data));
@@ -87,7 +88,8 @@ class ConditionSetCreateAction
             $data['id'] = ConditionSetId::generate()->getValue();
 
             /** @var CreateConditionSetCommand $command */
-            $command = $this->transformer->fromArray($data, CreateConditionSetCommand::class);
+
+            $command = $this->normalizer->denormalize($data, CreateConditionSetCommand::class);
             $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());

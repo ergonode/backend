@@ -21,7 +21,6 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
@@ -29,34 +28,21 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 {
     public const DEFAULT = 'default';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
-     */
-    private WorkflowId $id;
+    protected WorkflowId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
-    private string $code;
+    protected string $code;
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
-    private array $statuses;
+    protected array $statuses;
 
     /**
      * @var Transition[]
-     *
-     * @JMS\Type("array<string, Ergonode\Workflow\Domain\Entity\Transition>")
      */
-    private array $transitions;
+    protected array $transitions;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
-    private ?StatusId $defaultId;
+    protected ?StatusId $defaultId;
 
     /**
      * @param StatusId[] $statuses

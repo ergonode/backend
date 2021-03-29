@@ -12,13 +12,9 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use JMS\Serializer\Annotation as JMS;
 
 class StatusNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
     public function __construct(StatusId $id, TranslatableString $to)

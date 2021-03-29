@@ -23,6 +23,8 @@ class Shopware6CategoryTest extends TestCase
 
     private bool $visible;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -30,6 +32,7 @@ class Shopware6CategoryTest extends TestCase
         $this->parentId = 'any_parent_id';
         $this->active = false;
         $this->visible = false;
+        $this->json = '{"name":"any_name","active":false,"visible":false,"parentId":"any_parent_id"}';
     }
 
     public function testCreateModel(): void
@@ -58,5 +61,12 @@ class Shopware6CategoryTest extends TestCase
         self::assertEquals($this->active, $model->isActive());
         self::assertEquals($this->visible, $model->isVisible());
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6Category($this->id, $this->name, $this->parentId, $this->active, $this->visible);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

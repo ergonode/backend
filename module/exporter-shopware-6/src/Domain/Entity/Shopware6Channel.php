@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
@@ -21,116 +20,57 @@ class Shopware6Channel extends AbstractChannel
 {
     public const TYPE = 'shopware-6-api';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $host;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientId;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $clientKey;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private ?SegmentId $segment;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductName;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductActive;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductStock;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductPriceGross;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductPriceNet;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attributeProductTax;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductGallery;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductMetaTitle;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductMetaDescription;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private ?AttributeId $attributeProductKeywords;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private ?CategoryTreeId $categoryTree;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $propertyGroup;
 
     /**
      * @var AttributeId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
      */
     private array $customField;
 
     /**
      * @var ProductCollectionId[]
-     *
-     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
      */
     private array $crossSelling;
 

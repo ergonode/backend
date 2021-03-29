@@ -15,14 +15,21 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
+use Ergonode\Attribute\Application\Event\AttributeCreatedEvent;
+use Ergonode\Attribute\Application\Event\AttributeUpdatedEvent;
+use Ergonode\Attribute\Application\Event\AttributeDeletedEvent as AttributeDeletedApplicationEvent;
 
 class EventStoreAttributeRepository implements AttributeRepositoryInterface
 {
     private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManagerInterface $manager)
+    protected ApplicationEventBusInterface $eventBus;
+
+    public function __construct(EventStoreManagerInterface $manager, ApplicationEventBusInterface $eventBus)
     {
         $this->manager = $manager;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -46,7 +53,13 @@ class EventStoreAttributeRepository implements AttributeRepositoryInterface
      */
     public function save(AbstractAttribute $aggregateRoot): void
     {
+        $isNew = $aggregateRoot->isNew();
         $this->manager->save($aggregateRoot);
+        if ($isNew) {
+            $this->eventBus->dispatch(new AttributeCreatedEvent($aggregateRoot));
+        } else {
+            $this->eventBus->dispatch(new AttributeUpdatedEvent($aggregateRoot));
+        }
     }
 
     /**
@@ -57,8 +70,9 @@ class EventStoreAttributeRepository implements AttributeRepositoryInterface
     public function delete(AbstractAttribute $aggregateRoot): void
     {
         $aggregateRoot->apply(new AttributeDeletedEvent($aggregateRoot->getId()));
-        $this->save($aggregateRoot);
+        $this->manager->save($aggregateRoot);
 
         $this->manager->delete($aggregateRoot);
+        $this->eventBus->dispatch(new AttributeDeletedApplicationEvent($aggregateRoot));
     }
 }

@@ -13,14 +13,10 @@ use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
 
 class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
 {
-    /**
-     * @JMS\Type("Money\Currency")
-     */
     private Currency $currency;
 
     /**

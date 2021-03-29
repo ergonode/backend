@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
-use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 class ProductCompletenessCondition implements ConditionInterface
@@ -24,9 +23,6 @@ class ProductCompletenessCondition implements ConditionInterface
     public const PRODUCT_COMPLETE = 'PRODUCT_COMPLETE';
     public const PRODUCT_NOT_COMPLETE = 'PRODUCT_NOT_COMPLETE';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $completeness;
 
     public function __construct(string $completeness)
@@ -36,11 +32,6 @@ class ProductCompletenessCondition implements ConditionInterface
         $this->completeness = $completeness;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

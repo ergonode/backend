@@ -13,13 +13,9 @@ use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
 {
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $richEdit;
 
     /**

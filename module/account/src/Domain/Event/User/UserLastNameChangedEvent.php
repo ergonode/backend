@@ -12,13 +12,9 @@ namespace Ergonode\Account\Domain\Event\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class UserLastNameChangedEvent extends AbstractStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $id;
 
     public function __construct(UserId $id, string $to)

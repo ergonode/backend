@@ -13,18 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class AttributeGroupRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
-     */
     private AttributeGroupId $groupId;
 
     public function __construct(AttributeId $id, AttributeGroupId $groupId)

@@ -11,18 +11,11 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateProductCollectionTypeCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
     public function __construct(

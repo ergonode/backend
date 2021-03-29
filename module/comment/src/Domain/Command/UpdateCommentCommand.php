@@ -10,18 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Comment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateCommentCommand implements CommentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
-     */
     private CommentId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $content;
 
     public function __construct(CommentId $id, string $content)

@@ -11,23 +11,13 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 class AttributeBoolParameterChangeEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $to;
 
     public function __construct(AttributeId $id, string $name, bool $to)

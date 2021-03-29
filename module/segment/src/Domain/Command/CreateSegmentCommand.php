@@ -13,33 +13,17 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateSegmentCommand implements SegmentCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     */
     private SegmentId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
-     */
     private SegmentCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     */
     private ?ConditionSetId $conditionSetId;
 
     /**

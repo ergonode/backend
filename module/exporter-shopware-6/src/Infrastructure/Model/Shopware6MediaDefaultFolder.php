@@ -8,25 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6MediaDefaultFolder
+class Shopware6MediaDefaultFolder implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     private ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("entity")
-     */
     private ?string $entity;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("mediaFolderId")
-     */
     private ?string $mediaFolderId;
 
     public function __construct(?string $id = null, ?string $entity = null, ?string $mediaFolderId = null)
@@ -59,5 +46,13 @@ class Shopware6MediaDefaultFolder
     public function setMediaFolderId(string $mediaFolderId): void
     {
         $this->mediaFolderId = $mediaFolderId;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'entity' => $this->entity,
+            'mediaFolderId' => $this->mediaFolderId,
+        ];
     }
 }

@@ -45,7 +45,6 @@ class CreateEventBuilder implements BuilderInterface
         $properties = array_merge(['id' => $entityIdClass], $properties);
 
         $phpNamespace = $file->addNamespace($namespace);
-        $phpNamespace->addUse('\JMS\Serializer\Annotation', 'JMS');
 
         $phpClass = $phpNamespace->addClass($className);
         $phpClass->addImplement(AggregateEventInterface::class);
@@ -56,7 +55,6 @@ class CreateEventBuilder implements BuilderInterface
         foreach ($properties as $name => $type) {
             $property = $this->propertyBuilder->build($name, $type);
             $property->addComment('');
-            $property->addComment(sprintf('@JMS\Type("%s")', $type));
             $phpClass->addMember($property);
             $phpClass->addMember($this->buildGetter($name, $type));
         }

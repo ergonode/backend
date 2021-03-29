@@ -11,19 +11,13 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class AddProductCollectionElementsCommand implements ProductCollectionCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $productCollectionId;
 
     /**
      * @var ProductId[]
-     *
-     * @JMS\Type("array")
      */
     private array $productIds;
 

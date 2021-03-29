@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 
 class TextAttributeValueCondition implements ConditionInterface
 {
@@ -21,19 +20,10 @@ class TextAttributeValueCondition implements ConditionInterface
     public const HAS = 'HAS';
     public const IS_EQUAL = 'IS_EQUAL';
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $attribute;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(AttributeId $attribute, string $operator, string $value)
@@ -43,11 +33,6 @@ class TextAttributeValueCondition implements ConditionInterface
         $this->value = $value;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

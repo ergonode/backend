@@ -21,12 +21,15 @@ class AbstractShopware6CustomFieldConfigTest extends TestCase
 
     private string $componentName;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->type = 'any_type';
         $this->customFieldType = 'any_customFieldType';
         $this->label = [];
         $this->componentName = 'any_componentName';
+        $this->json = '{"type":"any_type","customFieldType":"any_customFieldType","componentName":"any_componentName"}';
     }
 
     public function testCreateModel(): void
@@ -55,6 +58,13 @@ class AbstractShopware6CustomFieldConfigTest extends TestCase
         self::assertEquals($this->label, $model->getLabel());
         self::assertEquals($this->componentName, $model->getComponentName());
         self::assertTrue($model->isModified());
+    }
+
+    public function testJSON(): void
+    {
+        $model = $this->getClass();
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 
     private function getClass(): AbstractShopware6CustomFieldConfig

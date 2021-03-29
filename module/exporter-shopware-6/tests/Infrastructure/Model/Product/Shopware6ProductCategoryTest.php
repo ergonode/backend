@@ -15,9 +15,12 @@ class Shopware6ProductCategoryTest extends TestCase
 {
     private string $id;
 
+    private string $json;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
+        $this->json = '{"id":"any_id"}';
     }
 
     public function testCreateModel(): void
@@ -25,5 +28,12 @@ class Shopware6ProductCategoryTest extends TestCase
         $model = new Shopware6ProductCategory($this->id);
 
         self::assertEquals($this->id, $model->getId());
+    }
+
+    public function testJSON(): void
+    {
+        $model = new Shopware6ProductCategory($this->id);
+
+        self::assertEquals($this->json, json_encode($model->jsonSerialize(), JSON_THROW_ON_ERROR));
     }
 }

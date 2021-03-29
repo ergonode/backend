@@ -9,15 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Domain\Entity;
 
-use JMS\Serializer\Annotation as JMS;
-
 class Category extends AbstractCategory implements CategoryInterface
 {
     public const TYPE = 'DEFAULT';
 
-    /**
-     * @JMS\Type("string");
-     */
     public function getType(): string
     {
         return self::TYPE;

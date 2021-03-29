@@ -13,18 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryNameChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
-     */
     private CategoryId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
     public function __construct(CategoryId $id, TranslatableString $to)

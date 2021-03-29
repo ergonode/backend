@@ -10,23 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Core\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use JMS\Serializer\Annotation as JMS;
 
 class CreateUnitCommand implements CoreCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
-     */
     private UnitId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $symbol;
 
     /**

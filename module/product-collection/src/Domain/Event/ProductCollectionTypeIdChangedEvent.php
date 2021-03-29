@@ -12,28 +12,15 @@ namespace Ergonode\ProductCollection\Domain\Event;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionTypeIdChangedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $newTypeId;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $editedAt;
 
-    /**
-     * ProductCollectionTypeIdChangedEvent constructor.
-     */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionTypeId $newTypeId,

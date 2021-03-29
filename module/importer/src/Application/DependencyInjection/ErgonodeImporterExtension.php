@@ -76,6 +76,7 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
     {
         $this->prependMessenger($container);
         $this->prependFlysystem($container);
+        $this->prependMonolog($container);
     }
 
     private function prependMessenger(ContainerBuilder $container): void
@@ -100,5 +101,12 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('flysystem.yaml');
+    }
+
+    private function prependMonolog(ContainerBuilder $container): void
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('monolog.yaml');
     }
 }

@@ -1,0 +1,6 @@
+Ergonode\Attribute\Domain\ValueObject\OptionInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            string: Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption
+            translation: Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption

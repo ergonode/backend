@@ -32,15 +32,6 @@ class LanguageNodeTest extends TestCase
         self::assertEquals($this->languageId, $node->getLanguageId());
     }
 
-    public function testSettingParent(): void
-    {
-        /** @var LanguageNode|MockObject $parent */
-        $parent = $this->createMock(LanguageNode::class);
-        $node = new LanguageNode($this->languageId);
-        $node->setParent($parent);
-        self::assertEquals($parent, $node->getParent());
-    }
-
     public function testAddChildren(): void
     {
         $language = LanguageId::generateIdentifier(self::NAMESPACE, 'en_GB');

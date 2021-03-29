@@ -13,18 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class RemovePrivilegeFromRoleEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
-     */
     private RoleId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Privilege")
-     */
     private Privilege $privilege;
 
     public function __construct(RoleId $id, Privilege $privilege)

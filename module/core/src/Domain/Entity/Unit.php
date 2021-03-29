@@ -14,23 +14,13 @@ use Ergonode\Core\Domain\Event\UnitNameChangedEvent;
 use Ergonode\Core\Domain\Event\UnitSymbolChangedEvent;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use JMS\Serializer\Annotation as JMS;
 
 class Unit extends AbstractAggregateRoot
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
-     */
     private UnitId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $symbol;
 
     /**

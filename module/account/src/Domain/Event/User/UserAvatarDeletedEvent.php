@@ -11,13 +11,9 @@ namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use JMS\Serializer\Annotation as JMS;
 
 class UserAvatarDeletedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $id;
 
     public function __construct(UserId $id)

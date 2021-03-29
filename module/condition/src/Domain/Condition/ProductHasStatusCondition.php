@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Domain\Condition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductHasStatusCondition implements ConditionInterface
 {
@@ -22,22 +21,15 @@ class ProductHasStatusCondition implements ConditionInterface
     public const HAS = 'HAS';
     public const NOT_HAS = 'NOT_HAS';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
     /**
      * @var StatusId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $value;
 
     /**
      * @var Language[]
-     *
-     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $language;
 
@@ -52,11 +44,6 @@ class ProductHasStatusCondition implements ConditionInterface
         $this->language = $language;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

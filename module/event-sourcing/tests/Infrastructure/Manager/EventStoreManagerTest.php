@@ -22,12 +22,12 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 
 class EventStoreManagerTest extends TestCase
 {
@@ -40,9 +40,9 @@ class EventStoreManagerTest extends TestCase
      */
     private $mockEventStore;
     /**
-     * @var EventBusInterface|MockObject
+     * @var DomainEventBusInterface|MockObject
      */
-    private EventBusInterface $mockEventBus;
+    private DomainEventBusInterface $mockEventBus;
     /**
      * @var AggregateSnapshotInterface|MockObject
      */
@@ -63,7 +63,7 @@ class EventStoreManagerTest extends TestCase
     {
         $this->mockBuilder = $this->createMock(AggregateBuilderInterface::class);
         $this->mockEventStore = $this->createMock(DomainEventStoreInterface::class);
-        $this->mockEventBus = $this->createMock(EventBusInterface::class);
+        $this->mockEventBus = $this->createMock(DomainEventBusInterface::class);
         $this->mockSnapshot = $this->createMock(AggregateSnapshotInterface::class);
         $this->mockConnection = $this->createMock(Connection::class);
         $this->mockLogger = $this->createMock(LoggerInterface::class);

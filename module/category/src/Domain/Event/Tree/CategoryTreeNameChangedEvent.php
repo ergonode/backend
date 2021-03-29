@@ -12,13 +12,9 @@ namespace Ergonode\Category\Domain\Event\Tree;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
-     */
     private CategoryTreeId $id;
 
     public function __construct(CategoryTreeId $id, TranslatableString $to)

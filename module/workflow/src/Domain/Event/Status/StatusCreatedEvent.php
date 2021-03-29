@@ -14,33 +14,17 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use JMS\Serializer\Annotation as JMS;
 
 class StatusCreatedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
-     */
     private StatusId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
-     */
     private StatusCode $code;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
-     */
     private Color $color;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $name;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $description;
 
     public function __construct(

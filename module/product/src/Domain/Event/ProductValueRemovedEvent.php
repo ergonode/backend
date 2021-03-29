@@ -13,18 +13,11 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductValueRemovedEvent implements AggregateEventInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
     private AttributeCode $code;
 
     public function __construct(ProductId $id, AttributeCode $code)

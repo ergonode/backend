@@ -72,6 +72,7 @@ class ErgonodeChannelExtension extends Extension implements PrependExtensionInte
         $this->prependNelmioApiDoc($container);
         $this->prependMessenger($container);
         $this->prependFlysystem($container);
+        $this->prependMonolog($container);
     }
 
     private function prependNelmioApiDoc(ContainerBuilder $container): void
@@ -106,5 +107,12 @@ class ErgonodeChannelExtension extends Extension implements PrependExtensionInte
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('flysystem.yaml');
+    }
+
+    private function prependMonolog(ContainerBuilder $container): void
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('monolog.yaml');
     }
 }

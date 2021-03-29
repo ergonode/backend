@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductSkuExistsCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_SKU_EXISTS_CONDITION';
     public const PHRASE = 'PRODUCT_SKU_EXISTS_CONDITION_PHRASE';
-
 
     public const IS_EQUAL = '=';
     public const IS_NOT_EQUAL = '<>';
@@ -30,14 +28,8 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const WILDCARD_PHRASE = 'WILDCARD';
     public const REGEXP_PHRASE = 'REGEXP';
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $operator;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $value;
 
     public function __construct(string $operator, string $value)
@@ -46,12 +38,6 @@ class ProductSkuExistsCondition implements ConditionInterface
         $this->value = $value;
     }
 
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
     public function getType(): string
     {
         return self::TYPE;

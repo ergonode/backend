@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Entity;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
@@ -18,29 +17,14 @@ class Scheduler
     public const HOURS = 2147483647;
     public const MINUTES = 59;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
-     */
     private AggregateId $id;
 
-    /**
-     * @JMS\Type("boolean")
-     */
     private bool $active;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private ?\DateTime $start;
 
-    /**
-     * @JMS\Type("integer")
-     */
     private ?int $hour;
 
-    /**
-     * @JMS\Type("integer")
-     */
     private ?int $minute;
 
     public function __construct(AggregateId $id)

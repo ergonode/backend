@@ -10,19 +10,12 @@ namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
 class AddProductChildCommand implements ProductCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $childId;
 
     public function __construct(AbstractAssociatedProduct $product, ProductId $childId)

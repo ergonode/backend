@@ -11,28 +11,15 @@ namespace Ergonode\ExporterMagento2\Domain\Command;
 use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use JMS\Serializer\Annotation as JMS;
 
 class UpdateMagento2ExportChannelCommand implements ChannelCommandInterface
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
-     */
     protected ChannelId $id;
 
-    /**
-     * @JMS\Type("string")
-     */
     protected string $name;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $filename;
 
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
-     */
     private Language $defaultLanguage;
 
     public function __construct(ChannelId $id, string $name, string $filename, Language $defaultLanguage)

@@ -13,28 +13,15 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
-use JMS\Serializer\Annotation as JMS;
 
 class ProductCollectionElement extends AbstractEntity
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId")
-     */
     private ProductCollectionElementId $id;
 
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
-     */
     private ProductId $productId;
 
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $visible;
 
-    /**
-     * @JMS\Type("DateTime")
-     */
     private \DateTime $createdAt;
 
     public function __construct(

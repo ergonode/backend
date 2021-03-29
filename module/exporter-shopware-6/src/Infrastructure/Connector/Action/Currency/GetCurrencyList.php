@@ -9,12 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class GetCurrencyList extends AbstractAction implements ActionInterface
+class GetCurrencyList extends AbstractAction
 {
     private const URI = '/api/v2/currency?%s';
 

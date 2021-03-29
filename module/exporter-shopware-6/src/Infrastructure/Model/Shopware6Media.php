@@ -8,19 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use JMS\Serializer\Annotation as JMS;
-
-class Shopware6Media
+class Shopware6Media implements \JsonSerializable
 {
-    /**
-     * @JMS\Exclude()
-     */
     private ?string $id;
 
-    /**
-     * @JMS\Type("string")
-     * @JMS\SerializedName("fileName")
-     */
     protected ?string $fileName;
 
     public function __construct(?string $id, ?string $fileName)
@@ -42,5 +33,10 @@ class Shopware6Media
     public function setFileName(string $fileName): void
     {
         $this->fileName = $fileName;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['fileName' => $this->fileName];
     }
 }
