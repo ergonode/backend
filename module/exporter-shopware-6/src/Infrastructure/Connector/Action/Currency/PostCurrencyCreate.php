@@ -9,12 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PostCurrencyCreate extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostCurrencyCreate extends AbstractAction
 {
     private const URI = '/api/v2/currency';
 

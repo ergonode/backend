@@ -12,6 +12,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PostAccessToken;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
@@ -19,13 +20,16 @@ class Shopware6Connector
 {
     private Configurator $configurator;
 
+    private LoggerInterface $logger;
+
     private ?string $token;
 
     private \DateTimeInterface $expiresAt;
 
-    public function __construct(Configurator $configurator)
+    public function __construct(Configurator $configurator, LoggerInterface $logger)
     {
         $this->configurator = $configurator;
+        $this->logger = $logger;
 
         $this->token = null;
         $this->expiresAt = new \DateTimeImmutable();
@@ -52,24 +56,31 @@ class Shopware6Connector
      */
     private function request(Shopware6Channel $channel, ActionInterface $action)
     {
+        $actionUid = uniqid('sh6_', true);
         try {
             $config = [
                 'base_uri' => $channel->getHost(),
             ];
 
             $this->configurator->configure($action, $this->token);
+            if ($action->isLoggable()) {
+                $this->logRequest($actionUid, $action);
+            }
 
             $client = new Client($config);
 
             $response = $client->send($action->getRequest());
             $contents = $this->resolveResponse($response);
+            if ($action->isLoggable()) {
+                $this->logResponse($actionUid, $response, $contents);
+            }
 
             return $action->parseContent($contents);
         } catch (GuzzleException $exception) {
-            //todo log
+            $this->logger->error($exception, ['action_id' => $actionUid]);
             throw  $exception;
         } catch (\Exception $exception) {
-            //todo log
+            $this->logger->error($exception, ['action_id' => $actionUid]);
             throw  $exception;
         }
     }
@@ -106,5 +117,32 @@ class Shopware6Connector
                 return null;
         }
         throw new \RuntimeException(sprintf('Unsupported response status "%s" ', $statusCode));
+    }
+
+    private function logRequest(string $uid, ActionInterface $action): void
+    {
+        $this->logger->debug(
+            'Shopware6 REQUEST',
+            [
+                'action_id' => $uid,
+                'patch' => $action->getRequest()->getUri()->getPath(),
+                'method' => $action->getRequest()->getMethod(),
+                'headers' => $action->getRequest()->getHeaders(),
+                'body' => $action->getRequest()->getBody()->getContents(),
+                'query' => $action->getRequest()->getUri()->getQuery(),
+            ]
+        );
+    }
+
+    private function logResponse(string $uid, ResponseInterface $response, ?string $contents): void
+    {
+        $this->logger->debug(
+            'Shopware6 RESPONSE',
+            [
+                'action_id' => $uid,
+                'status' => $response->getStatusCode(),
+                'body' => $contents,
+            ]
+        );
     }
 }

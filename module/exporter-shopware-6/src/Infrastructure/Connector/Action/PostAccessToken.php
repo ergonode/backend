@@ -9,13 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-class PostAccessToken extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostAccessToken extends AbstractAction
 {
     private const URI = '/api/oauth/token';
 
@@ -44,6 +42,11 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
         return json_decode($content, true);
     }
 
+    public function isLoggable(): bool
+    {
+        return false;
+    }
+
     private function buildBody(): string
     {
         return json_encode(
@@ -51,7 +54,8 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
                 'client_id' => $this->channel->getClientId(),
                 'client_secret' => $this->channel->getClientKey(),
                 'grant_type' => 'client_credentials',
-            ]
+            ],
+            JSON_THROW_ON_ERROR
         );
     }
 

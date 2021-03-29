@@ -9,12 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class PostUploadFile extends AbstractAction implements ActionInterface
+class PostUploadFile extends AbstractAction
 {
     private const URI = '/api/v2/_action/media/%s/upload?%s';
 
