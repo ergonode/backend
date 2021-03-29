@@ -56,6 +56,7 @@ class Shopware6Connector
      */
     private function request(Shopware6Channel $channel, ActionInterface $action)
     {
+        $actionUid = uniqid('sh6_', true);
         try {
             $config = [
                 'base_uri' => $channel->getHost(),
@@ -63,7 +64,7 @@ class Shopware6Connector
 
             $this->configurator->configure($action, $this->token);
             if ($action->isLoggable()) {
-                $this->generateRequestLog($action);
+                $this->logRequest($actionUid, $action);
             }
 
             $client = new Client($config);
@@ -71,15 +72,15 @@ class Shopware6Connector
             $response = $client->send($action->getRequest());
             $contents = $this->resolveResponse($response);
             if ($action->isLoggable()) {
-                $this->generateResponseLog($response, $contents);
+                $this->logResponse($actionUid, $response, $contents);
             }
 
             return $action->parseContent($contents);
         } catch (GuzzleException $exception) {
-            $this->logger->error($exception);
+            $this->logger->error($exception, ['action_id' => $actionUid]);
             throw  $exception;
         } catch (\Exception $exception) {
-            $this->logger->error($exception);
+            $this->logger->error($exception, ['action_id' => $actionUid]);
             throw  $exception;
         }
     }
@@ -118,11 +119,12 @@ class Shopware6Connector
         throw new \RuntimeException(sprintf('Unsupported response status "%s" ', $statusCode));
     }
 
-    private function generateRequestLog(ActionInterface $action): void
+    private function logRequest(string $uid, ActionInterface $action): void
     {
         $this->logger->debug(
-            $action->getRequest()->getMethod().' '.$action->getRequest()->getUri()->getPath(),
+            'Shopware6 REQUEST',
             [
+                'action_id' => $uid,
                 'patch' => $action->getRequest()->getUri()->getPath(),
                 'method' => $action->getRequest()->getMethod(),
                 'headers' => $action->getRequest()->getHeaders(),
@@ -132,11 +134,12 @@ class Shopware6Connector
         );
     }
 
-    private function generateResponseLog(ResponseInterface $response, ?string $contents): void
+    private function logResponse(string $uid, ResponseInterface $response, ?string $contents): void
     {
         $this->logger->debug(
-            'RESPONSE',
+            'Shopware6 RESPONSE',
             [
+                'action_id' => $uid,
                 'status' => $response->getStatusCode(),
                 'body' => $contents,
             ]
