@@ -11,18 +11,18 @@ namespace Ergonode\BatchAction\Tests\Infrastructure\Handler;
 
 use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
 use Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler;
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 use PHPUnit\Framework\TestCase;
 
 class EndBatchActionCommandHandlerTest extends TestCase
 {
-    private EventBusInterface $eventBus;
+    private DomainEventBusInterface $eventBus;
 
     private EndBatchActionCommand $command;
 
     protected function setUp(): void
     {
-        $this->eventBus = $this->createMock(EventBusInterface::class);
+        $this->eventBus = $this->createMock(DomainEventBusInterface::class);
         $this->command = $this->createMock(EndBatchActionCommand::class);
     }
 

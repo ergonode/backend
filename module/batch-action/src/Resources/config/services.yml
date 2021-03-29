@@ -121,7 +121,7 @@ services:
     Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
         tags: [ 'messenger.message_handler' ]
         arguments:
-            - '@Ergonode\SharedKernel\Domain\Bus\EventBusInterface'
+            - '@Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface'
 
     Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]

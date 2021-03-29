@@ -74,8 +74,8 @@ class StatusGridBuilder implements GridBuilderInterface
     private function getCodes(Language $language): array
     {
         $result = [];
-        foreach ($this->statusQuery->getAllStatuses($language) as $code => $status) {
-            $result[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
+        foreach ($this->statusQuery->getAllStatuses($language) as $id => $status) {
+            $result[] = new StatusOption($id, $status['code'], new Color($status['color']), $status['name']);
         }
 
         return $result;

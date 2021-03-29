@@ -53,6 +53,11 @@ abstract class AbstractAggregateRoot
         return $result;
     }
 
+    public function isNew(): bool
+    {
+        return 0 === count($this->events) - $this->sequence;
+    }
+
     public function getSequence(): int
     {
         return $this->sequence;

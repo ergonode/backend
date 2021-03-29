@@ -1,4 +1,4 @@
-Feature: Designer module
+Feature: Completeness module
 
   Background:
     Given I am Authenticated as "test@ergonode.com"

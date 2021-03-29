@@ -71,7 +71,7 @@ class ProductCompletenessCalculateCommandHandler
                     }
                 }
 
-                $this->manager->update($productId, $completeness);
+                $this->manager->updateCompleteness($productId, $completeness);
             }
         }
     }

@@ -15,12 +15,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  * @ProductAssert\ProductChild
+ * @ProductAssert\ProductInvalidChild(groups={"VARIABLE-PRODUCT"})
  */
 class ProductChildFormModel
 {
     /**
      * @ProductAssert\ProductType(type={"VARIABLE-PRODUCT", "GROUPING-PRODUCT"})
-     * @ProductAssert\ProductNoBindings(groups={"VARIABLE-PRODUCT"})
      */
     private ProductId $parentId;
 

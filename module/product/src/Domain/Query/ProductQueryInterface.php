@@ -107,4 +107,14 @@ interface ProductQueryInterface
         string $field = null,
         ?string $order = 'ASC'
     ): array;
+
+    /**
+     * @return AttributeId[]
+     */
+    public function findAttributeIdsBySku(Sku $sku): array;
+
+    /**
+     * @return AttributeId[]
+     */
+    public function findAttributeIdsByProductId(ProductId $productId): array;
 }

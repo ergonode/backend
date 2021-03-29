@@ -11,15 +11,13 @@ namespace Ergonode\BatchAction\Infrastructure\Handler;
 
 use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 
 class EndBatchActionCommandHandler
 {
+    private DomainEventBusInterface $eventBus;
 
-    private EventBusInterface $eventBus;
-
-
-    public function __construct(EventBusInterface $eventBus)
+    public function __construct(DomainEventBusInterface $eventBus)
     {
         $this->eventBus = $eventBus;
     }
