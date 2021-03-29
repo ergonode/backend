@@ -30,13 +30,13 @@ class TranslationInheritanceCalculator
      */
     public function calculate(AttributeScope $scope, ValueInterface $value, Language $language)
     {
-        $languagesPath = $this->languageQuery->getInheritancePath($language);
         $calculatedValue = null;
         if ($value instanceof TranslatableStringValue || $value instanceof StringCollectionValue) {
             $translations = $value->getValue();
             $find = false;
             $setUp = false;
             if ($scope->isLocal()) {
+                $languagesPath = $this->languageQuery->getInheritancePath($language);
                 foreach ($languagesPath as $inheritance) {
                     if ($inheritance->isEqual($language)) {
                         $find = true;
@@ -49,8 +49,7 @@ class TranslationInheritanceCalculator
                         $setUp = true;
                     }
                 }
-            }
-            if ($scope->isGlobal()) {
+            } else {
                 $inheritance = $this->languageQuery->getRootLanguage();
                 if (array_key_exists($inheritance->getCode(), $translations)) {
                     $calculatedValue = $translations[$inheritance->getCode()];
