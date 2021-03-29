@@ -608,7 +608,7 @@ class Shopware6Product implements \JsonSerializable
 
         $data['active'] = $this->active;
 
-        if ($this->stock) {
+        if (is_numeric($this->stock)) {
             $data['stock'] = $this->stock;
         }
         if ($this->taxId) {
