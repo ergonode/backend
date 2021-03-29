@@ -33,7 +33,7 @@ abstract class AbstractShopware6CustomFieldSetConfig implements \JsonSerializabl
     public function jsonSerialize(): array
     {
         $data = ['translated' => $this->translated];
-        if (null !== $this->label) {
+        if ($this->label) {
             $data['label'] = $this->label;
         }
 

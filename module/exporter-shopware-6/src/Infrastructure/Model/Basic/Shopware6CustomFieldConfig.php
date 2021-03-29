@@ -84,7 +84,7 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
         if (null !== $this->numberType) {
             $data['numberType'] = $this->numberType;
         }
-        if (null !== $this->options) {
+        if ($this->options) {
             $data['options'] = $this->options;
         }
 
