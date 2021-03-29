@@ -28,6 +28,20 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create option for attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "option_1",
+        "label":  {
+          "pl_PL": "Option pl 1",
+          "en_GB": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_id_1"
+
   Scenario: Create variable product
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
@@ -60,6 +74,15 @@ Feature: batch action product deletion
       """
     Then the response status code should be 201
     And store response param "id" as "simple_product_id"
+
+  Scenario: Edit product select value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@simple_product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": "@option_id_1@"
+        }
+      """
+    Then the response status code should be 200
 
   Scenario: Add children product
     When I send a POST request to "/api/v1/en_GB/products/@variable_product_id@/children" with body:

@@ -16,9 +16,9 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
+use Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface;
 
 class EventStoreManager implements EventStoreManagerInterface
 {
@@ -26,7 +26,7 @@ class EventStoreManager implements EventStoreManagerInterface
 
     private DomainEventStoreInterface $eventStore;
 
-    private EventBusInterface $eventBus;
+    private DomainEventBusInterface $eventBus;
 
     private AggregateSnapshotInterface $snapshot;
 
@@ -39,7 +39,7 @@ class EventStoreManager implements EventStoreManagerInterface
     public function __construct(
         AggregateBuilderInterface $builder,
         DomainEventStoreInterface $eventStore,
-        EventBusInterface $eventBus,
+        DomainEventBusInterface $eventBus,
         AggregateSnapshotInterface $snapshot,
         DomainEventProjectorInterface $projector,
         Connection $connection,

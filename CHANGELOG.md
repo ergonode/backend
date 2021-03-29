@@ -1,6 +1,12 @@
+
+- feature [#1337](https://github.com/ergonode/backend/issues/1337) Adding application debug logger (wfajczyk)
+- feature [#1334](https://github.com/ergonode/backend/issues/1334) Adding behat tests for completeness endpoint (wiewiurdp)
+- bugfix [#1327](https://github.com/ergonode/backend/issues/1327) Fixed Shopware API usage to v2 (piotrkreft)
 - bugfix [#1305](https://github.com/ergonode/backend/issues/1305) Adding validation for editing binding attributes in variable product.(wiewiurdp)
+- feature [#1336](https://github.com/ergonode/backend/issues/1336) Add application events (rprzedzik)
 - feature [#1283](https://github.com/ergonode/backend/issues/1283) Adding endpoint for status in batch actions  (wiewiurdp)
 - feature [#1318](https://github.com/ergonode/backend/issues/1318) Remove legacy Transformer Aggregate class (rprzedzik) 
+- bugfix [#1299](https://github.com/ergonode/backend/issues/1299) Creating validation for adding simple product to variable product (wiewiurdp)
 - refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
 - refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
 - refactor [#1321](https://github.com/ergonode/backend/issues/1321) Segment calculation refactoring  (rprzedzik)
