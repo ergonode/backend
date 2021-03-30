@@ -104,7 +104,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param string $column
+     * @param string[] $column
      *
      * @return string[]
      */
