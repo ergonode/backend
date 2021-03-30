@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Exception;
 
-class Shopware6UnauthorizedException extends Shopware6ExporterException
+class Shopware6AuthenticationException extends Shopware6ExporterException
 {
     private const MESSAGE = 'Invalid Credentials/Unauthorized access';
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PostAccessToken;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6UnauthorizedException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6AuthenticationException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -102,8 +102,9 @@ class Shopware6Connector
             $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
         } catch (ClientException $exception) {
             if ($exception->getCode() === 401) {
-                throw new Shopware6UnauthorizedException($exception);
+                throw new Shopware6AuthenticationException($exception);
             }
+            throw $exception;
         }
     }
 
