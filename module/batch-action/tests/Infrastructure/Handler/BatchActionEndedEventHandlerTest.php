@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Tests\Infrastructure\Handler;
 
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler;
+use Ergonode\Core\Application\Security\Security;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use PHPUnit\Framework\TestCase;

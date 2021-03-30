@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Handler;
 
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\BatchAction\Domain\Notification\BatchActionEndedNotification;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
+use Ergonode\Core\Application\Security\Security;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 

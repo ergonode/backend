@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Middleware;
+namespace Ergonode\Core\Application\Messenger\Middleware;
 
-use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\Authentication\Application\Token\UserToken;
+use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
+use Ergonode\Core\Application\Security\Token\UserToken;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;

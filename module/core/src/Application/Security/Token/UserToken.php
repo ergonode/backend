@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Token;
+namespace Ergonode\Core\Application\Security\Token;
 
 use Ergonode\Core\Domain\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;

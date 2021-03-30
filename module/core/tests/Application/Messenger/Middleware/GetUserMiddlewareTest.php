@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Tests\Application\Middleware;
+namespace Ergonode\Core\Tests\Application\Messenger\Middleware;
 
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Authentication\Application\Middleware\GetUserMiddleware;
+use Ergonode\Core\Application\Messenger\Middleware\GetUserMiddleware;
+use Ergonode\Core\Application\Security\Security;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;

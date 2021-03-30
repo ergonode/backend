@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Tests\Application\Stamp;
+namespace Ergonode\Core\Tests\Application\Messenger\Stamp;
 
-use Ergonode\Authentication\Application\Stamp\UserStamp;
+use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
+use Ergonode\Core\Application\Security\User\CachedUser;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Authentication\Application\Security\User\CachedUser;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Security\User;
+namespace Ergonode\Core\Application\Security\User;
 
 use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;

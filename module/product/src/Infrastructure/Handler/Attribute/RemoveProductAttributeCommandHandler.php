@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Core\Application\Security\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Core\Domain\ValueObject\Language;

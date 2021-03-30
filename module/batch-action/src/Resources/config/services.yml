@@ -126,7 +126,7 @@ services:
     Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]
         arguments:
-            - '@Ergonode\Account\Application\Security\Security'
+            - '@Ergonode\Core\Application\Security\Security'
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Symfony\Contracts\Translation\TranslatorInterface'
