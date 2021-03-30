@@ -21,7 +21,8 @@ class ImportExceptionTest extends TestCase
             [
                 '{param1}' => 'val1',
                 '{param2}' => new class() {
-                    public function __toString(): string {
+                    public function __toString(): string
+                    {
                         return 'val2';
                     }
                 },
