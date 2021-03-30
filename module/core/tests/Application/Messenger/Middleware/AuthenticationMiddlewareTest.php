@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Application\Messenger\Middleware;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Application\Messenger\Middleware\AuthenticationMiddleware;
 use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
 use Ergonode\Core\Application\Security\User\CachedUser;
+use Ergonode\Core\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -72,7 +72,7 @@ class AuthenticationMiddlewareTest extends TestCase
 
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
         $envelope = $envelope->with(new UserStamp($user));
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('getRoles')->willReturn([]);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);

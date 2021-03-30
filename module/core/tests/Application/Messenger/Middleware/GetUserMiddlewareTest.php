@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Application\Messenger\Middleware;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Application\Messenger\Middleware\GetUserMiddleware;
 use Ergonode\Core\Application\Security\Security;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -24,7 +24,7 @@ class GetUserMiddlewareTest extends TestCase
     {
         $security = $this->createMock(Security::class);
         $envelope1 = new Envelope($this->createMock(\stdClass::class));
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('getId')->willReturn($this->createMock(UserId::class));
         $user->method('isActive')->willReturn(true);
         $security->method('getUser')->willReturn($user);
