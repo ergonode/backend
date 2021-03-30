@@ -31,9 +31,9 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     private ImportRepositoryInterface $importRepository;
 
     /**
-     * @var array
+     * @var string[]
      */
-    private array $options;
+    private array $options = [];
 
     public function __construct(
         CommandBusInterface $commandBus,
@@ -104,9 +104,9 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param array $column
+     * @param string[] $column
      *
-     * @return array
+     * @return string[]
      */
     private function getOptions(array $column): array
     {

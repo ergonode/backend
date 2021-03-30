@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -18,6 +17,7 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\Importer\Infrastructure\Exception\ImportMissingOptionException;
 
 class ImportProductSelectAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
@@ -45,13 +45,7 @@ class ImportProductSelectAttributeStrategy implements ImportProductAttributeStra
             $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 
             if (null === $optionId) {
-                throw new ImportException(
-                    'Missing {option} option for {attribute} attribute.',
-                    [
-                        '{option}' => $key,
-                        '{attribute}' => $code,
-                    ],
-                );
+                throw new ImportMissingOptionException($key, $code);
             }
 
             $result[$language] = $optionId;

@@ -9,7 +9,9 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PostAccessToken;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6AuthenticationException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -76,6 +78,9 @@ class Shopware6Connector
             }
 
             return $action->parseContent($contents);
+        } catch (ClientException $exception) {
+            $this->logClientException($exception, $actionUid);
+            throw $exception;
         } catch (GuzzleException $exception) {
             $this->logger->error($exception, ['action_id' => $actionUid]);
             throw  $exception;
@@ -90,10 +95,17 @@ class Shopware6Connector
      */
     private function requestToken(Shopware6Channel $channel): void
     {
-        $post = new PostAccessToken($channel);
-        $data = $this->request($channel, $post);
-        $this->token = $data['access_token'];
-        $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
+        try {
+            $post = new PostAccessToken($channel);
+            $data = $this->request($channel, $post);
+            $this->token = $data['access_token'];
+            $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
+        } catch (ClientException $exception) {
+            if ($exception->getCode() === 401) {
+                throw new Shopware6AuthenticationException($exception);
+            }
+            throw $exception;
+        }
     }
 
     private function calculateExpiryTime(int $expiresIn): \DateTimeInterface
@@ -142,6 +154,18 @@ class Shopware6Connector
                 'action_id' => $uid,
                 'status' => $response->getStatusCode(),
                 'body' => $contents,
+            ]
+        );
+    }
+
+    private function logClientException(ClientException $exception, string $actionUid): void
+    {
+        $this->logger->error(
+            $exception,
+            [
+                'action_id' => $actionUid,
+                'exception_message' => $exception->getMessage(),
+                'body' => json_decode($exception->getResponse()->getBody()->getContents(), true),
             ]
         );
     }
