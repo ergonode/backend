@@ -50,7 +50,7 @@ class ProductReadTemplateAction
      *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Get product draft",
+     *     description="Get product template",
      * )
      * @SWG\Parameter(
      *     name="language",

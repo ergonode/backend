@@ -1,21 +1,21 @@
 Feature: Workflow
 
-  Scenario: Create status (not authorized)
+  Scenario: Create status (not authenticated)
     When I send a POST request to "/api/v1/en/status"
     Then the response status code should be 401
 
-  Scenario: Update source status (not authorized)
+  Scenario: Update source status (not authenticated)
     When I send a PUT request to "/api/v1/en/status/@@random_uuid@@"
     Then the response status code should be 401
 
-  Scenario: Get statuses (not authorized)
+  Scenario: Get statuses (not authenticated)
     When I send a GET request to "/api/v1/en/status"
     Then the response status code should be 401
 
-  Scenario: Set default status (not authorized)
+  Scenario: Set default status (not authenticated)
     When I send a PUT request to "/api/v1/en/workflow/default/status/@@random_uuid@@/default"
     Then the response status code should be 401
 
-  Scenario: Delete status (not authorized)
+  Scenario: Delete status (not authenticated)
     When I send a DELETE request to "/api/v1/en/status/@@random_uuid@@"
     Then the response status code should be 401

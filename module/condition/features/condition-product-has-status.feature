@@ -1,8 +1,11 @@
 Feature: Condition Product has status
 
-  Scenario: Create status
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+
+  Scenario: Create status
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
@@ -23,9 +26,6 @@ Feature: Condition Product has status
     And store response param "id" as "status_1"
 
   Scenario: Create status
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
@@ -44,21 +44,11 @@ Feature: Condition Product has status
     Then the response status code should be 201
     And store response param "id" as "status_2"
 
-  Scenario: Get product has status condition
-    When I send a GET request to "/api/v1/en_GB/conditions/PRODUCT_HAS_STATUS_CONDITION"
-    Then the response status code should be 401
-
   Scenario: Get Product has status
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/conditions/PRODUCT_HAS_STATUS_CONDITION"
     Then the response status code should be 200
 
   Scenario Outline: Post new valid product has status condition set
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
        {
@@ -80,9 +70,6 @@ Feature: Condition Product has status
 
 
   Scenario Outline: Post new invalid product has status condition set
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
@@ -107,9 +94,6 @@ Feature: Condition Product has status
 
 
   Scenario Outline: Post new invalid product has status condition set
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {

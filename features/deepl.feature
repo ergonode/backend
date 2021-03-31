@@ -5,7 +5,7 @@ Feature: Deepl module
 #    When I request "/api/v1/translation/deepl?content=kat&source_language=PL&target_language=en" using HTTP GET
 #    Then the response code is 200
 #
-#  Scenario: Get translation deepl (not authorized)
+#  Scenario: Get translation deepl (not authenticated)
 #    When I request "/api/v1/translation/deepl" using HTTP GET
 #    Then unauthorized response is received
 #
@@ -59,6 +59,6 @@ Feature: Deepl module
 #    When I request "/api/v1/translation/usage" using HTTP GET
 #    Then the response code is 200
 #
-#  Scenario: Get translation deepl (not authorized)
+#  Scenario: Get translation deepl (not authenticated)
 #    When I request "/api/v1/translation/usage" using HTTP GET
 #    Then unauthorized response is received

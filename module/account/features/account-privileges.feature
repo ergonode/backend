@@ -1,9 +1,11 @@
 Feature: Account roles
 
-  Scenario: Create role
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+
+  Scenario: Create role
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
@@ -16,9 +18,6 @@ Feature: Account roles
     And store response param "id" as "role"
 
   Scenario: Create user
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     Given remember param "user_email" with value "@@random_uuid@@@ergonode.com"
     When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
@@ -37,9 +36,6 @@ Feature: Account roles
     And store response param "id" as "user"
 
   Scenario: Create text attribute
-    Given I am Authenticated as "@user_email@"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     Given remember param "attribute_code" with value "TEXT_@@random_code@@"
     And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """

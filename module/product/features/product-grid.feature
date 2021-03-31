@@ -107,9 +107,6 @@ Feature: Product edit feature
       | @product_2_id@ | product_2_sku |
 
   Scenario Outline: Add product <code> value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
        {
