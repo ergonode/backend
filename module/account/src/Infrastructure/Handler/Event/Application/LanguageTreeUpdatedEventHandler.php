@@ -64,7 +64,7 @@ class LanguageTreeUpdatedEventHandler
     }
 
     /**
-     * @param array    $userLanguages
+     * @param string[] $userLanguages
      * @param string[] $language
      *
      * @return string[]

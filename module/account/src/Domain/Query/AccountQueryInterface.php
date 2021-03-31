@@ -24,8 +24,5 @@ interface AccountQueryInterface
      */
     public function findUserIdByRoleId(RoleId $roleId): array;
 
-    /**
-     * @return array
-     */
     public function getUsers(): array;
 }
