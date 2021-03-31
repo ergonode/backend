@@ -90,6 +90,30 @@ class DbalAccountQuery implements AccountQueryInterface
         return $result;
     }
 
+    public function getUsers(): array
+    {
+        $query = $this->getQuery();
+
+        $data = $query
+            ->join('a', 'roles', 'r', 'r.id = a.role_id')
+            ->andWhere($query->expr()->eq('hidden', ':qb_hidden'))
+            ->setParameter(':qb_hidden', false, \PDO::PARAM_BOOL)
+            ->execute()
+            ->fetchAll();
+        $result = [];
+
+        foreach ($data as $item) {
+            $result[] = array_merge(
+                $item,
+                ['language_privileges_collection' => json_decode($item['language_privileges_collection'], true)]
+            );
+        }
+        unset($data);
+
+        return $result;
+    }
+
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
