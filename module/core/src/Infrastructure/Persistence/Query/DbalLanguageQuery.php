@@ -24,7 +24,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
         'id',
         'iso AS code',
         'iso AS name',
-        'active',
     ];
 
     private const CODE_FIELD = [
@@ -50,18 +49,19 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     public function getDataSet(): DataSetInterface
     {
-        $query = $this->connection->createQueryBuilder()
+        $query = $this->connection->createQueryBuilder();
+        $query
             ->select(
                 [
                     'l.id',
                     'l.iso AS code',
                     'l.iso AS name',
-                    'l.active',
                     'CASE WHEN lt.id is null THEN false ELSE true END AS tree',
                 ]
             )
             ->from(self::TABLE, 'l')
-            ->leftJoin('l', self::TABLE_TREE, 'lt', 'lt.id = l.id');
+            ->leftJoin('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
+            ->where($query->expr()->eq('l.active', 'true'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -150,16 +150,18 @@ class DbalLanguageQuery implements LanguageQueryInterface
      */
     public function getAll(): array
     {
-        $records = $this->getQuery(self::CODE_FIELD)
+        $qb = $this->getQuery(self::CODE_FIELD);
+
+        $result = $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        $result = [];
-        foreach ($records as $record) {
-            $result[] = new Language($record);
-        }
-
-        return $result;
+        return array_map(
+            fn(string $item) => new Language($item),
+            $result,
+        );
     }
 
     /**
@@ -167,7 +169,11 @@ class DbalLanguageQuery implements LanguageQueryInterface
      */
     public function getDictionary(): array
     {
-        return $this->getQuery(self::DICTIONARY_FIELD)
+        $qb = $this->getQuery(self::DICTIONARY_FIELD);
+
+        return $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
@@ -195,6 +201,8 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $qb = $this->getQuery(self::CODE_FIELD);
 
         $records = $qb->join('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
