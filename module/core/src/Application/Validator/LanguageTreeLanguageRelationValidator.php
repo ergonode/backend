@@ -44,7 +44,7 @@ class LanguageTreeLanguageRelationValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, LanguageTreeNodeFormModel::class);
         }
 
-        $deleted = array_diff_assoc($this->getCurrent(), $this->createArray($value));
+        $deleted = array_diff($this->getCurrent(), $this->createArray($value));
 
         if ($deleted) {
             $relations = [];
