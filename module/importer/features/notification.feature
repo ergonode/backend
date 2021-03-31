@@ -1,4 +1,5 @@
 Feature: Transformer module
+
   Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"

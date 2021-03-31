@@ -16,13 +16,13 @@ class ImportException extends \Exception
     private array $parameters;
 
     /**
-     * @param array $parameters
+     * @param string[]|\Stringable[] $parameters
      */
     public function __construct(string $message, array $parameters = [], \Throwable $previous = null)
     {
         parent::__construct($message, 0, $previous);
 
-        $this->parameters = $parameters;
+        $this->parameters = array_map(fn ($parameter) => (string) $parameter, $parameters);
     }
 
     /**

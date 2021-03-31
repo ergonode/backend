@@ -7,18 +7,18 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Tests\Application\Middleware;
+namespace Ergonode\Core\Tests\Application\Messenger\Middleware;
 
-use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware;
-use Ergonode\Authentication\Application\Stamp\UserStamp;
+use Ergonode\Core\Application\Messenger\Middleware\AuthenticationMiddleware;
+use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
+use Ergonode\Core\Application\Security\User\CachedUser;
+use Ergonode\Core\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Ergonode\Authentication\Application\Security\User\CachedUser;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -72,7 +72,7 @@ class AuthenticationMiddlewareTest extends TestCase
 
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
         $envelope = $envelope->with(new UserStamp($user));
-        $user = $this->createMock(User::class);
+        $user = $this->createMock(UserInterface::class);
         $user->method('getRoles')->willReturn([]);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);

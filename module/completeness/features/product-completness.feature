@@ -55,9 +55,6 @@ Feature: Completeness module
     And store response param "id" as "attribute_id_3"
 
   Scenario: Update template
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en_GB/templates/@product_template_id@" with body:
       """
       {
@@ -132,16 +129,10 @@ Feature: Completeness module
     Then the response status code should be 200
 
   Scenario: Get Completeness with wrong product id
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@@random_uuid@@/completeness"
     Then the response status code should be 404
 
   Scenario: Get Completeness
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product_id@/completeness"
     Then the response status code should be 200
     And the JSON nodes should contain:

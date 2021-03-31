@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Factory;
 
-use Ergonode\Account\Application\Security\Security;
+use Ergonode\Core\Application\Security\Security;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;

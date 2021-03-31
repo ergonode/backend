@@ -1,20 +1,16 @@
 Feature: Condition Product belong category exists
 
-  Scenario: Get product belong category exists condition
-    When I send a GET request to "/api/v1/en_GB/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
-    Then the response status code should be 401
-
-  Scenario: Get product belong category exists condition
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+
+
+  Scenario: Get product belong category exists condition
     When I send a GET request to "/api/v1/en_GB/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
     Then the response status code should be 200
 
   Scenario: Create category1
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/categories" with body:
       """
       {
@@ -30,9 +26,6 @@ Feature: Condition Product belong category exists
     And store response param "id" as "category1"
 
   Scenario: Create category2
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/categories" with body:
       """
       {
@@ -48,9 +41,6 @@ Feature: Condition Product belong category exists
     And store response param "id" as "category2"
 
   Scenario: Post new BELONG_TO product category exists condition set
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
@@ -69,9 +59,6 @@ Feature: Condition Product belong category exists
     Then the response status code should be 201
 
   Scenario: Post new NOT_BELONG_TO product category exists condition set
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
@@ -89,9 +76,6 @@ Feature: Condition Product belong category exists
     Then the response status code should be 201
 
   Scenario: Post new fail condition operator
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
@@ -110,9 +94,6 @@ Feature: Condition Product belong category exists
     Then the response status code should be 400
 
   Scenario: Post new fail condition category doesn't exist
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
