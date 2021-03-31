@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Application\Validator;
 
 use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeNodeFormModel;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
@@ -21,13 +22,17 @@ class LanguageTreeLanguageRelationValidator extends ConstraintValidator
 {
     private LanguageTreeQueryInterface $languageTreeQuery;
 
+    private LanguageQueryInterface $languageQuery;
+
     private RelationshipsResolverInterface $relationshipsResolver;
 
     public function __construct(
         LanguageTreeQueryInterface $languageTreeQuery,
+        LanguageQueryInterface $languageQuery,
         RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->languageTreeQuery = $languageTreeQuery;
+        $this->languageQuery = $languageQuery;
         $this->relationshipsResolver = $relationshipsResolver;
     }
 
@@ -57,7 +62,10 @@ class LanguageTreeLanguageRelationValidator extends ConstraintValidator
             }
             if ($relations) {
                 $this->context->buildViolation($constraint->message)
-                    ->setParameter('{{ languages }}', implode(', ', $relations))
+                    ->setParameter(
+                        '{{ languages }}',
+                        implode(', ', $this->languageQuery->getLanguagesByIds($relations))
+                    )
                     ->addViolation();
             }
         }

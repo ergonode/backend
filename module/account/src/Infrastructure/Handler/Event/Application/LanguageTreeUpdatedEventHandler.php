@@ -13,6 +13,7 @@ use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Core\Application\Event\LanguageTreeUpdatedEvent;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
@@ -78,21 +79,16 @@ class LanguageTreeUpdatedEventHandler
     }
 
     /**
-     * @param LanguageId[] $languages
+     * @param LanguageId[] $languageIds
      *
      * @return string[]
      */
-    private function getLanguages(array $languages): array
+    private function getLanguages(array $languageIds): array
     {
-        $result = [];
-        foreach ($languages as $languageId) {
-            $code = $this->languageQuery->getLanguageById($languageId->getValue());
-            if ($code) {
-                $result[] = $code->getCode();
-            }
-        }
-
-        return $result;
+        return array_map(
+            fn (Language $item) => $item->getCode(),
+            $this->languageQuery->getLanguagesByIds($languageIds)
+        );
     }
 
     /**

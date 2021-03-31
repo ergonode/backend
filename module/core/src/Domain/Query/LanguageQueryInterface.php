@@ -11,6 +11,7 @@ namespace Ergonode\Core\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
 interface LanguageQueryInterface
 {
@@ -54,4 +55,11 @@ interface LanguageQueryInterface
     public function getDataSet(): DataSetInterface;
 
     public function getLanguageById(string $id): ?Language;
+
+    /**
+     * @param LanguageId[] $ids
+     *
+     * @return Language[]
+     */
+    public function getLanguagesByIds(array $ids): array;
 }
