@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Stamp;
+namespace Ergonode\Core\Application\Messenger\Stamp;
 
+use Ergonode\Core\Application\Security\User\CachedUser;
 use Symfony\Component\Messenger\Stamp\StampInterface;
-use Ergonode\Authentication\Application\Security\User\CachedUser;
 
 final class UserStamp implements StampInterface
 {

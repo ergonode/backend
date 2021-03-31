@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Middleware;
+namespace Ergonode\Core\Application\Messenger\Middleware;
 
-use Ergonode\Account\Application\Security\Security;
-use Ergonode\Authentication\Application\Security\User\CachedUser;
-use Ergonode\Authentication\Application\Stamp\UserStamp;
+use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
+use Ergonode\Core\Application\Security\Security;
+use Ergonode\Core\Application\Security\User\CachedUser;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;

@@ -1,0 +1,24 @@
+framework:
+    messenger:
+        buses:
+            application.event.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+            domain.event.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+            messenger.bus.sync:
+                default_middleware: false
+                middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+                    - 'Ergonode\Core\Application\Messenger\Middleware\AuthenticationMiddleware'
+                    - 'handle_message'
+            messenger.bus.async:
+                default_middleware: false
+                middleware:
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+                    - 'Ergonode\Core\Application\Messenger\Middleware\GetUserMiddleware'
+                    - 'send_message'
+                    - 'handle_message'
