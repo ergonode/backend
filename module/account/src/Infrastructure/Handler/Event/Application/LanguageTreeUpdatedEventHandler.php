@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Event\Application;
 
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Core\Application\Event\LanguageTreeUpdatedEvent;
@@ -15,6 +16,7 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Webmozart\Assert\Assert;
 
 class LanguageTreeUpdatedEventHandler
 {
@@ -51,14 +53,13 @@ class LanguageTreeUpdatedEventHandler
     private function userDeleteLanguage(UserId $userId, array $languages): void
     {
         $user = $this->userRepository->load($userId);
-        if ($user) {
-            $collection = $user->getLanguagePrivilegesCollection();
-            foreach ($languages as $language) {
-                unset($collection[$language]);
-            }
-            $user->changeLanguagePrivilegesCollection($collection);
-            $this->userRepository->save($user);
+        Assert::isInstanceOf($user, User::class, sprintf('No found user %s', $userId->getValue()));
+        $collection = $user->getLanguagePrivilegesCollection();
+        foreach ($languages as $language) {
+            unset($collection[$language]);
         }
+        $user->changeLanguagePrivilegesCollection($collection);
+        $this->userRepository->save($user);
     }
 
     /**
