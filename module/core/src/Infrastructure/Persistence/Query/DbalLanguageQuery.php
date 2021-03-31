@@ -222,6 +222,26 @@ class DbalLanguageQuery implements LanguageQueryInterface
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getLanguagesByIds(array $ids): array
+    {
+        $qb = $this->getQuery(self::CODE_FIELD);
+
+        $result = $qb
+            ->where($qb->expr()->in('id', ':ids'))
+            ->setParameter(':ids', $ids, Connection::PARAM_STR_ARRAY)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        return array_map(
+            fn(string $item) => new Language($item),
+            $result,
+        );
+    }
+
+
     public function getRootLanguage(): Language
     {
         $qb = $this->connection->createQueryBuilder();

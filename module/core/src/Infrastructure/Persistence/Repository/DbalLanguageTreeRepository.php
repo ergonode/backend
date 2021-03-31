@@ -10,10 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\Core\Application\Event\LanguageTreeUpdatedEvent;
 use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Infrastructure\Builder\LanguageTree\LanguageTreeBuilder;
 use Ergonode\Core\Infrastructure\Persistence\Repository\Factory\DbalLanguageTreeFactory;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 {
@@ -25,11 +27,18 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 
     private DbalLanguageTreeFactory $factory;
 
-    public function __construct(Connection $connection, LanguageTreeBuilder $builder, DbalLanguageTreeFactory $factory)
-    {
+    protected ApplicationEventBusInterface $eventBus;
+
+    public function __construct(
+        Connection $connection,
+        LanguageTreeBuilder $builder,
+        DbalLanguageTreeFactory $factory,
+        ApplicationEventBusInterface $eventBus
+    ) {
         $this->connection = $connection;
         $this->builder = $builder;
         $this->factory = $factory;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -83,6 +92,11 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
             $this->connection->rollBack();
             throw $ex;
         }
+        $event = new LanguageTreeUpdatedEvent($tree);
+
+        $this->eventBus->dispatch(
+            $event
+        );
     }
 
     private function delete(): void
