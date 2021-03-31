@@ -37,9 +37,6 @@ Feature: Product edit and inheritance value for product product with text attrib
     Then the response status code should be 204
 
   Scenario: Update Tree
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {

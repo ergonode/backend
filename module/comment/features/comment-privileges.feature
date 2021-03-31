@@ -1,9 +1,11 @@
 Feature: Comment module - privileges
 
-  Scenario: Create second comment
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+
+  Scenario: Create second comment
     Given remember param "second_object_id" with value "@@random_uuid@@"
     When I send a POST request to "/api/v1/en_GB/comments" with body:
       """
@@ -16,9 +18,6 @@ Feature: Comment module - privileges
     And store response param "id" as "second_comment_id"
 
   Scenario: Create role
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
@@ -34,9 +33,6 @@ Feature: Comment module - privileges
   Scenario: Create user
     Given remember param "test_username" with value "@@random_uuid@@@ergonode.com"
     Given remember param "test_password" with value "12345678"
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {

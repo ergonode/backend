@@ -197,6 +197,10 @@ Feature: Workflow
     When I send a DELETE request to "/api/v1/en_GB/workflow/@@random_uuid@@"
     Then the response status code should be 404
 
+  Scenario: Get second status
+    When I send a GET request to "/api/v1/en_GB/dashboard/widget/en_GB/status-count"
+    Then the response status code should be 200
+
   Scenario: Delete status (not found)
     When I send a DELETE request to "/api/v1/en/status/@@random_uuid@@"
     Then the response status code should be 404

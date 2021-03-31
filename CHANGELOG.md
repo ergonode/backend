@@ -1,4 +1,4 @@
-
+- feature [#1357](https://github.com/ergonode/backend/issues/1357) Updating and refactoring behat tests (wiewiurdp)
 - feature [#1162](https://github.com/ergonode/backend/issues/1162) Symfony serializer (piotrkreft) (rprzedzik)
 - feature [#1337](https://github.com/ergonode/backend/issues/1337) Adding application debug logger (wfajczyk)
 - feature [#1334](https://github.com/ergonode/backend/issues/1334) Adding behat tests for completeness endpoint (wiewiurdp)

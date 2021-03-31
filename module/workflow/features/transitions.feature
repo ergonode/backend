@@ -92,7 +92,6 @@ Feature: Workflow transitions
     And the JSON node "role_ids[0]" should not be null
 
   Scenario: Create transition to workflow (duplicated)
-    Given I am Authenticated as "test@ergonode.com"
     When I send a POST request to "/api/v1/en_GB/workflow/default/transitions"
       """
       {
