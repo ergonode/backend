@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Application\Security;
+namespace Ergonode\Core\Application\Security;
 
 use Ergonode\Core\Domain\User\UserInterface;
 use Symfony\Component\Security\Core\Security as SymfonySecurity;

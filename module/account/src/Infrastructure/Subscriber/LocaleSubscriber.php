@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Subscriber;
 
-use Ergonode\Account\Application\Security\Security;
+use Ergonode\Core\Application\Security\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

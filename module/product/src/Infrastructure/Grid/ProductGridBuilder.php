@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Grid;
 
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Core\Application\Security\Security;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
@@ -28,7 +29,6 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\Grid\Column\IdColumn;
 
 class ProductGridBuilder implements GridBuilderInterface
