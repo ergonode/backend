@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Application\Security\Security;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
@@ -64,7 +64,7 @@ class ProductGridBuilder implements GridBuilderInterface
         $codes = $this->attributeQuery->getAllAttributeCodes();
 
         $user = $this->security->getUser();
-        if (!$user instanceof User) {
+        if (!$user instanceof UserInterface) {
             throw new AuthenticationException();
         }
         $result = [];
