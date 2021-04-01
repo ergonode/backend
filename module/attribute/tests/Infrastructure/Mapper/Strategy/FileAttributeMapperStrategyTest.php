@@ -68,6 +68,18 @@ class FileAttributeMapperStrategyTest extends TestCase
                 ['pl_PL' => []],
                 new StringCollectionValue(['pl_PL' => null]),
             ],
+            [
+                ['pl_PL' => null],
+                new StringCollectionValue(['pl_PL' => null]),
+            ],
+            [
+                ['pl_PL' => $uuid1],
+                new StringCollectionValue(['pl_PL' => $uuid1]),
+            ],
+            [
+                ['pl_PL' => $uuid1.','.$uuid2],
+                new StringCollectionValue(['pl_PL' => $uuid1.','.$uuid2]),
+            ],
         ];
     }
 
@@ -79,7 +91,6 @@ class FileAttributeMapperStrategyTest extends TestCase
             [['' => '']],
             [['pl_PL' => 0.0]],
             [['pl_PL' => 0]],
-            [['pl_PL' => null]],
         ];
     }
 }

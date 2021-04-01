@@ -24,9 +24,12 @@ class MultiSelectAttributeMapperStrategy implements AttributeMapperStrategyInter
     public function map(array $values): ValueInterface
     {
         Assert::allRegex(array_keys($values), '/^[a-z]{2}_[A-Z]{2}$/');
-        Assert::allIsArray($values);
         foreach ($values as $language => $value) {
-            if (is_array($value) && !empty($value)) {
+            if (null !== $value && !is_array($value)) {
+                $value = explode(',', (string) $value);
+            }
+
+            if (is_array($value)) {
                 Assert::allUuid($value);
                 $values[$language] = implode(',', $value);
             } else {
