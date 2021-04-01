@@ -6,5 +6,8 @@ services:
         public: true
 
     Ergonode\Core\Test\Fixtures\Messenger\Transport\TestTransportFactory:
-        autowire: true
-        autoconfigure: true
+        arguments:
+            $messageBus: '@messenger.bus.sync'
+            $tokenStorage: '@security.token_storage'
+        tags:
+            - 'messenger.transport_factory'
