@@ -219,8 +219,7 @@ Feature: Product edit and inheritance value for product product with multi-selec
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "Expected an array. Got: string"
+    Then the response status code should be 200
 
   Scenario: Edit product multi-select value in "en_GB" language (batch endpoint) (value not uuid)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:

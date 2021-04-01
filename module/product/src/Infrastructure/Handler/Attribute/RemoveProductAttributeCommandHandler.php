@@ -12,13 +12,9 @@ namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Application\Security\Security;
 use Webmozart\Assert\Assert;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Command\Attribute\RemoveProductAttributeCommand;
+use Ergonode\Product\Domain\Updater\ProductAttributeUpdater;
 
 class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
 {
@@ -26,15 +22,19 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
 
     private AttributeRepositoryInterface $attributeRepository;
 
+    private ProductAttributeUpdater $updater;
+
     private Security $security;
 
     public function __construct(
         ProductRepositoryInterface $repository,
         AttributeRepositoryInterface $attributeRepository,
+        ProductAttributeUpdater $updater,
         Security $security
     ) {
         $this->repository = $repository;
         $this->attributeRepository = $attributeRepository;
+        $this->updater = $updater;
         $this->security = $security;
     }
 
@@ -55,14 +55,9 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
             return;
         }
 
-        $oldValue = $product->getAttribute($attribute->getCode());
-        $newValue = $this->calculate($oldValue, $language);
+        $value[$language->getCode()] = null;
 
-        if ($newValue && !empty($newValue->getValue())) {
-            $product->changeAttribute($attribute->getCode(), $newValue);
-        } else {
-            $product->removeAttribute($attribute->getCode());
-        }
+        $this->updater->remove($product, $attribute, $value);
 
         $user = $this->security->getUser();
         if ($user) {
@@ -70,28 +65,5 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
         }
 
         $this->repository->save($product);
-    }
-
-    public function calculate(ValueInterface $value, Language $language): ?ValueInterface
-    {
-        if ($value instanceof TranslatableStringValue) {
-            $translation = $value->getValue();
-            if (array_key_exists($language->getCode(), $translation)) {
-                unset($translation[$language->getCode()]);
-            }
-
-            return new TranslatableStringValue(new TranslatableString($translation));
-        }
-
-        if ($value instanceof StringCollectionValue) {
-            $translation = $value->getValue();
-            if (array_key_exists($language->getCode(), $translation)) {
-                unset($translation[$language->getCode()]);
-            }
-
-            return new StringCollectionValue($translation);
-        }
-
-        return null;
     }
 }
