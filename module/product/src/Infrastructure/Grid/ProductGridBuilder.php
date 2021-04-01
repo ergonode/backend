@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
+use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Core\Application\Security\Security;
 use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -43,18 +45,22 @@ class ProductGridBuilder implements GridBuilderInterface
 
     private Security $security;
 
+    private UserRepositoryInterface $userRepository;
+
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
         AttributeColumnProvider $provider,
         LanguageQueryInterface $languageQuery,
-        Security $security
+        Security $security,
+        UserRepositoryInterface $userRepository
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->provider = $provider;
         $this->languageQuery = $languageQuery;
         $this->security = $security;
+        $this->userRepository = $userRepository;
     }
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
@@ -66,6 +72,12 @@ class ProductGridBuilder implements GridBuilderInterface
         $user = $this->security->getUser();
         if (!$user instanceof UserInterface) {
             throw new AuthenticationException();
+        }
+        //todo refactor in feature
+        if (!$user instanceof User) {
+            $userId = $user->getId();
+            $user = $this->userRepository->load($userId);
+            Assert::isInstanceOf($user, User::class, sprintf('User not found %s', $userId));
         }
         $result = [];
 
