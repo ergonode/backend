@@ -65,6 +65,12 @@ services:
             - '@Ergonode\Grid\Factory\DbalDataSetFactory'
             - '@Ergonode\Grid\Renderer\GridRenderer'
 
+    Ergonode\BatchAction\Application\Serializer\Normalizer\PayloadCommandNormalizer:
+        arguments:
+            $objectNormalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+        tags:
+            - 'serializer.normalizer'
+
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper:
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository:
         arguments:

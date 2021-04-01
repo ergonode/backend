@@ -57,7 +57,15 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsNormalization($data, $format = null): bool
+    {
+        return is_object($data) && !$data instanceof \Traversable;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return class_exists($type)
             || (interface_exists($type, false) && $this->classDiscriminatorResolver->getMappingForClass($type));

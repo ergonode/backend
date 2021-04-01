@@ -13,18 +13,13 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 
-class ProcessBatchActionEntryCommand implements DomainCommandInterface
+class ProcessBatchActionEntryCommand extends AbstractPayloadCommand implements DomainCommandInterface
 {
     private BatchActionId $id;
 
     private BatchActionType $type;
 
     private AggregateId $resourceId;
-
-    /**
-     * @var mixed
-     */
-    private $payload;
 
     /**
      * @param mixed $payload
@@ -38,7 +33,7 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
         $this->id = $id;
         $this->type = $type;
         $this->resourceId = $resourceId;
-        $this->payload = $payload;
+        parent::__construct($payload);
     }
 
     public function getId(): BatchActionId
@@ -54,13 +49,5 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
     public function getResourceId(): AggregateId
     {
         return $this->resourceId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPayload()
-    {
-        return $this->payload;
     }
 }

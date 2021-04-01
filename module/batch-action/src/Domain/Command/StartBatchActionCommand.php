@@ -12,16 +12,11 @@ use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 
-class StartBatchActionCommand implements DomainCommandInterface
+class StartBatchActionCommand extends AbstractPayloadCommand implements DomainCommandInterface
 {
     private BatchActionId $id;
 
     private BatchActionFilterInterface $filter;
-
-    /**
-     * @var mixed
-     */
-    private $payload;
 
     /**
      * @param mixed $payload
@@ -33,7 +28,7 @@ class StartBatchActionCommand implements DomainCommandInterface
     ) {
         $this->id = $id;
         $this->filter = $filter;
-        $this->payload = $payload;
+        parent::__construct($payload);
     }
 
     public function getId(): BatchActionId
@@ -44,13 +39,5 @@ class StartBatchActionCommand implements DomainCommandInterface
     public function getFilter(): BatchActionFilterInterface
     {
         return $this->filter;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPayload()
-    {
-        return $this->payload;
     }
 }
