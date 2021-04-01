@@ -13,16 +13,12 @@ use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
-class UserRoleVoter extends Voter implements LoggerAwareInterface
+class UserRoleVoter extends Voter
 {
-    use LoggerAwareTrait;
-
     private RoleRepositoryInterface $repository;
 
     private PrivilegeQueryInterface $query;

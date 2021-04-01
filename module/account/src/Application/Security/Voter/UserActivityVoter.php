@@ -10,15 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Security\Voter;
 
 use Ergonode\Account\Domain\Entity\User;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UserActivityVoter extends Voter implements LoggerAwareInterface
+class UserActivityVoter extends Voter
 {
-    use LoggerAwareTrait;
-
     /**
      * {@inheritDoc}
      */

@@ -12,15 +12,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 
-class LanguageVoter extends Voter implements LoggerAwareInterface
+class LanguageVoter extends Voter
 {
     public const EDIT = 'edit';
     public const READ = 'read';
-
-    use LoggerAwareTrait;
 
     /**
      * {@inheritDoc}
