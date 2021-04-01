@@ -1,3 +1,5 @@
+
+## CHANGELOG FOR 1.0.0-rc.2
 - feature [#1357](https://github.com/ergonode/backend/issues/1357) Updating and refactoring behat tests (wiewiurdp)
 - feature [#1162](https://github.com/ergonode/backend/issues/1162) Symfony serializer (piotrkreft) (rprzedzik)
 - feature [#1337](https://github.com/ergonode/backend/issues/1337) Adding application debug logger (wfajczyk)
