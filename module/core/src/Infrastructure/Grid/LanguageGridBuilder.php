@@ -32,7 +32,7 @@ class LanguageGridBuilder implements GridBuilderInterface
             ->addColumn('id', new IdColumn('id'))
             ->addColumn('code', new TextColumn('code', 'Name', new TextFilter()))
             ->addColumn('name', new TranslatableColumn('name', 'Name', null, 'language'))
-            ->addColumn('active', new BoolColumn('active', 'active', new TextFilter()));
+            ->addColumn('tree', new BoolColumn('tree', 'tree', new TextFilter()));
 
         return $grid;
     }

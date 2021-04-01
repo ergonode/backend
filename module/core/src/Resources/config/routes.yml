@@ -1,8 +1,3 @@
-ergonode_core_dictionary:
-    resource: '../../Application/Controller/Api/Dictionary/*'
-    type: 'annotation'
-    prefix: '/api/v1/{language}/dictionary'
-
 ergonode_core_languages:
     resource: '../../Application/Controller/Api/Language/*'
     type: 'annotation'

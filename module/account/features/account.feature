@@ -907,7 +907,7 @@ Feature: Account module
            }
       }
       """
-    Then the response status code should be 204
+    Then the response status code should be 400
 
   Scenario: Get user
     When I send a GET request to "/api/v1/en_GB/accounts/@user@"

@@ -26,9 +26,10 @@ class LanguageTreeBuilder
     public function build(LanguageNode $node): NestedSetTree
     {
         $nestedSetTree = new NestedSetTree();
+        $language = $this->query->getLanguageById($node->getLanguageId()->getValue());
         $nestedSetTree->addRoot(
             $node->getLanguageId(),
-            $this->query->getLanguageById($node->getLanguageId()->getValue())['code']
+            $language->getCode()
         );
 
 
@@ -45,9 +46,10 @@ class LanguageTreeBuilder
      */
     private function buildBranch(NestedSetTree $nestedSetTree, LanguageNode $node, LanguageNode $parent): void
     {
+        $language = $this->query->getLanguageById($node->getLanguageId()->getValue());
         $nestedSetTree->addNode(
             $node->getLanguageId(),
-            $this->query->getLanguageById($node->getLanguageId()->getValue())['code'],
+            $language->getCode(),
             $parent->getLanguageId()
         );
 

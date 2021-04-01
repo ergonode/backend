@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalLanguageQuery implements LanguageQueryInterface
 {
@@ -25,7 +24,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
         'id',
         'iso AS code',
         'iso AS name',
-        'active',
     ];
 
     private const CODE_FIELD = [
@@ -39,29 +37,31 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     private Connection $connection;
 
-    private TranslatorInterface $translator;
-
     private DbalDataSetFactory $dataSetFactory;
 
     public function __construct(
         Connection $connection,
-        TranslatorInterface $translator,
         DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
-        $this->translator = $translator;
         $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
     {
-        $query = $this->connection->createQueryBuilder()
-            ->select('id, code, code AS name, active')
-            ->from(sprintf(
-                '(SELECT %s FROM %s)',
-                implode(', ', self::ALL_FIELDS),
-                self::TABLE
-            ), 'l');
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select(
+                [
+                    'l.id',
+                    'l.iso AS code',
+                    'l.iso AS name',
+                    'CASE WHEN lt.id is null THEN false ELSE true END AS tree',
+                ]
+            )
+            ->from(self::TABLE, 'l')
+            ->leftJoin('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
+            ->where($query->expr()->eq('l.active', 'true'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -150,16 +150,18 @@ class DbalLanguageQuery implements LanguageQueryInterface
      */
     public function getAll(): array
     {
-        $records = $this->getQuery(self::CODE_FIELD)
+        $qb = $this->getQuery(self::CODE_FIELD);
+
+        $result = $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        $result = [];
-        foreach ($records as $record) {
-            $result[] = new Language($record);
-        }
-
-        return $result;
+        return array_map(
+            fn(string $item) => new Language($item),
+            $result,
+        );
     }
 
     /**
@@ -167,7 +169,11 @@ class DbalLanguageQuery implements LanguageQueryInterface
      */
     public function getDictionary(): array
     {
-        return $this->getQuery(self::DICTIONARY_FIELD)
+        $qb = $this->getQuery(self::DICTIONARY_FIELD);
+
+        return $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
@@ -180,6 +186,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $qb = $this->getQuery(self::DICTIONARY_FIELD);
 
         return $qb
+            ->join('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
             ->where($qb->expr()->eq('active', ':active'))
             ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
@@ -193,7 +200,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
-        $records = $qb
+        $records = $qb->join('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
             ->where($qb->expr()->eq('active', ':active'))
             ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
@@ -207,49 +214,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         return $result;
     }
 
-    /**
-     * @return array
-     */
-    public function autocomplete(
-        string $search = null,
-        int $limit = null,
-        string $field = null,
-        ?string $order = 'ASC'
-    ): array {
-        $query = $this->connection->createQueryBuilder()
-            ->select([
-                'id',
-                'iso AS code',
-                'iso AS label',
-            ])
-            ->from(self::TABLE);
-
-        if ($search) {
-            $query->orWhere(\sprintf('iso ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
-        }
-        if ($field) {
-            $query->orderBy($field, $order);
-        }
-
-        if ($limit) {
-            $query->setMaxResults($limit);
-        }
-
-        $records = $query
-            ->execute()
-            ->fetchAll();
-
-        foreach (array_keys($records) as $key) {
-            $records[$key]['label'] = $this->translator->trans($records[$key]['label'], [], 'language');
-        }
-
-        return $records;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getLanguageById(string $id): ?array
+    public function getLanguageById(string $id): ?Language
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
@@ -259,11 +224,31 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->execute()
             ->fetch();
         if ($result) {
-            return $result;
+            return new Language($result['code']);
         }
 
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLanguagesByIds(array $ids): array
+    {
+        $qb = $this->getQuery(self::CODE_FIELD);
+
+        $result = $qb
+            ->where($qb->expr()->in('id', ':ids'))
+            ->setParameter(':ids', $ids, Connection::PARAM_STR_ARRAY)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        return array_map(
+            fn(string $item) => new Language($item),
+            $result,
+        );
+    }
+
 
     public function getRootLanguage(): Language
     {
@@ -284,6 +269,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select($fields)
-            ->from(self::TABLE);
+            ->from(self::TABLE, 'l');
     }
 }
