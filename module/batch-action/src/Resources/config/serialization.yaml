@@ -1,0 +1,6 @@
+Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            filter: Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter
+            filter_disabled: Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled
