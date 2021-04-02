@@ -65,7 +65,7 @@ Feature: Authentication module
     Given I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/login"
-    Then the response status code should be 401
+    Then the response status code should be 400
 
   Scenario: Authenticate with correct credentials (inactive user)
     Given I add "Content-Type" header equal to "application/json"

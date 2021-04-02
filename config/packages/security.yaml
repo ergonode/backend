@@ -26,10 +26,11 @@ security:
             pattern:  '^/api/v1/login$'
             stateless: true
             user_checker: 'Ergonode\Account\Application\Security\Checker\UserActivityChecker'
-            guard:
-                provider: 'email_user_provider'
-                authenticators:
-                    - 'Ergonode\Authentication\Application\Security\Authenticator\FormAuthenticator'
+            provider: 'email_user_provider'
+            json_login:
+                check_path: /api/v1/login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         refresh:
             pattern: '^/api/v1/token/refresh'
             stateless: true
