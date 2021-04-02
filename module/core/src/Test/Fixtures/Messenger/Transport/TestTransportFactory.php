@@ -13,14 +13,19 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TestTransportFactory implements TransportFactoryInterface
 {
     private MessageBusInterface $messageBus;
+    private TokenStorageInterface $tokenStorage;
 
-    public function __construct(MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        MessageBusInterface $messageBus,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->messageBus = $messageBus;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
@@ -28,6 +33,7 @@ class TestTransportFactory implements TransportFactoryInterface
         return new TestTransport(
             $serializer,
             $this->messageBus,
+            $this->tokenStorage,
         );
     }
 
