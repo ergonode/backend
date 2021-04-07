@@ -2,51 +2,51 @@ Ergonode\Designer\Domain\ValueObject\Position:
     position_1:
         __construct:
             - 0
-            - 1
+            - 0
     position_2:
         __construct:
             - 0
-            - 3
+            - 1
     position_3:
         __construct:
-            - 1
-            - 1
+            - 0
+            - 2
     position_4:
         __construct:
-            - 1
+            - 0
             - 3
     position_5:
         __construct:
-            - 2
-            - 5
+            - 1
+            - 0
     position_6:
         __construct:
-            - 2
-            - 7
+            - 1
+            - 1
     position_7:
         __construct:
-            - 3
             - 1
+            - 2
     position_8:
         __construct:
-            - 3
+            - 1
             - 3
     position_9:
         __construct:
-            - 4
-            - 1
+            - 2
+            - 0
     position_10:
         __construct:
-            - 4
             - 2
+            - 1
     position_11:
         __construct:
-            - 4
-            - 3
+            - 2
+            - 2
     position_12:
         __construct:
-            - 4
-            - 4
+            - 2
+            - 3
 
 
 Ergonode\Designer\Domain\ValueObject\Size:
@@ -55,71 +55,69 @@ Ergonode\Designer\Domain\ValueObject\Size:
             - 1
             - 1
 
-Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty:
-    template_element_property_1:
+Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement:
+    template_element_1:
         __construct:
-            - '<AttributeId(attribute_image)>'
-            - true
-    template_element_property_2:
-        __construct:
-            - '<AttributeId(attribute_text)>'
-            - true
-    template_element_property_3:
-        __construct:
-            - '<AttributeId(attribute_textarea)>'
-            - true
-    template_element_property_4:
-        __construct:
-            - '<AttributeId(attribute_numeric)>'
-            - true
-    template_element_property_5:
-        __construct:
-            - '<AttributeId(attribute_date)>'
-            - true
-    template_element_property_6:
-        __construct:
-            - '<AttributeId(attribute_price)>'
-            - true
-    template_element_property_7:
-        __construct:
-            - '<AttributeId(attribute_unit)>'
-            - true
-    template_element_property_8:
-        __construct:
-            - '<AttributeId(attribute_select)>'
-            - true
-    template_element_property_9:
-        __construct:
-            - '<AttributeId(attribute_multiselect)>'
-            - true
-    template_element_property_10:
-        __construct:
-            - '<AttributeId(attribute_gallery)>'
-            - true
-    template_element_property_11:
-        __construct:
-            - '<AttributeId(attribute_file)>'
-            - true
-
-
-Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty:
-    template_element_property_12:
-        __construct:
-            - 'label'
-
-Ergonode\Designer\Domain\Entity\TemplateElement:
-    template_element_{1..11}:
-        __construct:
-            - '@position_<current()>'
+            - '@position_1'
             - '@size'
-            - 'TEXT'
-            - '@template_element_property_<current()>'
+            - '<AttributeId(attribute_image)>'
+    template_element_2:
+        __construct:
+            - '@position_2'
+            - '@size'
+            - '<AttributeId(attribute_text)>'
+    template_element_3:
+        __construct:
+            - '@position_3'
+            - '@size'
+            - '<AttributeId(attribute_textarea)>'
+    template_element_4:
+        __construct:
+            - '@position_4'
+            - '@size'
+            - '<AttributeId(attribute_numeric)>'
+    template_element_5:
+        __construct:
+            - '@position_5'
+            - '@size'
+            - '<AttributeId(attribute_date)>'
+    template_element_6:
+        __construct:
+            - '@position_6'
+            - '@size'
+            - '<AttributeId(attribute_price)>'
+    template_element_7:
+        __construct:
+            - '@position_7'
+            - '@size'
+            - '<AttributeId(attribute_unit)>'
+    template_element_8:
+        __construct:
+            - '@position_8'
+            - '@size'
+            - '<AttributeId(attribute_select)>'
+    template_element_9:
+        __construct:
+            - '@position_9'
+            - '@size'
+            - '<AttributeId(attribute_multiselect)>'
+    template_element_10:
+        __construct:
+            - '@position_10'
+            - '@size'
+            - '<AttributeId(attribute_gallery)>'
+    template_element_11:
+        __construct:
+            - '@position_11'
+            - '@size'
+            - '<AttributeId(attribute_file)>'
+
+Ergonode\Designer\Domain\Entity\Element\UiTemplateElement:
     template_element_12:
         __construct:
             - '@position_12'
             - '@size'
             - 'SECTION'
-            - '@template_element_property_12'
 
 Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId:
     template_group_id:
@@ -134,24 +132,26 @@ Ergonode\Designer\Domain\Entity\Template:
             - 'Template'
         __calls:
             -   addElement:
-                        - '@template_element_1'
+                    - '@template_element_1'
             -   addElement:
-                        - '@template_element_2'
+                    - '@template_element_2'
             -   addElement:
-                        - '@template_element_3'
+                    - '@template_element_3'
             -   addElement:
-                        - '@template_element_4'
+                    - '@template_element_4'
             -   addElement:
-                        - '@template_element_5'
+                    - '@template_element_5'
             -   addElement:
-                        - '@template_element_6'
+                    - '@template_element_6'
             -   addElement:
-                        - '@template_element_7'
+                    - '@template_element_7'
             -   addElement:
-                        - '@template_element_8'
+                    - '@template_element_8'
             -   addElement:
-                        - '@template_element_9'
+                    - '@template_element_9'
             -   addElement:
-                        - '@template_element_10'
+                    - '@template_element_10'
             -   addElement:
-                        - '@template_element_12'
+                    - '@template_element_11'
+            -   addElement:
+                    - '@template_element_12'
