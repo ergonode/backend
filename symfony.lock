@@ -738,9 +738,6 @@
     "webmozart/path-util": {
         "version": "2.3.0"
     },
-    "webonyx/graphql-php": {
-        "version": "v0.12.1"
-    },
     "zendframework/zend-code": {
         "version": "3.3.0"
     },
