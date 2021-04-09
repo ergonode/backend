@@ -1,4 +1,6 @@
 
+- bugfix [#1371](https://github.com/ergonode/backend/issues/1371) Version20210324103000 migration error (rprzedzik)
+
 ## CHANGELOG FOR 1.0.0-rc.2
 - feature [#1357](https://github.com/ergonode/backend/issues/1357) Updating and refactoring behat tests (wiewiurdp)
 - feature [#1162](https://github.com/ergonode/backend/issues/1162) Symfony serializer (piotrkreft) (rprzedzik)
