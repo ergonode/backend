@@ -60,7 +60,6 @@
         "symfony/yaml": "^4.4",
         "vich/uploader-bundle": "^1.10",
         "webmozart/assert": "^1.7",
-        "webonyx/graphql-php": "^0.12.2",
         "zircote/swagger-php": "2.0.10"
     },
     "require-dev": {
