@@ -14,7 +14,7 @@
         "ext-pdo": "*",
         "ext-zip": "*",
         "beberlei/assert": "2.x",
-        "doctrine/annotations": "^1.7",
+        "doctrine/annotations": "^1.8",
         "doctrine/dbal": "^2.10.0",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/migrations": "2.2.x",
