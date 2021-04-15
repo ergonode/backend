@@ -201,8 +201,10 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
                 $this->addAttribute($attributeCode, $attribute);
             }
         }
+        $systemAttributes = preg_grep('/^esa_[\d]*/', array_keys($this->attributes));
+        $productAttributesWithoutSystem = array_diff_key($this->attributes, array_flip($systemAttributes));
 
-        foreach (array_keys($this->attributes) as $code) {
+        foreach (array_keys($productAttributesWithoutSystem) as $code) {
             $attributeCode = new AttributeCode($code);
             if (!array_key_exists($code, $attributes)) {
                 $this->removeAttribute($attributeCode);
