@@ -32,7 +32,7 @@ class UserPasswordChangedEventHandler
         if ($user) {
             $mail = new UserPasswordChangedMail($user);
             $command = new SendMailCommand($mail);
-            $this->commandBus->dispatch($command);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

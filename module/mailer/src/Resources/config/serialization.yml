@@ -1,0 +1,8 @@
+Ergonode\Mailer\Domain\MailInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            mail: Ergonode\Mailer\Domain\Mail
+            test_mail: Ergonode\Mailer\Domain\TestMail
+            reset_token_mail: Ergonode\Account\Domain\Mail\ResetTokenMail
+            user_password_changed_mail: Ergonode\Account\Domain\Mail\UserPasswordChangedMail
