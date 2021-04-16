@@ -1,3 +1,4 @@
+- feature [#1376](https://github.com/ergonode/backend/issues/1376) Bug - importing twice the same sku (wiewiurdp)
 
 ## CHANGELOG FOR 1.0.0-rc.2
 - feature [#1357](https://github.com/ergonode/backend/issues/1357) Updating and refactoring behat tests (wiewiurdp)
