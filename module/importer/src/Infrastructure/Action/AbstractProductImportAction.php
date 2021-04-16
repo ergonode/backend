@@ -17,12 +17,17 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductIncorrectTypeException;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductNotFoundException;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
 abstract class AbstractProductImportAction
 {
@@ -59,7 +64,7 @@ abstract class AbstractProductImportAction
      *
      * @return CategoryId[]
      */
-    public function getCategories(array $categories): array
+    protected function getCategories(array $categories): array
     {
         $result = [];
         foreach ($categories as $category) {
@@ -81,7 +86,7 @@ abstract class AbstractProductImportAction
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException
      */
-    public function getChildren(Sku $sku, array $children): array
+    protected function getChildren(Sku $sku, array $children): array
     {
         $result = [];
         foreach ($children as $child) {
@@ -101,7 +106,13 @@ abstract class AbstractProductImportAction
 
     protected function mergeSystemAttributes(array $productAttributes, array $importAttributes): array
     {
-        $systemAttributes = ['esa_status', 'esa_created_at', 'esa_edited_at', 'esa_created_by', 'esa_edited_by'];
+        $systemAttributes = [
+            StatusSystemAttribute::CODE,
+            CreatedAtSystemAttribute::CODE,
+            EditedAtSystemAttribute::CODE,
+            CreatedBySystemAttribute::CODE,
+            EditedBySystemAttribute::CODE,
+        ];
 
         foreach ($systemAttributes as $systemAttribute) {
             if (isset($productAttributes[$systemAttribute])) {
