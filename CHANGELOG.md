@@ -1,3 +1,4 @@
+- feature [#1376](https://github.com/ergonode/backend/issues/1376) Bug - importing twice the same sku (wiewiurdp)
 
 - bugfix [#1371](https://github.com/ergonode/backend/issues/1371) Version20210324103000 migration error (rprzedzik)
 
