@@ -11,7 +11,8 @@ namespace Ergonode\Product\Domain\ValueObject;
 
 class Sku
 {
-    private const LENGTH = 255;
+    private const MIN_LENGTH = 1;
+    private const MAX_LENGTH = 255;
 
     private string $value;
 
@@ -33,7 +34,9 @@ class Sku
 
     public static function isValid(string $value): bool
     {
-        return strlen(trim($value)) <= self::LENGTH;
+        return
+            mb_strlen(trim($value)) >= self::MIN_LENGTH
+            && mb_strlen(trim($value)) <= self::MAX_LENGTH;
     }
 
     public function __toString(): string
