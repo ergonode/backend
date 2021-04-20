@@ -19,6 +19,8 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
+        "ergonode/exporter-shopware-6": "^1.0",
+        "ergonode/importer-magento-1": "^1.0",
         "gesdinet/jwt-refresh-token-bundle": "^0.11.1",
         "guzzlehttp/guzzle": "^6.3",
         "league/csv": "^9.6",
