@@ -28,7 +28,7 @@ class UpdateProductRelationAttributeCommandFactory implements UpdateAttributeCom
     }
 
     /**
-     * @param FormInterface $form \
+     * @param FormInterface $form
      */
     public function create(AttributeId $id, FormInterface $form): AttributeCommandInterface
     {
