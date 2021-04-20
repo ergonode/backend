@@ -92,6 +92,12 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "ergonode/exporter-shopware-6": {
+        "version": "1.0.0"
+    },
+    "ergonode/importer-magento-1": {
+        "version": "1.0.0"
+    },
     "escapestudios/symfony2-coding-standard": {
         "version": "3.10.0"
     },
@@ -253,17 +259,11 @@
     "nette/neon": {
         "version": "v3.0.0"
     },
-    "nette/php-generator": {
-        "version": "v3.2.3"
-    },
     "nette/robot-loader": {
         "version": "v3.2.0"
     },
     "nette/schema": {
         "version": "v1.0.0"
-    },
-    "nette/utils": {
-        "version": "v3.0.1"
     },
     "nikic/php-parser": {
         "version": "v4.0.2"
@@ -371,9 +371,6 @@
     },
     "sanmai/pipeline": {
         "version": "v5.0.1"
-    },
-    "scn/deepl-api-connector": {
-        "version": "v2.0.0"
     },
     "sebastian/code-unit-reverse-lookup": {
         "version": "2.0.0"

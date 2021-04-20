@@ -37,10 +37,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\EventSourcing\\.*
-  - name: Generator
-    collectors:
-      - type: className
-        regex: .*Ergonode\\Generator\\.*
   - name: Importer
     collectors:
       - type: className
@@ -49,10 +45,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ImporterErgonode1\\.*
-  - name: Importer-Magento-1
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ImporterMagento1\\.*
   - name: Channel
     collectors:
       - type: className
@@ -61,10 +53,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ExporterFile\\.*
-  - name: ExporterShopware6
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ExporterShopware6\\.*
   - name: Mailer
     collectors:
       - type: className
@@ -85,10 +73,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\SharedKernel\\.*
-  - name: TranslationDeepl
-    collectors:
-      - type: className
-        regex: .*Ergonode\\TranslationDeepl\\.*
 ruleset:
   Account:
     - Api
@@ -136,10 +120,6 @@ ruleset:
     - EventSourcing
     - Product # todo to remove
     - SharedKernel
-  Generator:
-    - Core
-    - EventSourcing
-    - SharedKernel
   Importer:
     - Api
     - Attribute
@@ -155,13 +135,6 @@ ruleset:
     - Importer
     - Product
     - SharedKernel
-  Importer-Magento-1:
-    - Attribute
-    - Core
-    - EventSourcing
-    - Importer
-    - Product
-    - SharedKernel
   EventSourcing:
     - SharedKernel
   ExporterFile:
@@ -170,14 +143,6 @@ ruleset:
     - Channel
     - EventSourcing
     - Product
-    - SharedKernel
-  ExporterShopware6:
-    - Attribute
-    - Core
-    - Channel
-    - EventSourcing
-    - Product
-    - ProductCollection
     - SharedKernel
   Channel:
     - Api
@@ -209,8 +174,4 @@ ruleset:
     - Core
     - EventSourcing
     - Product
-    - SharedKernel
-  TranslationDeepl:
-    - Api
-    - Core
     - SharedKernel

@@ -1,2 +1,0 @@
-ergonode_translation_deepl:
-  authentication_key: '%env(DEEPL_AUTH_KEY)%'
