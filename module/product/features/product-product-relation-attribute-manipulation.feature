@@ -57,7 +57,6 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
-
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
@@ -107,6 +106,42 @@ Feature: Product edit and inheritance value for product product with product rel
       """
     Then the response status code should be 201
     And store response param "id" as "product_2_id"
+
+  Scenario: Check valid product relation attribute validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+      """
+      {
+        "value": ["@product_2_id@"]
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Check valid empty array product relation attribute validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+      """
+      {
+        "value": []
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Check invalid Uuid product relation attribute validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+      """
+      {
+        "value": ["13123"]
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Check not exists product product relation attribute validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+      """
+      {
+        "value": ["@@random_uuid@@"]
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Edit product product relation value in "en_GB" and "pl_PL" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:

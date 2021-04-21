@@ -6,13 +6,14 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Infrastructure\Mapper\Strategy;
+namespace Ergonode\Product\Infrastructure\Mapper\Strategy;
 
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
+use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 
 class ProductRelationAttributeMapperStrategy implements AttributeMapperStrategyInterface
 {
