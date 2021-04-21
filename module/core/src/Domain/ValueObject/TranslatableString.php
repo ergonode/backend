@@ -80,7 +80,7 @@ class TranslatableString implements \IteratorAggregate
 
 
     /**
-     * @return string[]
+     * @return array<string, string|null>
      */
     public function getTranslations(): array
     {
@@ -94,9 +94,9 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param array $array
+     * @param array<string, string|null> $array
      *
-     * @return array
+     * @return array<string, string|null>
      */
     private function merge(array $array, Language $language, ?string $value): array
     {
