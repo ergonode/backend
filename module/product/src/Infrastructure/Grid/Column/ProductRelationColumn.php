@@ -13,7 +13,7 @@ use Ergonode\Grid\Column\AbstractColumn;
 
 class ProductRelationColumn extends AbstractColumn
 {
-    public const TYPE = 'PRODUCT-RELATION';
+    public const TYPE = 'PRODUCT_RELATION';
 
     public function __construct(string $field, ?string $label = null)
     {
