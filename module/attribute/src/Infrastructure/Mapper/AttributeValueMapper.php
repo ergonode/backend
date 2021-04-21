@@ -11,16 +11,19 @@ namespace Ergonode\Attribute\Infrastructure\Mapper;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Webmozart\Assert\Assert;
 
 class AttributeValueMapper
 {
     /**
      * @var AttributeMapperStrategyInterface[]
      */
-    private array $strategies;
+    private iterable $strategies;
 
-    public function __construct(AttributeMapperStrategyInterface ...$strategies)
+    public function __construct(iterable $strategies)
     {
+        Assert::allIsInstanceOf($strategies, AttributeMapperStrategyInterface::class);
+
         $this->strategies = $strategies;
     }
 

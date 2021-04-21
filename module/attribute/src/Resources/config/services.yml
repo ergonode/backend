@@ -27,6 +27,11 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: [ 'ergonode.event_sourcing.projector' ]
 
+    Ergonode\Attribute\Infrastructure\Mapper\Strategy\:
+        resource: '../../Infrastructure/Mapper/Strategy/*'
+        tags: [ 'attribute.attribute_mapper_strategy' ]
+
+
     Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeRepository'
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeGroupRepository'
 
@@ -42,19 +47,8 @@ services:
 
     Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper:
         arguments:
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\NumericAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\SelectAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\MultiSelectAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\PriceAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\UnitAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextareaAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\GalleryAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ProductRelationAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\FileAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ImageAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\DateAttributeMapperStrategy'
-            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\StatusAttributeMapperStrategy'
+            $strategies: !tagged_iterator 'attribute.attribute_mapper_strategy'
+
     Ergonode\Attribute\Application\Controller\Api\Attribute\SystemAttributeGridReadAction:
         tags: ['controller.service_arguments']
         arguments:
