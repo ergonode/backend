@@ -1,4 +1,6 @@
 
+- bugfix [#1388](https://github.com/ergonode/backend/issues/1388) Fixed TranslatableString::has method (piotrkreft)
+
 ## CHANGELOG FOR 1.0.0
 - bugfix [#1376](https://github.com/ergonode/backend/issues/1376) Bugfix importing twice the same sku (wiewiurdp)
 - bugfix [#1371](https://github.com/ergonode/backend/issues/1371) Version20210324103000 migration error (rprzedzik)
