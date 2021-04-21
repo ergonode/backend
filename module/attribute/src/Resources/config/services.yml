@@ -31,7 +31,6 @@ services:
         resource: '../../Infrastructure/Mapper/Strategy/*'
         tags: [ 'attribute.attribute_mapper_strategy' ]
 
-
     Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeRepository'
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeGroupRepository'
 
