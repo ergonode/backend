@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
@@ -26,16 +26,17 @@ class ProductRelationAttributeDataSetQueryBuilder extends AbstractAttributeDataS
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
         $sql = sprintf(
-            '(SELECT 	
-			            DISTINCT ON (product_id) product_id, 
-			            to_jsonb(regexp_split_to_array(value,\',\')) AS "%s" 
-		            FROM value_translation vt 
-		            JOIN product_value pv ON pv.value_id = vt.value_id
-		            LEFT JOIN language_tree lt ON lt.code = vt.language
-		            WHERE attribute_id = \'%s\'
-                    AND lt.lft <= %s AND lt.rgt >= %s
-		            ORDER BY product_id, lft DESC NULLS LAST
-		        )',
+            '(
+                SELECT 	
+                    DISTINCT ON (product_id) product_id, 
+                    to_jsonb(regexp_split_to_array(value,\',\')) AS "%s" 
+                FROM value_translation vt 
+                JOIN product_value pv ON pv.value_id = vt.value_id
+                LEFT JOIN language_tree lt ON lt.code = vt.language
+                WHERE attribute_id = \'%s\'
+                AND lt.lft <= %s AND lt.rgt >= %s
+                ORDER BY product_id, lft DESC NULLS LAST
+            )',
             $key,
             $attribute->getId()->getValue(),
             $info['lft'],
