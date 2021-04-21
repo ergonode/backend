@@ -27,9 +27,6 @@ class UpdateProductRelationAttributeCommandFactory implements UpdateAttributeCom
         return $type === ProductRelationAttribute::TYPE;
     }
 
-    /**
-     * @param FormInterface $form \
-     */
     public function create(AttributeId $id, FormInterface $form): AttributeCommandInterface
     {
         /** @var AttributeFormModel $data */

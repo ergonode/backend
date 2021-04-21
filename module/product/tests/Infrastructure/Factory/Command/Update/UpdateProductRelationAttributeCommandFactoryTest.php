@@ -12,7 +12,6 @@ use Ergonode\Product\Infrastructure\Factory\Command\Update\UpdateProductRelation
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateGalleryAttributeCommand;
 use Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update\AbstractUpdateAttributeCommandFactoryTest;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
@@ -34,7 +33,6 @@ class UpdateProductRelationAttributeCommandFactoryTest extends AbstractUpdateAtt
 
         $commandFactory = new UpdateProductRelationAttributeCommandFactory();
 
-        /** @var UpdateGalleryAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
         $this->assertAttributeFormModel($id, $data, $result);

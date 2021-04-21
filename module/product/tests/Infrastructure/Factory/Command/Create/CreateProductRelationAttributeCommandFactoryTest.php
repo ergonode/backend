@@ -11,7 +11,6 @@ namespace Ergonode\Product\Tests\Infrastructure\Factory\Command\Create;
 use Ergonode\Product\Infrastructure\Factory\Command\Create\CreateProductRelationAttributeCommandFactory;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand;
 use Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create\AbstractCreateAttributeCommandFactoryTest;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
@@ -32,7 +31,6 @@ class CreateProductRelationAttributeCommandFactoryTest extends AbstractCreateAtt
 
         $commandFactory = new CreateProductRelationAttributeCommandFactory();
 
-        /** @var CreateGalleryAttributeCommand $result */
         $result = $commandFactory->create($form);
 
         $this->assertAttributeFormModel($data, $result);

@@ -10,20 +10,19 @@ Feature: Product Relation attribute manipulation
       """
       {
           "code": "PRODUCT_RELATION_@@random_code@@",
-          "type": "PRODUCT-RELATION",
+          "type": "PRODUCT_RELATION",
           "scope": "local",
           "groups": []
       }
       """
     Then the response status code should be 201
-
     And store response param "id" as "attribute_id"
 
   Scenario: Update product relation attribute
     And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@" with body:
       """
       {
-        "type": "PRODUCT-RELATION",
+        "type": "PRODUCT_RELATION",
         "scope": "local",
         "groups": []
       }
@@ -35,7 +34,7 @@ Feature: Product Relation attribute manipulation
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id    | @attribute_id@   |
-      | type  | PRODUCT-RELATION |
+      | type  | PRODUCT_RELATION |
       | scope | local            |
 
   Scenario: Delete product relation attribute
