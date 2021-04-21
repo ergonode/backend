@@ -12,12 +12,12 @@ namespace Ergonode\Core\Domain\ValueObject;
 class TranslatableString implements \IteratorAggregate
 {
     /**
-     * @var string[]
+     * @var array<string, string|null>
      */
     private array $translations;
 
     /**
-     * @param array $translations
+     * @param array<string, string|\Stringable|null> $translations
      */
     public function __construct(array $translations = [])
     {
