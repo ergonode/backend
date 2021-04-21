@@ -50,6 +50,7 @@ services:
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextareaAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\GalleryAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ProductRelationAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\FileAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ImageAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\DateAttributeMapperStrategy'
