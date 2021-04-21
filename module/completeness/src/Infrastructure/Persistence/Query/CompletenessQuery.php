@@ -100,6 +100,11 @@ class CompletenessQuery implements CompletenessQueryInterface
         Assert::isInstanceOf($attribute, AbstractAttribute::class);
         $label = $attribute->getLabel();
 
-        return $label->has($language) ? $label->get($language) : $attribute->getCode()->getValue();
+        $value = null;
+        if ($label->has($language)) {
+            $value = $label->get($language);
+        }
+
+        return $value ?? $attribute->getCode()->getValue();
     }
 }

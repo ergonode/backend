@@ -54,7 +54,7 @@ class TranslatableString implements \IteratorAggregate
 
     public function has(Language $language): bool
     {
-        return isset($this->translations[$language->getCode()]);
+        return array_key_exists($language->getCode(), $this->translations);
     }
 
     /**
