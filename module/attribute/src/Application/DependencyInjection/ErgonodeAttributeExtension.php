@@ -20,6 +20,7 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
+use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 
 class ErgonodeAttributeExtension extends Extension implements PrependExtensionInterface
 {
@@ -54,6 +55,10 @@ class ErgonodeAttributeExtension extends Extension implements PrependExtensionIn
         $container
             ->registerForAutoconfiguration(AttributeValueConstraintStrategyInterface::class)
             ->addTag(CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(AttributeMapperStrategyInterface::class)
+            ->addTag('attribute.attribute_mapper_strategy');
 
         $loader->load('services.yml');
     }
