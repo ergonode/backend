@@ -1,4 +1,5 @@
 
+- feature [#1390](https://github.com/ergonode/backend/issues/1390) Extension of the AttributeValueMapper service with support for tags (rprzedzik)
 - bugfix [#1388](https://github.com/ergonode/backend/issues/1388) Fixed TranslatableString::has method (piotrkreft)
 
 ## CHANGELOG FOR 1.0.0
