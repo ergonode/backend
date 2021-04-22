@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 interface UnitRepositoryInterface
 {
     public function exists(UnitId $id): bool;
 
-    public function load(UnitId $id): ?AbstractAggregateRoot;
+    public function load(UnitId $id): ?Unit;
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Unit $aggregateRoot): void;
 
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(Unit $aggregateRoot): void;
 }

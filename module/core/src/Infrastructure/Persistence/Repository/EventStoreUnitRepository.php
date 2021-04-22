@@ -14,7 +14,6 @@ use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Webmozart\Assert\Assert;
@@ -39,7 +38,7 @@ class EventStoreUnitRepository implements UnitRepositoryInterface
     /**
      * @throws \ReflectionException
      */
-    public function load(UnitId $id): ?AbstractAggregateRoot
+    public function load(UnitId $id): ?Unit
     {
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, Unit::class);
@@ -50,7 +49,7 @@ class EventStoreUnitRepository implements UnitRepositoryInterface
     /**
      * @throws DBALException
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Unit $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
@@ -59,7 +58,7 @@ class EventStoreUnitRepository implements UnitRepositoryInterface
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(Unit $aggregateRoot): void
     {
         $aggregateRoot->apply(new UnitDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);

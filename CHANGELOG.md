@@ -1,4 +1,5 @@
 
+- bugfix [#1396](https://github.com/ergonode/backend/issues/1396) Fixed UnitRepository type hinting (piotrkreft)
 - bugfix [#1388](https://github.com/ergonode/backend/issues/1388) Fixed TranslatableString::has method (piotrkreft)
 
 ## CHANGELOG FOR 1.0.0
