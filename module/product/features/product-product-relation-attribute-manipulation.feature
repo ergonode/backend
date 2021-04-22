@@ -189,6 +189,22 @@ Feature: Product edit and inheritance value for product product with product rel
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @product_1_id@ |
 
-  Scenario: Remove value for "pl_PL" language
-    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
+  Scenario: Remove product which is related to other
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_1_id@"
+    Then the response status code should be 409
+
+  Scenario: Remove product with relations
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id@"
+    Then the response status code should be 204
+
+  Scenario: Remove product 1 with is not related to other
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_1_id@"
+    Then the response status code should be 204
+
+  Scenario: Remove product 2 with is not related to other
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_2_id@"
+    Then the response status code should be 204
+
+  Scenario: Remove relation attribute
+    When I send a DELETE request to "/api/v1/en_GB/attributes/@attribute_id@"
     Then the response status code should be 204
