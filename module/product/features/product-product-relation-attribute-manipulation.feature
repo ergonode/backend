@@ -107,6 +107,19 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 201
     And store response param "id" as "product_2_id"
 
+  Scenario: Create product
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "type": "SIMPLE-PRODUCT",
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@template_id@",
+        "categoryIds": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_3_id"
+
   Scenario: Check valid product relation attribute validation
     When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
       """
@@ -188,6 +201,16 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @product_1_id@ |
+
+  Scenario: Get attribute relation product grid with attached product
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related-product?filter=id=@product_1_id@"
+    Then the response status code should be 200
+    And the JSON node "collection[0].attached" should be true
+
+  Scenario: Get attribute relation product grid without attached product
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related-product?filter=id=@product_3_id@"
+    Then the response status code should be 200
+    And the JSON node "collection[0].attached" should be false
 
   Scenario: Remove product which is related to other
     When I send a DELETE request to "/api/v1/en_GB/products/@product_1_id@"
