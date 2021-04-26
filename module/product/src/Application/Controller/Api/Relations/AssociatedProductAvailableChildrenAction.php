@@ -27,7 +27,7 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
- *     name="ergonode_product_relation_grid",
+ *     name="ergonode_product_available",
  *     path="products/{product}/children-and-available-products",
  *     methods={"GET"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}

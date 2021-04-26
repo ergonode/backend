@@ -26,7 +26,7 @@ use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
 /**
  * @Route(
- *      name="ergonode_product_available",
+ *      name="ergonode_product_relation_grid",
  *     path="products/{product}/related/{attribute}",
  *     methods={"GET"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
@@ -104,7 +104,7 @@ class ProductRelatedProductByAttributeAction
      *     type="string",
      *     description="Columns"
      * )
-     * @SWG\Parameter(
+     * @SWG\Parameter(ergonode_product_relation_grid
      *     name="filter",
      *     in="query",
      *     required=false,
