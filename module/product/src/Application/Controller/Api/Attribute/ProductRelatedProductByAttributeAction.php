@@ -141,7 +141,8 @@ class ProductRelatedProductByAttributeAction
         RequestGridConfiguration $configuration
     ): Response {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $attribute->getId(), $language));
+        $query = $this->query->getGridQuery($product->getId(), $attribute->getId(), $language);
+        $dataSet = $this->factory->create($query);
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
