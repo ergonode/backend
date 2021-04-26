@@ -56,7 +56,7 @@ class ProductRelatedProductByAttributeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_RELATIONS_AVAILABLE")
+     * @IsGranted("PRODUCT_GET_ATTRIBUTE_RELATIONS")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
