@@ -1,6 +1,6 @@
 
 ## CHANGELOG FOR 1.1.x
-#### 1.0.0
+#### 1.1.0
 - feature [#1390](https://github.com/ergonode/backend/issues/1390) Extension of the AttributeValueMapper service with support for tags (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
