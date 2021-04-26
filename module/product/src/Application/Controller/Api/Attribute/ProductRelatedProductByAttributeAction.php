@@ -104,7 +104,7 @@ class ProductRelatedProductByAttributeAction
      *     type="string",
      *     description="Columns"
      * )
-     * @SWG\Parameter(ergonode_product_relation_grid
+     * @SWG\Parameter(
      *     name="filter",
      *     in="query",
      *     required=false,

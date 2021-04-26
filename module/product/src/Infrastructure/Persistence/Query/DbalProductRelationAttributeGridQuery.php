@@ -62,6 +62,7 @@ class DbalProductRelationAttributeGridQuery implements ProductRelationAttributeG
             ->having($qb->expr()->gt('count(*)', ':count'))
             ->setParameter(':product_id', $productId->getValue())
             ->setParameter(':attribute_id', $attributeId->getValue())
+            ->setParameter(':language', $language->getCode())
             ->setParameter(':count', 0);
 
         $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
@@ -78,6 +79,7 @@ class DbalProductRelationAttributeGridQuery implements ProductRelationAttributeG
             ->from('value_translation', 'vt')
             ->join('vt', self::PRODUCT_VALUE_TABLE, 'pv', 'pv.value_id = vt.value_id')
             ->andWhere($query->expr()->like('vt.value', 'concat(\'%\', p.id::TEXT, \'%\')'))
+            ->andWhere($query->expr()->eq('vt.language', ':language'))
             ->andWhere($query->expr()->eq('pv.attribute_id', ':attribute_id'));
     }
 }
