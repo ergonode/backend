@@ -140,11 +140,8 @@ class ProductRelatedProductByAttributeAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-
-
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $attribute->getId(), $language));
-
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
