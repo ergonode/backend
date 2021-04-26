@@ -22,13 +22,15 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductRelationGridBuilder;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductRelationAttributeGridQueryInterface;
+use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
 /**
  * @Route(
  *      name="ergonode_product_available",
- *     path="products/{product}/related-product",
+ *     path="products/{product}/related/{attribute}",
  *     methods={"GET"},
- *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                     "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductRelatedProductByAttributeAction
@@ -134,13 +136,14 @@ class ProductRelatedProductByAttributeAction
      */
     public function __invoke(
         AbstractProduct $product,
+        ProductRelationAttribute $attribute,
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
 
 
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $language));
+        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $attribute->getId(), $language));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

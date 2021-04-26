@@ -57,6 +57,20 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create second product relation attribute
+    Given remember param "attribute_code_2" with value "product_relation_@@random_code@@"
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+        "code": "@attribute_code_2@",
+        "type": "PRODUCT_RELATION",
+        "scope": "global",
+        "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_2_id"
+
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
@@ -203,12 +217,22 @@ Feature: Product edit and inheritance value for product product with product rel
       | attributes.@attribute_code@[0] | @product_1_id@ |
 
   Scenario: Get attribute relation product grid with attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related-product?filter=id=@product_1_id@"
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_id@?filter=id=@product_1_id@"
     Then the response status code should be 200
     And the JSON node "collection[0].attached" should be true
 
   Scenario: Get attribute relation product grid without attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related-product?filter=id=@product_3_id@"
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_id@?filter=id=@product_3_id@"
+    Then the response status code should be 200
+    And the JSON node "collection[0].attached" should be false
+
+  Scenario: Get second attribute relation product grid with attached product
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_2_id@?filter=id=@product_1_id@"
+    Then the response status code should be 200
+    And the JSON node "collection[0].attached" should be false
+
+  Scenario: Get second attribute relation product grid without attached product
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_2_id@?filter=id=@product_3_id@"
     Then the response status code should be 200
     And the JSON node "collection[0].attached" should be false
 
