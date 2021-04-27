@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 use App\Kernel;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
