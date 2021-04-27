@@ -69,7 +69,7 @@ services:
         arguments:
             $syncBus: '@messenger.bus.sync'
             $asyncBus: '@messenger.bus.async'
-            $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
+            $asyncEnable: '%ergonode.core.use_async_bus%'
 
     Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
     Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\SymfonySerializer'
