@@ -15,9 +15,6 @@ set_time_limit(0);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-// Fixes problems with JMS Serializer
-AnnotationRegistry::registerLoader('class_exists');
-
 if (!class_exists(Application::class)) {
     throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
 }
