@@ -1,0 +1,2 @@
+ergonode_core:
+    use_async_bus: '%env(bool:USE_ASYNC_BUS)%'
