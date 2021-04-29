@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ecf717e37f31a883b174dc5d41029a8",
+    "content-hash": "8d1c7c1f47acd626d03d3c4b3008d39d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1064,20 +1064,21 @@
         },
         {
             "name": "ergonode/exporter-shopware-6",
-            "version": "1.0.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "e021e3c34c5f0bcf72176aa0e42a31a806e98168"
+                "reference": "695b7ca1ec8049159c3bced301bb3cec25241d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/e021e3c34c5f0bcf72176aa0e42a31a806e98168",
-                "reference": "e021e3c34c5f0bcf72176aa0e42a31a806e98168",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/695b7ca1ec8049159c3bced301bb3cec25241d5f",
+                "reference": "695b7ca1ec8049159c3bced301bb3cec25241d5f",
                 "shasum": ""
             },
             "require": {
                 "ergonode/channel": "^1.0.0",
+                "ergonode/product-collection": "^1.0.0",
                 "guzzlehttp/guzzle": "^6.3",
                 "php": "^7.4"
             },
@@ -1096,10 +1097,7 @@
             ],
             "description": "Ergonode - Exporter Shopware 6",
             "homepage": "https://ergonode.com",
-            "support": {
-                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/1.0.0"
-            },
-            "time": "2021-04-19T13:18:31+00:00"
+            "time": "2021-04-29T11:17:06+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
@@ -12937,6 +12935,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "ergonode/exporter-shopware-6": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
@@ -12953,5 +12952,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }
