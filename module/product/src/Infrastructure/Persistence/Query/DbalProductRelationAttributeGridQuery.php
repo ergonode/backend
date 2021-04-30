@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
@@ -18,12 +17,12 @@ use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
 use Ergonode\Product\Domain\Query\ProductRelationAttributeGridQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
 class DbalProductRelationAttributeGridQuery implements ProductRelationAttributeGridQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
-    private const PRODUCT_VALUE_TABLE = 'public.product_value';
 
     private Connection $connection;
 
@@ -49,37 +48,32 @@ class DbalProductRelationAttributeGridQuery implements ProductRelationAttributeG
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
     }
 
-    public function getGridQuery(ProductId $productId, AttributeId $attributeId, Language $language): QueryBuilder
-    {
+    public function getGridQuery(
+        AbstractProduct $product,
+        ProductRelationAttribute $attribute,
+        Language $language
+    ): QueryBuilder {
+        $value = '';
+        if ($product->hasAttribute($attribute->getCode())) {
+            $translation = $product->getAttribute($attribute->getCode())->getValue();
+            if (array_key_exists($language->getCode(), $translation)) {
+                $value = $translation[$language->getCode()] ?: '';
+            }
+        }
+
         $info = $this->query->getLanguageNodeInfo($language);
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('p.id, p.sku, p.template_id')
-            ->addSelect(sprintf('(SELECT EXISTS(%s) as attached)', $this->getSubQuery()->getSQL()))
+            ->addSelect('p.id::TEXT = ANY (regexp_split_to_array(:string, \',\')) AS attached')
             ->from(self::PRODUCT_TABLE, 'p')
             ->andWhere($qb->expr()->neq('p.id', ':product_id'))
-            ->groupBy('p.id, p.sku, p.template_id')
-            ->having($qb->expr()->gt('count(*)', ':count'))
-            ->setParameter(':product_id', $productId->getValue())
-            ->setParameter(':attribute_id', $attributeId->getValue())
-            ->setParameter(':language', $language->getCode())
-            ->setParameter(':count', 0);
+            ->setParameter(':product_id', $product->getId()->getValue())
+            ->setParameter(':string', $value);
 
         $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $this->defaultImageQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
 
         return $qb;
-    }
-
-    private function getSubQuery(): QueryBuilder
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        return $query->select('DISTINCT pv.product_id')
-            ->from('value_translation', 'vt')
-            ->join('vt', self::PRODUCT_VALUE_TABLE, 'pv', 'pv.value_id = vt.value_id')
-            ->andWhere($query->expr()->like('vt.value', 'concat(\'%\', p.id::TEXT, \'%\')'))
-            ->andWhere($query->expr()->eq('vt.language', ':language'))
-            ->andWhere($query->expr()->eq('pv.attribute_id', ':attribute_id'));
     }
 }
