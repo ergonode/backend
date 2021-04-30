@@ -2,6 +2,7 @@
 #### 1.1.0
 - bugfix [#1400](https://github.com/ergonode/backend/issues/1400) Deleting redundant reader privileges from fixtures (wiewiurdp)
 - feature [#1390](https://github.com/ergonode/backend/issues/1390) Extension of the AttributeValueMapper service with support for tags (rprzedzik)
+- feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.1
