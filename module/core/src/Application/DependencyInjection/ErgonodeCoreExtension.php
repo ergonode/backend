@@ -32,6 +32,11 @@ class ErgonodeCoreExtension extends Extension implements PrependExtensionInterfa
             new FileLocator(__DIR__.'/../../Resources/config')
         );
 
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('ergonode.core.use_async_bus', $config['use_async_bus']);
+
         $container
             ->registerForAutoconfiguration(RelationshipStrategyInterface::class)
             ->addTag(RelationshipStrategyInterfaceCompilerPass::TAG);
