@@ -7,60 +7,56 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Controller\Api\Relations;
+namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use Ergonode\Product\Domain\Entity\VariableProduct;
-use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
-use Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Product\Infrastructure\Grid\ProductRelationGridBuilder;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Query\ProductRelationAttributeGridQueryInterface;
+use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
 /**
  * @Route(
- *     name="ergonode_product_available",
- *     path="products/{product}/children-and-available-products",
+ *      name="ergonode_product_relation_grid",
+ *     path="products/{product}/related/{attribute}",
  *     methods={"GET"},
- *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                     "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class AssociatedProductAvailableChildrenAction
+class ProductRelatedProductByAttributeAction
 {
-    private ProductChildrenAvailableGridQueryInterface $query;
+    private ProductRelationAttributeGridQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
     private DbalDataSetFactory $factory;
 
-    private AssociatedProductAvailableChildrenGridBuilder $gridBuilder;
-
-    private AttributeRepositoryInterface $attributeRepository;
+    private ProductRelationGridBuilder $gridBuilder;
 
     public function __construct(
-        ProductChildrenAvailableGridQueryInterface $query,
+        ProductRelationAttributeGridQueryInterface $query,
         GridRenderer $gridRenderer,
         DbalDataSetFactory $factory,
-        AssociatedProductAvailableChildrenGridBuilder $gridBuilder,
-        AttributeRepositoryInterface $attributeRepository
+        ProductRelationGridBuilder $gridBuilder
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
         $this->factory = $factory;
         $this->gridBuilder = $gridBuilder;
-        $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_RELATIONS_AVAILABLE")
+     * @IsGranted("PRODUCT_GET_ATTRIBUTE_RELATIONS")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -139,24 +135,14 @@ class AssociatedProductAvailableChildrenAction
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(
-        AbstractAssociatedProduct $product,
+        AbstractProduct $product,
+        ProductRelationAttribute $attribute,
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-
-        $bindingAttributes = [];
-        if ($product instanceof VariableProduct) {
-            $bindings = $product->getBindings();
-            foreach ($bindings as $binding) {
-                $bindingAttributes[] = $this->attributeRepository->load($binding);
-            }
-            $this->gridBuilder->addBindingAttributes($bindingAttributes);
-        }
-        $this->gridBuilder->addAssociatedProduct($product);
-
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->factory->create($this->query->getGridQuery($product, $language, $bindingAttributes));
-
+        $query = $this->query->getGridQuery($product, $attribute, $language);
+        $dataSet = $this->factory->create($query);
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
