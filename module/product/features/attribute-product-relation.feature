@@ -9,7 +9,7 @@ Feature: Product Relation attribute manipulation
     And I send a "GET" request to "/api/v1/en_GB/dictionary/attributes/types"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | PRODUCT_RELATION | Relation |
+      | PRODUCT_RELATION | Product relations |
 
   Scenario: Create product relation attribute
     And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
