@@ -9,12 +9,16 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Query;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 
 interface ProductRelationAttributeGridQueryInterface
 {
-    public function getGridQuery(ProductId $productId, AttributeId $attributeId, Language $language): QueryBuilder;
+    public function getGridQuery(
+        AbstractProduct $product,
+        ProductRelationAttribute $attribute,
+        Language $language
+    ): QueryBuilder;
 }
