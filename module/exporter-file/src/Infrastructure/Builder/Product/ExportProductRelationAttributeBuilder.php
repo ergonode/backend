@@ -99,7 +99,6 @@ class ExportProductRelationAttributeBuilder implements ExportProductBuilderInter
                 throw new \RuntimeException("There's no product with [$productId] id.");
             }
             $result[] = $sku->getValue();
-            $sku = null;
         }
 
         return implode(',', $result);
