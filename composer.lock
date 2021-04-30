@@ -1068,12 +1068,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "695b7ca1ec8049159c3bced301bb3cec25241d5f"
+                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/695b7ca1ec8049159c3bced301bb3cec25241d5f",
-                "reference": "695b7ca1ec8049159c3bced301bb3cec25241d5f",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
+                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1097,7 @@
             ],
             "description": "Ergonode - Exporter Shopware 6",
             "homepage": "https://ergonode.com",
-            "time": "2021-04-29T11:17:06+00:00"
+            "time": "2021-04-30T09:14:27+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
@@ -8893,6 +8893,7 @@
                 "issues": "https://github.com/Behatch/contexts/issues",
                 "source": "https://github.com/Behatch/contexts/tree/3.3.0"
             },
+            "abandoned": true,
             "time": "2020-02-27T08:40:50+00:00"
         },
         {
