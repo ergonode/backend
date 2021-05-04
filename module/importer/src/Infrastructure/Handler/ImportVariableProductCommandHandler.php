@@ -72,7 +72,8 @@ class ImportVariableProductCommandHandler
                 $categories,
                 $bindings,
                 $children,
-                $command->getAttributes()
+                $command->getAttributes(),
+                $command->getImportId()
             );
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {

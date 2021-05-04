@@ -57,7 +57,7 @@ interface ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array;
 
     /**
-     * @param array[] $skus
+     * @param array $skus
      *
      * @return ProductId[]
      */

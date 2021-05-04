@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportUpdateAttributesInProductCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Importer\Infrastructure\Exception\ImportProductInProductRelationAttributeValueNotFoundException;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -24,6 +27,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 class VariableProductImportAction extends AbstractProductImportAction
 {
@@ -39,7 +43,8 @@ class VariableProductImportAction extends AbstractProductImportAction
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory
+        ProductFactoryInterface $productFactory,
+        CommandBusInterface $commandBus
     ) {
         parent::__construct(
             $categoryQuery,
@@ -47,7 +52,8 @@ class VariableProductImportAction extends AbstractProductImportAction
             $productRepository,
             $templateQuery,
             $builder,
-            $productFactory
+            $productFactory,
+            $commandBus
         );
         $this->attributeQuery = $attributeQuery;
         $this->attributeRepository = $attributeRepository;
@@ -59,7 +65,8 @@ class VariableProductImportAction extends AbstractProductImportAction
         array $categories,
         array $bindings,
         array $children,
-        array $attributes = []
+        array $attributes = [],
+        ImportId $importId = null
     ): VariableProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         if (null === $templateId) {
@@ -67,7 +74,17 @@ class VariableProductImportAction extends AbstractProductImportAction
         }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
-        $attributes = $this->builder->build($attributes);
+
+        try {
+            $attributesBuilt = $this->builder->build($attributes);
+        } catch (ImportProductInProductRelationAttributeValueNotFoundException $e) {
+            if ($importId) {
+                $command = new ImportUpdateAttributesInProductCommand($importId, $attributes, $sku);
+                $this->commandBus->dispatch($command, true);
+            }
+            $attributesBuilt = [];
+        }
+
         $bindings = $this->getBindings($bindings, $sku);
         $children = $this->getChildren($sku, $children);
 
@@ -79,7 +96,7 @@ class VariableProductImportAction extends AbstractProductImportAction
                 $sku,
                 $templateId,
                 $categories,
-                $attributes,
+                $attributesBuilt,
             );
         } else {
             $product = $this->productRepository->load($productId);
@@ -88,8 +105,8 @@ class VariableProductImportAction extends AbstractProductImportAction
             }
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);
-            $attributes = $this->mergeSystemAttributes($product->getAttributes(), $attributes);
-            $product->changeAttributes($attributes);
+            $attributesBuilt = $this->mergeSystemAttributes($product->getAttributes(), $attributesBuilt);
+            $product->changeAttributes($attributesBuilt);
             $product->changeBindings($bindings);
             $product->changeChildren($children);
         }

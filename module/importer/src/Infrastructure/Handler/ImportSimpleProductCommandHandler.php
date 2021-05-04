@@ -53,7 +53,8 @@ class ImportSimpleProductCommandHandler
                 new Sku($command->getSku()),
                 $command->getTemplate(),
                 $categories,
-                $command->getAttributes()
+                $command->getAttributes(),
+                $command->getImportId()
             );
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
