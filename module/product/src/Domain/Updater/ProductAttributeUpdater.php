@@ -11,19 +11,16 @@ namespace Ergonode\Product\Domain\Updater;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
-use Ergonode\Value\Domain\Service\ValueManipulationService;
+
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 class ProductAttributeUpdater
 {
     private AttributeValueMapper $mapper;
 
-    private ValueManipulationService $service;
-
-    public function __construct(AttributeValueMapper $mapper, ValueManipulationService $service)
+    public function __construct(AttributeValueMapper $mapper)
     {
         $this->mapper = $mapper;
-        $this->service = $service;
     }
 
     public function update(AbstractProduct $product, AbstractAttribute $attribute, array $value): AbstractProduct
@@ -35,7 +32,7 @@ class ProductAttributeUpdater
 
         if ($product->hasAttribute($code)) {
             $oldValue = $product->getAttribute($code);
-            $calculatedValue = $this->service->calculate($oldValue, $newValue);
+            $calculatedValue = $oldValue->merge($newValue);
             $product->changeAttribute($code, $calculatedValue);
         } else {
             $product->addAttribute($code, $newValue);

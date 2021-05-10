@@ -14,13 +14,15 @@ interface ValueInterface
     public const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getValue(): array;
 
     public function getType(): string;
 
     public function __toString(): string;
+
+    public function merge(ValueInterface $value): self;
 
     public function isEqual(ValueInterface $value): bool;
 }

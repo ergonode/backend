@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- refactor [#1426](https://github.com/ergonode/backend/issues/1426) Refactoring calculation of values during product update (rprzedzik)
 - bugfix [#1400](https://github.com/ergonode/backend/issues/1400) Deleting redundant reader privileges from fixtures (wiewiurdp)
 - feature [#1390](https://github.com/ergonode/backend/issues/1390) Extension of the AttributeValueMapper service with support for tags (rprzedzik)
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
