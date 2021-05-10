@@ -12,8 +12,8 @@ use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
 /**
-* Auto-generated Ergonode Migration Class:
-*/
+ * Auto-generated Ergonode Migration Class:
+ */
 final class Version20210105100100 extends AbstractErgonodeMigration
 {
     /**
