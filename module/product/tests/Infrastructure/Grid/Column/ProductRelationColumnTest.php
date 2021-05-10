@@ -10,6 +10,7 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column;
 
 use Ergonode\Product\Infrastructure\Grid\Column\ProductRelationColumn;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Product\Infrastructure\Grid\Filter\RelationFilter;
 
 class ProductRelationColumnTest extends TestCase
 {
@@ -22,7 +23,7 @@ class ProductRelationColumnTest extends TestCase
         self::assertSame($field, $column->getField());
         self::assertSame($label, $column->getLabel());
         self::assertSame(ProductRelationColumn::TYPE, $column->getType());
-        self::assertNull($column->getFilter());
+        self::assertInstanceOf(RelationFilter::class, $column->getFilter());
     }
 
     public function data(): array
