@@ -1068,12 +1068,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd"
+                "reference": "addd4e212a6cf56780ffd8b32e2ab54a7ca098d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
-                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/addd4e212a6cf56780ffd8b32e2ab54a7ca098d5",
+                "reference": "addd4e212a6cf56780ffd8b32e2ab54a7ca098d5",
                 "shasum": ""
             },
             "require": {
@@ -1083,7 +1083,11 @@
                 "php": "^7.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9"
+                "malukenho/docheader": "^0.1.8",
+                "phpstan/phpstan": "^0.12.85",
+                "phpunit/phpunit": "^9.5",
+                "slevomat/coding-standard": "^7.0",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "ergonode-module",
             "autoload": {
@@ -1097,7 +1101,7 @@
             ],
             "description": "Ergonode - Exporter Shopware 6",
             "homepage": "https://ergonode.com",
-            "time": "2021-04-30T09:14:27+00:00"
+            "time": "2021-05-11T08:04:08+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
