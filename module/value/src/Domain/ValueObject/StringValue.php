@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Value\Domain\ValueObject;
 
+use Webmozart\Assert\Assert;
+
 class StringValue implements ValueInterface
 {
     public const TYPE = 'string';
@@ -30,11 +32,18 @@ class StringValue implements ValueInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getValue(): array
     {
         return [null => $this->value];
+    }
+
+    public function merge(ValueInterface $value): self
+    {
+        Assert::isInstanceOf($value, self::class);
+
+        return new self((string) $value);
     }
 
     /**

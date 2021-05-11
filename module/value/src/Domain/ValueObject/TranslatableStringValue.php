@@ -11,6 +11,7 @@ namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Webmozart\Assert\Assert;
 
 class TranslatableStringValue implements ValueInterface
 {
@@ -29,7 +30,7 @@ class TranslatableStringValue implements ValueInterface
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getValue(): array
     {
@@ -39,6 +40,13 @@ class TranslatableStringValue implements ValueInterface
     public function getTranslation(Language $language): ?string
     {
         return $this->value->get($language);
+    }
+
+    public function merge(ValueInterface $value): self
+    {
+        Assert::isInstanceOf($value, self::class);
+
+        return new self(new TranslatableString(array_merge($this->value->getTranslations(), $value->getValue())));
     }
 
     /**
