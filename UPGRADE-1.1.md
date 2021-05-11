@@ -5,7 +5,7 @@ Attribute:
   has been changed to `AttributeValueMapper::__construct(iterable $strategies)`.
 * Interface `ValueUpdateStrategyInterface` has been removed
 * Interface `ValueInterface`has been extended by method `merge`
-* Service `ValueManipulationService` has been removed
-* Strategy `StringValueUpdateStrategy` has been removed, solution moved to `StringValue::merge`
-* Strategy `StringCollectionValueUpdateStrategy` has been removed, solution moved to `StringCollectionValue::merge`
-* Strategy `TranslatableStringValueUpdateStrategy` has been removed, solution moved to `TranslatableStringValue::merge`
+* Class `ValueManipulationService` has been removed
+* Class `StringValueUpdateStrategy` has been removed, solution moved to `StringValue::merge`
+* Class `StringCollectionValueUpdateStrategy` has been removed, solution moved to `StringCollectionValue::merge`
+* Class `TranslatableStringValueUpdateStrategy` has been removed, solution moved to `TranslatableStringValue::merge`
