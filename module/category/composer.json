@@ -23,6 +23,7 @@
         "ergonode/product": "^1.0.0",
         "ergonode/shared-kernel": "^1.0.0",
         "ergonode/value": "^1.0.0",
+        "limenius/liform-bundle": "^0.17.0",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",
