@@ -35,7 +35,6 @@ class AttributeImportValidator
         TranslatableString $attribute
     ): bool {
         foreach ($this->strategies as $strategy) {
-
             if ($strategy->supported($attributeType)) {
                 return $strategy->validate($attributeCode, $attribute);
             }
