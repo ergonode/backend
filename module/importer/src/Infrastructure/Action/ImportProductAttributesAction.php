@@ -21,7 +21,7 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
-class ImportUpdateProductAttributesAction extends AbstractProductImportAction
+class ImportProductAttributesAction extends AbstractProductImportAction
 {
 
     private ImportProductAttributeBuilder $attributeBuilder;
