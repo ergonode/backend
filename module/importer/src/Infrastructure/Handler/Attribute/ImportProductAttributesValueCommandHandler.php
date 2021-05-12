@@ -11,19 +11,20 @@ namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Action\ImportUpdateProductAttributesAction;
+use Ergonode\Importer\Infrastructure\Action\ImportProductAttributesAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Psr\Log\LoggerInterface;
 
 class ImportProductAttributesValueCommandHandler
 {
     private ImportRepositoryInterface $repository;
-    private ImportUpdateProductAttributesAction $action;
+    private ImportProductAttributesAction $action;
     private LoggerInterface $logger;
 
     public function __construct(
         ImportRepositoryInterface $repository,
-        ImportUpdateProductAttributesAction $action,
+        ImportProductAttributesAction $action,
         LoggerInterface $logger
     ) {
         $this->repository = $repository;
@@ -34,7 +35,7 @@ class ImportProductAttributesValueCommandHandler
     public function __invoke(ImportProductAttributesValueCommand $command): void
     {
         try {
-            $this->action->action($command->getSku(), $command->getAttributes());
+            $this->action->action(new Sku($command->getSku()), $command->getAttributes());
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Importer\Infrastructure\Action;
+namespace Ergonode\Importer\Infrastructure\Filter;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -15,9 +15,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Infrastructure\Validator\AttributeImportValidator;
 
-class AttributeValidatorImportAction
+class AttributeImportFilter
 {
     private AttributeQueryInterface $attributeQuery;
+
     private AttributeImportValidator $attributeImportValidator;
 
     public function __construct(
@@ -32,7 +33,7 @@ class AttributeValidatorImportAction
     /**
      * @var TranslatableString[]
      */
-    public function action(array $attributes): array
+    public function filter(array $attributes): array
     {
         $attributesToRedispatch = [];
         foreach ($attributes as $codeValue => $attribute) {

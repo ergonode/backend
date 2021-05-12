@@ -33,20 +33,23 @@ class ProductRelationAttributeImportValidator implements AttributeImportValidato
 
     public function validate(AttributeCode $code, TranslatableString $attribute): bool
     {
+        $skuValues = [];
         foreach ($attribute->getTranslations() as $valueByLanguage) {
             if (!$valueByLanguage) {
                 continue;
             }
             $skuValues = explode(',', $valueByLanguage);
+            $skuValues = array_merge(explode(',', $valueByLanguage), $skuValues);
+        }
 
-            if ($skuValues) {
-                foreach ($skuValues as $skuValue) {
-                    $sku = new Sku($skuValue);
-                    $productId = $this->productQuery->findProductIdBySku($sku);
+        if ($skuValues) {
+            $uniqueSkuValues = array_unique($skuValues);
+            foreach ($uniqueSkuValues as $skuValue) {
+                $sku = new Sku($skuValue);
+                $productId = $this->productQuery->findProductIdBySku($sku);
 
-                    if (null === $productId) {
-                        return false;
-                    }
+                if (null === $productId) {
+                    return false;
                 }
             }
         }
