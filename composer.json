@@ -27,7 +27,7 @@
         "league/flysystem": ">1.0.54",
         "league/flysystem-bundle": "^1.5",
         "lexik/jwt-authentication-bundle": "^2.6",
-        "limenius/liform-bundle": "^0.15.0",
+        "limenius/liform-bundle": "^0.17.0",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.6",
         "nelmio/cors-bundle": "^2.0",
