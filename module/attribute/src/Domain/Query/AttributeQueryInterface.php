@@ -89,4 +89,6 @@ interface AttributeQueryInterface
         string $system = null,
         ?string $order = 'ASC'
     ): array;
+
+    public function getAttributeTypeByCode(AttributeCode $code): ?AttributeType;
 }

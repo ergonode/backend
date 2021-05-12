@@ -9,10 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\Importer\Domain\Command\Import\Attribute\ImportUpdateAttributesInProductCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Infrastructure\Exception\ImportProductInProductRelationAttributeValueNotFoundException;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
@@ -24,8 +21,7 @@ class GroupingProductImportAction extends AbstractProductImportAction
         string $template,
         array $categories,
         array $children,
-        array $attributes = [],
-        ImportId $importId = null
+        array $attributes = []
     ): GroupingProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         if (null === $templateId) {
@@ -33,15 +29,7 @@ class GroupingProductImportAction extends AbstractProductImportAction
         }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
-        try {
-            $attributesBuilt = $this->builder->build($attributes);
-        } catch (ImportProductInProductRelationAttributeValueNotFoundException $e) {
-            if ($importId) {
-                $command = new ImportUpdateAttributesInProductCommand($importId, $attributes, $sku);
-                $this->commandBus->dispatch($command, true);
-            }
-            $attributesBuilt = [];
-        }
+        $attributes = $this->builder->build($attributes);
         $children = $this->getChildren($sku, $children);
 
         if (!$productId) {
@@ -52,7 +40,7 @@ class GroupingProductImportAction extends AbstractProductImportAction
                 $sku,
                 $templateId,
                 $categories,
-                $attributesBuilt,
+                $attributes,
             );
         } else {
             $product = $this->productRepository->load($productId);
@@ -61,8 +49,8 @@ class GroupingProductImportAction extends AbstractProductImportAction
             }
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);
-            $attributesBuilt = $this->mergeSystemAttributes($product->getAttributes(), $attributesBuilt);
-            $product->changeAttributes($attributesBuilt);
+            $attributes = $this->mergeSystemAttributes($product->getAttributes(), $attributes);
+            $product->changeAttributes($attributes);
             $product->changeChildren($children);
         }
 

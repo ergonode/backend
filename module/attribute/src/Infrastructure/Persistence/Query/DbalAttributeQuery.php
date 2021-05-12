@@ -387,6 +387,23 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->fetchAll();
     }
 
+    public function getAttributeTypeByCode(AttributeCode $code): ?AttributeType
+    {
+        $qb = $this->getQuery();
+        $record = $qb
+            ->select('type')
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
+            ->execute()
+            ->fetch();
+
+        if ($record) {
+            return new AttributeType($record['type']);
+        }
+
+        return null;
+    }
+
     /**
      * @return array
      */

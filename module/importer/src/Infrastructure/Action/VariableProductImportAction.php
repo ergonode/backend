@@ -9,11 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\Importer\Domain\Command\Import\Attribute\ImportUpdateAttributesInProductCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Infrastructure\Exception\ImportProductInProductRelationAttributeValueNotFoundException;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -65,8 +62,7 @@ class VariableProductImportAction extends AbstractProductImportAction
         array $categories,
         array $bindings,
         array $children,
-        array $attributes = [],
-        ImportId $importId = null
+        array $attributes = []
     ): VariableProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         if (null === $templateId) {
@@ -74,17 +70,7 @@ class VariableProductImportAction extends AbstractProductImportAction
         }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
-
-        try {
-            $attributesBuilt = $this->builder->build($attributes);
-        } catch (ImportProductInProductRelationAttributeValueNotFoundException $e) {
-            if ($importId) {
-                $command = new ImportUpdateAttributesInProductCommand($importId, $attributes, $sku);
-                $this->commandBus->dispatch($command, true);
-            }
-            $attributesBuilt = [];
-        }
-
+        $attributes = $this->builder->build($attributes);
         $bindings = $this->getBindings($bindings, $sku);
         $children = $this->getChildren($sku, $children);
 
@@ -96,7 +82,7 @@ class VariableProductImportAction extends AbstractProductImportAction
                 $sku,
                 $templateId,
                 $categories,
-                $attributesBuilt,
+                $attributes,
             );
         } else {
             $product = $this->productRepository->load($productId);
@@ -105,8 +91,8 @@ class VariableProductImportAction extends AbstractProductImportAction
             }
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);
-            $attributesBuilt = $this->mergeSystemAttributes($product->getAttributes(), $attributesBuilt);
-            $product->changeAttributes($attributesBuilt);
+            $attributes = $this->mergeSystemAttributes($product->getAttributes(), $attributes);
+            $product->changeAttributes($attributes);
             $product->changeBindings($bindings);
             $product->changeChildren($children);
         }

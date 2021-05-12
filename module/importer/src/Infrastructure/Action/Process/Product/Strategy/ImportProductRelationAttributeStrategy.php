@@ -12,7 +12,7 @@ namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Infrastructure\Exception\ImportProductInProductRelationAttributeValueNotFoundException;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -42,13 +42,18 @@ class ImportProductRelationAttributeStrategy implements ImportProductAttributeSt
                 continue;
             }
             $skuValues = explode(',', $valueByLanguage);
+
             if ($skuValues) {
                 $productIds = [];
                 foreach ($skuValues as $skuValue) {
                     $sku = new Sku($skuValue);
                     $productId = $this->productQuery->findProductIdBySku($sku);
+
                     if (null === $productId) {
-                        throw new ImportProductInProductRelationAttributeValueNotFoundException($sku, $code);
+                        throw new ImportException(
+                            'Missing {sku} product for {code} relation attribute.',
+                            ['{sku}' => $sku, '{code}' => $code]
+                        );
                     }
                     $productIds[] = $productId->getValue();
                 }

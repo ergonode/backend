@@ -8,30 +8,41 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Action\AttributeValidatorImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
 class ImportSimpleProductCommandHandler
 {
-    private SimpleProductImportAction $action;
+    private SimpleProductImportAction $productImportAction;
 
     private ImportRepositoryInterface $repository;
 
     private LoggerInterface $logger;
 
+    private AttributeValidatorImportAction $attributeValidatorImportAction;
+
+    private CommandBusInterface $commandBus;
+
     public function __construct(
-        SimpleProductImportAction $action,
+        SimpleProductImportAction $productImportAction,
         ImportRepositoryInterface $repository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        AttributeValidatorImportAction $attributeValidatorImportAction,
+        CommandBusInterface $commandBus
     ) {
-        $this->action = $action;
+        $this->productImportAction = $productImportAction;
         $this->repository = $repository;
         $this->logger = $logger;
+        $this->attributeValidatorImportAction = $attributeValidatorImportAction;
+        $this->commandBus = $commandBus;
     }
 
     public function __invoke(ImportSimpleProductCommand $command): void
@@ -48,14 +59,24 @@ class ImportSimpleProductCommandHandler
                 }
                 $categories[] = new CategoryCode($category);
             }
-
-            $product = $this->action->action(
-                new Sku($command->getSku()),
+            $attributesToRedispatch = $this->attributeValidatorImportAction->action($command->getAttributes());
+            $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
+            $sku = new Sku($command->getSku());
+            $product = $this->productImportAction->action(
+                $sku,
                 $command->getTemplate(),
                 $categories,
-                $command->getAttributes(),
-                $command->getImportId()
+                $validatedAttributes,
             );
+
+            if (!empty($attributesToRedispatch)) {
+                $this->commandBus->dispatch(new ImportProductAttributesValueCommand(
+                    $command->getId(),
+                    $command->getImportId(),
+                    $attributesToRedispatch,
+                    $sku
+                ));
+            }
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
             $this->repository->markLineAsFailure($command->getId());

@@ -10,12 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Importer\Domain\Command\Import\Attribute\ImportUpdateAttributesInProductCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Infrastructure\Exception\ImportProductInProductRelationAttributeValueNotFoundException;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
@@ -31,8 +28,7 @@ class SimpleProductImportAction extends AbstractProductImportAction
         Sku $sku,
         string $template,
         array $categories,
-        array $attributes = [],
-        ImportId $importId = null
+        array $attributes = []
     ): SimpleProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         if (null === $templateId) {
@@ -40,16 +36,7 @@ class SimpleProductImportAction extends AbstractProductImportAction
         }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
-
-        try {
-            $attributesBuilt = $this->builder->build($attributes);
-        } catch (ImportProductInProductRelationAttributeValueNotFoundException $e) {
-            if ($importId) {
-                $command = new ImportUpdateAttributesInProductCommand($importId, $attributes, $sku);
-                $this->commandBus->dispatch($command, true);
-            }
-            $attributesBuilt = [];
-        }
+        $attributes = $this->builder->build($attributes);
 
         if (!$productId) {
             $product = $this->productFactory->create(
@@ -58,7 +45,7 @@ class SimpleProductImportAction extends AbstractProductImportAction
                 $sku,
                 $templateId,
                 $categories,
-                $attributesBuilt,
+                $attributes,
             );
         } else {
             $product = $this->productRepository->load($productId);
@@ -66,9 +53,9 @@ class SimpleProductImportAction extends AbstractProductImportAction
                 throw new ImportException('Product {sku} is not a simple product', ['{sku}' => $sku]);
             }
             $product->changeTemplate($templateId);
-            $attributesBuilt = $this->mergeSystemAttributes($product->getAttributes(), $attributesBuilt);
+            $attributes = $this->mergeSystemAttributes($product->getAttributes(), $attributes);
             $product->changeCategories($categories);
-            $product->changeAttributes($attributesBuilt);
+            $product->changeAttributes($attributes);
         }
 
         $this->productRepository->save($product);

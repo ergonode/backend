@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -46,21 +48,33 @@ class ImportUpdateProductAttributesAction extends AbstractProductImportAction
         $this->attributeBuilder = $attributeBuilder;
     }
 
+    /**
+     * @param TranslatableString[] $attributes
+     */
     public function action(Sku $sku, array $attributes): void
     {
         $attributesBuilt = $this->attributeBuilder->build($attributes);
         $productId = $this->productQuery->findProductIdBySku($sku);
+
         if (null === $productId) {
             throw new ImportException('Missing {sku} product.', ['{sku}' => $sku->getValue()]);
         }
         $product = $this->productRepository->load($productId);
+
         if (!$product) {
             throw new \RuntimeException(
                 sprintf('Can\'t find product %s', $sku)
             );
         }
-        $attributesBuilt = $this->mergeSystemAttributes($product->getAttributes(), $attributesBuilt);
-        $product->changeAttributes($attributesBuilt);
+        foreach ($attributesBuilt as $codeValue => $attribute) {
+            $code = new AttributeCode($codeValue);
+
+            if ($product->hasAttribute($code)) {
+                $product->changeAttribute($code, $attribute);
+            } else {
+                $product->addAttribute($code, $attribute);
+            }
+        }
         $this->productRepository->save($product);
     }
 }

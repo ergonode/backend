@@ -53,3 +53,7 @@ services:
             -
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\AttributeTemplateElementBuilderStrategy'
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\LabelTemplateElementBuilderStrategy'
+
+    Ergonode\Importer\Infrastructure\Validator\AttributeImportValidator:
+        arguments:
+            $strategies: !tagged_iterator ergonode.importer.attribute_validator
