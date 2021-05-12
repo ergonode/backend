@@ -16,7 +16,6 @@
     "ext-pdo": "*",
     "ext-zip": "*",
     "ergonode/importer": "^1.0.0",
-    "limenius/liform-bundle": "^0.15.0",
     "ramsey/uuid": "^3.8",
     "ramsey/uuid-doctrine": "^1.5",
     "league/csv": "^9.6",
