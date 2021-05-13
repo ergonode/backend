@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1f0b9970fc735bb602821127647db4f",
+    "content-hash": "1bcc0860a97706021c13d7c44c4b6b11",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1064,22 +1064,24 @@
         },
         {
             "name": "ergonode/exporter-shopware-6",
-            "version": "dev-main",
+            "version": "dev-relation-attribute",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "addd4e212a6cf56780ffd8b32e2ab54a7ca098d5"
+                "reference": "e2d163cfdb365c03f5d946f5421c47a9eee02165"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/addd4e212a6cf56780ffd8b32e2ab54a7ca098d5",
-                "reference": "addd4e212a6cf56780ffd8b32e2ab54a7ca098d5",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/e2d163cfdb365c03f5d946f5421c47a9eee02165",
+                "reference": "e2d163cfdb365c03f5d946f5421c47a9eee02165",
                 "shasum": ""
             },
             "require": {
                 "ergonode/channel": "^1.0.0",
+                "ergonode/product": "dev-main as 1.0.1-dev",
                 "ergonode/product-collection": "^1.0.0",
                 "guzzlehttp/guzzle": "^6.3",
+                "limenius/liform-bundle": "^0.17.0",
                 "php": "^7.4"
             },
             "require-dev": {
@@ -1101,7 +1103,7 @@
             ],
             "description": "Ergonode - Exporter Shopware 6",
             "homepage": "https://ergonode.com",
-            "time": "2021-05-11T08:04:08+00:00"
+            "time": "2021-05-12T12:11:44+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
@@ -2200,10 +2202,6 @@
                 }
             ],
             "description": "Library to transform Symfony Forms into Json Schema",
-            "support": {
-                "issues": "https://github.com/Limenius/Liform/issues",
-                "source": "https://github.com/Limenius/Liform/tree/v0.17.0"
-            },
             "time": "2020-10-06T15:01:01+00:00"
         },
         {
@@ -2240,10 +2238,6 @@
                 }
             ],
             "description": "Bundle for Liform: Transform Symfony Forms into Json Schema",
-            "support": {
-                "issues": "https://github.com/Limenius/LiformBundle/issues",
-                "source": "https://github.com/Limenius/LiformBundle/tree/v0.17.0"
-            },
             "time": "2020-10-06T15:07:51+00:00"
         },
         {
@@ -3728,9 +3722,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/cache-contracts/tree/v2.4.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4188,9 +4179,6 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.4.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4516,9 +4504,6 @@
             ],
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/event-dispatcher/tree/v4.4.20"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4946,9 +4931,6 @@
             ],
             "description": "Allows to easily create, process and reuse HTML forms",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/form/tree/v4.4.22"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5167,9 +5149,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/http-client-contracts/tree/v2.4.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5409,9 +5388,6 @@
                 "symfony",
                 "words"
             ],
-            "support": {
-                "source": "https://github.com/symfony/inflector/tree/v5.2.6"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5497,9 +5473,6 @@
                 "l10n",
                 "localization"
             ],
-            "support": {
-                "source": "https://github.com/symfony/intl/tree/v5.2.7"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -5957,9 +5930,6 @@
                 "configuration",
                 "options"
             ],
-            "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v4.4.20"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6038,9 +6008,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.22.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6125,9 +6092,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-icu/tree/v1.22.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6296,9 +6260,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.22.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6376,9 +6337,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6614,9 +6572,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6693,9 +6648,6 @@
                 "property path",
                 "reflection"
             ],
-            "support": {
-                "source": "https://github.com/symfony/property-access/tree/v4.4.20"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -6783,9 +6735,6 @@
                 "type",
                 "validator"
             ],
-            "support": {
-                "source": "https://github.com/symfony/property-info/tree/v5.2.1"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7159,9 +7108,6 @@
             ],
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/serializer/tree/v4.4.22"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7238,9 +7184,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v2.4.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7383,9 +7326,6 @@
                 "utf-8",
                 "utf8"
             ],
-            "support": {
-                "source": "https://github.com/symfony/string/tree/v5.2.6"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7539,9 +7479,6 @@
             ],
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/translation/tree/v4.4.21"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -7617,9 +7554,6 @@
                 "interoperability",
                 "standards"
             ],
-            "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v2.4.0"
-            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -12970,5 +12904,5 @@
         "ext-zip": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }
