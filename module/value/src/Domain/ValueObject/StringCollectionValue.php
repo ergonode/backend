@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Webmozart\Assert\Assert;
 
 class StringCollectionValue implements ValueInterface
 {
@@ -44,6 +45,13 @@ class StringCollectionValue implements ValueInterface
     public function getTranslation(Language $language): ?string
     {
         return $this->value[$language->getCode()] ?? null;
+    }
+
+    public function merge(ValueInterface $value): self
+    {
+        Assert::isInstanceOf($value, self::class);
+
+        return new self(array_merge($this->value, $value->getValue()));
     }
 
     /**
