@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
@@ -25,14 +28,22 @@ class ImportVariableProductCommandHandler
 
     private LoggerInterface $logger;
 
+    private AttributeImportFilter $attributeImportFilter;
+
+    private CommandBusInterface $commandBus;
+
     public function __construct(
         VariableProductImportAction $action,
         ImportRepositoryInterface $repository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        AttributeImportFilter $attributeImportFilter,
+        CommandBusInterface $commandBus
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
+        $this->attributeImportFilter = $attributeImportFilter;
+        $this->commandBus = $commandBus;
     }
 
     public function __invoke(ImportVariableProductCommand $command): void
@@ -65,15 +76,25 @@ class ImportVariableProductCommandHandler
                 }
                 $bindings[] = new AttributeCode($binding);
             }
-
+            $attributesToRedispatch = $this->attributeImportFilter->filter($command->getAttributes());
+            $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
                 $command->getTemplate(),
                 $categories,
                 $bindings,
                 $children,
-                $command->getAttributes()
+                $validatedAttributes
             );
+
+            if (!empty($attributesToRedispatch)) {
+                $this->commandBus->dispatch(new ImportProductAttributesValueCommand(
+                    $command->getId(),
+                    $command->getImportId(),
+                    $attributesToRedispatch,
+                    $command->getSku()
+                ));
+            }
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
             $this->repository->markLineAsFailure($command->getId());

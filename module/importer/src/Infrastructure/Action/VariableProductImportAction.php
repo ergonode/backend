@@ -24,6 +24,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 class VariableProductImportAction extends AbstractProductImportAction
 {
@@ -39,7 +40,8 @@ class VariableProductImportAction extends AbstractProductImportAction
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory
+        ProductFactoryInterface $productFactory,
+        CommandBusInterface $commandBus
     ) {
         parent::__construct(
             $categoryQuery,
@@ -47,7 +49,8 @@ class VariableProductImportAction extends AbstractProductImportAction
             $productRepository,
             $templateQuery,
             $builder,
-            $productFactory
+            $productFactory,
+            $commandBus
         );
         $this->attributeQuery = $attributeQuery;
         $this->attributeRepository = $attributeRepository;

@@ -27,6 +27,7 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
 abstract class AbstractProductImportAction
@@ -43,13 +44,16 @@ abstract class AbstractProductImportAction
 
     protected ProductFactoryInterface $productFactory;
 
+    protected CommandBusInterface $commandBus;
+
     public function __construct(
         CategoryQueryInterface $categoryQuery,
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         ImportProductAttributeBuilder $builder,
-        ProductFactoryInterface $productFactory
+        ProductFactoryInterface $productFactory,
+        CommandBusInterface $commandBus
     ) {
         $this->categoryQuery = $categoryQuery;
         $this->productQuery = $productQuery;
@@ -57,6 +61,7 @@ abstract class AbstractProductImportAction
         $this->templateQuery = $templateQuery;
         $this->builder = $builder;
         $this->productFactory = $productFactory;
+        $this->commandBus = $commandBus;
     }
 
     /**

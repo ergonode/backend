@@ -10,4 +10,5 @@ framework:
             Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand: '%ergonode.importer.messenger_transport_name%'
             Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand: '%ergonode.importer.messenger_transport_name%'
             Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand: '%ergonode.importer.messenger_transport_name%'
+            Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand: '%ergonode.importer.messenger_transport_name%'
             Ergonode\Importer\Domain\Command\Import\EndImportCommand: '%ergonode.importer.messenger_transport_name%'

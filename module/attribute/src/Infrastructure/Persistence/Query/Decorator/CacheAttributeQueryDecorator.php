@@ -165,4 +165,9 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     ): array {
         return $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $system, $order);
     }
+
+    public function getAttributeTypeByCode(AttributeCode $code): ?AttributeType
+    {
+        return $this->attributeQuery->getAttributeTypeByCode($code);
+    }
 }
