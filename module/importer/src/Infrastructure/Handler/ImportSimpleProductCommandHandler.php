@@ -74,7 +74,7 @@ class ImportSimpleProductCommandHandler
                     $command->getImportId(),
                     $attributesToRedispatch,
                     $command->getSku()
-                ));
+                ), true);
             }
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
