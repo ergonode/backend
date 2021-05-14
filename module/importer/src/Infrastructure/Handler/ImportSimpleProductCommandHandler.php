@@ -69,12 +69,13 @@ class ImportSimpleProductCommandHandler
             );
 
             if (!empty($attributesToRedispatch)) {
-                $this->commandBus->dispatch(new ImportProductAttributesValueCommand(
+                $ImportProductAttributesValueCommand = new ImportProductAttributesValueCommand(
                     $command->getId(),
                     $command->getImportId(),
                     $attributesToRedispatch,
                     $command->getSku()
-                ));
+                );
+                $this->commandBus->dispatch($ImportProductAttributesValueCommand, true);
             }
             $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
