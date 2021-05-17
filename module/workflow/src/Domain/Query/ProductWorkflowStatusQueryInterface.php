@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 interface ProductWorkflowStatusQueryInterface
 {
@@ -17,4 +18,9 @@ interface ProductWorkflowStatusQueryInterface
      * @return string[]
      */
     public function getStatuses(ProductId $productId): array;
+
+    /**
+     * @return ProductId[]
+     */
+    public function findProductIdsByStatusId(StatusId $statusId): array;
 }
