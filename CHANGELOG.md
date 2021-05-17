@@ -1,6 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
-- bugfix [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
+- refactor [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
 - feature [#1439](https://github.com/ergonode/backend/issues/1439) Add param file to fixture loader (wfajczyk)
 - refactor [#1426](https://github.com/ergonode/backend/issues/1426) Refactoring calculation of values during product update (rprzedzik)
 - bugfix [#1400](https://github.com/ergonode/backend/issues/1400) Deleting redundant reader privileges from fixtures (wiewiurdp)
