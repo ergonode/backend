@@ -29,7 +29,7 @@ class FixtureLoader
     /**
      * @return array
      */
-    public function load(string $group = null): array
+    public function load(string $group = null, string $fixtureFile = null): array
     {
         $files = [];
         $group = $group ?: '';
@@ -46,6 +46,10 @@ class FixtureLoader
         $file = str_replace('//', '/', sprintf(self::PATH, $this->root.'/src', $group));
         if (file_exists($file)) {
             $files[] = $file;
+        }
+
+        if (null !== $fixtureFile && file_exists($fixtureFile)) {
+            $files[] = $fixtureFile;
         }
 
         return $files;

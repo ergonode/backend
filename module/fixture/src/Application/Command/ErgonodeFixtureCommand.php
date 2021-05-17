@@ -35,6 +35,7 @@ class ErgonodeFixtureCommand extends Command
         $this->setName('ergonode:fixture:load');
         $this->setDescription('Fill database with data');
         $this->addOption('group', 'g', InputOption::VALUE_REQUIRED, 'Group');
+        $this->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'File');
     }
 
     /**
@@ -44,7 +45,7 @@ class ErgonodeFixtureCommand extends Command
     {
         $stopwatch = new Stopwatch();
         $stopwatch->start('ergonode-fixture-load');
-        $this->process->process($input->getOption('group'));
+        $this->process->process($input->getOption('group'), $input->getOption('file'));
         $event = $stopwatch->stop('ergonode-fixture-load');
 
         $this->endFixtureLoad($event, $output);

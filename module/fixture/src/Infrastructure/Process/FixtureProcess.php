@@ -50,11 +50,11 @@ class FixtureProcess
      * @throws FixtureException
      * @throws ConnectionException
      */
-    public function process(?string $group = null): void
+    public function process(?string $group = null, string $fixtureFile = null): void
     {
         try {
             $this->connection->beginTransaction();
-            $files = $this->loader->load($group);
+            $files = $this->loader->load($group, $fixtureFile);
             $loader = new NativeLoader($this->generator);
 
             $objectSet = $loader->loadFiles($files);
