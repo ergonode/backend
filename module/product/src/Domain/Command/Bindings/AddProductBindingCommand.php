@@ -10,7 +10,6 @@ namespace Ergonode\Product\Domain\Command\Bindings;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class AddProductBindingCommand implements ProductCommandInterface
@@ -19,9 +18,9 @@ class AddProductBindingCommand implements ProductCommandInterface
 
     private AttributeId $bindingId;
 
-    public function __construct(AbstractAssociatedProduct $product, AttributeId $attributeId)
+    public function __construct(ProductId $productId, AttributeId $attributeId)
     {
-        $this->id = $product->getId();
+        $this->id = $productId;
         $this->bindingId = $attributeId;
     }
 

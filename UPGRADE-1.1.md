@@ -9,3 +9,11 @@ Attribute:
 * Class `StringValueUpdateStrategy` has been removed, solution moved to `StringValue::merge`
 * Class `StringCollectionValueUpdateStrategy` has been removed, solution moved to `StringCollectionValue::merge`
 * Class `TranslatableStringValueUpdateStrategy` has been removed, solution moved to `TranslatableStringValue::merge`
+
+Product:
+* Class `AddProductBindingCommand` has change constructor
+* Class `RemoveProductBindingCommand` has change constructor
+* Class `AddProductChildCommand` has change constructor
+* Class `AddProductChildrenBySegmentsCommand` has change constructor
+* Class `AddProductChildrenCommand` has change constructor
+* Class `RemoveProductChildCommand` has change constructor

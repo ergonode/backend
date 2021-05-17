@@ -10,8 +10,6 @@ namespace Ergonode\Product\Tests\Domain\Command\Bindings;
 
 use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -22,14 +20,11 @@ class AddProductBindingCommandTest extends TestCase
      */
     public function testCommandCreation(): void
     {
-        /** @var AbstractAssociatedProduct|MockObject $product */
-        $product = $this->createMock(AbstractAssociatedProduct::class);
-        $product->method('getId')->willReturn($this->createMock(ProductId::class));
-        /** @var AttributeId|MockObject $bindingId */
+        $productId = $this->createMock(ProductId::class);
         $bindingId = $this->createMock(AttributeId::class);
 
-        $command = new AddProductBindingCommand($product, $bindingId);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($bindingId, $command->getBindingId());
+        $command = new AddProductBindingCommand($productId, $bindingId);
+        self::assertSame($productId, $command->getId());
+        self::assertSame($bindingId, $command->getBindingId());
     }
 }

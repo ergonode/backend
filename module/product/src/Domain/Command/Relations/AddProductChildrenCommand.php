@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
 
@@ -25,11 +24,11 @@ class AddProductChildrenCommand implements ProductCommandInterface
     /**
      * @param ProductId[] $children
      */
-    public function __construct(AbstractAssociatedProduct $product, array $children)
+    public function __construct(ProductId $productId, array $children)
     {
         Assert::allIsInstanceOf($children, ProductId::class);
 
-        $this->id = $product->getId();
+        $this->id = $productId;
         $this->children = $children;
     }
 

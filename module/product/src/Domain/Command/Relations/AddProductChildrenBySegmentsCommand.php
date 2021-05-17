@@ -10,7 +10,6 @@ namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
@@ -25,13 +24,13 @@ class AddProductChildrenBySegmentsCommand implements ProductCommandInterface
     private array $segments;
 
     /**
-     * @param array $segments
+     * @param SegmentId[] $segments
      */
-    public function __construct(AbstractAssociatedProduct $product, array $segments)
+    public function __construct(ProductId $productId, array $segments)
     {
         Assert::allIsInstanceOf($segments, SegmentId::class);
 
-        $this->id = $product->getId();
+        $this->id = $productId;
         $this->segments = $segments;
     }
 
