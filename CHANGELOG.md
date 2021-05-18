@@ -2,6 +2,7 @@
 #### 1.1.0
 - refactor [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
 - feature [#1439](https://github.com/ergonode/backend/issues/1439) Add param file to fixture loader (wfajczyk)
+- feature [#1442](https://github.com/ergonode/backend/issues/1442) Add roles and condition set Columns to transition grid (rprzedzik)  
 - refactor [#1426](https://github.com/ergonode/backend/issues/1426) Refactoring calculation of values during product update (rprzedzik)
 - bugfix [#1400](https://github.com/ergonode/backend/issues/1400) Deleting redundant reader privileges from fixtures (wiewiurdp)
 - feature [#1390](https://github.com/ergonode/backend/issues/1390) Extension of the AttributeValueMapper service with support for tags (rprzedzik)
