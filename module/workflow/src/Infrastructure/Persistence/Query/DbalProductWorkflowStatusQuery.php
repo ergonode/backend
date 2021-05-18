@@ -44,27 +44,4 @@ class DbalProductWorkflowStatusQuery implements ProductWorkflowStatusQueryInterf
 
         return $statuses;
     }
-
-    /**
-     * @return ProductId[]
-     */
-    public function findProductIdsByStatusId(StatusId $statusId): array
-    {
-        $qb = $this->connection->createQueryBuilder();
-        $records = $qb
-            ->select('product_id')
-            ->distinct()
-            ->from('product_workflow_status')
-            ->where($qb->expr()->eq('status_id', ':statusId'))
-            ->setParameter(':statusId', $statusId->getValue())
-            ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
-
-        $result = [];
-        foreach ($records as $record) {
-            $result[] = new ProductId($record);
-        }
-
-        return $result;
-    }
 }

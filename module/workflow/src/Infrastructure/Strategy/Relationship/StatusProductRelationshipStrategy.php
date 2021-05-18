@@ -14,15 +14,15 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
-use Ergonode\Workflow\Domain\Query\ProductWorkflowStatusQueryInterface;
+use Ergonode\Workflow\Domain\Query\ProductStatusQueryInterface;
 
 class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
 {
     private const MESSAGE = 'Object has active relationships with product %relations%';
 
-    private ProductWorkflowStatusQueryInterface $query;
+    private ProductStatusQueryInterface $query;
 
-    public function __construct(ProductWorkflowStatusQueryInterface $query)
+    public function __construct(ProductStatusQueryInterface $query)
     {
         $this->query = $query;
     }
