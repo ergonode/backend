@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Workflow\Domain\Query\ProductWorkflowStatusQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class DbalProductWorkflowStatusQuery implements ProductWorkflowStatusQueryInterface
 {
