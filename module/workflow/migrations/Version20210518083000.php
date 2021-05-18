@@ -62,7 +62,7 @@ final class Version20210518083000 extends AbstractErgonodeMigration
             FROM(
                 SELECT 
                     payload->>\'transition_id\' AS id, 
-                    payload->\'roles\' AS roles
+                    payload->\'role_ids\' AS roles
                 FROM event_store es
                 JOIN event_store_class esc ON es.aggregate_id = esc.aggregate_id
                 JOIN event_store_event ese ON es.event_id = ese.id
