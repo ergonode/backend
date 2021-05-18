@@ -51,7 +51,7 @@ final class Version20210518083000 extends AbstractErgonodeMigration
                 JOIN event_store_event ese ON es.event_id = ese.id
                 WHERE esc.class = \'Ergonode\Workflow\Domain\Entity\Workflow\'
                 AND	ese.event_class = \'Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent\'
-                ORDER BY id ASC
+                ORDER BY es.id ASC
                 ) AS sq
             WHERE wt.transition_id::TEXT = sq.id 
         ');
@@ -68,7 +68,7 @@ final class Version20210518083000 extends AbstractErgonodeMigration
                 JOIN event_store_event ese ON es.event_id = ese.id
                 WHERE esc.class = \'Ergonode\Workflow\Domain\Entity\Workflow\'
                 AND	ese.event_class = \'Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent\'
-                ORDER BY id ASC
+                ORDER BY es.id ASC
                 ) AS sq
             WHERE wt.transition_id::TEXT = sq.id 
         ');
