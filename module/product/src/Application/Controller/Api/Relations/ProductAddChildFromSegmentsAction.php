@@ -84,7 +84,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
                 foreach ($data->segments as $segment) {
                     $segments[] = new SegmentId($segment);
                 }
-                $command = new AddProductChildrenBySegmentsCommand($product, $segments);
+                $command = new AddProductChildrenBySegmentsCommand($product->getId(), $segments);
                 $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
