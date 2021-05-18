@@ -1,6 +1,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.1
+- refactor [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
 - bugfix [#1436](https://github.com/ergonode/backend/issues/1436) Incorrect deletion of workflow status (rprzedzik)
 - bugfix [#1407](https://github.com/ergonode/backend/issues/1407) Removed core module depencency from env (piotrkreft)
 - bugfix [#1396](https://github.com/ergonode/backend/issues/1396) Fixed UnitRepository type hinting (piotrkreft)

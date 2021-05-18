@@ -11,8 +11,6 @@ namespace Ergonode\Product\Tests\Domain\Command\Relations;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class AddProductChildCommandTest extends TestCase
 {
@@ -21,14 +19,11 @@ class AddProductChildCommandTest extends TestCase
      */
     public function testCommandCreation(): void
     {
-        /** @var AbstractAssociatedProduct|MockObject $product */
-        $product = $this->createMock(AbstractAssociatedProduct::class);
-        $product->method('getId')->willReturn($this->createMock(ProductId::class));
-        /** @var ProductId|MockObject $childId */
+        $productId = $this->createMock(ProductId::class);
         $childId = $this->createMock(ProductId::class);
 
-        $command = new AddProductChildCommand($product, $childId);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($childId, $command->getChildId());
+        $command = new AddProductChildCommand($productId, $childId);
+        self::assertSame($productId, $command->getId());
+        self::assertSame($childId, $command->getChildId());
     }
 }

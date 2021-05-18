@@ -71,7 +71,7 @@ class ProductRemoveChildAction
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractProduct $child): Response
     {
-        $this->commandBus->dispatch(new RemoveProductChildCommand($product, $child));
+        $this->commandBus->dispatch(new RemoveProductChildCommand($product->getId(), $child->getId()));
 
         return new EmptyResponse();
     }

@@ -94,7 +94,7 @@ class ProductAddChildFromSkusAction extends AbstractController
 
                 $productIds = $this->query->findProductIdsBySkus($data->skus);
 
-                $command = new AddProductChildrenCommand($product, $productIds);
+                $command = new AddProductChildrenCommand($product->getId(), $productIds);
 
                 $this->commandBus->dispatch($command);
 
