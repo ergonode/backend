@@ -21,25 +21,38 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\MultiSelectColumn;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\Account\Domain\Query\RoleQueryInterface;
+use Ergonode\Grid\Column\TextColumn;
 
 class TransitionGridBuilder implements GridBuilderInterface
 {
     private StatusQueryInterface $statusQuery;
 
-    public function __construct(StatusQueryInterface $statusQuery)
+    private RoleQueryInterface $roleQuery;
+
+    public function __construct(StatusQueryInterface $statusQuery, RoleQueryInterface $roleQuery)
     {
         $this->statusQuery = $statusQuery;
+        $this->roleQuery = $roleQuery;
     }
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $codes = $this->getStatuses($language);
+        $roles = $this->getRoles();
 
         $grid = new Grid();
+
+        $conditionColumn = new TextColumn('condition_set_id', 'ConditionSet');
+        $conditionColumn->setVisible(false);
 
         $grid
             ->addColumn('source', new LabelColumn('source', 'From', new MultiSelectFilter($codes)))
             ->addColumn('destination', new LabelColumn('destination', 'To', new MultiSelectFilter($codes)))
+            ->addColumn('roles', new MultiSelectColumn('roles', 'Roles', new MultiSelectFilter($roles)))
+            ->addColumn('condition_set_id', $conditionColumn)
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
                     'route' => 'ergonode_workflow_transition_read',
@@ -80,6 +93,16 @@ class TransitionGridBuilder implements GridBuilderInterface
         $result = [];
         foreach ($this->statusQuery->getAllStatuses($language) as $code => $status) {
             $result[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
+        }
+
+        return $result;
+    }
+
+    private function getRoles(): array
+    {
+        $result = [];
+        foreach ($this->roleQuery->getDictionary() as $key => $value) {
+            $result[] = new LabelFilterOption($key, $value);
         }
 
         return $result;

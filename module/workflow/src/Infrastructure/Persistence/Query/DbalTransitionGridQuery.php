@@ -44,6 +44,7 @@ class DbalTransitionGridQuery implements TransitionGridQueryInterface
                 $language->getCode(),
                 $language->getCode()
             ))
+            ->addSelect('roles, condition_set_id')
             ->join('t', 'status', 'ss', 'ss.id = t.source_id')
             ->join('t', 'status', 'ds', 'ds.id = t.destination_id')
             ->from(self::TABLE, 't');
