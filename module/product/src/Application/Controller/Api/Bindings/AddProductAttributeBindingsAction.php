@@ -88,7 +88,7 @@ class AddProductAttributeBindingsAction extends AbstractController
                 /** @var ProductBindFormModel $data */
                 $data = $form->getData();
                 $command = new AddProductBindingCommand(
-                    $product,
+                    $product->getId(),
                     new AttributeId($data->bindId),
                 );
                 $this->commandBus->dispatch($command);

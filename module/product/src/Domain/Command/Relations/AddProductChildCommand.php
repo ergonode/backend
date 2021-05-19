@@ -10,7 +10,6 @@ namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
 class AddProductChildCommand implements ProductCommandInterface
 {
@@ -18,9 +17,9 @@ class AddProductChildCommand implements ProductCommandInterface
 
     private ProductId $childId;
 
-    public function __construct(AbstractAssociatedProduct $product, ProductId $childId)
+    public function __construct(ProductId $productId, ProductId $childId)
     {
-        $this->id = $product->getId();
+        $this->id = $productId;
         $this->childId = $childId;
     }
 

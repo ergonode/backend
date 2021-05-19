@@ -84,7 +84,7 @@ class ProductRemoveBindingAction
         $violations = $this->validator->validate($data);
 
         if ($violations->count() === 0) {
-            $this->commandBus->dispatch(new RemoveProductBindingCommand($product, $binding));
+            $this->commandBus->dispatch(new RemoveProductBindingCommand($product->getId(), $binding->getId()));
 
             return new EmptyResponse();
         }

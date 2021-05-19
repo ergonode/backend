@@ -92,7 +92,7 @@ class ProductAddChildAction extends AbstractController
                 /** @var ProductChildFormModel $data */
                 $data = $form->getData();
                 $command = new AddProductChildCommand(
-                    $product,
+                    $product->getId(),
                     new ProductId($data->childId),
                 );
                 $this->commandBus->dispatch($command);
