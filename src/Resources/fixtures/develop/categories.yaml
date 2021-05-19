@@ -21,8 +21,8 @@ Ergonode\Category\Domain\Entity\CategoryTree:
       - '<categoryTreeId(default)>'
       - 'default'
       - '<translation(<{category_tree_name}>)>'
-      - '<categoryId(code_1)>'
     __calls:
+      - addCategory: ['<categoryId(code_1)>']
       - addCategory: ['<categoryId(code_2)>', '<categoryId(code_1)>']
       - addCategory: ['<categoryId(code_3)>', '<categoryId(code_1)>']
       - addCategory: ['<categoryId(code_4)>', '<categoryId(code_2)>']
