@@ -13,7 +13,7 @@
     },
     "require": {
         "php": "^7.4",
-        "doctrine/dbal": "^2.10",
+        "doctrine/dbal": "^2.13",
         "ergonode/api": "^1.0.0",
         "ergonode/core": "^1.0.0",
         "ergonode/grid": "^1.0.0",
