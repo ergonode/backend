@@ -17,32 +17,29 @@ use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAt
 
 class ProductCollectionSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof ProductCollectionSystemAttribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function addSelect(
         QueryBuilder $query,
         string $key,
         AbstractAttribute $attribute,
         Language $language
     ): void {
-        $query->addSelect(
-            sprintf(
-                '(
-                    SELECT jsonb_agg(product_collection_id) 
-                    FROM product_collection_element ce 
-                    WHERE ce.product_id = p.id LIMIT 1
-                ) AS "%s"',
-                $key
-            )
+        $sql = sprintf(
+            '(SELECT
+                        product_id, 
+                        jsonb_agg(product_collection_id) AS "%s"
+                        FROM product_collection_element ce 
+						GROUP BY product_id
+                    ) 
+                ',
+            $key
         );
+
+        $query->addSelect(sprintf('"%s"', $key));
+        $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
     }
 }
