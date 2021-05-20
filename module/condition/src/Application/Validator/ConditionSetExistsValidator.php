@@ -25,10 +25,7 @@ class ConditionSetExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                         $value
-     * @param ConditionSetExists|Constraint $constraint
-     *
-     * @throws \ReflectionException
+     * @param mixed      $value
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -48,7 +45,7 @@ class ConditionSetExistsValidator extends ConstraintValidator
 
         $conditionSet = false;
         if (ConditionSetId::isValid($value)) {
-            $conditionSet = $this->conditionSetRepository->load(new ConditionSetId($value));
+            $conditionSet = $this->conditionSetRepository->exists(new ConditionSetId($value));
         }
 
         if (!$conditionSet) {
