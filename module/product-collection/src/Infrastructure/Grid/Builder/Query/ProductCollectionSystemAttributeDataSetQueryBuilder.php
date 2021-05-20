@@ -17,17 +17,11 @@ use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAt
 
 class ProductCollectionSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof ProductCollectionSystemAttribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function addSelect(
         QueryBuilder $query,
         string $key,
