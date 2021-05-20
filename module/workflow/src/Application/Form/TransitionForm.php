@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,24 +7,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Application\Form\Workflow;
+namespace Ergonode\Workflow\Application\Form;
 
-use Ergonode\Workflow\Application\Form\TransitionForm;
+use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Ergonode\Workflow\Application\Form\Model\Workflow\WorkflowFormModel;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 
-class WorkflowForm extends AbstractType implements WorkflowFormInterface
+class TransitionForm extends AbstractType
 {
-    public function supported(string $type): bool
-    {
-        return Workflow::TYPE === $type;
-    }
-
     /**
      * @param array $options
      */
@@ -31,27 +25,27 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
     {
         $builder
             ->add(
-                'code',
+                'source',
                 TextType::class
             )
             ->add(
-                'statuses',
+                'destination',
+                TextType::class
+            )
+            ->add(
+                'roles',
                 CollectionType::class,
                 [
-                    'label' => 'Statuses',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => TextType::class,
                 ]
             )
             ->add(
-                'transitions',
-                CollectionType::class,
+                'condition_set',
+                TextType::class,
                 [
-                    'label' => 'Transitions',
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TransitionForm::class,
+                    'property_path' => 'conditionSet',
                 ]
             );
     }
@@ -59,9 +53,8 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => WorkflowFormModel::class,
+            'data_class' => TransitionFormModel::class,
             'translation_domain' => 'workflow',
-            'allow_extra_fields' => true,
         ]);
     }
 
