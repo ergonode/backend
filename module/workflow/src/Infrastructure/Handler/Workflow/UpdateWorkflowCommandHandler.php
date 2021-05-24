@@ -40,12 +40,6 @@ class UpdateWorkflowCommandHandler
 
     private function updateStatuses(array $commandStatuses, AbstractWorkflow $workflow): void
     {
-        foreach ($commandStatuses as $status) {
-            if (!$workflow->hasStatus($status)) {
-                $workflow->addStatus($status);
-            }
-        }
-
         foreach ($workflow->getStatuses() as $status) {
             $contains = false;
             foreach ($commandStatuses as $commandStatus) {
@@ -57,10 +51,29 @@ class UpdateWorkflowCommandHandler
                 $workflow->removeStatus($status);
             }
         }
+
+        foreach ($commandStatuses as $status) {
+            if (!$workflow->hasStatus($status)) {
+                $workflow->addStatus($status);
+            }
+        }
     }
 
     private function updateTransitions(array $commandTranitions, AbstractWorkflow $workflow): void
     {
+        foreach ($workflow->getTransitions() as $transition) {
+            $contains = false;
+            foreach ($commandTranitions as $commandTransition) {
+                if ($transition->getFrom()->getValue() === $commandTransition['source']->getValue() &&
+                    $transition->getTo()->getValue() === $commandTransition['destination']->getValue()) {
+                    $contains = true;
+                }
+            }
+            if (!$contains) {
+                $workflow->removeTransition($transition->getFrom(), $transition->getTo());
+            }
+        }
+
         foreach ($commandTranitions as $transition) {
             if (!$workflow->hasTransition($transition['source'], $transition['destination'])) {
                 $workflow->addTransition($transition['source'], $transition['destination']);
@@ -78,20 +91,6 @@ class UpdateWorkflowCommandHandler
                         $transition['roles']
                     );
                 }
-            }
-        }
-
-        foreach ($workflow->getTransitions() as $transition) {
-            $contains = false;
-            foreach ($commandTranitions as $commandTransition) {
-                if ($transition->getFrom()
-                        ->getValue() === $commandTransition['source']->getValue() && $transition->getTo()
-                        ->getValue() === $commandTransition['destination']->getValue()) {
-                    $contains = true;
-                }
-            }
-            if (!$contains) {
-                $workflow->removeTransition($transition->getFrom(), $transition->getTo());
             }
         }
     }
