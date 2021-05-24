@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -32,19 +32,66 @@ class UpdateWorkflowCommandHandler
 
         Assert::notNull($workflow);
 
-        foreach ($command->getStatuses() as $status) {
-            if (!$workflow->hasStatus($status)) {
-                $workflow->addStatus($status);
-            }
-        }
+        $this->updateStatuses($command->getStatuses(), $workflow);
+        $this->updateTransitions($command->getTransitions(), $workflow);
 
-        $statuses = new ArrayCollection($command->getStatuses());
+        $this->repository->save($workflow);
+    }
+
+    private function updateStatuses(array $commandStatuses, AbstractWorkflow $workflow): void
+    {
         foreach ($workflow->getStatuses() as $status) {
-            if ($statuses->contains($status)) {
+            $contains = false;
+            foreach ($commandStatuses as $commandStatus) {
+                if ($status->getValue() === $commandStatus->getValue()) {
+                    $contains = true;
+                }
+            }
+            if (!$contains) {
                 $workflow->removeStatus($status);
             }
         }
 
-        $this->repository->save($workflow);
+        foreach ($commandStatuses as $status) {
+            if (!$workflow->hasStatus($status)) {
+                $workflow->addStatus($status);
+            }
+        }
+    }
+
+    private function updateTransitions(array $commandTranitions, AbstractWorkflow $workflow): void
+    {
+        foreach ($workflow->getTransitions() as $transition) {
+            $contains = false;
+            foreach ($commandTranitions as $commandTransition) {
+                if ($transition->getFrom()->getValue() === $commandTransition['source']->getValue() &&
+                    $transition->getTo()->getValue() === $commandTransition['destination']->getValue()) {
+                    $contains = true;
+                }
+            }
+            if (!$contains) {
+                $workflow->removeTransition($transition->getFrom(), $transition->getTo());
+            }
+        }
+
+        foreach ($commandTranitions as $transition) {
+            if (!$workflow->hasTransition($transition['source'], $transition['destination'])) {
+                $workflow->addTransition($transition['source'], $transition['destination']);
+                if (isset($transition['condition_set'])) {
+                    $workflow->changeTransitionConditionSetId(
+                        $transition['source'],
+                        $transition['destination'],
+                        $transition['condition_set']
+                    );
+                }
+                if (isset($transition['roles'])) {
+                    $workflow->changeTransitionRoleIds(
+                        $transition['source'],
+                        $transition['destination'],
+                        $transition['roles']
+                    );
+                }
+            }
+        }
     }
 }

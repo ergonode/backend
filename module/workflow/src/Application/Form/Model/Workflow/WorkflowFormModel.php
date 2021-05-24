@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Form\Model\Workflow;
 
+use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Workflow\Application\Validator as WorkflowAssert;
 
@@ -34,4 +35,15 @@ class WorkflowFormModel
      * })
      */
     public array $statuses = [];
+
+    /**
+     * @var TransitionFormModel[]
+     *
+     * @Assert\Valid()
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     * })
+     */
+    public array $transitions = [];
 }
