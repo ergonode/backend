@@ -50,7 +50,7 @@ class PostGridConfiguration implements GridConfigurationInterface
 
         $this->filters = new FilterValueCollection();
         foreach ($request->request->get('filters', []) as $filter) {
-            if(!array_key_exists('column', $filter) || !array_key_exists('operator', $filter)) {
+            if (!array_key_exists('column', $filter) || !array_key_exists('operator', $filter)) {
                 throw new \InvalidArgumentException();
             }
 
@@ -59,7 +59,7 @@ class PostGridConfiguration implements GridConfigurationInterface
             $value = array_key_exists('value', $filter) ? $filter['value'] : null;
             $language = array_key_exists('language', $filter) ? new Language($filter['language']) : null;
             $key = $filter['column'];
-            if($language) {
+            if ($language) {
                 $key = sprintf('%s:%s', $key, $language->getCode());
             }
 
@@ -71,7 +71,7 @@ class PostGridConfiguration implements GridConfigurationInterface
             $name = $column['name'];
             $key = $column['name'];
             $language = array_key_exists('language', $column) ? new Language($column['language']) : null;
-            if($language) {
+            if ($language) {
                 $key = sprintf('%s:%s', $key, $language->getCode());
             }
             $this->columns[$key] = new RequestColumn($name, $language);
