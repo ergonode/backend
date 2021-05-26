@@ -45,7 +45,7 @@ class PostGridConfiguration implements GridConfigurationInterface
 
         $this->limit = (int) $request->request->get('limit', self::LIMIT);
         $this->offset = (int) $request->request->get('offset', self::OFFSET);
-        $this->field = (string) $request->request->get('field');
+        $this->field =  $request->request->get('field');
         $this->order = strtoupper($request->request->get('order', self::DESC));
 
         $this->filters = new FilterValueCollection();
