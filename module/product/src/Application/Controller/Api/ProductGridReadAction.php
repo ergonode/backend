@@ -22,6 +22,7 @@ use Ergonode\Grid\GridConfigurationInterface;
 
 /**
  * @Route("products", methods={"GET"})
+ * @Route("products/grid", methods={"GET"})
  * @Route("products/grid", methods={"POST"})
  */
 class ProductGridReadAction
