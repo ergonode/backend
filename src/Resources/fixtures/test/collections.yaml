@@ -1,0 +1,27 @@
+parameters:
+    name_product_collection_type_up-sell:
+        'pl_PL': 'Up-sell'
+        'en_GB': 'Up-sell'
+    name_product_collection_type_cross-sell:
+        'pl_PL': 'Cross-sell'
+        'en_GB': 'Cross-sell'
+    name_product_collection_type_other:
+        'pl_PL': 'Inny'
+        'en_GB': 'Other'
+
+Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
+    product_collection_type_up-sell:
+        __construct:
+            - '<productCollectionTypeId("up-sell")>'
+            - '<productCollectionTypeCode("up-sell")>'
+            - '<translation(<{name_product_collection_type_up-sell}>)>'
+    product_collection_type_cross-sell:
+        __construct:
+            - '<productCollectionTypeId("cross-sell")>'
+            - '<productCollectionTypeCode("cross-sell")>'
+            - '<translation(<{name_product_collection_type_cross-sell}>)>'
+    product_collection_type_other:
+        __construct:
+            - '<productCollectionTypeId("other")>'
+            - '<productCollectionTypeCode("other")>'
+            - '<translation(<{name_product_collection_type_other}>)>'

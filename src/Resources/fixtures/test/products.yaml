@@ -1,0 +1,42 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+  attribute_image_value:
+    __construct:
+      - en_GB: '@product_image->id'
+  attribute_text_value:
+    __construct:
+      - en_GB: "text attribute value"
+  attribute_textarea_value:
+    __construct:
+      - en_GB: "textarea attribute value"
+  attribute_numeric_value:
+    __construct:
+      - en_GB: 10.99
+  attribute_price_value:
+    __construct:
+      - en_GB: 12.66
+  attribute_unit_value:
+    __construct:
+      - en_GB: 99.99
+  attribute_select_value:
+    __construct:
+      - en_GB: '@test_attribute_select_option_1->id'
+  attribute_multiselect_value:
+    __construct:
+      - en_GB: '@test_attribute_multiselect_option_1->id'
+
+Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
+  test_simple_product_{1..2}:
+    __construct:
+      - '<productId(sku_test_<current()>)>'
+      - '<sku(sku_test_<current()>)>'
+      - '@template->id'
+      - []
+      -
+        'attribute_image': '<translatableStringValue(@attribute_image_value)>'
+        'attribute_text':  '<translatableStringValue(@attribute_text_value)>'
+        'attribute_textarea':  '<translatableStringValue(@attribute_textarea_value)>'
+        'attribute_numeric':  '<translatableStringValue(@attribute_numeric_value)>'
+        'attribute_price':  '<translatableStringValue(@attribute_price_value)>'
+        'attribute_unit':  '<translatableStringValue(@attribute_unit_value)>'
+        'attribute_select':  '<translatableStringValue(@attribute_select_value)>'
+        'attribute_multiselect':  '<stringCollectionValue(@attribute_multiselect_value)>'
