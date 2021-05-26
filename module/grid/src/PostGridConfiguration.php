@@ -56,7 +56,7 @@ class PostGridConfiguration implements GridConfigurationInterface
 
             $column = $filter['column'];
             $operator = $filter['operator'];
-            $value = array_key_exists('value', $filter) ? $filter['value'] : null;
+            $value = $filter['value'] ?? null;
             $language = array_key_exists('language', $filter) ? new Language($filter['language']) : null;
             $key = $filter['column'];
             if ($language) {
@@ -78,7 +78,7 @@ class PostGridConfiguration implements GridConfigurationInterface
         }
 
         $this->view = $request->request->get('view', GridConfigurationInterface::VIEW_GRID);
-        $this->extended = $request->request->has('extended');
+        $this->extended = $request->request->get('extended', false);
 
         Assert::oneOf($this->order, self::ORDER);
     }
