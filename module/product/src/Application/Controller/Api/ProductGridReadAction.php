@@ -12,17 +12,17 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridConfigurationInterface;
 
 /**
  * @Route("products", methods={"GET"})
+ * @Route("products/grid", methods={"POST"})
  */
 class ProductGridReadAction
 {
@@ -112,10 +112,8 @@ class ProductGridReadAction
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, GridConfigurationInterface $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->dataSetFactory->create();

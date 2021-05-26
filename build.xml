@@ -14,7 +14,8 @@
     <!-- Build -->
     <target name="build" depends="cache:clear, create:directory, database:migrate" description="Standard build plan."/>
     <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture" description="Standard build plan with database recreation."/>
-    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture:dev" description="Standard build plan with database recreation."/>
+    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture:dev" description="Development build plan with database recreation."/>
+    <target name="rebuild:test" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture:test" description="Test build plan with database recreation."/>
 
     <!-- Create directories -->
     <target name="create:directory" description="Create build directories.">
@@ -67,7 +68,7 @@
     </target>
 
     <!-- Behat -->
-    <target name="test:behat" depends="override:property:APP_ENV, cache:clear, database:drop, database:create, database:migrate, database:fixture" description="Executes behat tests." >
+    <target name="test:behat" depends="override:property:APP_ENV, cache:clear, database:drop, database:create, database:migrate, database:fixture:test" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
         <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure --format=progress"
               checkreturn="true"
@@ -112,6 +113,14 @@
     <target name="database:fixture:dev" description="Fill database with development data">
         <echo msg="Fill database with dev fixtures ..."/>
         <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g develop --no-interaction"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <target name="database:fixture:test" description="Fill database with development data">
+        <echo msg="Fill database with dev fixtures ..."/>
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g test --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>

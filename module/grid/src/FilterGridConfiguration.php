@@ -16,9 +16,6 @@ class FilterGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
     public const LIMIT = 2147483647;
-    public const ASC = 'ASC';
-    public const FILTER = null;
-    public const COLUMNS = null;
 
     private FilterValueCollection $filters;
 

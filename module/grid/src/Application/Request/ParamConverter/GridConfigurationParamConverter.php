@@ -13,6 +13,8 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\PostGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 
 class GridConfigurationParamConverter implements ParamConverterInterface
 {
@@ -21,7 +23,12 @@ class GridConfigurationParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $requestGridConfiguration = new RequestGridConfiguration($request);
+        if ($request->getMethod() === Request::METHOD_POST) {
+            $requestGridConfiguration = new PostGridConfiguration($request);
+        } else {
+            $requestGridConfiguration = new RequestGridConfiguration($request);
+        }
+
         $request->attributes->set($configuration->getName(), $requestGridConfiguration);
 
         return true;
@@ -32,6 +39,11 @@ class GridConfigurationParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return RequestGridConfiguration::class === $configuration->getClass();
+        $class = $configuration->getClass();
+
+        return
+            GridConfigurationInterface::class === $class
+            || PostGridConfiguration::class === $class
+            || RequestGridConfiguration::class === $class;
     }
 }

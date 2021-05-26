@@ -37,6 +37,11 @@ class FilterValueCollection implements \IteratorAggregate
      */
     private array $filters;
 
+    public function addFilter(string $key, FilterValue $value): void
+    {
+        $this->filters[$key][] = $value;
+    }
+
     public function __construct(string $string = null)
     {
         $this->filters = [];
