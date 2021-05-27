@@ -9,7 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
+use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,14 +21,29 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\GridConfigurationInterface;
 
 /**
- * @Route("products", methods={"GET"})
- * @deprecated
+ * @Route("products/grid", methods={"GET"})
+ * @Route("products/grid", methods={"POST"})
  */
-class ProductGridReadAction extends ProductGridAction
+class ProductGridAction
 {
+    private DbalProductDataSetFactory $dataSetFactory;
+
+    private ProductGridBuilder $gridBuilder;
+
+    private GridRenderer $gridRenderer;
+
+    public function __construct(
+        GridRenderer $gridRenderer,
+        DbalProductDataSetFactory $dataSetFactory,
+        ProductGridBuilder $gridBuilder
+    ) {
+        $this->dataSetFactory = $dataSetFactory;
+        $this->gridBuilder = $gridBuilder;
+        $this->gridRenderer = $gridRenderer;
+    }
+
     /**
      * @IsGranted("PRODUCT_GET_GRID")
-     * @SWG\Get(description="This endpoint is depricated, use `GET /api/v1/{language}/products/grid` instead")
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="limit",
@@ -95,6 +114,11 @@ class ProductGridReadAction extends ProductGridAction
      */
     public function __invoke(Language $language, GridConfigurationInterface $configuration): Response
     {
-        return parent::__invoke($language, $configuration);
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->dataSetFactory->create();
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
+
+        return new SuccessResponse($data);
     }
 }

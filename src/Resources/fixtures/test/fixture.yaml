@@ -1,0 +1,11 @@
+include:
+    - 'multimedia.yaml'
+    - 'workflow.yaml'
+    - 'roles.yaml'
+    - 'user.yaml'
+    - 'attributes.yaml'
+    - 'templates.yaml'
+    - 'categories.yaml'
+    - 'products.yaml'
+    - 'collections.yaml'
+    - 'units.yaml'

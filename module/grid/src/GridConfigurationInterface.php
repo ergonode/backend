@@ -16,6 +16,16 @@ interface GridConfigurationInterface
     public const VIEW_GRID = 'grid';
     public const VIEW_LIST = 'list';
 
+    public const ASC = 'ASC';
+    public const DESC = 'DESC';
+    public const FILTER = null;
+    public const COLUMNS = null;
+
+    public const ORDER = [
+        self::ASC,
+        self::DESC,
+    ];
+
     public function getOffset(): int;
 
     public function getLimit(): int;

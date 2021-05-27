@@ -20,15 +20,6 @@ class RequestGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
     public const LIMIT = 1000;
-    public const ASC = 'ASC';
-    public const DESC = 'DESC';
-    public const FILTER = null;
-    public const COLUMNS = null;
-
-    private const ORDER = [
-        self::ASC,
-        self::DESC,
-    ];
 
     private int $offset;
 
@@ -55,10 +46,10 @@ class RequestGridConfiguration implements GridConfigurationInterface
 
         $this->limit = (int) $request->query->get('limit', self::LIMIT);
         $this->offset = (int) $request->query->get('offset', self::OFFSET);
-        $this->field = $request->query->has('field') ? (string) $request->query->get('field') : null;
+        $this->field = (string) $request->query->get('field');
         $this->order = strtoupper($request->query->get('order', self::DESC));
 
-        $filters = $request->query->get('filter', self::FILTER);
+        $filters = $request->query->get('filter');
         $this->filters = new FilterValueCollection($filters);
         foreach ($this->filters as $key => $elements) {
             /** @var FilterValue $element */
@@ -86,7 +77,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
         }
 
         $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
-        $this->extended = $request->query->has('extended') ? true : false;
+        $this->extended = $request->query->has('extended');
         Assert::oneOf($this->order, self::ORDER);
     }
 

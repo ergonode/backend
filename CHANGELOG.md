@@ -2,6 +2,7 @@
 #### 1.1.0
 - bugfix [#1450](https://github.com/ergonode/backend/issues/1450) Low product collection column query performance for product grid (rprzedzik)
 - refactor [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
+- feature [#1457](https://github.com/ergonode/backend/issues/1457) Add POST method support for grid request  (rprzedzik)  
 - feature [#1439](https://github.com/ergonode/backend/issues/1439) Add param file to fixture loader (wfajczyk)
 - feature [#1442](https://github.com/ergonode/backend/issues/1442) Add roles and condition set Columns to transition grid (rprzedzik)  
 - refactor [#1426](https://github.com/ergonode/backend/issues/1426) Refactoring calculation of values during product update (rprzedzik)

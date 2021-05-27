@@ -73,16 +73,10 @@ Feature: Product edit and inheritance value for product product with gallery att
     And the JSON node "id" should exist
     And store response param "id" as "multimedia_2_id"
 
-  Scenario: Create template
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@",
-        "elements": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "template_id"
+  Scenario: Get template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_id"
 
   Scenario: Create product
     When I send a POST request to "/api/v1/en_GB/products" with body:

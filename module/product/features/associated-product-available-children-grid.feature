@@ -5,16 +5,10 @@ Feature: Variable product available children grid feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create template
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@",
-        "elements": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "template_id"
+  Scenario: Get template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_id"
 
   Scenario Outline: Create SELECT attribute <attribute>
     Given remember param "select_<attribute>" with value "select_@@random_code@@"

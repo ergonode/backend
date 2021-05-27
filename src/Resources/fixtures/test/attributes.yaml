@@ -1,0 +1,285 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    empty:
+        __construct:
+            - []
+    option_value_1_{1..2}:
+        __construct:
+            - 'pl_PL': 'Option_PL_1_<current()>'
+              'en_GB': 'Option_EN_1_<current()>'
+    option_value_2_{1..2}:
+        __construct:
+            - 'pl_PL': 'Option_PL_2_<current()>'
+              'en_GB': 'Option_EN_2_<current()>'
+    label_{1..15}:
+        __construct:
+            - 'pl_PL': 'Polish_label_<current()>'
+              'en_GB': 'English_label_<current()>'
+    hint_{1..15}:
+        __construct:
+            - 'pl_PL': 'Polish_hint_<current()>'
+              'en_GB': 'English_hint_<current()>'
+    placeholder_{1..15}:
+        __construct:
+            - 'pl_PL': 'Polish_placeholder_<current()>'
+              'en_GB': 'English_placeholder_<current()>'
+    name_{1..15}:
+        __construct:
+            - 'pl_PL': 'Polish_name_<current()>'
+              'en_GB': 'English_name_<current()>'
+    description_{1..50}:
+        __construct:
+            - 'pl_PL': 'Polish_description_<current()>'
+              'en_GB': 'English_description_<current()>'
+    label_esa_status:
+        __construct:
+            - 'pl_PL': 'Status'
+              'en_GB': 'Status'
+    label_esa_created_at:
+        __construct:
+            - 'pl_PL': 'Czas utworzenia'
+              'en_GB': 'Created at'
+    label_esa_edited_at:
+        __construct:
+            - 'pl_PL': 'Czas edycji'
+              'en_GB': 'Edited at'
+    label_esa_created_by:
+        __construct:
+            - 'pl_PL': 'Utworzone przez'
+              'en_GB': 'Created by'
+    label_esa_edited_by:
+        __construct:
+            - 'pl_PL': 'Edytowane przez'
+              'en_GB': 'Edited by'
+    label_esa_template:
+        __construct:
+            - 'pl_PL': 'Szablon'
+              'en_GB': 'Template'
+    label_esa_categories:
+        __construct:
+            - 'pl_PL': 'Kategorie'
+              'en_GB': 'Categories'
+    label_esa_product_collection:
+        __construct:
+            - 'pl_PL': 'Kolekcje produktów'
+              'en_GB': 'Product collections'
+    label_esa_default_image:
+        __construct:
+            - 'pl_PL': 'Domyślne zdjęcie'
+              'en_GB': 'Default image'
+    label_esa_default_label:
+        __construct:
+            - 'pl_PL': 'Domyślna etykieta'
+              'en_GB': 'Default label'
+    label_esa_product_type:
+        __construct:
+            - 'pl_PL': 'Typ produktu'
+              'en_GB': 'Product type'
+
+Ergonode\Attribute\Domain\Entity\AttributeGroup:
+    attribute_group:
+        __construct:
+            - '<AttributeGroupId()>'
+            - '<AttributeGroupCode(group_code)>'
+            - '@empty'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
+    test_attribute_image:
+        __construct:
+            - '<AttributeCode(attribute_image)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
+    test_attribute_text:
+        __construct:
+            - '<AttributeCode(attribute_text)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand:
+    test_attribute_textarea:
+        __construct:
+            - '<AttributeCode(attribute_textarea)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+            -  true
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
+    test_attribute_numeric:
+        __construct:
+            - '<AttributeCode(attribute_numeric)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand:
+    test_attribute_date:
+        __construct:
+            - '<AttributeCode(attribute_date)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+            - '<DateFormat()>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand:
+    test_attribute_price:
+        __construct:
+            - '<AttributeCode(attribute_price)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+            - '<Currency()>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
+    test_attribute_unit:
+        __construct:
+            - '<AttributeCode(attribute_unit)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+            - '@unit_metre->id'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
+    test_attribute_select:
+        __construct:
+            - '<AttributeCode(attribute_select)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand:
+    test_attribute_multiselect:
+        __construct:
+            - '<AttributeCode(attribute_multiselect)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
+    test_attribute_gallery:
+        __construct:
+            - '<AttributeCode(attribute_gallery)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand:
+    test_attribute_file:
+        __construct:
+            - '<AttributeCode(attribute_file)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(local)>'
+
+Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
+    test_attribute_select_option_1:
+        __construct:
+            - '@test_attribute_select->id'
+            - '<OptionKey(key_1)>'
+            - '@option_value_1_1'
+    test_attribute_select_option_2:
+        __construct:
+            - '@test_attribute_select->id'
+            - '<OptionKey(key_2)>'
+            - '@option_value_2_1'
+    test_attribute_multiselect_option_1:
+        __construct:
+            - '@test_attribute_multiselect->id'
+            - '<OptionKey(key_1)>'
+            - '@option_value_1_1'
+    test_attribute_multiselect_option_2:
+        __construct:
+            - '@test_attribute_multiselect->id'
+            - '<OptionKey(key_2)>'
+            - '@option_value_2_1'
+
+Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
+    attribute_esa_status:
+        __construct:
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            -
+Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
+    attribute_esa_created_at:
+        __construct:
+            - '@label_esa_created_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute:
+    attribute_esa_edited_at:
+        __construct:
+            - '@label_esa_edited_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute:
+    attribute_esa_created_by:
+        __construct:
+            - '@label_esa_created_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
+    attribute_esa_edited_by:
+        __construct:
+            - '@label_esa_edited_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
+    attribute_esa_template:
+        __construct:
+            - '@label_esa_template'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
+    attribute_esa_categories:
+        __construct:
+            - '@label_esa_categories'
+            - '@empty'
+            - '@empty'
+
+Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute:
+    attribute_esa_product_collection:
+        __construct:
+            - '@label_esa_product_collection'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
+    attribute_esa_product_type:
+        __construct:
+            - '@label_esa_product_type'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
+    attribute_esa_default_label:
+        __construct:
+            - '@label_esa_default_label'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
+    attribute_esa_default_image:
+        __construct:
+            - '@label_esa_default_image'
+            - '@empty'
+            - '@empty'
