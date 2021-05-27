@@ -11,13 +11,13 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
+use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class GalleryAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
+class GalleryAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
 {
     private MultimediaQueryInterface $query;
 
@@ -37,7 +37,7 @@ class GalleryAttributeValueConstraintStrategy implements AttributeValueConstrain
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute): Constraint
+    public function get(AbstractAttribute $attribute, $aggregateId = null): Constraint
     {
         $multimedia = $this->query->getAll();
 

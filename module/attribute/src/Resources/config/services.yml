@@ -46,7 +46,7 @@ services:
 
     Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper:
         arguments:
-            $strategies: !tagged_iterator 'attribute.attribute_mapper_strategy'
+            $strategies: !tagged_iterator 'attribute.context_aware_attribute_mapper_strategy'
 
     Ergonode\Attribute\Application\Controller\Api\Attribute\SystemAttributeGridReadAction:
         tags: ['controller.service_arguments']

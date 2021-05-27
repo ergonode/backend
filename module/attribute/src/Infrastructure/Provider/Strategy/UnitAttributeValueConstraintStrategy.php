@@ -10,13 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Application\Validator\TypeOrEmpty;
+use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
+class UnitAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -29,7 +29,7 @@ class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintSt
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute): Constraint
+    public function get(AbstractAttribute $attribute, $aggregateId = null): Constraint
     {
         return new Collection([
             'value' => [

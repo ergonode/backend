@@ -15,8 +15,10 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,8 +96,17 @@ class AttributeValidationAction
     ): Response {
         $value = $request->request->get('value');
         $value = $value === '' ? null : $value;
+        $aggregateId = null;
+        try {
+            if ($request->query->has('aggregateId')) {
+                $aggregateIdValue = $request->query->get('aggregateId');
+                    $aggregateId =  new AggregateId($aggregateIdValue);
+            }
+            $constraint = $this->provider->provide($attribute, $aggregateId);
+        } catch (\InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
 
-        $constraint = $this->provider->provide($attribute);
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();
             if (!$root->isEqual($language)) {

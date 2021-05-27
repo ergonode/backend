@@ -28,7 +28,7 @@ class ProductAttributeUpdater
         $type = new AttributeType($attribute->getType());
         $code = $attribute->getCode();
 
-        $newValue = $this->mapper->map($type, $value);
+        $newValue = $this->mapper->map($type, $value, $product->getId());
 
         if ($product->hasAttribute($code)) {
             $oldValue = $product->getAttribute($code);
@@ -59,7 +59,7 @@ class ProductAttributeUpdater
         }
 
         if (!empty($translation)) {
-            $newValue = $this->mapper->map($type, $translation);
+            $newValue = $this->mapper->map($type, $translation, $product->getId());
             $product->changeAttribute($code, $newValue);
         } else {
             $product->removeAttribute($code);

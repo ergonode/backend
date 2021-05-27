@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Tests\Infrastructure\Mapper\Strategy;
 
 use Ergonode\Product\Infrastructure\Mapper\Strategy\ProductRelationAttributeMapperStrategy;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -30,8 +31,9 @@ class ProductRelationAttributeMapperStrategyTest extends TestCase
      */
     public function testValidMapping(array $values, ValueInterface $result): void
     {
+        $productId = $this->createMock(ProductId::class);
         $strategy = new ProductRelationAttributeMapperStrategy();
-        $mapped = $strategy->map($values);
+        $mapped = $strategy->map($values, $productId);
 
         self::assertEquals($result, $mapped);
     }

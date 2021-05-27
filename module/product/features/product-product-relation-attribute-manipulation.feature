@@ -135,7 +135,7 @@ Feature: Product edit and inheritance value for product product with product rel
     And store response param "id" as "product_3_id"
 
   Scenario: Check valid product relation attribute validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
       """
       {
         "value": ["@product_2_id@"]
@@ -144,7 +144,7 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 200
 
   Scenario: Check valid empty array product relation attribute validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
       """
       {
         "value": []
@@ -152,8 +152,35 @@ Feature: Product edit and inheritance value for product product with product rel
       """
     Then the response status code should be 200
 
-  Scenario: Check invalid Uuid product relation attribute validation
+  Scenario: Check no parameter validation
     When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+      """
+      {
+        "value": ["@product_2_id@"]
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Check parameter random uuid validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@@random_uuid@@" with body:
+      """
+      {
+        "value": ["@product_2_id@"]
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Check parameter string validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=test" with body:
+      """
+      {
+        "value": ["@product_2_id@"]
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Check invalid Uuid product relation attribute validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
       """
       {
         "value": ["13123"]
@@ -162,10 +189,19 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 400
 
   Scenario: Check not exists product product relation attribute validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
       """
       {
         "value": ["@@random_uuid@@"]
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Check add product relation with the same product validation
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
+      """
+      {
+        "value": ["@product_1_id@"]
       }
       """
     Then the response status code should be 400
@@ -183,7 +219,7 @@ Feature: Product edit and inheritance value for product product with product rel
                   "values" : [
                     {
                       "language": "pl_PL",
-                      "value": ["@product_2_id@"]
+                      "value": ["@product_id@", "@product_2_id@"]
                     },
                      {
                       "language": "en_GB",
@@ -198,11 +234,13 @@ Feature: Product edit and inheritance value for product product with product rel
       """
     Then the response status code should be 200
 
+
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @product_2_id@ |
+    And the JSON node "attributes.@attribute_code@[1]" should not exist
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
@@ -236,8 +274,32 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 200
     And the JSON node "collection[0].attached" should be false
 
+  Scenario: Edit product relation value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": ["@product_2_id@"]
+        }
+      """
+    Then the response status code should be 200
+
+  Scenario: Check add product relation with the same product validation
+    When I send a PUT request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": ["@product_id@"]
+        }
+      """
+    Then the response status code should be 400
+
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @product_2_id@ |
+
   Scenario: Remove product which is related to other
-    When I send a DELETE request to "/api/v1/en_GB/products/@product_1_id@"
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_2_id@"
     Then the response status code should be 409
 
   Scenario: Remove product with relations

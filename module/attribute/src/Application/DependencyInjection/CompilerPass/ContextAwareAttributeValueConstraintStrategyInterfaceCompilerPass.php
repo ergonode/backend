@@ -14,9 +14,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerPassInterface
+class ContextAwareAttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.attribute.attribute_validation_interface';
+    public const TAG = 'component.attribute.context_aware_attribute_validation_interface';
 
     public function process(ContainerBuilder $container): void
     {
