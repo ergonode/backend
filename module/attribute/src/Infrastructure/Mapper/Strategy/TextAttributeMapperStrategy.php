@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Mapper\Strategy;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -23,7 +23,7 @@ class TextAttributeMapperStrategy implements ContextAwareAttributeMapperStrategy
         return TextAttribute::TYPE === $type->getValue();
     }
 
-    public function map(array $values, ?ProductId $productId = null): ValueInterface
+    public function map(array $values, ?AggregateId $aggregateId = null): ValueInterface
     {
         Assert::allRegex(array_keys($values), '/^[a-z]{2}_[A-Z]{2}$/');
         foreach ($values as $value) {

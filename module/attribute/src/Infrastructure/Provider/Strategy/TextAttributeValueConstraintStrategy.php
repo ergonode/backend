@@ -24,7 +24,7 @@ class TextAttributeValueConstraintStrategy implements ContextAwareAttributeValue
         return $attribute instanceof TextAttribute;
     }
 
-    public function get(AbstractAttribute $attribute, AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         return new Collection([
             'value' => [

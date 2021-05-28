@@ -23,7 +23,7 @@ class TextareaAttributeValueConstraintStrategy implements ContextAwareAttributeV
         return $attribute instanceof TextareaAttribute;
     }
 
-    public function get(AbstractAttribute $attribute, AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         return new Collection([
             'value' => [],

@@ -28,7 +28,7 @@ class AttributeValueMapper
         $this->strategies = $strategies;
     }
 
-    public function map(AttributeType $type, array $values, ProductId $productId): ValueInterface
+    public function map(AttributeType $type, array $values, ?ProductId $productId): ValueInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supported($type)) {

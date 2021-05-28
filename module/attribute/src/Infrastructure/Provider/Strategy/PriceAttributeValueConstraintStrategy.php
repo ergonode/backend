@@ -28,7 +28,7 @@ class PriceAttributeValueConstraintStrategy implements ContextAwareAttributeValu
     /**
      * @param AbstractAttribute|PriceAttribute $attribute
      */
-    public function get(AbstractAttribute $attribute, AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         return new Collection([
             'value' => [

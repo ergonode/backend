@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -37,7 +38,7 @@ class GalleryAttributeValueConstraintStrategy implements ContextAwareAttributeVa
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute, $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         $multimedia = $this->query->getAll();
 

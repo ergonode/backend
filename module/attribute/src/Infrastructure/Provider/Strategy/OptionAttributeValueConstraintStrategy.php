@@ -37,7 +37,7 @@ class OptionAttributeValueConstraintStrategy implements ContextAwareAttributeVal
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
      */
-    public function get(AbstractAttribute $attribute, AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         $multiple = $attribute instanceof MultiSelectAttribute;
 

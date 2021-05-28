@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Mapper\Strategy;
 
 use Ergonode\Attribute\Infrastructure\Mapper\Strategy\ContextAwareAttributeMapperStrategyInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Webmozart\Assert\Assert;
@@ -23,10 +23,10 @@ class ProductRelationAttributeMapperStrategy implements ContextAwareAttributeMap
         return $type->getValue() === ProductRelationAttribute::TYPE;
     }
 
-    public function map(array $values, ?ProductId $productId = null): ValueInterface
+    public function map(array $values, ?AggregateId $aggregateId = null): ValueInterface
     {
         Assert::allRegex(array_keys($values), '/^[a-z]{2}_[A-Z]{2}$/');
-        Assert::notNull($productId);
+        Assert::notNull($aggregateId);
         $mappedValues = [];
         foreach ($values as $language => $value) {
             if (null !== $value && !is_array($value)) {
@@ -35,7 +35,7 @@ class ProductRelationAttributeMapperStrategy implements ContextAwareAttributeMap
 
             if (is_array($value) && !empty($value)) {
                 Assert::allUuid($value);
-                $value = $this->filter($value, $productId);
+                $value = $this->filter($value, $aggregateId);
 
                 if (empty($value)) {
                     continue;
@@ -49,7 +49,7 @@ class ProductRelationAttributeMapperStrategy implements ContextAwareAttributeMap
         return new StringCollectionValue($mappedValues);
     }
 
-    private function filter(array $value, ProductId $productId): ?array
+    private function filter(array $value, AggregateId $productId): ?array
     {
         $result = [];
         foreach ($value as $item) {

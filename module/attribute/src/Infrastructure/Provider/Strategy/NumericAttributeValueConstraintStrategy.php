@@ -24,7 +24,7 @@ class NumericAttributeValueConstraintStrategy implements ContextAwareAttributeVa
         return $attribute instanceof NumericAttribute;
     }
 
-    public function get(AbstractAttribute $attribute, AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
         return new Collection([
             'value' => [
