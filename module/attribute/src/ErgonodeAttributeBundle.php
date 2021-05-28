@@ -24,6 +24,6 @@ class ErgonodeAttributeBundle extends AbstractModule
             ->addCompilerPass(new CompilerPass\AttributeTypeCompilerPass())
             ->addCompilerPass(new CompilerPass\CreateAttributeCommandFactoryProviderInterfaceCompilerPass())
             ->addCompilerPass(new CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass())
-            ->addCompilerPass(new CompilerPass\ContextAwareAttributeValueConstraintStrategyInterfaceCompilerPass());
+            ->addCompilerPass(new CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass());
     }
 }

@@ -9,7 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection;
 
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
+use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,7 +21,6 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
-use Ergonode\Attribute\Infrastructure\Mapper\Strategy\ContextAwareAttributeMapperStrategyInterface;
 
 class ErgonodeAttributeExtension extends Extension implements PrependExtensionInterface
 {
@@ -53,12 +53,12 @@ class ErgonodeAttributeExtension extends Extension implements PrependExtensionIn
             ->addTag(CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(ContextAwareAttributeValueConstraintStrategyInterface::class)
-            ->addTag(CompilerPass\ContextAwareAttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
+            ->registerForAutoconfiguration(AttributeValueConstraintStrategyInterface::class)
+            ->addTag(CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(ContextAwareAttributeMapperStrategyInterface::class)
-            ->addTag('attribute.context_aware_attribute_mapper_strategy');
+            ->registerForAutoconfiguration(AttributeMapperStrategyInterface::class)
+            ->addTag('attribute.attribute_mapper_strategy');
 
         $loader->load('services.yml');
     }

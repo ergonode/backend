@@ -12,19 +12,18 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Application\Validator\TypeOrEmpty;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class NumericAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class NumericAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof NumericAttribute;
     }
 
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
             'value' => [

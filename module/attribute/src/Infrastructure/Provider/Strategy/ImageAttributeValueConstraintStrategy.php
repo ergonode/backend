@@ -11,12 +11,11 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class ImageAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class ImageAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -29,7 +28,7 @@ class ImageAttributeValueConstraintStrategy implements ContextAwareAttributeValu
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
             'value' => [],

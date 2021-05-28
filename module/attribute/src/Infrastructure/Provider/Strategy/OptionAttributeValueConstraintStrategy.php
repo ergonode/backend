@@ -12,15 +12,14 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Symfony\Component\Validator\Constraints\Unique;
 
-class OptionAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class OptionAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     private OptionQueryInterface $query;
 
@@ -37,7 +36,7 @@ class OptionAttributeValueConstraintStrategy implements ContextAwareAttributeVal
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
      */
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         $multiple = $attribute instanceof MultiSelectAttribute;
 

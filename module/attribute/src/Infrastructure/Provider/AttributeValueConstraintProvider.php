@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraint;
 class AttributeValueConstraintProvider
 {
     /**
-     * @var ContextAwareAttributeValueConstraintStrategyInterface[]
+     * @var AttributeValueConstraintStrategyInterface[]
      */
     private array $strategies;
 
-    public function __construct(ContextAwareAttributeValueConstraintStrategyInterface ...$strategies)
+    public function __construct(AttributeValueConstraintStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
@@ -29,7 +29,11 @@ class AttributeValueConstraintProvider
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($attribute)) {
-                return $strategy->get($attribute, $aggregateId);
+                if ($strategy instanceof ContextAwareAttributeValueConstraintStrategyInterface) {
+                    return $strategy->get($attribute, $aggregateId);
+                }
+
+                return $strategy->get($attribute);
             }
         }
 

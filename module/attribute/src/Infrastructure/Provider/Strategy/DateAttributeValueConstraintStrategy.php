@@ -11,14 +11,13 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Regex;
 
-class DateAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class DateAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -31,7 +30,7 @@ class DateAttributeValueConstraintStrategy implements ContextAwareAttributeValue
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
             'value' => [

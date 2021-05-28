@@ -12,12 +12,11 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Application\Validator\TypeOrEmpty;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-class UnitAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -30,7 +29,7 @@ class UnitAttributeValueConstraintStrategy implements ContextAwareAttributeValue
     /**
      * {@inheritDoc}
      */
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
             'value' => [

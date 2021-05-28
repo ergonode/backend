@@ -12,13 +12,12 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Application\Validator\TypeOrEmpty;
-use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
-class PriceAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
+class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     public function supports(AbstractAttribute $attribute): bool
     {
@@ -28,7 +27,7 @@ class PriceAttributeValueConstraintStrategy implements ContextAwareAttributeValu
     /**
      * @param AbstractAttribute|PriceAttribute $attribute
      */
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
+    public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
             'value' => [
