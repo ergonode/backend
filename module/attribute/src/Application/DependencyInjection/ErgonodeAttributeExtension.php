@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection;
 
-use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
@@ -21,6 +20,7 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
+use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 
 class ErgonodeAttributeExtension extends Extension implements PrependExtensionInterface
 {
