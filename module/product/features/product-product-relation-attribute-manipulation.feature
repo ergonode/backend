@@ -135,7 +135,7 @@ Feature: Product edit and inheritance value for product product with product rel
     And store response param "id" as "product_3_id"
 
   Scenario: Check valid product relation attribute validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
       """
       {
         "value": ["@product_2_id@"]
@@ -144,7 +144,7 @@ Feature: Product edit and inheritance value for product product with product rel
     Then the response status code should be 200
 
   Scenario: Check valid empty array product relation attribute validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@product_1_id@" with body:
+    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
       """
       {
         "value": []
@@ -152,14 +152,6 @@ Feature: Product edit and inheritance value for product product with product rel
       """
     Then the response status code should be 200
 
-  Scenario: Check no parameter validation
-    When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
-      """
-      {
-        "value": ["@product_2_id@"]
-      }
-      """
-    Then the response status code should be 400
 
   Scenario: Check parameter random uuid validation
     When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate?aggregateId=@@random_uuid@@" with body:

@@ -29,12 +29,12 @@ class AttributeValueMapper
         $this->strategies = $strategies;
     }
 
-    public function map(AttributeType $type, array $values, ?AggregateId $productId): ValueInterface
+    public function map(AttributeType $type, array $values, ?AggregateId $aggregateId = null): ValueInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supported($type)) {
                 if ($strategy instanceof ContextAwareAttributeMapperStrategyInterface) {
-                    return $strategy->map($values, $productId);
+                    return $strategy->map($values, $aggregateId);
                 }
 
                 return $strategy->map($values);

@@ -41,9 +41,12 @@ class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAtt
 
     public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
     {
-        Assert::notnull($aggregateId);
-        $aggregate = $this->manager->load($aggregateId);
-        Assert::isInstanceOf($aggregate, AbstractProduct::class);
+        $aggregateIdValue = null;
+        if ($aggregateId) {
+            $aggregate = $this->manager->load($aggregateId);
+            Assert::isInstanceOf($aggregate, AbstractProduct::class);
+            $aggregateIdValue = $aggregateId->getValue();
+        }
 
         return new Collection([
             'value' => new All(
@@ -52,7 +55,7 @@ class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAtt
                         new NotBlank(),
                         new Uuid(['strict' => true]),
                         new ProductExists(),
-                        new NotTheSameProduct(['aggregateId' => $aggregateId->getValue()]),
+                        new NotTheSameProduct(['aggregateId' => $aggregateIdValue]),
                     ],
                 ]
             ),

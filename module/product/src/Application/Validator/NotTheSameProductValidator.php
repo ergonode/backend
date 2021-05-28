@@ -27,7 +27,7 @@ class NotTheSameProductValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, NotTheSameProduct::class);
         }
 
-        if (null === $value || '' === $value) {
+        if (null === $value || '' === $value || null === $constraint->aggregateId) {
             return;
         }
 
@@ -40,7 +40,6 @@ class NotTheSameProductValidator extends ConstraintValidator
         if (!ProductId::isValid($value)) {
             return;
         }
-
 
         if ($value === $constraint->aggregateId) {
             $this->context->buildViolation($constraint->message)
