@@ -29,11 +29,7 @@ class AttributeValueConstraintProvider
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($attribute)) {
-                if ($strategy instanceof ContextAwareAttributeValueConstraintStrategyInterface) {
-                    return $strategy->get($attribute, $aggregateId);
-                }
-
-                return $strategy->get($attribute);
+                return $strategy->get($attribute, $aggregateId);/* @phpstan-ignore-line */
             }
         }
 

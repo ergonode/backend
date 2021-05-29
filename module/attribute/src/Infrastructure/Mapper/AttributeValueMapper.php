@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Infrastructure\Mapper;
 use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Attribute\Infrastructure\Mapper\Strategy\ContextAwareAttributeMapperStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Webmozart\Assert\Assert;
 
@@ -33,11 +32,7 @@ class AttributeValueMapper
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supported($type)) {
-                if ($strategy instanceof ContextAwareAttributeMapperStrategyInterface) {
-                    return $strategy->map($values, $aggregateId);
-                }
-
-                return $strategy->map($values);
+                    return $strategy->map($values, $aggregateId);/* @phpstan-ignore-line */
             }
         }
 

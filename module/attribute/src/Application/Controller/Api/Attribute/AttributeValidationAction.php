@@ -97,15 +97,15 @@ class AttributeValidationAction
         $value = $request->request->get('value');
         $value = $value === '' ? null : $value;
         $aggregateId = null;
-        try {
-            if ($request->query->has('aggregateId')) {
-                $aggregateIdValue = $request->query->get('aggregateId');
-                    $aggregateId =  new AggregateId($aggregateIdValue);
+        if ($request->query->has('aggregateId')) {
+            $aggregateIdValue = $request->query->get('aggregateId');
+            try {
+                $aggregateId = new AggregateId($aggregateIdValue);
+            } catch (\InvalidArgumentException $e) {
+                throw new BadRequestHttpException($e->getMessage());
             }
-            $constraint = $this->provider->provide($attribute, $aggregateId);
-        } catch (\InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
         }
+        $constraint = $this->provider->provide($attribute, $aggregateId);
 
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();

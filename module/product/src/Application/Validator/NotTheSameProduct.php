@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Validator;
 
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -16,7 +17,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class NotTheSameProduct extends Constraint
 {
-    public string $message = 'Can\'t add relation to {{ value }}. This is the same product.';
+    public string $messageSameProduct = 'Can\'t add relation to {{ value }}. This is the same product.';
 
-    public ?string $aggregateId = null;
+    public string $messageNotProduct =  '{{ value }} is not a product.';
+
+    public ?AggregateId $aggregateId = null;
 }

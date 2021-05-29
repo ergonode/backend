@@ -49,7 +49,7 @@ class ProductRelationAttributeMapperStrategy implements ContextAwareAttributeMap
         return new StringCollectionValue($mappedValues);
     }
 
-    private function filter(array $value, AggregateId $aggregateId): ?array
+    private function filter(array $value, AggregateId $aggregateId): array
     {
         $result = [];
         foreach ($value as $item) {
@@ -58,6 +58,6 @@ class ProductRelationAttributeMapperStrategy implements ContextAwareAttributeMap
             }
         }
 
-        return !empty($result) ? $result : null;
+        return $result;
     }
 }
