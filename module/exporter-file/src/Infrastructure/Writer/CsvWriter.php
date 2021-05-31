@@ -41,7 +41,8 @@ class CsvWriter implements WriterInterface
     {
         $result = [];
         foreach ($data->getLines() as $line) {
-            $result[] = $this->formatLine($line->getValues());
+            $value = str_replace("\n", "\\n", $line->getValues());
+            $result[] = $this->formatLine($value);
         }
 
         return $result;

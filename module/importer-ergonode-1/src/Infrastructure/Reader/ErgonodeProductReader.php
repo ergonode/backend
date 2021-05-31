@@ -46,7 +46,8 @@ class ErgonodeProductReader extends AbstractErgonodeReader
             }
 
             foreach ($attributes as $attribute) {
-                $item->addAttribute($attribute, $record['_language'], $record[$attribute]);
+                $value = str_replace("\\n", "\n", $record[$attribute]);
+                $item->addAttribute($attribute, $record['_language'], $value);
             }
 
             foreach ($record as $key => $value) {
