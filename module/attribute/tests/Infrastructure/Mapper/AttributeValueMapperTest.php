@@ -9,21 +9,26 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Tests\Infrastructure\Mapper;
 
 use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
+use Ergonode\Attribute\Infrastructure\Mapper\Strategy\ContextAwareAttributeMapperStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 class AttributeValueMapperTest extends TestCase
 {
     private AttributeType $type;
 
-    private AttributeMapperStrategyInterface $strategy;
+    private ContextAwareAttributeMapperStrategyInterface $strategy;
+
+    private ProductId $productId;
+
 
     protected function setUp(): void
     {
         $this->type = $this->createMock(AttributeType::class);
-        $this->strategy = $this->createMock(AttributeMapperStrategyInterface::class);
+        $this->strategy = $this->createMock(ContextAwareAttributeMapperStrategyInterface::class);
+        $this->productId = $this->createMock(ProductId::class);
     }
 
     public function testInvalidClassInjection(): void
@@ -38,7 +43,7 @@ class AttributeValueMapperTest extends TestCase
         $this->expectException(\RuntimeException::class);
 
         $mapper = new AttributeValueMapper([]);
-        $mapper->map($this->type, []);
+        $mapper->map($this->type, [], $this->productId);
     }
 
     public function testNotFoundStrategy(): void
@@ -47,7 +52,7 @@ class AttributeValueMapperTest extends TestCase
         $this->expectException(\RuntimeException::class);
 
         $mapper = new AttributeValueMapper([$this->strategy]);
-        $mapper->map($this->type, []);
+        $mapper->map($this->type, [], $this->productId);
     }
 
     public function testMapStrategy(): void
@@ -58,7 +63,7 @@ class AttributeValueMapperTest extends TestCase
         $this->strategy->expects(self::once())->method('map')->willReturn($result);
 
         $mapper = new AttributeValueMapper([$this->strategy]);
-        $value = $mapper->map($this->type, []);
+        $value = $mapper->map($this->type, [], $this->productId);
 
         self::assertSame($result, $value);
     }

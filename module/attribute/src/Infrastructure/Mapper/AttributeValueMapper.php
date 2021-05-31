@@ -8,8 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Mapper;
 
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Webmozart\Assert\Assert;
 
@@ -27,11 +28,11 @@ class AttributeValueMapper
         $this->strategies = $strategies;
     }
 
-    public function map(AttributeType $type, array $values): ValueInterface
+    public function map(AttributeType $type, array $values, ?AggregateId $aggregateId = null): ValueInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supported($type)) {
-                return $strategy->map($values);
+                    return $strategy->map($values, $aggregateId);/* @phpstan-ignore-line */
             }
         }
 
