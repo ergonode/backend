@@ -43,17 +43,18 @@ class DbalOptionQuery implements OptionQueryInterface
         //TODO it's not the solution we've been waiting for, but the one we've had time for.
         return $qb->select('o.id')
             ->addSelect('COALESCE(vt.value, CONCAT(\'#\', o.key)) AS value')
-            ->leftJoin('o', self::TABLE_VALUES, 'vt', 'vt.value_id = o.value_id')
+            ->leftJoin(
+                'o',
+                self::TABLE_VALUES,
+                'vt',
+                'vt.value_id = o.value_id AND vt.language = :language',
+            )
             ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->eq('vt.language', ':language'),
-                $qb->expr()->isNull('vt.language')
-            ))
             ->setParameter(':id', $attributeId->getValue())
             ->setParameter(':language', $language->getCode())
             ->orderBy('vt.language')
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAllKeyValue();
     }
 
     /**
