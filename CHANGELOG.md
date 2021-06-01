@@ -11,6 +11,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.2
+- bugfix [#1460](https://github.com/ergonode/backend/issues/1460) handle escaping newlines on CSV export/import (kardi31)
+
 #### 1.0.1
 - bugfix [#1436](https://github.com/ergonode/backend/issues/1436) Incorrect deletion of workflow status (rprzedzik)
 - bugfix [#1407](https://github.com/ergonode/backend/issues/1407) Removed core module depencency from env (piotrkreft)
