@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e8f094b7b5dfe6a94e4737f4f41a9e2",
+    "content-hash": "3f5e128ef740a9659e553ba3f294bff6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -6972,16 +6972,16 @@
         },
         {
             "name": "symfony/security",
-            "version": "v4.4.16",
+            "version": "v4.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security.git",
-                "reference": "dacce2330c7b91d360b5510f0a1c732144c4d1c1"
+                "reference": "0a584655f3f15aab5c60b709e90b4a40907aa49e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security/zipball/dacce2330c7b91d360b5510f0a1c732144c4d1c1",
-                "reference": "dacce2330c7b91d360b5510f0a1c732144c4d1c1",
+                "url": "https://api.github.com/repos/symfony/security/zipball/0a584655f3f15aab5c60b709e90b4a40907aa49e",
+                "reference": "0a584655f3f15aab5c60b709e90b4a40907aa49e",
                 "shasum": ""
             },
             "require": {
@@ -7003,7 +7003,7 @@
                 "symfony/security-http": "self.version"
             },
             "require-dev": {
-                "psr/container": "^1.0",
+                "psr/container": "^1.0|^2.0",
                 "psr/log": "~1.0",
                 "symfony/expression-language": "^3.4|^4.0|^5.0",
                 "symfony/finder": "^3.4|^4.0|^5.0",
@@ -7011,6 +7011,7 @@
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-intl-icu": "~1.0",
                 "symfony/routing": "^3.4|^4.0|^5.0",
+                "symfony/translation": "^4.4|^5.0",
                 "symfony/validator": "^3.4.31|^4.3.4|^5.0"
             },
             "suggest": {
@@ -7047,10 +7048,10 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Security Component",
+            "description": "Provides a complete security system for your web application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security/tree/v4.4.16"
+                "source": "https://github.com/symfony/security/tree/v4.4.25"
             },
             "funding": [
                 {
@@ -7066,7 +7067,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-28T05:25:24+00:00"
+            "time": "2021-05-26T17:39:37+00:00"
         },
         {
             "name": "symfony/security-bundle",

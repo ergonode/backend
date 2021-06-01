@@ -22,7 +22,7 @@
         "egulias/email-validator": "^2.1",
         "ergonode/exporter-shopware-6": "dev-main",
         "ergonode/importer-magento-1": "^1.0",
-        "gesdinet/jwt-refresh-token-bundle": "^0.11.1",
+        "gesdinet/jwt-refresh-token-bundle": "^0.11.1|^0.12",
         "guzzlehttp/guzzle": "^6.3",
         "league/csv": "^9.6",
         "league/flysystem": ">1.0.54",
