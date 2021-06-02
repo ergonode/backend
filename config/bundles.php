@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 return [
+    DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Ergonode\Account\ErgonodeAccountBundle::class => ['all' => true],
     Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
