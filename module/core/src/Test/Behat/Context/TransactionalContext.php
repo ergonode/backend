@@ -15,11 +15,20 @@ use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
 class TransactionalContext implements Context
 {
     /**
+     * @BeforeFeature
+     */
+    public static function beginTransaction(): void
+    {
+        // StaticDriver does begin new transaction on ::connect().
+        // The initial call will have empty StaticDriver::$connections and every other will create a transaction
+        StaticDriver::beginTransaction();
+    }
+
+    /**
      * @AfterFeature
      */
     public static function rollback(): void
     {
-        // StaticDriver does begin new transaction on ::connect() method therefore "manual" creation is redundant
         StaticDriver::rollBack();
     }
 }
