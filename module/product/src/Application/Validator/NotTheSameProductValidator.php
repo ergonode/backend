@@ -58,7 +58,6 @@ class NotTheSameProductValidator extends ConstraintValidator
 
         if ($value === $constraint->aggregateId->getValue()) {
             $this->context->buildViolation($constraint->messageSameProduct)
-                ->setParameter('{{ value }}', $value)
                 ->addViolation();
         }
     }

@@ -85,8 +85,7 @@ class NotTheSameProductValidatorTest extends ConstraintValidatorTestCase
         $constraint = new NotTheSameProduct(['aggregateId' => $this->aggregateId]);
         $this->validator->validate($this->aggregateId, $constraint);
 
-        $assertion = $this->buildViolation($constraint->messageSameProduct)
-            ->setParameter('{{ value }}', $this->aggregateId);
+        $assertion = $this->buildViolation($constraint->messageSameProduct);
         $assertion->assertRaised();
     }
 

@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class NotTheSameProduct extends Constraint
 {
-    public string $messageSameProduct = 'Can\'t add relation to {{ value }}. This is the same product.';
+    public string $messageSameProduct = 'Can\'t add relation. This is the same product.';
 
     public string $messageNotProduct =  '{{ value }} is not a product.';
 
