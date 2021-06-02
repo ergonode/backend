@@ -40,3 +40,8 @@ Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
         'attribute_unit':  '<translatableStringValue(@attribute_unit_value)>'
         'attribute_select':  '<translatableStringValue(@attribute_select_value)>'
         'attribute_multiselect':  '<stringCollectionValue(@attribute_multiselect_value)>'
+  test_simple_product_3:
+    __construct:
+      - '<productId(sku_test_3)>'
+      - '<sku(sku_test_3)>'
+      - '@template->id'
