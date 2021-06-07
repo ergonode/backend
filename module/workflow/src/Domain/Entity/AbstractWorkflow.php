@@ -314,6 +314,9 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     protected function applyWorkflowStatusAddedEvent(WorkflowStatusAddedEvent $event): void
     {
+        var_dump('statuses ' . implode(', ', $this->statuses));
+        var_dump('adding ' . $event->getStatusId()->getValue());
+        ob_flush();
         $this->statuses[$event->getStatusId()->getValue()] = $event->getStatusId();
 
         if (null === $this->defaultId) {
@@ -321,19 +324,19 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
     }
 
-    public function apply(AggregateEventInterface $event): void
-    {
-        var_dump('applying ' . get_class($event));
-        ob_flush();
-        parent::apply($event);
-    }
-
+//    public function apply(AggregateEventInterface $event): void
+//    {
+//        var_dump('applying ' . get_class($event));
+//        ob_flush();
+//        parent::apply($event);
+//    }
+//
     public function initialize(DomainEventStream $stream): void
     {
-//        var_dump('initializing');
-        foreach ($stream as $event) {
-            var_dump('initializing ' . get_class($event->getEvent()));
-        }
+        var_dump('initializing');
+//        foreach ($stream as $event) {
+//            var_dump('initializing ' . get_class($event->getEvent()));
+//        }
         ob_flush();
         parent::initialize($stream);
     }
