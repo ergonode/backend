@@ -144,7 +144,6 @@ class DbalProductDataSet extends AbstractDbalDataSet
 
         return $queryBuilder
             ->select('p.id, p.index, p.sku')
-            ->from(self::PRODUCT_TABLE, 'p')
-            ->groupBy('p.id');
+            ->from(self::PRODUCT_TABLE, 'p');
     }
 }
