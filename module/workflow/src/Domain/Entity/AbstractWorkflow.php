@@ -341,7 +341,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
             var_dump('pre statuses', $this->statuses);
             ob_flush();
         }
-        var_dump('pre', spl_object_hash($this), $this->defaultId);
+        var_dump('pre', spl_object_hash($this), $this->defaultId, $event->getStatusId());
         unset($this->statuses[$event->getStatusId()->getValue()]);
 //        var_dump('post', $this->defaultId);
 //        ob_flush();
