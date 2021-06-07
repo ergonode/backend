@@ -332,7 +332,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         var_dump('initializing');
         foreach ($stream as $event) {
-            var_dump('initializing event', get_class($event));
+            var_dump('initializing event', get_class($event->getEvent()));
         }
         ob_flush();
         parent::initialize($stream);
