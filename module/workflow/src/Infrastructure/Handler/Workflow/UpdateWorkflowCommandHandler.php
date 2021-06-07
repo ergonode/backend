@@ -48,6 +48,8 @@ class UpdateWorkflowCommandHandler
                 }
             }
             if (!$contains) {
+                var_dump($workflow->getDefaultStatus());
+                ob_flush();
                 $workflow->removeStatus($status);
             }
         }
