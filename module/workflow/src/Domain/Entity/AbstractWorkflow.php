@@ -9,12 +9,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
@@ -318,6 +321,20 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
     }
 
+    public function apply(AggregateEventInterface $event): void
+    {
+        var_dump('applying' . get_class($event));
+        ob_flush();
+        $this->apply($event);
+    }
+
+    public function initialize(DomainEventStream $stream): void
+    {
+        var_dump('initializing');
+        ob_flush();
+        $this->initialize($stream);
+    }
+
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
         if (null === $this->defaultId) {
@@ -326,12 +343,12 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
         var_dump('pre', spl_object_hash($this), $this->defaultId);
         unset($this->statuses[$event->getStatusId()->getValue()]);
-        var_dump('post', $this->defaultId);
-        ob_flush();
-        if (null === $this->defaultId) {
-            var_dump('post statuses', $this->statuses);
-            ob_flush();
-        }
+//        var_dump('post', $this->defaultId);
+//        ob_flush();
+//        if (null === $this->defaultId) {
+//            var_dump('post statuses', $this->statuses);
+//            ob_flush();
+//        }
         if ($this->defaultId->isEqual($event->getStatusId())) {
             $this->defaultId = null;
         }
