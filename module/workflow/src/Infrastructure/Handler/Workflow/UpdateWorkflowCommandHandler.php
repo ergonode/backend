@@ -48,7 +48,7 @@ class UpdateWorkflowCommandHandler
                 }
             }
             if (!$contains) {
-                var_dump('handler', $workflow->getDefaultStatus());
+                var_dump('handler', spl_object_hash($workflow), $workflow->getDefaultStatus());
                 ob_flush();
                 $workflow->removeStatus($status);
             }
