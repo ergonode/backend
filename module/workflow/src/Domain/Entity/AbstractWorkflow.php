@@ -325,14 +325,14 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         var_dump('applying' . get_class($event));
         ob_flush();
-        $this->apply($event);
+        parent::apply($event);
     }
 
     public function initialize(DomainEventStream $stream): void
     {
         var_dump('initializing');
         ob_flush();
-        $this->initialize($stream);
+        parent::initialize($stream);
     }
 
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
