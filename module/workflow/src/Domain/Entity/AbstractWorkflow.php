@@ -340,20 +340,22 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
+        var_dump('statuses ' . implode(', ', $this->statuses));
         var_dump('removing ' . $event->getStatusId()->getValue());
+        ob_flush();
         unset($this->statuses[$event->getStatusId()->getValue()]);
 
-        if (null !== $this->defaultId) {
-            var_dump('defaultId ' . $this->defaultId->getValue());
-            ob_flush();
-        }
+//        if (null !== $this->defaultId) {
+//            var_dump('defaultId ' . $this->defaultId->getValue());
+//            ob_flush();
+//        }
         if ($this->defaultId->isEqual($event->getStatusId())) {
             $this->defaultId = null;
         }
-        if (null === $this->defaultId) {
-            var_dump('defaultId NULL');
-            ob_flush();
-        }
+//        if (null === $this->defaultId) {
+//            var_dump('defaultId NULL');
+//            ob_flush();
+//        }
 
         if (!empty($this->statuses)) {
             $this->defaultId = reset($this->statuses);
