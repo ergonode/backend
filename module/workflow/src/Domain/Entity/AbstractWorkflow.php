@@ -323,7 +323,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     public function apply(AggregateEventInterface $event): void
     {
-        var_dump('applying' . get_class($event));
+        var_dump('applying ' . get_class($event));
         ob_flush();
         parent::apply($event);
     }
@@ -332,7 +332,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
 //        var_dump('initializing');
         foreach ($stream as $event) {
-            var_dump('initializing' . get_class($event->getEvent()));
+            var_dump('initializing ' . get_class($event->getEvent()));
         }
         ob_flush();
         parent::initialize($stream);
@@ -340,16 +340,19 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
-        var_dump('removing' . $event->getStatusId()->getValue());
-//        if (null === $this->defaultId) {
-//            var_dump('pre statuses', $this->statuses);
-//            ob_flush();
-//        }
-//        var_dump('pre', spl_object_hash($this), $this->defaultId, $event->getStatusId());
+        var_dump('removing ' . $event->getStatusId()->getValue());
         unset($this->statuses[$event->getStatusId()->getValue()]);
 
+        if (null !== $this->defaultId) {
+            var_dump('defaultId ' . $this->defaultId->getValue());
+            ob_flush();
+        }
         if ($this->defaultId->isEqual($event->getStatusId())) {
             $this->defaultId = null;
+        }
+        if (null === $this->defaultId) {
+            var_dump('defaultId NULL');
+            ob_flush();
         }
 
         if (!empty($this->statuses)) {
