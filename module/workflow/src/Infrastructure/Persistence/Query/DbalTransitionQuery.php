@@ -15,8 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionConditionSetQueryInterface;
+use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 
-class DbalTransitionQuery implements TransitionConditionSetQueryInterface
+class DbalTransitionQuery implements TransitionQueryInterface, TransitionConditionSetQueryInterface
 {
     private const TABLE = 'workflow_transition';
 

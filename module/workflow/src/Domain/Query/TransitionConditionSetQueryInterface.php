@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 
-interface TransitionConditionSetQueryInterface extends TransitionQueryInterface
+interface TransitionConditionSetQueryInterface
 {
     /**
      * @return TransitionId[]
