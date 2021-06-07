@@ -330,9 +330,9 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     public function initialize(DomainEventStream $stream): void
     {
-        var_dump('initializing');
+//        var_dump('initializing');
         foreach ($stream as $event) {
-            var_dump('initializing event', get_class($event->getEvent()));
+            var_dump('initializing', get_class($event->getEvent()));
         }
         ob_flush();
         parent::initialize($stream);
@@ -340,18 +340,13 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
-        if (null === $this->defaultId) {
-            var_dump('pre statuses', $this->statuses);
-            ob_flush();
-        }
-        var_dump('pre', spl_object_hash($this), $this->defaultId, $event->getStatusId());
-        unset($this->statuses[$event->getStatusId()->getValue()]);
-//        var_dump('post', $this->defaultId);
-//        ob_flush();
 //        if (null === $this->defaultId) {
-//            var_dump('post statuses', $this->statuses);
+//            var_dump('pre statuses', $this->statuses);
 //            ob_flush();
 //        }
+//        var_dump('pre', spl_object_hash($this), $this->defaultId, $event->getStatusId());
+        unset($this->statuses[$event->getStatusId()->getValue()]);
+
         if ($this->defaultId->isEqual($event->getStatusId())) {
             $this->defaultId = null;
         }
