@@ -49,5 +49,6 @@ class MultiSelectAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBu
 
         $query->addSelect(sprintf('"%s"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
+        $query->addGroupBy(sprintf('"%s"', $key));
     }
 }
