@@ -16,7 +16,7 @@ class StaticDriver extends BaseStaticDriver
     public static function rollBack(): void
     {
         foreach (self::$connections as $connection) {
-            if (!$connection->inTransaction()) {
+            if (!$connection->inTransaction()) {// @phpstan-ignore-line
                 throw new \LogicException('Trying to rollback non-transactional operation.');
             }
         }
@@ -24,7 +24,7 @@ class StaticDriver extends BaseStaticDriver
         parent::rollBack();
 
         foreach (self::$connections as $connection) {
-            if ($connection->inTransaction()) {
+            if ($connection->inTransaction()) {// @phpstan-ignore-line
                 throw new \LogicException('Still in transaction after rollback.');
             }
         }
