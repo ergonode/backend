@@ -13,6 +13,14 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeFeatureScope;
 use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
 
+class MyStatic extends StaticDriver
+{
+    public static function getConnections(): array
+    {
+        return self::$connections;
+    }
+}
+
 class TransactionalContext implements Context
 {
     /**
@@ -33,5 +41,8 @@ class TransactionalContext implements Context
     public static function rollback(): void
     {
         StaticDriver::rollBack();
+        var_dump(MyStatic::getConnections());
+        var_dump('Rollback');
+        ob_flush();
     }
 }
