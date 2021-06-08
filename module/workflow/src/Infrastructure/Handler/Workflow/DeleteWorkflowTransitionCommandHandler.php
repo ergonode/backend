@@ -42,6 +42,10 @@ class DeleteWorkflowTransitionCommandHandler
 
         $transition = $workflow->getTransition($command->getSource(), $command->getDestination());
 
+        $workflow->removeTransition($command->getSource(), $command->getDestination());
+
+        $this->repository->save($workflow);
+
         if ($transition->getConditionSetId() &&
             null === $this->relationshipsResolver->resolve($transition->getConditionSetId())
         ) {
@@ -51,9 +55,5 @@ class DeleteWorkflowTransitionCommandHandler
                 ),
             );
         }
-
-        $workflow->removeTransition($command->getSource(), $command->getDestination());
-
-        $this->repository->save($workflow);
     }
 }
