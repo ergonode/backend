@@ -33,15 +33,12 @@ class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
         AbstractAttribute $attribute,
         Language $language
     ): void {
-        $query->addSelect(
-            sprintf(
-                '(
-                    SELECT jsonb_agg(category_id) 
-                    FROM product_category pcp 
-                    WHERE pcp.product_id = p.id LIMIT 1
-                ) AS "%s"',
-                $key
-            )
-        );
+
+        $sql = sprintf('(SELECT DISTINCT ON (product_id) jsonb_agg(category_id) as "%s", product_id
+                          FROM product_category pcp
+                          group by product_id)', $key);
+
+        $query->addSelect(sprintf('"%s"', $key));
+        $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
     }
 }
