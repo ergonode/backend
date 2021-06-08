@@ -40,6 +40,9 @@ class TransactionalContext implements Context
      */
     public static function rollback(): void
     {
+        foreach (MyStatic::getConnections() as $connection) {
+            var_dump($connection->inTransaction());
+        }
         StaticDriver::rollBack();
         foreach (MyStatic::getConnections() as $connection) {
             var_dump($connection->inTransaction());
