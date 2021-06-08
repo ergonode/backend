@@ -1,0 +1,2 @@
+ergonode_event_sourcing:
+  aggregate_root_cache: ~
