@@ -9,15 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
-use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;

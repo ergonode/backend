@@ -11,15 +11,7 @@ namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeFeatureScope;
-use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
-
-class MyStatic extends StaticDriver
-{
-    public static function getConnections(): array
-    {
-        return self::$connections;
-    }
-}
+use Ergonode\Core\Test\Behat\Context\DAMA\StaticDriver;
 
 class TransactionalContext implements Context
 {
@@ -31,8 +23,6 @@ class TransactionalContext implements Context
         // StaticDriver does begin new transaction on ::connect().
         // The initial call will have empty StaticDriver::$connections and every other will create a transaction
         StaticDriver::beginTransaction();
-        var_dump($scope->getFeature()->getFile());
-        ob_flush();
     }
 
     /**
@@ -40,14 +30,6 @@ class TransactionalContext implements Context
      */
     public static function rollback(): void
     {
-        foreach (MyStatic::getConnections() as $connection) {
-            var_dump($connection->inTransaction());
-        }
         StaticDriver::rollBack();
-        foreach (MyStatic::getConnections() as $connection) {
-            var_dump($connection->inTransaction());
-        }
-        var_dump('Rollback');
-        ob_flush();
     }
 }
