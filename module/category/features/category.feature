@@ -117,10 +117,6 @@ Feature: Category module
     When I send a DELETE request to "/api/v1/en_GB/categories/@@static_uuid@@"
     Then the response status code should be 404
 
-  Scenario: Delete category
-    When I send a DELETE request to "/api/v1/en_GB/categories/@category@"
-    Then the response status code should be 204
-
   Scenario Outline: Get category grid for field (<field>)
     When I send a GET request to "/api/v1/en_GB/categories?field=<field>&order=<order>&filter=<filter>"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
@@ -134,7 +130,7 @@ Feature: Category module
   Scenario: Get categories (filter by elements_count = 0)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=0"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "info.filtered" should match "/1/"
 
   Scenario: Get categories (filter by elements_count = 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=9999999"
@@ -149,7 +145,7 @@ Feature: Category module
   Scenario: Get categories (filter by elements_count <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count<=9999999"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "info.filtered" should match "/1/"
 
   Scenario: Get categories (filter by elements_count >= 888888 <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count>=8888888;elements_count<=9999999"
@@ -166,3 +162,16 @@ Feature: Category module
     And I send a "GET" request to "/api/v1/en_GB/dictionary/categories/types"
     Then the response status code should be 200
     And the JSON node "DEFAULT" should exist
+
+  Scenario: Delete category
+    When I send a DELETE request to "/api/v1/en_GB/categories/@category@"
+    Then the response status code should be 204
+
+  Scenario: Get category
+    When I send a GET request to "/api/v1/en_GB/categories/@category@"
+    Then the response status code should be 404
+
+  Scenario: Get categories (filter by elements_count = 0)
+    When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=0"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/0/"

@@ -58,6 +58,7 @@ default:
                 - Ergonode\Core\Test\Behat\Context\AuthenticationContext:
                     username: 'test@ergonode.com'
                     password: 'abcd1234'
+                - Ergonode\Core\Test\Behat\Context\TransactionalContext
 
 
     extensions:
@@ -73,3 +74,4 @@ default:
             kernel:
                 bootstrap: 'features/bootstrap/bootstrap.php'
                 class: 'App\Kernel'
+        Ergonode\Core\Test\Behat\Extension\DAMAStaticConnectionExtension: ~
