@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- feature [#1472](https://github.com/ergonode/backend/issues/1472) Grid filter extension(wfajczyk)
 - tests [#1468](https://github.com/ergonode/backend/issues/1468) Database transactions on Behat features (piotrkreft)
 - bugfix [#1450](https://github.com/ergonode/backend/issues/1450) Low product collection column query performance for product grid (rprzedzik)
 - refactor [#1438](https://github.com/ergonode/backend/issues/1438) Commands take aggregates objects instead of id object (wfajczyk)
