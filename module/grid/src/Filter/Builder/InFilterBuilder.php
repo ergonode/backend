@@ -31,7 +31,7 @@ class InFilterBuilder implements FilterBuilderInterface
         if ('=' === $filter->getOperator()) {
             $query->andWhere(
                 $query->expr()->in(
-                    $name,
+                    sprintf('%s::TEXT', $name),
                     $query->createNamedParameter($values, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY)
                 )
             );
@@ -42,7 +42,7 @@ class InFilterBuilder implements FilterBuilderInterface
         if ('!=' === $filter->getOperator()) {
             $query->andWhere(
                 $query->expr()->notIn(
-                    $name,
+                    sprintf('%s::TEXT', $name),
                     $query->createNamedParameter($values, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY)
                 )
             );
