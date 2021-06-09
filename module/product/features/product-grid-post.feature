@@ -46,6 +46,7 @@ Feature: Product grid post
       | sku        | name      |
       | sku_test_1 | product_1 |
       | sku_test_2 | product_2 |
+      | sku_test_3 | product_3 |
 
 # Tests scenarios
   Scenario Outline: Request product grid filtered by <code> attribute
@@ -204,6 +205,55 @@ Feature: Product grid post
       | SELECT    | @attribute_select_code@   | @attribute_select_code@   | @select_option_1@                   |
       | NUMERIC   | @attribute_numeric_code@  | @attribute_numeric_code@  | 10.99                               |
       | NUMERIC   | @attribute_price_code@    | @attribute_price_code@    | 12.66                               |
+
+  Scenario: Request product grid filtered by product id
+    When I send a POST request to "api/v1/en_GB/products/grid" with body:
+      """
+      {
+        "columns": [
+          {
+            "name":"id"
+          }
+        ],
+        "filters": [
+          {
+            "column":"id",
+            "operator": "=",
+            "value": "@product_1_id@,@product_2_id@"
+          }
+        ]
+      }
+      """
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].id | @product_2_id@ |
+      | collection[1].id | @product_1_id@ |
+      | info.filtered    | 2              |
+
+  Scenario: Request product grid filtered by product id
+    When I send a POST request to "api/v1/en_GB/products/grid" with body:
+      """
+      {
+        "columns": [
+          {
+            "name":"id"
+          }
+        ],
+        "filters": [
+          {
+            "column":"id",
+            "operator": "!=",
+            "value": "@product_1_id@,@product_2_id@"
+          }
+        ]
+      }
+      """
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].id | @product_3_id@ |
+      | info.filtered    | 1              |
+
+
 ##
 #  Scenario: Request product grid filtered by text attribute null
 #    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&filter=@attribute_text_id@="

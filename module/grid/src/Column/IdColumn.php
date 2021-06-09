@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Column;
 
-use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Filter\InFilter;
 
 class IdColumn extends TextColumn
 {
@@ -16,7 +16,7 @@ class IdColumn extends TextColumn
 
     public function __construct(string $field = 'id', string $label = 'Id')
     {
-        parent::__construct($field, $label, new TextFilter());
+        parent::__construct($field, $label, new InFilter());
 
         $this->visible = false;
     }
