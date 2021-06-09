@@ -76,6 +76,7 @@ class VariableProductImportAction extends AbstractProductImportAction
 
         if (!$productId) {
             $productId = ProductId::generate();
+            /** @var VariableProduct $product */
             $product = $this->productFactory->create(
                 VariableProduct::TYPE,
                 $productId,
@@ -93,9 +94,10 @@ class VariableProductImportAction extends AbstractProductImportAction
             $product->changeCategories($categories);
             $attributes = $this->mergeSystemAttributes($product->getAttributes(), $attributes);
             $product->changeAttributes($attributes);
-            $product->changeBindings($bindings);
-            $product->changeChildren($children);
         }
+
+        $product->changeBindings($bindings);
+        $product->changeChildren($children);
 
         $this->productRepository->save($product);
 

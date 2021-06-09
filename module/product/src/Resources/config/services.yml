@@ -52,11 +52,6 @@ services:
     Ergonode\Product\Domain\Query\ProductChildrenGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductChildrenGridQuery'
     Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductChildrenAvailableGridQuery'
 
-    Ergonode\Product\Infrastructure\Persistence\Query\Decorator\CacheProductQueryDecorator:
-        decorates: Ergonode\Product\Domain\Query\ProductQueryInterface
-        arguments:
-            - '@Ergonode\Product\Infrastructure\Persistence\Query\Decorator\CacheProductQueryDecorator.inner'
-
     Ergonode\Product\Infrastructure\Provider\ProductStrategyProvider:
         arguments:
             $productStrategies: !tagged_iterator 'component.product.product_factory_strategy'
