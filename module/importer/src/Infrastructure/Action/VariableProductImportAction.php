@@ -76,6 +76,7 @@ class VariableProductImportAction extends AbstractProductImportAction
 
         if (!$productId) {
             $productId = ProductId::generate();
+            /** @var VariableProduct $product */
             $product = $this->productFactory->create(
                 VariableProduct::TYPE,
                 $productId,
