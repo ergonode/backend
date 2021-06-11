@@ -9,6 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
+use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
@@ -18,9 +22,18 @@ class UpdateWorkflowCommandHandler
 {
     private WorkflowRepositoryInterface $repository;
 
-    public function __construct(WorkflowRepositoryInterface $repository)
-    {
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    private CommandBusInterface $commandBus;
+
+    public function __construct(
+        WorkflowRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver,
+        CommandBusInterface $commandBus
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -33,9 +46,10 @@ class UpdateWorkflowCommandHandler
         Assert::notNull($workflow);
 
         $this->updateStatuses($command->getStatuses(), $workflow);
-        $this->updateTransitions($command->getTransitions(), $workflow);
+        $conditionSetIds = $this->updateTransitions($command->getTransitions(), $workflow);
 
         $this->repository->save($workflow);
+        $this->deleteConditionSet($conditionSetIds);
     }
 
     private function updateStatuses(array $commandStatuses, AbstractWorkflow $workflow): void
@@ -59,8 +73,12 @@ class UpdateWorkflowCommandHandler
         }
     }
 
-    private function updateTransitions(array $commandTranitions, AbstractWorkflow $workflow): void
+    /**
+     * @return ConditionSetId[]
+     */
+    private function updateTransitions(array $commandTranitions, AbstractWorkflow $workflow): array
     {
+        $conditionSetIds = [];
         foreach ($workflow->getTransitions() as $transition) {
             $contains = false;
             foreach ($commandTranitions as $commandTransition) {
@@ -71,6 +89,9 @@ class UpdateWorkflowCommandHandler
             }
             if (!$contains) {
                 $workflow->removeTransition($transition->getFrom(), $transition->getTo());
+                if ($transition->getConditionSetId()) {
+                    $conditionSetIds[] = $transition->getConditionSetId();
+                }
             }
         }
 
@@ -91,6 +112,22 @@ class UpdateWorkflowCommandHandler
                         $transition['roles']
                     );
                 }
+            }
+        }
+
+        return array_unique($conditionSetIds);
+    }
+
+    /**
+     * @param ConditionSetId[] $conditionSetIds
+     */
+    private function deleteConditionSet(array $conditionSetIds): void
+    {
+        foreach ($conditionSetIds as $conditionSetId) {
+            if (null === $this->relationshipsResolver->resolve($conditionSetId)) {
+                $this->commandBus->dispatch(
+                    new DeleteConditionSetCommand($conditionSetId),
+                );
             }
         }
     }
