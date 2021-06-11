@@ -112,13 +112,14 @@ class UpdateWorkflowCommandHandler
                 }
             }
         }
+
         return $conditionSetIds;
     }
 
     /**
      * @param ConditionSetId[] $conditionSetIds
      */
-    private function deleteConditionSet(array $conditionSetIds):void
+    private function deleteConditionSet(array $conditionSetIds): void
     {
         foreach ($conditionSetIds as $conditionSetId) {
             if (null === $this->relationshipsResolver->resolve($conditionSetId)) {
