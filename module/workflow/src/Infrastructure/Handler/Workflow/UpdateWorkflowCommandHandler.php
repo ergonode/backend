@@ -89,7 +89,9 @@ class UpdateWorkflowCommandHandler
             }
             if (!$contains) {
                 $workflow->removeTransition($transition->getFrom(), $transition->getTo());
-                $conditionSetIds[] = $transition->getConditionSetId();
+                if($transition->getConditionSetId()) {
+                    $conditionSetIds[] = $transition->getConditionSetId();
+                }
             }
         }
 
@@ -113,7 +115,7 @@ class UpdateWorkflowCommandHandler
             }
         }
 
-        return $conditionSetIds;
+        return array_unique($conditionSetIds);
     }
 
     /**
