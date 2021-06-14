@@ -98,6 +98,14 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
 
     private function prependFlysystem(ContainerBuilder $container): void
     {
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if (false === $config['default_flysystem_config']) {
+            return;
+        }
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('flysystem.yaml');
