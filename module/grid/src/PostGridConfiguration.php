@@ -63,7 +63,7 @@ class PostGridConfiguration implements GridConfigurationInterface
                 $key = sprintf('%s:%s', $key, $language->getCode());
             }
 
-            $this->filters->addFilter($column, new FilterValue($column, $operator, $value, $language));
+            $this->filters->addFilter($key, new FilterValue($column, $operator, $value, $language));
             $this->columns[$key] = new RequestColumn($column, $language, false);
         }
 
