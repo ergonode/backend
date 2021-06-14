@@ -36,6 +36,10 @@ final class Configuration implements ConfigurationInterface
                             ->scalarNode('transport_name')->end()
                         ->end()
                     ->end()
+                    ->booleanNode('default_flysystem_config')
+                        ->defaultTrue()
+                        ->info('Disabled Flysystem configuration defaulting to `local` adapter')
+                    ->end()
                 ->end()
             ->end();
 
