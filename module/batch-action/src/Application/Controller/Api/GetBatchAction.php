@@ -8,12 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
+use Ergonode\BatchAction\Domain\Model\BatchActionInformationModel;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
@@ -56,10 +55,8 @@ class GetBatchAction
      *
      * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction")
      */
-    public function __invoke(Language $language, BatchAction $action): Response
+    public function __invoke(Language $language, BatchAction $action): BatchActionInformationModel
     {
-        $result = $this->query->getInformation($action->getId(), $language);
-
-        return new SuccessResponse($result);
+        return $this->query->getInformation($action->getId(), $language);
     }
 }

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Command\Relations\RemoveProductChildCommand;
@@ -16,7 +15,6 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -69,10 +67,8 @@ class ProductRemoveChildAction
      * )
      * @param AbstractProduct|AbstractAssociatedProduct $product
      */
-    public function __invoke(Language $language, AbstractProduct $product, AbstractProduct $child): Response
+    public function __invoke(Language $language, AbstractProduct $product, AbstractProduct $child): void
     {
         $this->commandBus->dispatch(new RemoveProductChildCommand($product->getId(), $child->getId()));
-
-        return new EmptyResponse();
     }
 }

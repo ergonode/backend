@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\HttpFoundation\FileContentResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerator;
 use League\Flysystem\FilesystemInterface;
@@ -68,17 +68,7 @@ class DownloadThumbnailMultimediaAction
                 $this->generator->generate($multimedia, $thumbnail);
             }
 
-            $content = $this->thumbnailStorage->read($filename);
-            $size = $this->thumbnailStorage->getSize($filename);
-
-            $headers = [
-                'Cache-Control' => 'private',
-                'Content-type' => 'image/png',
-                'Content-Disposition' => 'attachment; filename="'.basename($filename).'";',
-                'Content-length' => $size,
-            ];
-
-            return new SuccessResponse($content, $headers);
+            return new FileContentResponse($filename, $this->thumbnailStorage);
         } catch (\Exception $exception) {
             throw new NotFoundHttpException(null, $exception);
         }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -18,7 +17,6 @@ use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 
@@ -113,12 +111,11 @@ class CommentGridAction
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getDataSet($language));
-        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->renderer->render($grid, $configuration, $dataSet);
     }
 }

@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -85,7 +84,7 @@ class WorkflowCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): WorkflowId
     {
         $type = $request->request->get('type', Workflow::DEFAULT);
 
@@ -99,7 +98,7 @@ class WorkflowCreateAction
                 $command = $this->commandProvider->provide($type)->create($form);
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

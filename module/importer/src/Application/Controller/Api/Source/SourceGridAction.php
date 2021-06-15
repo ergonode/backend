@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -116,12 +114,11 @@ class SourceGridAction
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getGridQuery());
-        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->renderer->render($grid, $configuration, $dataSet);
     }
 }

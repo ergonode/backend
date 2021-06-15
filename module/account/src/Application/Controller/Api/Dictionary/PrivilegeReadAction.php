@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Dictionary;
 
 use Ergonode\Account\Domain\Provider\PrivilegeDictionaryProvider;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -47,10 +45,8 @@ class PrivilegeReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $result = $this->provider->provide($language);
-
-        return new SuccessResponse($result);
+        return $this->provider->provide($language);
     }
 }

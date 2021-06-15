@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -17,7 +16,6 @@ use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -79,7 +77,7 @@ class ProductReadInheritedValuesByLanguageAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractProduct $product, Language $productLanguage): Response
+    public function __invoke(AbstractProduct $product, Language $productLanguage): array
     {
         $result = [
             'id' => $product->getId()->getValue(),
@@ -93,6 +91,6 @@ class ProductReadInheritedValuesByLanguageAction
             }
         }
 
-        return new SuccessResponse($result);
+        return $result;
     }
 }

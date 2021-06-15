@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySkusForm;
@@ -23,7 +22,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,7 +75,7 @@ class ProductAddChildFromSkusAction extends AbstractController
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
+    public function __invoke(Language $language, AbstractProduct $product, Request $request): void
     {
         try {
             $model = new ProductChildBySkusFormModel($product);
@@ -98,7 +96,7 @@ class ProductAddChildFromSkusAction extends AbstractController
 
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

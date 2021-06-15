@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Dictionary;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -42,8 +40,8 @@ class ImageFormatReadAction
      *     description="Returns collection of available image formats",
      * )
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
-        return new SuccessResponse($this->provider->dictionary());
+        return $this->provider->dictionary();
     }
 }

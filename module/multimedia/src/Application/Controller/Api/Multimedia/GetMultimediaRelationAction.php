@@ -11,10 +11,8 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
 
@@ -63,8 +61,8 @@ class GetMultimediaRelationAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Language $language, Multimedia $multimedia): Response
+    public function __invoke(Language $language, Multimedia $multimedia): array
     {
-        return new SuccessResponse($this->provider->provide($multimedia->getId(), $language));
+        return $this->provider->provide($multimedia->getId(), $language);
     }
 }

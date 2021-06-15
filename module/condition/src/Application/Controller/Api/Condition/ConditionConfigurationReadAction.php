@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\Condition;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Infrastructure\Provider\ConditionConfigurationProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -54,14 +52,12 @@ class ConditionConfigurationReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Language $language, string $condition): Response
+    public function __invoke(Language $language, string $condition): array
     {
         try {
-            $configuration = $this->provider->getConfiguration($language, $condition);
+            return $this->provider->getConfiguration($language, $condition);
         } catch (ConditionStrategyNotFoundException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }
-
-        return new SuccessResponse($configuration);
     }
 }

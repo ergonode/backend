@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -53,8 +51,8 @@ class AttributeGroupReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AttributeGroup $attributeGroup): Response
+    public function __invoke(AttributeGroup $attributeGroup): AttributeGroup
     {
-        return new SuccessResponse($attributeGroup);
+        return $attributeGroup;
     }
 }

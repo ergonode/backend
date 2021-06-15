@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
 use Ergonode\Workflow\Application\Form\TransitionChangeForm;
@@ -21,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -94,7 +92,7 @@ class TransitionChangeAction
         Status $source,
         Status $destination,
         Request $request
-    ): Response {
+    ): void {
         try {
             $model = new TransitionChangeFormModel();
             $form = $this->formFactory->create(TransitionChangeForm::class, $model, ['method' => Request::METHOD_PUT]);
@@ -119,7 +117,7 @@ class TransitionChangeAction
 
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

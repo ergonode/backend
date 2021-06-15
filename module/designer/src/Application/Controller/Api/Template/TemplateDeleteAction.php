@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -78,7 +76,7 @@ class TemplateDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(Template $template): Response
+    public function __invoke(Template $template): void
     {
         $relationships = $this->relationshipsResolver->resolve($template->getId());
         if (null !== $relationships) {
@@ -87,7 +85,5 @@ class TemplateDeleteAction
 
         $command = new DeleteTemplateCommand($template->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

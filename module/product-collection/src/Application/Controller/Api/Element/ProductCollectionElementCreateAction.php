@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionElementCreateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementCreateFormModel;
@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -85,7 +84,7 @@ class ProductCollectionElementCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(ProductCollection $productCollection, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, Request $request): ProductCollectionId
     {
         try {
             $model = new ProductCollectionElementCreateFormModel($productCollection);
@@ -104,7 +103,7 @@ class ProductCollectionElementCreateAction
 
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($productCollection->getId());
+                return $productCollection->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

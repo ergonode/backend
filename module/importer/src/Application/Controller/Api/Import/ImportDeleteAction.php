@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -18,7 +17,6 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -98,15 +96,12 @@ class ImportDeleteAction
     public function __invoke(
         AbstractSource $source,
         Import $import
-    ): Response {
-
+    ): void {
         $relationships = $this->relationshipsResolver->resolve($import->getId());
         if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
         $command = new DeleteImportCommand($import->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

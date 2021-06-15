@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -77,7 +75,7 @@ class ConditionSetCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): ConditionSetId
     {
 
         $data = $request->request->all();
@@ -92,7 +90,7 @@ class ConditionSetCreateAction
             $command = $this->normalizer->denormalize($data, CreateConditionSetCommand::class);
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new ViolationsHttpException($violations);

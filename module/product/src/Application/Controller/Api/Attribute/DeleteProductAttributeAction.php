@@ -10,7 +10,6 @@ namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -19,7 +18,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Product\Domain\Command\Attribute\RemoveProductAttributeCommand;
-use Ergonode\Api\Application\Response\EmptyResponse;
 
 class DeleteProductAttributeAction
 {
@@ -79,7 +77,7 @@ class DeleteProductAttributeAction
         AbstractProduct $product,
         Language $language,
         AbstractAttribute $attribute
-    ): Response {
+    ): void {
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();
             if (!$root->isEqual($language)) {
@@ -88,7 +86,5 @@ class DeleteProductAttributeAction
         }
         $command = new RemoveProductAttributeCommand($product->getId(), $attribute->getId(), $language);
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

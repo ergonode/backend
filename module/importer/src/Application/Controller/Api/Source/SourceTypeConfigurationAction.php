@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Limenius\Liform\Liform;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -81,6 +80,6 @@ class SourceTypeConfigurationAction
         $form = $this->factoryProvider->provide($type)->create();
         $result = json_encode($this->liform->transform($form), JSON_THROW_ON_ERROR, 512);
 
-        return new SuccessResponse($result);
+        return new Response($result);
     }
 }

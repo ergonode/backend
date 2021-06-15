@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Domain\Command\Tree\DeleteTreeCommand;
 use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -79,7 +77,7 @@ class CategoryTreeDeleteAction
      *     description="Can't delete category tree"
      * )
      */
-    public function __invoke(CategoryTree $tree): Response
+    public function __invoke(CategoryTree $tree): void
     {
         $relationships = $this->relationshipsResolver->resolve($tree->getId());
         if (null !== $relationships) {
@@ -88,7 +86,5 @@ class CategoryTreeDeleteAction
 
         $command = new DeleteTreeCommand($tree->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

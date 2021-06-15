@@ -10,16 +10,15 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Category\Application\Form\Tree\CategoryTreeCreateForm;
 use Ergonode\Category\Application\Model\Tree\CategoryTreeCreateFormModel;
 use Ergonode\Category\Domain\Command\Tree\CreateTreeCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -71,7 +70,7 @@ class CategoryTreeCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): CategoryTreeId
     {
         $model = new CategoryTreeCreateFormModel();
         $form = $this->formFactory->create(CategoryTreeCreateForm::class, $model);
@@ -83,7 +82,7 @@ class CategoryTreeCreateAction
             $command = new CreateTreeCommand($data->code, new TranslatableString($data->name));
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new FormValidationHttpException($form);

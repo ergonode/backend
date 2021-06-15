@@ -10,7 +10,6 @@ namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -18,7 +17,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributeCommand;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
@@ -105,7 +103,7 @@ class UpdateProductAttributeAction
         AbstractProduct $product,
         AbstractAttribute $attribute,
         Request $request
-    ): Response {
+    ): array {
         $value = $request->request->get('value');
         $value = $value === '' ? null : $value;
 
@@ -127,7 +125,7 @@ class UpdateProductAttributeAction
             );
             $this->commandBus->dispatch($command);
 
-            return new SuccessResponse(['value' => $value]);
+            return ['value' => $value];
         }
 
         throw new ViolationsHttpException($violations);

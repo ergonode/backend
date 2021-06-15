@@ -11,7 +11,6 @@ namespace Ergonode\Comment\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
@@ -22,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -96,7 +94,7 @@ class CommentChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(Comment $comment, Request $request): Response
+    public function __invoke(Comment $comment, Request $request): void
     {
         if (!$comment->getAuthorId()->isEqual($this->userProvider->provide()->getId())) {
             throw new AccessDeniedException();
@@ -116,7 +114,7 @@ class CommentChangeAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

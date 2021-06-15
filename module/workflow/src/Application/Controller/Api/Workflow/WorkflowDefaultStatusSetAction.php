@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Status\SetDefaultStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
@@ -64,12 +62,10 @@ class WorkflowDefaultStatusSetAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $status): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $status): void
     {
         $command = new SetDefaultStatusCommand($workflow->getId(), $status->getId());
 
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

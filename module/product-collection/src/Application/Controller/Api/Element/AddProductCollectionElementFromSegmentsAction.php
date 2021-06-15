@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -90,7 +89,7 @@ class AddProductCollectionElementFromSegmentsAction
      *
      * @throws \Exception
      */
-    public function __invoke(ProductCollection $productCollection, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, Request $request): ProductCollectionId
     {
         try {
             $model = new ProductCollectionElementFromSegmentsFormModel();
@@ -107,7 +106,7 @@ class AddProductCollectionElementFromSegmentsAction
 
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($productCollection->getId());
+                return $productCollection->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

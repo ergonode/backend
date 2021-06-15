@@ -14,12 +14,10 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -94,7 +92,7 @@ class PasswordChangeAction
      *     description="Not found"
      * )
      */
-    public function __invoke(User $user, Request $request): Response
+    public function __invoke(User $user, Request $request): void
     {
         $data = $request->request->all();
         $constraint = $this->builder->create($data);
@@ -105,7 +103,7 @@ class PasswordChangeAction
             $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));
             $this->commandBus->dispatch($command);
 
-            return new EmptyResponse();
+            return;
         }
 
         throw new ViolationsHttpException($violations);

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
 use Ergonode\BatchAction\Application\Form\BatchActionForm;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
@@ -20,7 +19,6 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,7 +76,7 @@ class GetResourcesCountAction
      * )
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): array
     {
         try {
             $form = $this->formFactory->create(BatchActionForm::class);
@@ -97,7 +95,7 @@ class GetResourcesCountAction
 
                 $count = $this->count->count($type, $filter);
 
-                return new SuccessResponse(['count' => $count]);
+                return ['count' => $count];
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

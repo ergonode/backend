@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -25,7 +24,6 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Api\Application\Response\EmptyResponse;
 
 /**
  * @Route(
@@ -77,7 +75,7 @@ class ProductAddChildAction extends AbstractController
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
+    public function __invoke(Language $language, AbstractProduct $product, Request $request): void
     {
         try {
             $model = new ProductChildFormModel($product->getId());
@@ -97,7 +95,7 @@ class ProductAddChildAction extends AbstractController
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

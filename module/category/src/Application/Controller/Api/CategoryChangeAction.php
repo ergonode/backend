@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Application\Provider\CategoryFormProvider;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Infrastructure\Provider\UpdateCategoryCommandFactoryProvider;
@@ -18,7 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -94,7 +92,7 @@ class CategoryChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractCategory $category, Request $request): Response
+    public function __invoke(AbstractCategory $category, Request $request): void
     {
         $formClass = $this->formProvider->provide($category->getType());
 
@@ -106,7 +104,7 @@ class CategoryChangeAction
                 $command = $this->factoryProvider->provide($category->getType())->create($category->getId(), $form);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

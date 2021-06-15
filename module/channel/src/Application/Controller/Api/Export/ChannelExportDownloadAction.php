@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
+use Ergonode\Core\Application\HttpFoundation\FileContentResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use League\Flysystem\FilesystemInterface;
@@ -87,16 +87,6 @@ class ChannelExportDownloadAction
             throw new NotFoundHttpException();
         }
 
-        $content = $this->exportStorage->read($file);
-        $size = $this->exportStorage->getSize($file);
-
-        $headers = [
-            'Cache-Control' => 'private',
-            'Content-type' => 'application/zip',
-            'Content-Disposition' => 'attachment; filename="'.$file.'";',
-            'Content-length' => $size,
-        ];
-
-        return new SuccessResponse($content, $headers);
+        return new FileContentResponse($file, $this->exportStorage);
     }
 }

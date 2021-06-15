@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -21,7 +20,6 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildrenBySegmentsCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySegmentsForm;
@@ -70,7 +68,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
+    public function __invoke(Language $language, AbstractProduct $product, Request $request): void
     {
         try {
             $model = new ProductChildBySegmentsFormModel();
@@ -87,7 +85,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
                 $command = new AddProductChildrenBySegmentsCommand($product->getId(), $segments);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

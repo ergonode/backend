@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -77,11 +75,9 @@ class ProductCollectionElementDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
+    public function __invoke(ProductCollection $productCollection, AbstractProduct $product): void
     {
         $command = new DeleteProductCollectionElementCommand($productCollection->getId(), $product->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

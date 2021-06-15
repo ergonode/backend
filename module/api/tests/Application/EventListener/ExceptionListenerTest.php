@@ -12,8 +12,10 @@ namespace Ergonode\Api\Tests\Application\EventListener;
 use Ergonode\Api\Application\EventListener\ExceptionListener;
 use Ergonode\Api\Application\Mapper\ExceptionMapperInterface;
 use Ergonode\Api\Application\Response\ExceptionResponse;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
@@ -49,7 +51,7 @@ class ExceptionListenerTest extends TestCase
         $this->handlerFailedException = $this->createMock(HandlerFailedException::class);
     }
 
-    public function testInvokeWithoutMapping(): void
+    public function testInvokeWithoutMappingWithoutSerializer(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
         $this
@@ -66,7 +68,7 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    public function testInvokeWithoutMappingWithHandlerFailedException(): void
+    public function testInvokeWithoutMappingWithHandlerFailedExceptionWithoutSerializer(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
         $this
@@ -85,7 +87,7 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    public function testInvokeWithMappingWithHandlerFailedException(): void
+    public function testInvokeWithMappingWithHandlerFailedExceptionWithoutSerializer(): void
     {
         $this->exceptionMapper->method('map')->willReturn([
             'http' => [
@@ -113,7 +115,7 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    public function testInvokeWithMapping(): void
+    public function testInvokeWithMappingWithoutSerializer(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn([
             'http' => [
@@ -135,6 +137,103 @@ class ExceptionListenerTest extends TestCase
                 $this->assertEquals(403, $response->getStatusCode());
             });
         $listener = new ExceptionListener($this->exceptionMapper);
+        $listener($this->event);
+    }
+
+    public function testInvokeWithoutMapping(): void
+    {
+        $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
+        $this
+            ->event
+            ->expects($this->once())
+            ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
+        $this->event
+            ->expects($this->once())
+            ->method('setResponse')->willreturnCallback(function ($response): void {
+                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(500, $response->getStatusCode());
+            });
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $listener = new ExceptionListener($this->exceptionMapper, $serializer);
+        $listener($this->event);
+    }
+
+    public function testInvokeWithoutMappingWithHandlerFailedException(): void
+    {
+        $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
+        $this
+            ->event
+            ->expects($this->once())->method('getThrowable')->willReturn($this->handlerFailedException);
+        $this
+            ->handlerFailedException
+            ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
+        $this->event
+            ->expects($this->once())
+            ->method('setResponse')->willreturnCallback(function ($response): void {
+                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(500, $response->getStatusCode());
+            });
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $listener = new ExceptionListener($this->exceptionMapper, $serializer);
+        $listener($this->event);
+    }
+
+    public function testInvokeWithMappingWithHandlerFailedExceptio(): void
+    {
+        $this->exceptionMapper->method('map')->willReturn([
+            'http' => [
+                'code' => 403,
+            ],
+            'content' => [
+                'code' => 403,
+                'message' => 'test message',
+            ],
+        ]);
+        $this
+            ->event
+            ->expects($this->once())->method('getThrowable')->willReturn($this->handlerFailedException);
+        $this
+            ->handlerFailedException
+            ->expects($this->once())
+            ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
+        $this->event
+            ->expects($this->once())
+            ->method('setResponse')->willreturnCallback(function ($response): void {
+                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(403, $response->getStatusCode());
+            });
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $listener = new ExceptionListener($this->exceptionMapper, $serializer);
+        $listener($this->event);
+    }
+
+    public function testInvokeWithMapping(): void
+    {
+        $this->exceptionMapper->expects($this->once())->method('map')->willReturn([
+            'http' => [
+                'code' => 403,
+            ],
+            'content' => [
+                'code' => 403,
+                'message' => 'test message',
+            ],
+        ]);
+        $this
+            ->event
+            ->expects($this->once())
+            ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
+        $this->event
+            ->expects($this->once())
+            ->method('setResponse')->willreturnCallback(function ($response): void {
+                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(403, $response->getStatusCode());
+            });
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $listener = new ExceptionListener($this->exceptionMapper, $serializer);
         $listener($this->event);
     }
 }

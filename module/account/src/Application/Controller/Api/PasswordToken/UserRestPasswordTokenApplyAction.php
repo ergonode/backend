@@ -14,11 +14,9 @@ use Ergonode\Account\Domain\Command\User\ApplyUserResetTokenCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Domain\ValueObject\ResetToken;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -61,7 +59,7 @@ class UserRestPasswordTokenApplyAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): void
     {
         $model = new UserApplyTokenModel();
         $form = $this->formFactory->create(UserApplyTokenForm::class, $model);
@@ -76,7 +74,7 @@ class UserRestPasswordTokenApplyAction
             );
             $this->commandBus->dispatch($command);
 
-            return new EmptyResponse();
+            return;
         }
         throw new FormValidationHttpException($form);
     }

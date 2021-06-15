@@ -8,13 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -61,10 +59,8 @@ class GetMultimediaMetadataAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Multimedia $multimedia, Request $request): Response
+    public function __invoke(Multimedia $multimedia, Request $request): array
     {
-        $result = $this->service->getMetadata($multimedia);
-
-        return new SuccessResponse($result);
+        return $this->service->getMetadata($multimedia);
     }
 }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -18,7 +17,6 @@ use Ergonode\Product\Domain\Query\ProductHistoryGridQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Infrastructure\Grid\ProductHistoryGridBuilder;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
@@ -126,11 +124,10 @@ class ProductHistoryReadAction
         Language $language,
         AbstractProduct $product,
         RequestGridConfiguration $configuration
-    ): Response {
+    ): array {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getGridQuery($product->getId()));
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

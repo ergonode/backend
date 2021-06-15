@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -66,13 +65,15 @@ class ProductCollectionElementReadAction
      * )
      *
      * @throws \Exception
+     *
+     * @return ProductCollection|ProductCollectionElement
      */
-    public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
+    public function __invoke(ProductCollection $productCollection, AbstractProduct $product)
     {
         if ($productCollection->hasElement($product->getId())) {
-            return new SuccessResponse($productCollection->getElement($product->getId()));
+            return $productCollection->getElement($product->getId());
         }
 
-        return new SuccessResponse($productCollection);
+        return $productCollection;
     }
 }

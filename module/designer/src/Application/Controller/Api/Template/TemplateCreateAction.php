@@ -10,15 +10,14 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -74,7 +73,7 @@ class TemplateCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): TemplateId
     {
         $model = new TemplateFormModel();
         $form = $this->formFactory->create(TemplateForm::class, $model);
@@ -84,7 +83,7 @@ class TemplateCreateAction
             $command = $this->commandFactory->getCreateTemplateCommand($form->getData());
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new FormValidationHttpException($form);

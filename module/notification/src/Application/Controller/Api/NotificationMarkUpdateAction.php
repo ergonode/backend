@@ -11,12 +11,10 @@ namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\AcceptedResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Notification\Domain\Command\MarkNotificationCommand;
 use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Uuid as UuidConstraint;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -60,13 +58,13 @@ class NotificationMarkUpdateAction
      *     description="Notification id",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns notifications",
+     *     response=204,
+     *     description="Marked",
      * )
      *
      * @throws \Exception
      */
-    public function __invoke(string $notification): Response
+    public function __invoke(string $notification): void
     {
         $user = $this->userProvider->provide();
         $violations = $this->validator->validate($notification, new UuidConstraint());
@@ -76,7 +74,7 @@ class NotificationMarkUpdateAction
 
             $this->commandBud->dispatch($command);
 
-            return new AcceptedResponse();
+            return;
         }
         throw new ViolationsHttpException($violations);
     }

@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -78,7 +76,7 @@ class AttributeDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(AbstractAttribute $attribute): Response
+    public function __invoke(AbstractAttribute $attribute): void
     {
         $relationships = $this->relationshipsResolver->resolve($attribute->getId());
         if (null !== $relationships) {
@@ -87,7 +85,5 @@ class AttributeDeleteAction
 
         $command = new DeleteAttributeCommand($attribute->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

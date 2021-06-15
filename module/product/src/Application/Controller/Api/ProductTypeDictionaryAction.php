@@ -10,11 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api;
 
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Application\Provider\ProductTypeProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -52,7 +50,7 @@ class ProductTypeDictionaryAction
      *
      * @throws \Exception
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
         $dictionary = [];
         $types = $this->provider->provide();
@@ -60,6 +58,6 @@ class ProductTypeDictionaryAction
             $dictionary[$type] = $this->translator->trans($type, [], 'product');
         }
 
-        return new SuccessResponse($dictionary);
+        return $dictionary;
     }
 }

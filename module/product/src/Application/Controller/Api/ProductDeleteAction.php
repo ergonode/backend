@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -78,7 +76,7 @@ class ProductDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(AbstractProduct $product): Response
+    public function __invoke(AbstractProduct $product): void
     {
         $relationships = $this->relationshipsResolver->resolve($product->getId());
         if (null !== $relationships) {
@@ -87,7 +85,5 @@ class ProductDeleteAction
 
         $command = new DeleteProductCommand($product->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

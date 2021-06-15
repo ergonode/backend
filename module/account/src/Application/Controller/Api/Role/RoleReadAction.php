@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -54,8 +52,8 @@ class RoleReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Role $role): Response
+    public function __invoke(Role $role): Role
     {
-        return new SuccessResponse($role);
+        return $role;
     }
 }

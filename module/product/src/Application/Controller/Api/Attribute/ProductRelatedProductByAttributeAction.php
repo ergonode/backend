@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
@@ -139,12 +137,11 @@ class ProductRelatedProductByAttributeAction
         ProductRelationAttribute $attribute,
         Language $language,
         RequestGridConfiguration $configuration
-    ): Response {
+    ): array {
         $grid = $this->gridBuilder->build($configuration, $language);
         $query = $this->query->getGridQuery($product, $attribute, $language);
         $dataSet = $this->factory->create($query);
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

@@ -11,11 +11,9 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Command\User\DeleteUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -62,11 +60,9 @@ class AvatarDeleteAction
      *     description="Success",
      * )
      */
-    public function __invoke(User $user, Request $request): Response
+    public function __invoke(User $user, Request $request): void
     {
         $command = new DeleteUserAvatarCommand($user->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

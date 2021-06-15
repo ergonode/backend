@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -49,8 +47,8 @@ class ConditionSetReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(ConditionSet $conditionSet): Response
+    public function __invoke(ConditionSet $conditionSet): ConditionSet
     {
-        return new SuccessResponse($conditionSet);
+        return $conditionSet;
     }
 }

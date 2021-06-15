@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Domain\Entity\Status;
+use Ergonode\Workflow\Domain\Entity\Transition;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
@@ -62,10 +61,10 @@ class TransitionReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Transition
     {
         if ($workflow->hasTransition($source->getId(), $destination->getId())) {
-            return new SuccessResponse($workflow->getTransition($source->getId(), $destination->getId()));
+            return $workflow->getTransition($source->getId(), $destination->getId());
         }
 
         throw new NotFoundHttpException();

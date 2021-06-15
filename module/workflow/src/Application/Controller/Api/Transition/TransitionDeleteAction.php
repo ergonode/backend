@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
@@ -73,11 +71,9 @@ class TransitionDeleteAction
      *     description="Status not found"
      * )
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): void
     {
         $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getId(), $destination->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Completeness\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
@@ -74,7 +72,7 @@ class CompletenessReadAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractProduct $product, Language $language): Response
+    public function __invoke(AbstractProduct $product, Language $language): CompletenessReadModel
     {
         $template = $this->templateRepository->load($product->getTemplateId());
         Assert::isInstanceOf($template, Template::class);
@@ -91,6 +89,6 @@ class CompletenessReadAction
             $result->addCompletenessElement($element);
         }
 
-        return new SuccessResponse($result);
+        return $result;
     }
 }

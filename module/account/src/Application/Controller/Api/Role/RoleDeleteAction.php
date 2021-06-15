@@ -11,12 +11,10 @@ namespace Ergonode\Account\Application\Controller\Api\Role;
 
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -79,7 +77,7 @@ class RoleDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(Role $role): Response
+    public function __invoke(Role $role): void
     {
         if ($role->isHidden()) {
             throw new ConflictHttpException('Can\'t remove hidden role');
@@ -92,7 +90,5 @@ class RoleDeleteAction
 
         $command = new DeleteRoleCommand($role->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

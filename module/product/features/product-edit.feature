@@ -260,7 +260,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Assign select attribute to product
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -284,7 +284,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product select value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -308,7 +308,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product multi select value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -332,7 +332,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product unit value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -356,7 +356,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product price value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -380,7 +380,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product date value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -404,7 +404,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit status in pl_PL
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -428,7 +428,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit status in en_GB
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -452,7 +452,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get status product status
     When I send a GET request to "api/v1/en_GB/products/@edit_product@"
