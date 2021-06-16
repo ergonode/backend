@@ -51,7 +51,7 @@ class ProductChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_PUT")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_PUT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

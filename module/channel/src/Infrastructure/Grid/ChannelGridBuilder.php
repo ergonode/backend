@@ -44,18 +44,18 @@ class ChannelGridBuilder implements GridBuilderInterface
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
                     'route' => 'ergonode_channel_read',
-                    'privilege' => 'CHANNEL_GET',
+                    'privilege' => 'ERGONODE_ROLE_CHANNEL_GET',
                     'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                 ],
                 'edit' => [
                     'route' => 'ergonode_channel_change',
-                    'privilege' => 'CHANNEL_PUT',
+                    'privilege' => 'ERGONODE_ROLE_CHANNEL_PUT',
                     'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_channel_delete',
-                    'privilege' => 'CHANNEL_DELETE',
+                    'privilege' => 'ERGONODE_ROLE_CHANNEL_DELETE',
                     'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                     'method' => Request::METHOD_DELETE,
                 ],

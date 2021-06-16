@@ -46,7 +46,7 @@ class CategoryGridReadAction
     }
 
     /**
-     * @IsGranted("CATEGORY_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_GET_GRID")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(

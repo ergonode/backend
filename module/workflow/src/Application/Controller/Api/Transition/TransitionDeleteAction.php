@@ -34,7 +34,7 @@ class TransitionDeleteAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_DELETE_TRANSITION")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_DELETE_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

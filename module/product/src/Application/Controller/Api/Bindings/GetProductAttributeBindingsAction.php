@@ -34,7 +34,7 @@ class GetProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_BINDING")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

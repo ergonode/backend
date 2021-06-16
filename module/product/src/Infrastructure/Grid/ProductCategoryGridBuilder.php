@@ -40,7 +40,7 @@ class ProductCategoryGridBuilder implements GridBuilderInterface
                                 'product' => '{product_id}',
                                 'category' => '{id}',
                             ],
-                            'privilege' => 'PRODUCT_DELETE_CATEGORY',
+                            'privilege' => 'ERGONODE_ROLE_PRODUCT_DELETE_CATEGORY',
                             'method' => Request::METHOD_DELETE,
                         ],
                     ]

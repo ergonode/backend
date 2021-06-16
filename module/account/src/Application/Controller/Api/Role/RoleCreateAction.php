@@ -39,7 +39,7 @@ class RoleCreateAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_POST_ROLE")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_POST_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

@@ -34,7 +34,7 @@ class ProductReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

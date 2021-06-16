@@ -34,7 +34,7 @@ class AddProductCategoryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_POST_CATEGORY")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      *

@@ -28,7 +28,7 @@ class OptionsReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GET_OPTION_COLLECTIONS")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_GET_OPTION_COLLECTIONS")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

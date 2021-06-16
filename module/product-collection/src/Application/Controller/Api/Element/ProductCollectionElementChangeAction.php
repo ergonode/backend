@@ -50,7 +50,7 @@ class ProductCollectionElementChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_PUT_ELEMENT")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_PUT_ELEMENT")
      *
      * @SWG\Tag(name="Product Collection")
      * * @SWG\Parameter(

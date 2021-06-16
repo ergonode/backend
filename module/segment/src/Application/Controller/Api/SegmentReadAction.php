@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentReadAction
 {
     /**
-     * @IsGranted("SEGMENT_GET")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_GET")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

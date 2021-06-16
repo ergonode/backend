@@ -48,7 +48,7 @@ class DeleteProductsAttributesAction
     }
 
     /**
-     * @IsGranted("PRODUCT_ATTRIBUTES_DELETE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE")
      *
      * @SWG\Tag(name="Product")
      *

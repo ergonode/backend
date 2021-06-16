@@ -46,7 +46,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_POST_RELATIONS_CHILDREN_SEGMENT")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST_RELATIONS_CHILDREN_SEGMENT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

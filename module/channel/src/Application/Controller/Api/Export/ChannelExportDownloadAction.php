@@ -42,7 +42,7 @@ class ChannelExportDownloadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_EXPORT_FILE")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_EXPORT_FILE")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

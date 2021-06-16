@@ -46,7 +46,7 @@ class AttributeDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_DELETE")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

@@ -42,7 +42,7 @@ class ChannelTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_CONFIGURATION_GRID")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_CONFIGURATION_GRID")
      *
      * @SWG\Tag(name="Channel")
      *

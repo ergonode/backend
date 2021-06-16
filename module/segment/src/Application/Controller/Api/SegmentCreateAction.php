@@ -40,7 +40,7 @@ class SegmentCreateAction
     }
 
     /**
-     * @IsGranted("SEGMENT_POST")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_POST")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

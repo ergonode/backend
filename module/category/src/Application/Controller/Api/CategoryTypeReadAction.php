@@ -28,7 +28,7 @@ class CategoryTypeReadAction
     }
 
     /**
-     * @IsGranted("CATEGORY_GET_TYPE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_GET_TYPE")
      *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(

@@ -51,7 +51,7 @@ class ProductChildGridAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_RELATIONS_CHILDREN")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_RELATIONS_CHILDREN")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

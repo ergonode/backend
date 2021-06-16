@@ -46,7 +46,7 @@ class TemplateDeleteAction
     }
 
     /**
-     * @IsGranted("DESIGNER_DELETE_TEMPLATE")
+     * @IsGranted("ERGONODE_ROLE_DESIGNER_DELETE_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

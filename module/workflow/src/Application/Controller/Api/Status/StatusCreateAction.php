@@ -45,7 +45,7 @@ class StatusCreateAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_POST_STATUS")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_POST_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

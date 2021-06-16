@@ -45,7 +45,7 @@ class AttributeGroupChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_PUT_GROUP")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_PUT_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

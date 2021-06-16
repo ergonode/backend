@@ -27,18 +27,18 @@ class AttributeGroupGridBuilder implements GridBuilderInterface
     {
         $links = [
             'get' => [
-                'privilege' => 'ATTRIBUTE_GET_GROUP',
+                'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_GET_GROUP',
                 'route' => 'ergonode_attribute_group_read',
                 'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
             ],
             'edit' => [
-                'privilege' => 'ATTRIBUTE_PUT_GROUP',
+                'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_PUT_GROUP',
                 'route' => 'ergonode_attribute_group_change',
                 'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
-                'privilege' => 'ATTRIBUTE_DELETE_GROUP',
+                'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_DELETE_GROUP',
                 'route' => 'ergonode_attribute_group_delete',
                 'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
                 'method' => Request::METHOD_DELETE,

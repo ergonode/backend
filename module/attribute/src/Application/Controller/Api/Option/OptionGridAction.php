@@ -39,7 +39,7 @@ class OptionGridAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GET_OPTION_GRID")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_GET_OPTION_GRID")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

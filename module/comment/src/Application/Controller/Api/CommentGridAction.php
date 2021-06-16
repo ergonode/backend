@@ -46,7 +46,7 @@ class CommentGridAction
     }
 
     /**
-     * @IsGranted("COMMENT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_COMMENT_GET_GRID")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(

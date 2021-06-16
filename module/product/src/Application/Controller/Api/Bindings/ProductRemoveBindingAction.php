@@ -46,7 +46,7 @@ class ProductRemoveBindingAction
 
 
     /**
-     * @IsGranted("PRODUCT_DELETE_BINDING")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_DELETE_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

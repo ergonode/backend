@@ -33,7 +33,7 @@ class GetMultimediaMetadataAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_GET_METADATA")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET_METADATA")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

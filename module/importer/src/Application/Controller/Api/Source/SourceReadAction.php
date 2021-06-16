@@ -38,7 +38,7 @@ class SourceReadAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_SOURCE")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

@@ -53,7 +53,7 @@ class WorkflowChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_PUT")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

@@ -45,7 +45,7 @@ class StatusDeleteAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_DELETE_STATUS")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_DELETE_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

@@ -33,7 +33,7 @@ class WidgetProductCountAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_WIDGET")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_WIDGET")
      *
      * @SWG\Tag(name="Dashboard")
      * @SWG\Parameter(

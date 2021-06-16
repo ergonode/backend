@@ -31,7 +31,7 @@ class OptionGridBuilder implements GridBuilderInterface
             ->addColumn('code', new TextColumn('code', 'Code', new TextFilter()))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
-                    'privilege' => 'ATTRIBUTE_GET_OPTION',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_GET_OPTION',
                     'show' => ['system' => false],
                     'route' => 'ergonode_option_read',
                     'parameters' => [
@@ -41,7 +41,7 @@ class OptionGridBuilder implements GridBuilderInterface
                     ],
                 ],
                 'edit' => [
-                    'privilege' => 'ATTRIBUTE_PUT_OPTION',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_PUT_OPTION',
                     'show' => ['system' => false],
                     'route' => 'ergonode_option_change',
                     'parameters' => [
@@ -52,7 +52,7 @@ class OptionGridBuilder implements GridBuilderInterface
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
-                    'privilege' => 'ATTRIBUTE_DELETE_OPTION',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_DELETE_OPTION',
                     'show' => ['system' => false],
                     'route' => 'ergonode_option_delete',
                     'parameters' => [

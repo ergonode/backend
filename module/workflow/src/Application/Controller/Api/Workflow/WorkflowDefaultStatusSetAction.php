@@ -34,7 +34,7 @@ class WorkflowDefaultStatusSetAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_PUT_DEFAULT_STATUS")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT_DEFAULT_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

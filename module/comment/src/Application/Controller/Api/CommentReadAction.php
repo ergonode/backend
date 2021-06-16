@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentReadAction
 {
     /**
-     * @IsGranted("COMMENT_GET")
+     * @IsGranted("ERGONODE_ROLE_COMMENT_GET")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(

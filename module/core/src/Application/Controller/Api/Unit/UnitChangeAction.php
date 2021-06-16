@@ -46,7 +46,7 @@ class UnitChangeAction
     }
 
     /**
-     * @IsGranted("CORE_PUT_UNIT")
+     * @IsGranted("ERGONODE_ROLE_CORE_PUT_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

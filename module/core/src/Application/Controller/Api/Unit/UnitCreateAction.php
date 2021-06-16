@@ -45,7 +45,7 @@ class UnitCreateAction
     }
 
     /**
-     * @IsGranted("CORE_POST_UNIT")
+     * @IsGranted("ERGONODE_ROLE_CORE_POST_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

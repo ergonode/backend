@@ -32,7 +32,7 @@ class LanguageTreeReadAction
 
 
     /**
-     * @IsGranted("CORE_GET_LANGUAGE_TREE")
+     * @IsGranted("ERGONODE_ROLE_CORE_GET_LANGUAGE_TREE")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(

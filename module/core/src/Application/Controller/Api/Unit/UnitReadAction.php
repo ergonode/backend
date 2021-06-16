@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UnitReadAction
 {
     /**
-     * @IsGranted("CORE_GET_UNIT")
+     * @IsGranted("ERGONODE_ROLE_CORE_GET_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

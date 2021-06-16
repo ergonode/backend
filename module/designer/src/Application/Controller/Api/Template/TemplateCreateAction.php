@@ -43,7 +43,7 @@ class TemplateCreateAction
     }
 
     /**
-     * @IsGranted("DESIGNER_POST_TEMPLATE")
+     * @IsGranted("ERGONODE_ROLE_DESIGNER_POST_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

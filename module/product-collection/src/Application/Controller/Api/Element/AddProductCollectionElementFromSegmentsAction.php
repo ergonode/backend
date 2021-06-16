@@ -53,7 +53,7 @@ class AddProductCollectionElementFromSegmentsAction
 
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_POST_ELEMENT_SEGMENT")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_POST_ELEMENT_SEGMENT")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

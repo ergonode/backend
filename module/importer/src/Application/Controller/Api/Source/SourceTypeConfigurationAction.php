@@ -44,7 +44,7 @@ class SourceTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_SOURCE_CONFIGURATION_GRID")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_SOURCE_CONFIGURATION_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

@@ -35,7 +35,7 @@ class DownloadMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_GET_DOWNLOAD")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET_DOWNLOAD")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

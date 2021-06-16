@@ -34,7 +34,7 @@ class AttributeReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GET")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_GET")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

@@ -47,7 +47,7 @@ class ChannelDeleteAction
     }
 
     /**
-     * @IsGranted("CHANNEL_DELETE")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_DELETE")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

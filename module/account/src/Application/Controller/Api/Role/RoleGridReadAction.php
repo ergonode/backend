@@ -46,7 +46,7 @@ class RoleGridReadAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_GET_ROLE_GRID")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_GET_ROLE_GRID")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

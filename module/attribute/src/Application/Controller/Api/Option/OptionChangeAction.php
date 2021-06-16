@@ -51,7 +51,7 @@ class OptionChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_PUT_OPTION")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_PUT_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

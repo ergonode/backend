@@ -46,7 +46,7 @@ class CategoryDeleteAction
     }
 
     /**
-     * @IsGranted("CATEGORY_DELETE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_DELETE")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(

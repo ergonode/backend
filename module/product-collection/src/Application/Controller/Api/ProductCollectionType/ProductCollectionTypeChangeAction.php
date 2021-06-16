@@ -47,7 +47,7 @@ class ProductCollectionTypeChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_PUT_TYPE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_PUT_TYPE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

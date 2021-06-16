@@ -41,7 +41,7 @@ class UnitGridReadAction
     }
 
     /**
-     * @IsGranted("CORE_GET_UNIT_GRID")
+     * @IsGranted("ERGONODE_ROLE_CORE_GET_UNIT_GRID")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

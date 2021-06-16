@@ -24,7 +24,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 class WorkflowReadAction
 {
     /**
-     * @IsGranted("WORKFLOW_GET")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

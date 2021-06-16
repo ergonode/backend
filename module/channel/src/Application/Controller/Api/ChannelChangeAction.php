@@ -49,7 +49,7 @@ class ChannelChangeAction
     }
 
     /**
-     * @IsGranted("CHANNEL_PUT")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_PUT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

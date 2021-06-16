@@ -50,7 +50,7 @@ class SourceUpdatedAction
     }
 
     /**
-     * @IsGranted("IMPORT_PUT_SOURCE")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_PUT_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

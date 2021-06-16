@@ -51,7 +51,7 @@ class ProductProductCollectionGridReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_GET_PRODUCT_GRID")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_GET_PRODUCT_GRID")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

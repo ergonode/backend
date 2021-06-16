@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoleReadAction
 {
     /**
-     * @IsGranted("ACCOUNT_GET_ROLE")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_GET_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

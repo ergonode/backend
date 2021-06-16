@@ -38,7 +38,7 @@ class ProductRemoveChildAction
     }
 
     /**
-     * @IsGranted("PRODUCT_DELETE_RELATIONS_CHILD")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_DELETE_RELATIONS_CHILD")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

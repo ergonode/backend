@@ -28,7 +28,7 @@ class ExportNotificationAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_NOTIFICATION")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_NOTIFICATION")
      *
      * @SWG\Tag(name="Profile")
      * @SWG\Parameter(

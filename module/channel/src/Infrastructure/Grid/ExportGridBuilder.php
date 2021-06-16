@@ -33,7 +33,7 @@ class ExportGridBuilder implements GridBuilderInterface
             ->addColumn('ended_at', new DateTimeColumn('ended_at', 'Ended at', new DateTimeFilter()))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
-                    'privilege' => 'CHANNEL_GET_EXPORT',
+                    'privilege' => 'ERGONODE_ROLE_CHANNEL_GET_EXPORT',
                     'show' => ['system' => false],
                     'route' => 'ergonode_channel_export',
                     'parameters' => [

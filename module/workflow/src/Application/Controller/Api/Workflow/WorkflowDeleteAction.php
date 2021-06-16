@@ -45,7 +45,7 @@ class WorkflowDeleteAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_DELETE")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_DELETE")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

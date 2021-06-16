@@ -55,18 +55,18 @@ class ProductCollectionGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_product_collection_read',
                     'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                    'privilege' => 'PRODUCT_COLLECTION_GET',
+                    'privilege' => 'ERGONODE_ROLE_PRODUCT_COLLECTION_GET',
                 ],
                 'edit' => [
                     'route' => 'ergonode_product_collection_change',
                     'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                    'privilege' => 'PRODUCT_COLLECTION_PUT',
+                    'privilege' => 'ERGONODE_ROLE_PRODUCT_COLLECTION_PUT',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_product_collection_delete',
                     'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                    'privilege' => 'PRODUCT_COLLECTION_DELETE',
+                    'privilege' => 'ERGONODE_ROLE_PRODUCT_COLLECTION_DELETE',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]))

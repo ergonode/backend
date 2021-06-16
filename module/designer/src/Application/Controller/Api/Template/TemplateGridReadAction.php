@@ -46,7 +46,7 @@ class TemplateGridReadAction
     }
 
     /**
-     * @IsGranted("DESIGNER_GET_TEMPLATE_GRID")
+     * @IsGranted("ERGONODE_ROLE_DESIGNER_GET_TEMPLATE_GRID")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

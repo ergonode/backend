@@ -53,7 +53,7 @@ class SourceCreateAction
     }
 
     /**
-     * @IsGranted("IMPORT_POST_SOURCE")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_POST_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

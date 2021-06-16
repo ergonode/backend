@@ -44,7 +44,7 @@ class StatusChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_PUT_STATUS")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

@@ -53,7 +53,7 @@ class CommentChangeAction
     }
 
     /**
-     * @IsGranted("COMMENT_PUT")
+     * @IsGranted("ERGONODE_ROLE_COMMENT_PUT")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(

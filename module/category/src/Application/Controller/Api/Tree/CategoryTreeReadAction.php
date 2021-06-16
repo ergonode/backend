@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryTreeReadAction
 {
     /**
-     * @IsGranted("CATEGORY_GET_TREE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_GET_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

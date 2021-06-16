@@ -47,7 +47,7 @@ class AddProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_POST_BINDING")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

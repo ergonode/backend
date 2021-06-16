@@ -46,7 +46,7 @@ class AttributeGridReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_GET_GRID")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

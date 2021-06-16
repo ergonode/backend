@@ -50,7 +50,7 @@ class ChannelGridReadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

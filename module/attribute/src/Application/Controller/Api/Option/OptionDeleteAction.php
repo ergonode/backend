@@ -50,7 +50,7 @@ class OptionDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE_OPTION")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_DELETE_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

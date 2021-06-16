@@ -39,7 +39,7 @@ class CategoryTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("CATEGORY_GET_TYPE_CONFIGURATION")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_GET_TYPE_CONFIGURATION")
      *
      * @SWG\Tag(name="Category")
      *

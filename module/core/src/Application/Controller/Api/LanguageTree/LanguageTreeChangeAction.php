@@ -40,7 +40,7 @@ class LanguageTreeChangeAction
     }
 
     /**
-     * @IsGranted("CORE_PUT_LANGUAGE_TREE")
+     * @IsGranted("ERGONODE_ROLE_CORE_PUT_LANGUAGE_TREE")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(

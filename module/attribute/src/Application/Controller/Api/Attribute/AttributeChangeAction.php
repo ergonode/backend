@@ -53,7 +53,7 @@ class AttributeChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_PUT")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_PUT")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

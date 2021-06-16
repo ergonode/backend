@@ -41,7 +41,7 @@ class LanguageGridReadAction
     }
 
     /**
-     * @IsGranted("CORE_GET_LANGUAGE_GRID")
+     * @IsGranted("ERGONODE_ROLE_CORE_GET_LANGUAGE_GRID")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(

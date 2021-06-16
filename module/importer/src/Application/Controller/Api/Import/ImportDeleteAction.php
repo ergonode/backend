@@ -50,7 +50,7 @@ class ImportDeleteAction
     }
 
     /**
-     * @IsGranted("IMPORT_DELETE")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_DELETE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

@@ -48,7 +48,7 @@ class UpdateProductsAttributesAction
     }
 
     /**
-     * @IsGranted("PRODUCT_PATCH_ATTRIBUTES")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_PATCH_ATTRIBUTES")
      *
      * @SWG\Tag(name="Product")
      *

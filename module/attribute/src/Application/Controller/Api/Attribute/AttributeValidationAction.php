@@ -51,7 +51,7 @@ class AttributeValidationAction
      *     }
      * )
      *
-     * @IsGranted("PRODUCT_ATTRIBUTE_POST_VALIDATION")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_ATTRIBUTE_POST_VALIDATION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

@@ -53,7 +53,7 @@ class PasswordChangeAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_PUT_PASSWORD")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_PUT_PASSWORD")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

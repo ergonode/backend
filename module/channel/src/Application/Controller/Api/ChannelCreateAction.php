@@ -49,7 +49,7 @@ class ChannelCreateAction
     }
 
     /**
-     * @IsGranted("CHANNEL_POST")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_POST")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
