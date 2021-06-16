@@ -24,6 +24,7 @@ final class Version20210616120200 extends AbstractErgonodeMigration
     {
         $this->insertEndpointPrivilege('ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE');
         $this->insertEndpointPrivilege('ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE');
+        $this->insertEndpointPrivilege('ERGONODE_ROLE_PRODUCT_ATTRIBUTE_PUT');
 
         $this->insertPrivileges(
             'PRODUCT_CREATE',
@@ -31,6 +32,7 @@ final class Version20210616120200 extends AbstractErgonodeMigration
                 'ERGONODE_ROLE_ATTRIBUTE_POST_VALIDATION',
                 'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE',
                 'ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_PUT',
             ]
         );
 
@@ -40,6 +42,7 @@ final class Version20210616120200 extends AbstractErgonodeMigration
                 'ERGONODE_ROLE_ATTRIBUTE_POST_VALIDATION',
                 'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE',
                 'ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_PUT',
             ]
         );
 
