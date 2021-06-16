@@ -14,14 +14,13 @@ use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -75,7 +74,7 @@ class UserCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): UserId
     {
         try {
             $model = new CreateUserFormModel();
@@ -96,7 +95,7 @@ class UserCreateAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

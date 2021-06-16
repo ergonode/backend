@@ -10,16 +10,15 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Attribute\Application\Form\AttributeGroupCreateForm;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeGroupFormModel;
 use Ergonode\Attribute\Domain\Command\Group\CreateAttributeGroupCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,7 +80,7 @@ class AttributeGroupCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): AttributeGroupId
     {
         try {
             $model = new CreateAttributeGroupFormModel();
@@ -98,7 +97,7 @@ class AttributeGroupCreateAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

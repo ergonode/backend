@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Api\Application\Response\AcceptedResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Notification\Domain\Command\MarkAllNotificationsCommand;
 
@@ -49,18 +47,16 @@ class NotificationMarkAllAction
      *     description="Notification id",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns notifications",
+     *     response=204,
+     *     description="Marked all",
      * )
      * @throws \Exception
      */
-    public function __invoke(): Response
+    public function __invoke(): void
     {
         $user = $this->userProvider->provide();
         $command = new MarkAllNotificationsCommand($user->getId(), new \DateTime());
 
         $this->commandBud->dispatch($command);
-
-        return new AcceptedResponse();
     }
 }

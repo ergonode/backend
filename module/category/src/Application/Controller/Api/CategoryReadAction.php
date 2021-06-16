@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -54,8 +52,8 @@ class CategoryReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractCategory $category): Response
+    public function __invoke(AbstractCategory $category): AbstractCategory
     {
-        return new SuccessResponse($category);
+        return $category;
     }
 }

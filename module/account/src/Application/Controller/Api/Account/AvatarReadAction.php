@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Api\Application\Response\FileContentResponse;
+use Ergonode\Core\Application\HttpFoundation\FileContentResponse;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Request;

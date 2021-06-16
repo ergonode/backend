@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Status;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Application\Form\Model\StatusCreateFormModel;
 use Ergonode\Workflow\Application\Form\StatusCreateForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,7 +76,7 @@ class StatusCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): StatusId
     {
         try {
             $model = new StatusCreateFormModel();
@@ -97,7 +96,7 @@ class StatusCreateAction
 
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

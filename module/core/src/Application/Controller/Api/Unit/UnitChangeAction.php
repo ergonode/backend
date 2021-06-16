@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\UnitForm;
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\UpdateUnitCommand;
@@ -20,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,7 +84,7 @@ class UnitChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(Unit $unit, Request $request): Response
+    public function __invoke(Unit $unit, Request $request): void
     {
         try {
             $model = new UnitFormModel($unit->getId());
@@ -107,7 +105,7 @@ class UnitChangeAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

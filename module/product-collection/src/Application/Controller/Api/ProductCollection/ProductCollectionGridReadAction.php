@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollection;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -17,7 +16,6 @@ use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
@@ -112,13 +110,11 @@ class ProductCollectionGridReadAction
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {
         $grid = $this->productCollectionGridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->collectionQuery->getGridQuery($language));
 
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
-
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

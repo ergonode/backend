@@ -11,10 +11,8 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -63,13 +61,13 @@ class UserReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(User $user): Response
+    public function __invoke(User $user): array
     {
         $user = $this->query->getUser($user->getId());
         if (empty($user)) {
             throw new NotFoundHttpException('User data not found');
         }
 
-        return new SuccessResponse($user);
+        return $user;
     }
 }

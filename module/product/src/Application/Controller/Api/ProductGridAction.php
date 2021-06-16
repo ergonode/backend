@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -112,13 +110,11 @@ class ProductGridAction
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, GridConfigurationInterface $configuration): Response
+    public function __invoke(Language $language, GridConfigurationInterface $configuration): array
     {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->dataSetFactory->create();
 
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
-
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

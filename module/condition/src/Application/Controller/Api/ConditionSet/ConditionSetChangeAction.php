@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -88,7 +86,7 @@ class ConditionSetChangeAction
      *     description="Not found"
      * )
      */
-    public function __invoke(ConditionSet $conditionSet, Request $request): Response
+    public function __invoke(ConditionSet $conditionSet, Request $request): void
     {
         $data = $request->request->all();
 
@@ -100,7 +98,7 @@ class ConditionSetChangeAction
             $command = $this->normalizer->denormalize($data, UpdateConditionSetCommand::class);
             $this->commandBus->dispatch($command);
 
-            return new EmptyResponse();
+            return;
         }
 
         throw new ViolationsHttpException($violations);

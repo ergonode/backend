@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
@@ -22,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -79,7 +77,7 @@ class SegmentChangeAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Segment $segment, Request $request): Response
+    public function __invoke(Segment $segment, Request $request): void
     {
         $model = new UpdateSegmentFormModel();
         $form = $this->formFactory->create(UpdateSegmentForm::class, $model, ['method' => Request::METHOD_PUT]);
@@ -97,7 +95,7 @@ class SegmentChangeAction
             );
             $this->commandBus->dispatch($command);
 
-            return new EmptyResponse();
+            return;
         }
 
         throw new FormValidationHttpException($form);

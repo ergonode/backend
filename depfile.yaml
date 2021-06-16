@@ -108,7 +108,6 @@ ruleset:
     - EventSourcing
     - SharedKernel
   Completeness:
-    - Api
     - Attribute
     - Core
     - EventSourcing

@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -73,15 +71,13 @@ class ProductCollectionTypeAutocompleteAction
      *     description="Returns attributes",
      * )
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Language $language, Request $request): array
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->productCollectionTypeQuery->autocomplete($language, $search, $limit, $field, $order);
-
-        return new SuccessResponse($data);
+        return $this->productCollectionTypeQuery->autocomplete($language, $search, $limit, $field, $order);
     }
 }

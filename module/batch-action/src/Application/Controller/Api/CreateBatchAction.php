@@ -17,8 +17,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
@@ -83,7 +81,7 @@ class CreateBatchAction
      * )
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): BatchActionId
     {
         $type = $request->request->get('type', 'default');
         try {
@@ -113,7 +111,7 @@ class CreateBatchAction
 
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

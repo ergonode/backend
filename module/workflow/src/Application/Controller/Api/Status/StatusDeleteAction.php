@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Status;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -83,7 +81,7 @@ class StatusDeleteAction
      *
      * @throws \Exception
      */
-    public function __invoke(Status $status): Response
+    public function __invoke(Status $status): void
     {
         $relationships = $this->relationshipsResolver->resolve($status->getId());
         if (null !== $relationships) {
@@ -92,7 +90,5 @@ class StatusDeleteAction
 
         $command = new DeleteStatusCommand($status->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

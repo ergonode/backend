@@ -10,13 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Attribute\Application\Form\AttributeTypeForm;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,7 +88,7 @@ class AttributeCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): AttributeId
     {
         $type = $request->request->get('type');
 
@@ -108,7 +107,7 @@ class AttributeCreateAction
                     $command = $this->factoryProvider->provide($type)->create($form);
                     $this->commandBus->dispatch($command);
 
-                    return new CreatedResponse($command->getId());
+                    return $command->getId();
                 }
             } catch (InvalidPropertyPathException $exception) {
                 throw new BadRequestHttpException('Invalid JSON format');

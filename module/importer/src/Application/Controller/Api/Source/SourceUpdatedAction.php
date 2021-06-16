@@ -10,14 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,7 +83,7 @@ class SourceUpdatedAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractSource $source, Request $request): Response
+    public function __invoke(AbstractSource $source, Request $request): SourceId
     {
         try {
             $form = $this->provider->provide($source->getType())->create($source);
@@ -94,7 +93,7 @@ class SourceUpdatedAction
                 $command = $this->commandProvider->provide($source->getType())->build($source->getId(), $form);
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -25,7 +25,6 @@ use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
-use Ergonode\Api\Application\Response\CreatedResponse;
 
 /**
  * @Route(
@@ -77,7 +76,7 @@ class AddProductAttributeBindingsAction extends AbstractController
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
+    public function __invoke(Language $language, AbstractProduct $product, Request $request): ProductId
     {
         try {
             $model = new ProductBindFormModel($product);
@@ -93,7 +92,7 @@ class AddProductAttributeBindingsAction extends AbstractController
                 );
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -63,12 +61,12 @@ class SourceReadAction
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      */
-    public function __invoke(AbstractSource $source): Response
+    public function __invoke(AbstractSource $source): array
     {
         $form = $this->provider->provide($source->getType())->create($source);
         $result = $this->normalizer->normalize($form);
         $result['type'] = $source->getType();
 
-        return new SuccessResponse($result);
+        return $result;
     }
 }

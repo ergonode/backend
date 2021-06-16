@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Designer\Domain\Entity\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Designer\Infrastructure\Mapper\TemplateResultMapper;
 
@@ -61,8 +59,8 @@ class TemplateReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Template $template): Response
+    public function __invoke(Template $template): array
     {
-        return new SuccessResponse($this->mapper->map($template));
+        return $this->mapper->map($template);
     }
 }

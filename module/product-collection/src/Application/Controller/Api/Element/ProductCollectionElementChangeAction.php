@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionElementUpdateForm;
@@ -21,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,8 +91,11 @@ class ProductCollectionElementChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
-    {
+    public function __invoke(
+        ProductCollection $productCollection,
+        AbstractProduct $product,
+        Request $request
+    ): void {
         try {
             $model = new ProductCollectionElementUpdateFormModel();
             $form = $this->formFactory->create(
@@ -115,7 +116,7 @@ class ProductCollectionElementChangeAction
 
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

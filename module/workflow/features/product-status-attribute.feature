@@ -85,7 +85,7 @@ Feature: Workflow
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Delete status has transition
     When I send a DELETE request to "/api/v1/en/status/@test_status_id@"
@@ -113,7 +113,7 @@ Feature: Workflow
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Delete status has transition
     When I send a DELETE request to "/api/v1/en/status/@test_status_id@"

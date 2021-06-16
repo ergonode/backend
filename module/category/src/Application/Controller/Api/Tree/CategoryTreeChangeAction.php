@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Application\Form\Tree\CategoryTreeUpdateForm;
 use Ergonode\Category\Application\Model\Tree\CategoryTreeUpdateFormModel;
 use Ergonode\Category\Domain\Command\Tree\UpdateTreeCommand;
@@ -20,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,7 +80,7 @@ class CategoryTreeChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(CategoryTree $tree, Request $request): Response
+    public function __invoke(CategoryTree $tree, Request $request): void
     {
         try {
             $model = new CategoryTreeUpdateFormModel();
@@ -98,7 +96,7 @@ class CategoryTreeChangeAction
                     new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -12,11 +12,9 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
@@ -74,11 +72,9 @@ class UploadMultimediaAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     *
-     *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): MultimediaId
     {
         $uploadModel = new MultimediaUploadModel();
 
@@ -88,16 +84,16 @@ class UploadMultimediaAction
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $this->hashService->calculateHash($uploadModel->upload);
             if ($this->query->fileExists($hash)) {
-                $response = new CreatedResponse($this->query->findIdByHash($hash));
+                $id = $this->query->findIdByHash($hash);
             } else {
                 $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
                 $this->commandBus->dispatch($command);
-                $response = new CreatedResponse($command->getId());
+                $id = $command->getId();
             }
         } else {
             throw new FormValidationHttpException($form);
         }
 
-        return $response;
+        return $id;
     }
 }

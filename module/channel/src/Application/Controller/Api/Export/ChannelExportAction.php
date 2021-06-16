@@ -11,10 +11,8 @@ namespace Ergonode\Channel\Application\Controller\Api\Export;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
@@ -85,7 +83,7 @@ class ChannelExportAction
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
      */
-    public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
+    public function __invoke(Language $language, AbstractChannel $channel, Export $export): array
     {
         $file = sprintf('%s.zip', $export->getId()->getValue());
 
@@ -106,6 +104,6 @@ class ChannelExportAction
             ];
         }
 
-        return new SuccessResponse($result);
+        return $result;
     }
 }

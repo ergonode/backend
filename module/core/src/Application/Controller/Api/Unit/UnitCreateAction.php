@@ -10,16 +10,15 @@ declare(strict_types=1);
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Core\Application\Form\UnitForm;
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\CreateUnitCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,7 +76,7 @@ class UnitCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): UnitId
     {
         try {
             $model = new UnitFormModel();
@@ -93,7 +92,7 @@ class UnitCreateAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

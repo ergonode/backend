@@ -10,19 +10,18 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 use Ergonode\Attribute\Application\Form\SimpleOptionForm;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,7 +86,7 @@ class OptionCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, Request $request): Response
+    public function __invoke(AbstractAttribute $attribute, Request $request): AggregateId
     {
         try {
             $model = new SimpleOptionModel($attribute->getId());
@@ -106,7 +105,7 @@ class OptionCreateAction
 
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

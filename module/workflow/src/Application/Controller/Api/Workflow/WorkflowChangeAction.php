@@ -9,15 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Workflow\Application\Provider\WorkflowFormProvider;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
@@ -73,7 +72,7 @@ class WorkflowChangeAction
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=204,
+     *     response=200,
      *     description="Success"
      * )
      * @SWG\Response(
@@ -83,7 +82,7 @@ class WorkflowChangeAction
      * )
      * @throws \Exception
      */
-    public function __invoke(AbstractWorkflow $workflow, Request $request): Response
+    public function __invoke(AbstractWorkflow $workflow, Request $request): WorkflowId
     {
         $class = $this->formProvider->provide($workflow->getType());
         try {
@@ -94,7 +93,7 @@ class WorkflowChangeAction
                 $command = $this->commandProvider->provide($workflow->getType())->create($workflow->getId(), $form);
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

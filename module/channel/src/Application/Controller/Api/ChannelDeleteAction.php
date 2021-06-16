@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
@@ -17,7 +16,6 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
@@ -85,7 +83,7 @@ class ChannelDeleteAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractChannel $channel): Response
+    public function __invoke(AbstractChannel $channel): void
     {
         $relationships = $this->relationshipsResolver->resolve($channel->getId());
         if (null !== $relationships) {
@@ -94,7 +92,5 @@ class ChannelDeleteAction
 
         $command = new DeleteChannelCommand($channel->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

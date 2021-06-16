@@ -12,7 +12,6 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -93,7 +92,7 @@ class ProductGridReadAction extends ProductGridAction
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, GridConfigurationInterface $configuration): Response
+    public function __invoke(Language $language, GridConfigurationInterface $configuration): array
     {
         return parent::__invoke($language, $configuration);
     }

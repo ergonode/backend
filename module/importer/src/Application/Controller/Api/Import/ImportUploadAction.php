@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
@@ -20,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Domain\Command\Import\UploadFileCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
@@ -94,7 +92,7 @@ class ImportUploadAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractSource $source, Request $request): Response
+    public function __invoke(AbstractSource $source, Request $request): ImportId
     {
         $uploadModel = new UploadModel();
 
@@ -109,7 +107,7 @@ class ImportUploadAction
             );
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new FormValidationHttpException($form);

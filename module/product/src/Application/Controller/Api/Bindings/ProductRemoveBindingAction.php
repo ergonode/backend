@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -17,7 +16,6 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Product\Domain\Command\Bindings\RemoveProductBindingCommand;
@@ -77,7 +75,7 @@ class ProductRemoveBindingAction
      * )
      * @param AbstractProduct|AbstractAssociatedProduct $product
      */
-    public function __invoke(Language $language, AbstractProduct $product, AbstractAttribute $binding): Response
+    public function __invoke(Language $language, AbstractProduct $product, AbstractAttribute $binding): void
     {
         $data = new ProductBindFormModel($product);
         $data->bindId = $binding->getId()->getValue();
@@ -86,7 +84,7 @@ class ProductRemoveBindingAction
         if ($violations->count() === 0) {
             $this->commandBus->dispatch(new RemoveProductBindingCommand($product->getId(), $binding->getId()));
 
-            return new EmptyResponse();
+            return;
         }
         throw new ViolationsHttpException($violations);
     }

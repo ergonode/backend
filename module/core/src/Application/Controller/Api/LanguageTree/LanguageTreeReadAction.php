@@ -8,12 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\LanguageTree;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -53,10 +52,8 @@ class LanguageTreeReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): ?LanguageTree
     {
-        $tree = $this->repository->load();
-
-        return new SuccessResponse($tree);
+        return $this->repository->load();
     }
 }

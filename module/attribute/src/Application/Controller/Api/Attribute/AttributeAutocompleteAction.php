@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -87,7 +85,7 @@ class AttributeAutocompleteAction
      *     description="Returns attributes",
      * )
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Language $language, Request $request): array
     {
         $search = $request->query->get('search');
         $type = $request->query->get('type');
@@ -96,8 +94,6 @@ class AttributeAutocompleteAction
         $system = $request->query->get('system');
         $order = $request->query->get('order');
 
-        $data = $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $system, $order);
-
-        return new SuccessResponse($data);
+        return $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $system, $order);
     }
 }

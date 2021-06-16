@@ -9,10 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\PasswordToken;
 
 use Ergonode\Account\Domain\Validator\TokenValidator;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,14 +50,14 @@ class UserRestPasswordTokenValidationAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): void
     {
         $value = $request->query->get('token');
 
         $this->validator->validate($value);
 
         if ($this->validator->validate($value)) {
-            return new EmptyResponse();
+            return;
         }
 
         throw new BadRequestHttpException('Validation error');

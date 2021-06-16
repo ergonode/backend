@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Status;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Application\Form\Model\StatusChangeFormModel;
 use Ergonode\Workflow\Application\Form\StatusChangeForm;
@@ -20,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,7 +80,7 @@ class StatusChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(Status $status, Request $request): Response
+    public function __invoke(Status $status, Request $request): void
     {
         try {
             $model = new StatusChangeFormModel();
@@ -101,7 +99,7 @@ class StatusChangeAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

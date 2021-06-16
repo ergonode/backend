@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -18,7 +17,6 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
@@ -142,8 +140,7 @@ class AssociatedProductAvailableChildrenAction
         AbstractAssociatedProduct $product,
         Language $language,
         RequestGridConfiguration $configuration
-    ): Response {
-
+    ): array {
         $bindingAttributes = [];
         if ($product instanceof VariableProduct) {
             $bindings = $product->getBindings();
@@ -157,8 +154,6 @@ class AssociatedProductAvailableChildrenAction
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getGridQuery($product, $language, $bindingAttributes));
 
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
-
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

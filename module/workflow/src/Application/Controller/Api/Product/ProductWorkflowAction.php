@@ -11,11 +11,9 @@ namespace Ergonode\Workflow\Application\Controller\Api\Product;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Ergonode\Workflow\Domain\Provider\ProductStatusProvider;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
@@ -85,12 +83,11 @@ class ProductWorkflowAction
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function __invoke(AbstractProduct $product, Language $language, Language $productLanguage): Response
+    public function __invoke(AbstractProduct $product, Language $language, Language $productLanguage): array
     {
         $workflow = $this->workflowProvider->provide();
         $product = $this->statusProvider->getProduct($product, $workflow, $productLanguage);
-        $result = $this->query->getQuery($product, $workflow, $language, $productLanguage);
 
-        return new SuccessResponse($result);
+        return $this->query->getQuery($product, $workflow, $language, $productLanguage);
     }
 }

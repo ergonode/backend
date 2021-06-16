@@ -9,15 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Scheduler;
 
+use Ergonode\Channel\Domain\Entity\Scheduler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Provider\SchedulerProvider;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -81,10 +80,8 @@ class SchedulerGetAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractChannel $channel, Request $request): Response
+    public function __invoke(AbstractChannel $channel, Request $request): Scheduler
     {
-        $scheduler = $this->provider->provide($channel->getId());
-
-        return new SuccessResponse($scheduler);
+        return $this->provider->provide($channel->getId());
     }
 }

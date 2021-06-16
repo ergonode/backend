@@ -87,7 +87,7 @@ Feature: Workflow
       ]
     }
     """
-    Then the response status code should be 201
+    Then the response status code should be 200
     Examples:
       | statuses                                             | source                   | destination              | roles         | condition_set        |
       | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | ["@role_id@"] | "@condition_set_id@" |

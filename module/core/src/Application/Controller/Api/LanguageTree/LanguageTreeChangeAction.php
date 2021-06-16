@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Core\Application\Controller\Api\LanguageTree;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageTree\LanguageTreeUpdateForm;
 use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeUpdateFormModel;
 use Ergonode\Core\Domain\Command\LanguageTree\UpdateLanguageTreeCommand;
@@ -18,7 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,7 +71,7 @@ class LanguageTreeChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): void
     {
         try {
             $model = new LanguageTreeUpdateFormModel();
@@ -92,7 +90,7 @@ class LanguageTreeChangeAction
                 $command = new UpdateLanguageTreeCommand($data->languages);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

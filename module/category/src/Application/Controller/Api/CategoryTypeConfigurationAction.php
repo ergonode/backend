@@ -16,7 +16,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -69,6 +68,6 @@ class CategoryTypeConfigurationAction
 
         $result = json_encode($this->liForm->transform($form), JSON_THROW_ON_ERROR, 512);
 
-        return new SuccessResponse($result);
+        return new Response($result);
     }
 }

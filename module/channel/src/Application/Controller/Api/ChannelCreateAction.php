@@ -10,14 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Channel\Application\Form\ChannelTypeForm;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,7 +88,7 @@ class ChannelCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): ChannelId
     {
         $type = $request->get('type');
         $typeForm = $this->formFactory->create(ChannelTypeForm::class);
@@ -104,7 +103,7 @@ class ChannelCreateAction
                     $command = $this->commandProvider->provide($type)->build($form);
                     $this->commandBus->dispatch($command);
 
-                    return new CreatedResponse($command->getId());
+                    return $command->getId();
                 }
             } catch (InvalidPropertyPathException $exception) {
                 throw new BadRequestHttpException('Invalid JSON format');

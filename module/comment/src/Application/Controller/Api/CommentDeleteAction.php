@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Comment\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -73,7 +71,7 @@ class CommentDeleteAction
      * )
      *
      */
-    public function __invoke(Comment $comment): Response
+    public function __invoke(Comment $comment): void
     {
         if (!$comment->getAuthorId()->isEqual($this->userProvider->provide()->getId())) {
             throw new AccessDeniedException();
@@ -81,7 +79,5 @@ class CommentDeleteAction
 
         $command = new DeleteCommentCommand($comment->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

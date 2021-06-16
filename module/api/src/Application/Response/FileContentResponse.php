@@ -12,6 +12,9 @@ namespace Ergonode\Api\Application\Response;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @deprecated
+ */
 class FileContentResponse extends AbstractResponse
 {
 
@@ -20,6 +23,11 @@ class FileContentResponse extends AbstractResponse
      */
     public function __construct(string $filename, FilesystemInterface $storage)
     {
+        @trigger_error(
+            'Ergonode\Api\Application\Response\FileContentResponse is deprecated and will be removed in 2.0.'
+                .' Use Ergonode\Core\Application\HttpFoundation\FileContentResponse instead.',
+            \E_USER_DEPRECATED,
+        );
         $headers = [
             'Cache-Control' => 'private',
             'Content-type' => $storage->getMimetype($filename),

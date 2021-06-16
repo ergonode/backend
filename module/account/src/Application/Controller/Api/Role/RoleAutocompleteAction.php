@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -73,15 +71,13 @@ class RoleAutocompleteAction
      *     description="Return roles",
      * )
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Language $language, Request $request): array
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->roleQuery->autocomplete($search, $limit, $field, $order);
-
-        return new SuccessResponse($data);
+        return $this->roleQuery->autocomplete($search, $limit, $field, $order);
     }
 }

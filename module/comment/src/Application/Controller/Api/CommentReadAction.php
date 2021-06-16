@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -54,8 +52,8 @@ class CommentReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Comment $comment): Response
+    public function __invoke(Comment $comment): Comment
     {
-        return new SuccessResponse($comment);
+        return $comment;
     }
 }

@@ -11,13 +11,11 @@ namespace Ergonode\Product\Application\Controller\Api\Attribute;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Product\Application\Factory\Command\ChangeProductAttributeCommandFactory;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Product\Application\Form\Product\Attribute\Update\UpdateProductAttributeCollectionForm;
 use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateProductAttributeCollectionFormModel;
 
@@ -85,7 +83,7 @@ class UpdateProductsAttributesAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): void
     {
         $form = $this->formFactory->create(
             UpdateProductAttributeCollectionForm::class,
@@ -99,9 +97,9 @@ class UpdateProductsAttributesAction
             foreach ($data->data as $product) {
                 $command = $this->commandFactory->create($product);
                 $this->commandBus->dispatch($command);
-            }
 
-            return new SuccessResponse();
+                return;
+            }
         }
 
         throw new FormValidationHttpException($form);

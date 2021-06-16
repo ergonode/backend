@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Application\Form\AttributeGroupUpdateForm;
 use Ergonode\Attribute\Application\Form\Model\UpdateAttributeGroupFormModel;
 use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
@@ -20,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,7 +86,7 @@ class AttributeGroupChangeAction
     public function __invoke(
         AttributeGroup $attributeGroup,
         Request $request
-    ): Response {
+    ): void {
         try {
             $model = new UpdateAttributeGroupFormModel();
             $form = $this
@@ -106,7 +104,7 @@ class AttributeGroupChangeAction
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

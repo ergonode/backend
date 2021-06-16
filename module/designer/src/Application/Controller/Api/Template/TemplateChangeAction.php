@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Domain\Entity\Template;
@@ -19,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -84,7 +82,7 @@ class TemplateChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(Template $template, Request $request): Response
+    public function __invoke(Template $template, Request $request): void
     {
         $model = new TemplateFormModel();
         $form = $this->formFactory->create(TemplateForm::class, $model, ['method' => Request::METHOD_PUT]);
@@ -94,7 +92,7 @@ class TemplateChangeAction
             $command = $this->commandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->commandBus->dispatch($command);
 
-            return new EmptyResponse();
+            return;
         }
 
         throw new FormValidationHttpException($form);

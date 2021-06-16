@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Importer\Domain\Entity\Import;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -76,10 +74,8 @@ class ImportShowAction
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      */
-    public function __invoke(Language $language, Import $import): Response
+    public function __invoke(Language $language, Import $import): array
     {
-        $result = $this->query->getInformation($import->getId(), $language);
-
-        return new SuccessResponse($result);
+        return $this->query->getInformation($import->getId(), $language);
     }
 }

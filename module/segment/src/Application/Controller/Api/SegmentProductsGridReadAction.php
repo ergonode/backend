@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -18,7 +17,6 @@ use Ergonode\Segment\Infrastructure\Grid\SegmentProductsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Segment\Domain\Query\SegmentProductsGridQueryInterface;
@@ -120,11 +118,10 @@ class SegmentProductsGridReadAction
         Language $language,
         RequestGridConfiguration $configuration,
         Segment $segment
-    ): Response {
+    ): array {
         $grid = $this->segmentProductsGridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->segmentProductsQuery->getGridQuery($segment->getId()));
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

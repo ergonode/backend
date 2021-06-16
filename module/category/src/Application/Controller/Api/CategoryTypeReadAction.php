@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Provider\Dictionary\CategoryTypeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -50,10 +48,8 @@ class CategoryTypeReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $types = $this->categoryTypeDictionaryProvider->getDictionary($language);
-
-        return new SuccessResponse($types);
+        return $this->categoryTypeDictionaryProvider->getDictionary($language);
     }
 }

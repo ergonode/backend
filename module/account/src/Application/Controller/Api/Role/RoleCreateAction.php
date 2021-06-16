@@ -13,12 +13,11 @@ use Ergonode\Account\Application\Form\Model\RoleFormModel;
 use Ergonode\Account\Application\Form\RoleForm;
 use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,7 +71,7 @@ class RoleCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): RoleId
     {
         try {
             $model = new RoleFormModel();
@@ -86,7 +85,7 @@ class RoleCreateAction
                 $command = new CreateRoleCommand($data->name, $data->description, $data->privileges);
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -9,13 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -63,10 +61,8 @@ class ProductReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractProduct $product, Language $language): Response
+    public function __invoke(AbstractProduct $product, Language $language): array
     {
-        $result =  $this->getProductQuery->query($product->getId(), $language);
-
-        return new SuccessResponse($result);
+        return $this->getProductQuery->query($product->getId(), $language);
     }
 }

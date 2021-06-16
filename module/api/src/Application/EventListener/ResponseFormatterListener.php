@@ -13,6 +13,9 @@ use Ergonode\Api\Application\Response\AbstractResponse;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
+/**
+ * @deprecated
+ */
 class ResponseFormatterListener
 {
     private SerializerInterface $serializer;
@@ -28,6 +31,10 @@ class ResponseFormatterListener
         if (!$response instanceof AbstractResponse) {
             return;
         }
+        @trigger_error(
+            'Ergonode\Api\Application\Response\AbstractResponse is deprecated and will be removed in 2.0.',
+            \E_USER_DEPRECATED,
+        );
 
         $content = $response->getContent();
 

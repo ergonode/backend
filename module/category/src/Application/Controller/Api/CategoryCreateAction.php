@@ -10,15 +10,14 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Category\Application\Provider\CategoryFormProvider;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Infrastructure\Provider\CreateCategoryCommandFactoryProvider;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -84,7 +83,7 @@ class CategoryCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): CategoryId
     {
         $type = $request->request->get('type', Category::TYPE);
         $request->request->remove('type');
@@ -97,7 +96,7 @@ class CategoryCreateAction
                 $command = $this->factoryProvider->provide($type)->create($form);
                 $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return $command->getId();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

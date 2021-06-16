@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -16,7 +15,6 @@ use Ergonode\Multimedia\Domain\Command\DeleteMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -68,7 +66,7 @@ class DeleteMultimediaAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(Multimedia $multimedia): Response
+    public function __invoke(Multimedia $multimedia): void
     {
         $relationships = $this->relationshipsResolver->resolve($multimedia->getId());
         if (null !== $relationships) {
@@ -77,7 +75,5 @@ class DeleteMultimediaAction
 
         $command = new DeleteMultimediaCommand($multimedia->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

@@ -8,14 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
@@ -69,7 +67,7 @@ class ChannelExportCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractChannel $channel, Request $request): Response
+    public function __invoke(AbstractChannel $channel, Request $request): ExportId
     {
         $command = new ExportChannelCommand(
             ExportId::generate(),
@@ -78,6 +76,6 @@ class ChannelExportCreateAction
 
         $this->commandBus->dispatch($command);
 
-        return new CreatedResponse($command->getExportId());
+        return $command->getExportId();
     }
 }

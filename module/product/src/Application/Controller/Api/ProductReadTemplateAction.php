@@ -15,10 +15,8 @@ use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\Assert\Assert;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -30,7 +28,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  */
 class ProductReadTemplateAction
 {
-
     private TemplateRepositoryInterface $templateRepository;
     private ViewTemplateBuilder $builder;
 
@@ -71,7 +68,7 @@ class ProductReadTemplateAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractProduct $product, Language $language): Response
+    public function __invoke(AbstractProduct $product, Language $language): array
     {
         $templateId = $product->getTemplateId();
 
@@ -79,8 +76,6 @@ class ProductReadTemplateAction
 
         Assert::notNull($template);
 
-        $view = $this->builder->build($template, $language);
-
-        return new SuccessResponse($view);
+        return $this->builder->build($template, $language);
     }
 }

@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -72,15 +70,13 @@ class TemplateAutocompleteAction
      *     description="Return templates",
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): array
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->templateQuery->autocomplete($search, $limit, $field, $order);
-
-        return new SuccessResponse($data);
+        return $this->templateQuery->autocomplete($search, $limit, $field, $order);
     }
 }

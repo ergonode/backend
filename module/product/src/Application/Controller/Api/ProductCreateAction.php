@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Application\Form\Product\ProductTypeForm;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
@@ -19,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -75,11 +74,9 @@ class ProductCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     *
-     *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): ProductId
     {
         $type = $request->request->get('type');
         $typeForm = $this->formFactory->create(ProductTypeForm::class);
@@ -98,7 +95,7 @@ class ProductCreateAction
             $command = $factory->create($form);
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new FormValidationHttpException($form);

@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Application\Controller\Api\Scheduler;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,7 +90,7 @@ class SchedulerChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractChannel $channel, Request $request): Response
+    public function __invoke(AbstractChannel $channel, Request $request): void
     {
         try {
             $model = new SchedulerModel();
@@ -114,7 +112,7 @@ class SchedulerChangeAction
                     );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

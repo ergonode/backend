@@ -126,7 +126,7 @@ Feature: Completeness module
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get Completeness with wrong product id
     When I send a GET request to "/api/v1/en_GB/products/@@random_uuid@@/completeness"
