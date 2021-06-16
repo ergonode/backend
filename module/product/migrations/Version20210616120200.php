@@ -23,11 +23,14 @@ final class Version20210616120200 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->insertEndpointPrivilege('ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE');
+        $this->insertEndpointPrivilege('ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE');
 
         $this->insertPrivileges(
             'PRODUCT_CREATE',
             [
                 'ERGONODE_ROLE_ATTRIBUTE_POST_VALIDATION',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE',
             ]
         );
 
@@ -35,6 +38,8 @@ final class Version20210616120200 extends AbstractErgonodeMigration
             'PRODUCT_UPDATE',
             [
                 'ERGONODE_ROLE_ATTRIBUTE_POST_VALIDATION',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE',
             ]
         );
 
@@ -42,6 +47,7 @@ final class Version20210616120200 extends AbstractErgonodeMigration
             'PRODUCT_DELETE',
             [
                 'ERGONODE_ROLE_PRODUCT_ATTRIBUTE_DELETE',
+                'ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE',
             ]
         );
     }
