@@ -20,10 +20,18 @@ use Symfony\Component\Validator\Constraints\All;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 use Symfony\Component\Validator\Constraints\Uuid;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Count;
 
 class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
 {
+    private const DEFAULT_MAX = 100;
 
+    private int $max;
+
+    public function __construct(int $max = self::DEFAULT_MAX)
+    {
+        $this->max = $max;
+    }
 
     public function supports(AbstractAttribute $attribute): bool
     {
@@ -36,16 +44,19 @@ class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAtt
             new NotBlank(),
             new Uuid(['strict' => true]),
             new ProductExists(),
-
         ];
+
         if ($aggregateId) {
             $constraints[] = new NotTheSameProduct(['aggregateId' => $aggregateId]);
         }
 
         return new Collection([
-            'value' => new All(
-                ['constraints' => $constraints]
-            ),
+            'value' => [
+                new Count(['max' => $this->max]),
+                new All(
+                    ['constraints' => $constraints]
+                ),
+            ],
         ]);
     }
 }
