@@ -31,10 +31,6 @@ services:
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeGroupRepository'
 
     Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeQuery'
-    Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator:
-        decorates: Ergonode\Attribute\Domain\Query\AttributeQueryInterface
-        arguments:
-            - '@Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator.inner'
 
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGridQuery'
