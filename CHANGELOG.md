@@ -15,6 +15,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.2
+- bugfix [#1489](https://github.com/ergonode/backend/issues/1489) Removed local cache attribute decorators (piotrkreft)
 - bugfix [#1478](https://github.com/ergonode/backend/issues/1478) Allowed to override default storages (piotrkreft)
 - bugfix [#1473](https://github.com/ergonode/backend/issues/1473) Error on import previously deleted products (rprzedzik)
 - bugfix [#1460](https://github.com/ergonode/backend/issues/1460) handle escaping newlines on CSV export/import (kardi31)
