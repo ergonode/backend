@@ -49,7 +49,8 @@ class UserRoleVoter extends Voter
     public function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         @trigger_error(
-            'Used UserRoleVoter is deprecated and will throw Fatal error in 2.0. You should use ErgonodeRoleVoter',
+            'You should use roles starting with ERGONODE_ROLE_*.
+            The current method is deprecated and will not be supported in 2.0.',
             E_USER_DEPRECATED,
         );
         /** @var User $user */
