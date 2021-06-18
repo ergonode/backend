@@ -97,9 +97,9 @@ class UpdateProductsAttributesAction
             foreach ($data->data as $product) {
                 $command = $this->commandFactory->create($product);
                 $this->commandBus->dispatch($command);
-
-                return;
             }
+
+            return;
         }
 
         throw new FormValidationHttpException($form);
