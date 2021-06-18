@@ -40,7 +40,8 @@ class UserRoleVoter extends Voter
     {
         $privileges = $this->query->getPrivilegesEndPoint();
 
-        return in_array($attribute, array_column($privileges, 'name'), true);
+        return in_array($attribute, array_column($privileges, 'name'), true)
+            && !(0 === stripos($attribute, 'ERGONODE_ROLE_'));
     }
 
     /**
