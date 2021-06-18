@@ -38,9 +38,10 @@ class UserRoleVoter extends Voter
      */
     public function supports($attribute, $subject): bool
     {
-        if (!(0 === stripos($attribute, 'ERGONODE_ROLE_'))) {
+        if (0 === stripos($attribute, 'ERGONODE_ROLE_')) {
             return false;
         }
+
         $privileges = $this->query->getPrivilegesEndPoint();
 
         return in_array($attribute, array_column($privileges, 'name'), true);
