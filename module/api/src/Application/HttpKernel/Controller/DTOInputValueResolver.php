@@ -66,7 +66,7 @@ class DTOInputValueResolver implements ArgumentValueResolverInterface
         $format = $this->formatsMap[$contentType] ?? null;
 
         if (!$format) {
-            $message = 'The "Content-Type" unknown. Accepted: ' . implode(', ', array_keys($this->formatsMap));
+            $message = 'The "Content-Type" unknown. Accepted: '.implode(', ', array_keys($this->formatsMap));
             throw new UnsupportedMediaTypeHttpException($message);
         }
 

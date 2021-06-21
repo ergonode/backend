@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Exception\RuntimeException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class DTOValueResolverTest extends TestCase
+class DTOInputValueResolverTest extends TestCase
 {
     /**
      * @var SerializerInterface|MockObject
@@ -52,7 +52,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -81,7 +81,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveVariadic(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -94,7 +94,7 @@ class DTOValueResolverTest extends TestCase
 
         $this->mockSerializer
             ->method('deserialize')
-            ->with('body', get_class($dto) . '[]', 'json')
+            ->with('body', get_class($dto).'[]', 'json')
             ->willReturn([$dto, $dto]);
 
         $this->mockValidator
@@ -110,7 +110,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveThrowsExceptionForUnknownContentType(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -128,7 +128,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveThrowsExceptionForMissingContentType(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -146,7 +146,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveThrowsExceptionForMissingBody(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -164,7 +164,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveThrowsExceptionForSerializerException(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
@@ -189,7 +189,7 @@ class DTOValueResolverTest extends TestCase
 
     public function testResolveThrowsExceptionForViolations(): void
     {
-        $dto = new class () implements DTOInputInterface {
+        $dto = new class() implements DTOInputInterface {
         };
         $argument = new ArgumentMetadata(
             'name',
