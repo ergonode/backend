@@ -36,7 +36,7 @@ class ChannelExportCreateAction
     }
 
     /**
-     * @IsGranted("CHANNEL_POST_EXPORT")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_POST_EXPORT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

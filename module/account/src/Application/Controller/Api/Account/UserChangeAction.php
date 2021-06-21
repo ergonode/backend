@@ -46,7 +46,7 @@ class UserChangeAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_PUT")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_PUT")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

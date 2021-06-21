@@ -42,7 +42,7 @@ class AvatarChangeAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_POST_AVATAR")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_POST_AVATAR")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

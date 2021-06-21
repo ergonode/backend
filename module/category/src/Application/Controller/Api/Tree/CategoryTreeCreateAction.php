@@ -38,7 +38,7 @@ class CategoryTreeCreateAction
     }
 
     /**
-     * @IsGranted("CATEGORY_POST_TREE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_POST_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

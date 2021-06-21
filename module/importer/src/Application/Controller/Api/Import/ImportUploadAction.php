@@ -53,7 +53,7 @@ class ImportUploadAction
     }
 
     /**
-     * @IsGranted("IMPORT_POST")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_POST")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

@@ -34,7 +34,7 @@ class RemoveProductCategoryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_DELETE_CATEGORY")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_DELETE_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      *

@@ -46,7 +46,7 @@ class CategoryTreeDeleteAction
     }
 
     /**
-     * @IsGranted("CATEGORY_DELETE_TREE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_DELETE_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

@@ -41,7 +41,7 @@ class AttributeGroupCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_POST_GROUP")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_POST_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

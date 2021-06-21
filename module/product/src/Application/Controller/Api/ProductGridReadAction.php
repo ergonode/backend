@@ -22,7 +22,7 @@ use Ergonode\Grid\GridConfigurationInterface;
 class ProductGridReadAction extends ProductGridAction
 {
     /**
-     * @IsGranted("PRODUCT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_GRID")
      * @SWG\Get(description="This endpoint is depricated, use `GET /api/v1/{language}/products/grid` instead")
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

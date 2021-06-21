@@ -59,20 +59,20 @@ class AttributeGridBuilder implements GridBuilderInterface
             ->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
-                    'privilege' => 'ATTRIBUTE_GET',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_GET',
                     'show' => ['system' => false],
                     'route' => 'ergonode_attribute_read',
                     'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
                 ],
                 'edit' => [
-                    'privilege' => 'ATTRIBUTE_PUT',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_PUT',
                     'show' => ['system' => false],
                     'route' => 'ergonode_attribute_change',
                     'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
-                    'privilege' => 'ATTRIBUTE_DELETE',
+                    'privilege' => 'ERGONODE_ROLE_ATTRIBUTE_DELETE',
                     'show' => ['system' => false],
                     'route' => 'ergonode_attribute_delete',
                     'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],

@@ -38,7 +38,7 @@ class ChannelReadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

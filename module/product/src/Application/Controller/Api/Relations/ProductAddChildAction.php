@@ -46,7 +46,7 @@ class ProductAddChildAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_POST_RELATIONS_CHILD_ADD")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST_RELATIONS_CHILD_ADD")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

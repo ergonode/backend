@@ -39,7 +39,7 @@ class CommentDeleteAction
     }
 
     /**
-     * @IsGranted("COMMENT_DELETE")
+     * @IsGranted("ERGONODE_ROLE_COMMENT_DELETE")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(

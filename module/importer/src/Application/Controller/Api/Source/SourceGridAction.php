@@ -50,7 +50,7 @@ class SourceGridAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_SOURCE_GRID")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_SOURCE_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

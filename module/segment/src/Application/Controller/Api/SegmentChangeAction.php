@@ -45,7 +45,7 @@ class SegmentChangeAction
     }
 
     /**
-     * @IsGranted("SEGMENT_PUT")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_PUT")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

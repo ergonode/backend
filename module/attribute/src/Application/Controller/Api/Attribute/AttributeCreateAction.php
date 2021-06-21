@@ -49,7 +49,7 @@ class AttributeCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_POST")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_POST")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

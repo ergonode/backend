@@ -50,7 +50,7 @@ class TransitionGridReadAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_GET_TRANSITION_GRID")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_GRID")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

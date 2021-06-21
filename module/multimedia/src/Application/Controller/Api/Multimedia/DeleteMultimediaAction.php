@@ -44,7 +44,7 @@ class DeleteMultimediaAction
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
     /**
-     * @IsGranted("MULTIMEDIA_DELETE")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_DELETE")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

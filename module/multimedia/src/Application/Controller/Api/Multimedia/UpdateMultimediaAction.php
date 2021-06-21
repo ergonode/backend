@@ -45,7 +45,7 @@ class UpdateMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_PUT")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_PUT")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

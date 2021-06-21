@@ -41,7 +41,7 @@ class ProductGridAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_GRID")
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="limit",

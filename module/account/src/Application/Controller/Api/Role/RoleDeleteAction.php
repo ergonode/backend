@@ -46,7 +46,7 @@ class RoleDeleteAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_DELETE_ROLE")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_DELETE_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

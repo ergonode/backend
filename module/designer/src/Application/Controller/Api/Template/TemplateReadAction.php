@@ -33,7 +33,7 @@ class TemplateReadAction
     }
 
     /**
-     * @IsGranted("DESIGNER_GET_TEMPLATE")
+     * @IsGranted("ERGONODE_ROLE_DESIGNER_GET_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

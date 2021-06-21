@@ -51,7 +51,7 @@ class SegmentProductsGridReadAction
     }
 
     /**
-     * @IsGranted("SEGMENT_GET_PRODUCT_GRID")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_GET_PRODUCT_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

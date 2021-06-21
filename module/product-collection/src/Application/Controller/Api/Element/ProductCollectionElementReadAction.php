@@ -30,7 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductCollectionElementReadAction
 {
     /**
-     * @IsGranted("PRODUCT_COLLECTION_GET_ELEMENT")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_GET_ELEMENT")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

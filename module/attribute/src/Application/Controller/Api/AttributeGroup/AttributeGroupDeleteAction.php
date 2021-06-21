@@ -46,7 +46,7 @@ class AttributeGroupDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE_GROUP")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_DELETE_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

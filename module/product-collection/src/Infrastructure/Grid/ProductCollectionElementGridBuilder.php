@@ -47,7 +47,7 @@ class ProductCollectionElementGridBuilder implements GridBuilderInterface
                         'productCollection' => '{product_collection_id}',
                         'product' => '{id}',
                     ],
-                    'privilege' => 'PRODUCT_COLLECTION_GET_ELEMENT',
+                    'privilege' => 'ERGONODE_ROLE_PRODUCT_COLLECTION_GET_ELEMENT',
                 ],
                 'delete' => [
                     'route' => 'ergonode_product_collection_element_delete',
@@ -57,7 +57,7 @@ class ProductCollectionElementGridBuilder implements GridBuilderInterface
                         'product' => '{id}',
                     ],
                     'method' => Request::METHOD_DELETE,
-                    'privilege' => 'PRODUCT_COLLECTION_DELETE_ELEMENT',
+                    'privilege' => 'ERGONODE_ROLE_PRODUCT_COLLECTION_DELETE_ELEMENT',
                 ],
             ]))
             ->orderBy('created_at', 'DESC');

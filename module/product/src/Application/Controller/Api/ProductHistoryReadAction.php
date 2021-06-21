@@ -49,7 +49,7 @@ class ProductHistoryReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_HISTORY_GRID")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_HISTORY_GRID")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

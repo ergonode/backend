@@ -47,7 +47,7 @@ class ProductCreateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_POST")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

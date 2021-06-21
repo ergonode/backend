@@ -54,7 +54,7 @@ class CategoryChangeAction
 
 
     /**
-     * @IsGranted("CATEGORY_PUT")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_PUT")
      *
      * @SWG\Parameter(
      *     name="language",

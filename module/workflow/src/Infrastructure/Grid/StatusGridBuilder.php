@@ -51,18 +51,18 @@ class StatusGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_workflow_status_read',
                     'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
-                    'privilege' => 'WORKFLOW_GET_STATUS',
+                    'privilege' => 'ERGONODE_ROLE_WORKFLOW_GET_STATUS',
                 ],
                 'edit' => [
                     'route' => 'ergonode_workflow_status_change',
                     'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
-                    'privilege' => 'WORKFLOW_PUT_STATUS',
+                    'privilege' => 'ERGONODE_ROLE_WORKFLOW_PUT_STATUS',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_workflow_status_delete',
                     'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
-                    'privilege' => 'WORKFLOW_DELETE_STATUS',
+                    'privilege' => 'ERGONODE_ROLE_WORKFLOW_DELETE_STATUS',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]))

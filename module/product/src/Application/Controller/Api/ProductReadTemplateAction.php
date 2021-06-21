@@ -40,7 +40,7 @@ class ProductReadTemplateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_TEMPLATE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_TEMPLATE")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

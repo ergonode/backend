@@ -46,7 +46,7 @@ class ProductCollectionDeleteAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_DELETE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

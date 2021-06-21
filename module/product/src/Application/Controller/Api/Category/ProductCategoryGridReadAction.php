@@ -50,7 +50,7 @@ class ProductCategoryGridReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_CATEGORY")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

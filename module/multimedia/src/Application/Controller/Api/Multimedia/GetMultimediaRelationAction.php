@@ -34,7 +34,7 @@ class GetMultimediaRelationAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_GET_RELATION")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET_RELATION")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

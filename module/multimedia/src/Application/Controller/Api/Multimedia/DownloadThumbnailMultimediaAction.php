@@ -42,7 +42,7 @@ class DownloadThumbnailMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

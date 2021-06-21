@@ -37,7 +37,7 @@ class AvatarDeleteAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_DELETE_AVATAR")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_DELETE_AVATAR")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

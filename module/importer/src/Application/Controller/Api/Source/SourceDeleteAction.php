@@ -47,7 +47,7 @@ class SourceDeleteAction
     }
 
     /**
-     * @IsGranted("IMPORT_DELETE_SOURCE")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_DELETE_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

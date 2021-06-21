@@ -28,7 +28,7 @@ class ImportNotificationAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_NOTIFICATION")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_NOTIFICATION")
      *
      * @SWG\Tag(name="Profile")
      * @SWG\Parameter(

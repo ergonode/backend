@@ -38,7 +38,7 @@ class ImportShowAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

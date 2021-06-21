@@ -45,7 +45,7 @@ class ProductWorkflowAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_GET_PRODUCT")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_PRODUCT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

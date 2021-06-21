@@ -48,7 +48,7 @@ class ProductCollectionCreateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_POST")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_POST")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

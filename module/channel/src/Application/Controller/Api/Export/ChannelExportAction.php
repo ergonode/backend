@@ -50,7 +50,7 @@ class ChannelExportAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_EXPORT")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_EXPORT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

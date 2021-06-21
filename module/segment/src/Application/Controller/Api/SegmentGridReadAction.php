@@ -46,7 +46,7 @@ class SegmentGridReadAction
     }
 
     /**
-     * @IsGranted("SEGMENT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_GET_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

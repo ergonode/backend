@@ -34,7 +34,7 @@ class UserReadAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_GET")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_GET")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

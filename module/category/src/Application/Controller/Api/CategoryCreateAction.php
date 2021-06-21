@@ -50,7 +50,7 @@ class CategoryCreateAction
 
 
     /**
-     * @IsGranted("CATEGORY_POST")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_POST")
      *
      * @SWG\Tag(name="Category")
      *

@@ -53,7 +53,7 @@ class UploadMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_POST")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_POST")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

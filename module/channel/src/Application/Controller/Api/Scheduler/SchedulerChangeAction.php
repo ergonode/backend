@@ -46,7 +46,7 @@ class SchedulerChangeAction
     }
 
     /**
-     * @IsGranted("CHANNEL_PUT_SCHEDULER")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_PUT_SCHEDULER")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

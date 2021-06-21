@@ -47,7 +47,7 @@ class CommentCreateAction
     }
 
     /**
-     * @IsGranted("COMMENT_POST")
+     * @IsGranted("ERGONODE_ROLE_COMMENT_POST")
      *
      * @SWG\Tag(name="Comment")
      *

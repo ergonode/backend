@@ -55,7 +55,7 @@ class ImportErrorGridAction
     }
 
     /**
-     * @IsGranted("IMPORT_GET_GRID_ERROR")
+     * @IsGranted("ERGONODE_ROLE_IMPORT_GET_GRID_ERROR")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GetMultimediaAction
 {
     /**
-     * @IsGranted("MULTIMEDIA_GET")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

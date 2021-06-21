@@ -36,7 +36,7 @@ class SchedulerGetAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_SCHEDULER")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_SCHEDULER")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

@@ -46,7 +46,7 @@ class SegmentDeleteAction
     }
 
     /**
-     * @IsGranted("SEGMENT_DELETE")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_DELETE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

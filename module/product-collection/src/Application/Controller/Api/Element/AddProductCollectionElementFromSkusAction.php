@@ -53,7 +53,7 @@ class AddProductCollectionElementFromSkusAction
 
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_POST_ELEMENT_SKU")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_POST_ELEMENT_SKU")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

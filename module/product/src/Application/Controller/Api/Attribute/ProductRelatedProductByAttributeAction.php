@@ -54,7 +54,7 @@ class ProductRelatedProductByAttributeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_ATTRIBUTE_RELATIONS")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_ATTRIBUTE_RELATIONS")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

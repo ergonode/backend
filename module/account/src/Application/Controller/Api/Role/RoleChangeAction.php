@@ -44,7 +44,7 @@ class RoleChangeAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_PUT_ROLE")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_PUT_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

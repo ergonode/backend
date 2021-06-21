@@ -59,18 +59,18 @@ class TemplateGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_designer_template_read',
                     'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                    'privilege' => 'DESIGNER_GET_TEMPLATE',
+                    'privilege' => 'ERGONODE_ROLE_DESIGNER_GET_TEMPLATE',
                 ],
                 'edit' => [
                     'route' => 'ergonode_designer_template_change',
                     'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                    'privilege' => 'DESIGNER_PUT_TEMPLATE',
+                    'privilege' => 'ERGONODE_ROLE_DESIGNER_PUT_TEMPLATE',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_designer_template_delete',
                     'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                    'privilege' => 'DESIGNER_DELETE_TEMPLATE',
+                    'privilege' => 'ERGONODE_ROLE_DESIGNER_DELETE_TEMPLATE',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]));

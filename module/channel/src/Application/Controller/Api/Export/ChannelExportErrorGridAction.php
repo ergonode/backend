@@ -55,7 +55,7 @@ class ChannelExportErrorGridAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_EXPORT_ERROR_GRID")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_EXPORT_ERROR_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

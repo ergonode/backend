@@ -46,7 +46,7 @@ class TransitionChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_PUT_TRANSITION")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

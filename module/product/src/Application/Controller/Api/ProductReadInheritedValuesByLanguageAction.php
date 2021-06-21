@@ -41,7 +41,7 @@ class ProductReadInheritedValuesByLanguageAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_INHERITED")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_INHERITED")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

@@ -46,7 +46,7 @@ class UnitDeleteAction
     }
 
     /**
-     * @IsGranted("CORE_DELETE_UNIT")
+     * @IsGranted("ERGONODE_ROLE_CORE_DELETE_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(
