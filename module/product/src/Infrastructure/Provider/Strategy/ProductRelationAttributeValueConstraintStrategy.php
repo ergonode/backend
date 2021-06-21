@@ -24,11 +24,9 @@ use Symfony\Component\Validator\Constraints\Count;
 
 class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAttributeValueConstraintStrategyInterface
 {
-    private const DEFAULT_MAX = 100;
-
     private int $max;
 
-    public function __construct(int $max = self::DEFAULT_MAX)
+    public function __construct(int $max = ProductRelationAttribute::MAX_RELATIONS)
     {
         $this->max = $max;
     }
