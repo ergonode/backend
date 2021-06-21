@@ -95,7 +95,6 @@ class DTOInputValueResolver implements ArgumentValueResolverInterface
             $dto = [$dto];
         }
 
-        /** @phpstan-ignore-next-line */
         foreach ($dto as $item) {
             yield $item;
         }
