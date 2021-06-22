@@ -117,7 +117,6 @@ ruleset:
     - Api
     - Attribute # todo to remove
     - EventSourcing
-    - Product # todo to remove
     - SharedKernel
   Importer:
     - Api
