@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- bugfix [#1502](https://github.com/ergonode/backend/issues/1502) Error on filtering by numeric attribute in adding relation grid (wiewiurdp)
 - feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)
 - refactor [#1487](https://github.com/ergonode/backend/issues/1487) Change Security Role Voter (wfajczyk)
 - refactor [#1484](https://github.com/ergonode/backend/issues/1484) ViewEvent HTTP response handling (piotrkreft)
