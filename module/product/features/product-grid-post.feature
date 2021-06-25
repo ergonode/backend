@@ -90,6 +90,43 @@ Feature: Product grid post
       | NUMERIC      | @attribute_price_code@          | @attribute_price_code@       | 12.66                      |
       | NUMERIC      | @attribute_unit_code@           | @attribute_unit_code@        | 99.99                      |
 
+  Scenario Outline: Request product grid filtered by <code> attribute with integer value
+    When I send a POST request to "api/v1/en_GB/products/grid" with body:
+      """
+      {
+        "columns": [
+          {
+            "name":"<code>"
+          }
+        ],
+        "filters": [
+          {
+            "column":"<code>",
+            "operator":"=",
+            "value":<filter>
+          },
+          {
+            "column":"sku",
+            "operator":"=",
+            "value": "sku_test_"
+          }
+        ]
+      }
+      """
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | columns[0].id         | <code>        |
+      | columns[0].type       | <column_type> |
+      | columns[0].visible    | 1             |
+      | columns[0].editable   | 1             |
+      | columns[0].deletable  | 1             |
+      | collection[0].<field> | <filter>      |
+    Examples:
+      | column_type  | field                           | code                         | filter                     |
+      | NUMERIC      | @attribute_numeric_code@        | @attribute_numeric_code@     | 10.99                      |
+      | NUMERIC      | @attribute_price_code@          | @attribute_price_code@       | 12.66                      |
+      | NUMERIC      | @attribute_unit_code@           | @attribute_unit_code@        | 99.99                      |
+
   Scenario Outline: Request product grid filtered by <code> attribute with extended flag
     When I send a POST request to "api/v1/en_GB/products/grid" with body:
       """
