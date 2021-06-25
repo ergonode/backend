@@ -29,7 +29,7 @@ class DbalCurrencyQuery implements CurrencyQueryInterface
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getDictionary(): array
     {

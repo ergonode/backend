@@ -13,7 +13,7 @@ use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Ergonode\Core\Application\Form\Type\CurrencyFormType;
+use Ergonode\Attribute\Application\Form\Type\CurrencyFormType;
 use Symfony\Component\Form\PreloadedExtension;
 
 class PriceAttributeFormTest extends TypeTestCase

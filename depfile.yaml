@@ -115,7 +115,6 @@ ruleset:
     - SharedKernel
   Core:
     - Api
-    - Attribute # todo to remove
     - EventSourcing
     - SharedKernel
   Importer:
