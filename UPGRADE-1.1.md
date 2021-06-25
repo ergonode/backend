@@ -11,6 +11,9 @@ Attribute:
 * Class `TranslatableStringValueUpdateStrategy` has been removed, solution moved to `TranslatableStringValue::merge`
 * Endpoint `[PUT] /api/v1/{language}/attributes/{attribute}/options/{option}` returns 200 instead of 201
 
+Core:
+* Namespace `Ergonode\Core\Application\Form\Type\CurrencyFormType` has been fixed to `Ergonode\Attribute\Application\Form\Type\CurrencyFormType`
+
 Product:
 * Class `AddProductBindingCommand` constructor has changed
 * Class `RemoveProductBindingCommand` constructor has changed

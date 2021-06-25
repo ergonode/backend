@@ -21,7 +21,6 @@
         "ergonode/shared-kernel": "^1.0.0",
         "league/flysystem": ">1.0.54",
         "limenius/liform-bundle": "^0.17.0",
-        "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",
