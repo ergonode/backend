@@ -56,7 +56,7 @@ class PostGridConfiguration implements GridConfigurationInterface
 
             $column = $filter['column'];
             $operator = $filter['operator'];
-            $value = $filter['value'] ?? null;
+            $value = $filter['value'] ? (string) $filter['value']: null;
             $language = array_key_exists('language', $filter) ? new Language($filter['language']) : null;
             $key = $filter['column'];
             if ($language) {
