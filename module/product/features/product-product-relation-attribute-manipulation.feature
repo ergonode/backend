@@ -240,26 +240,6 @@ Feature: Product edit and inheritance value for product product with product rel
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @product_1_id@ |
 
-  Scenario: Get attribute relation product grid with attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_id@?filter=id=@product_1_id@"
-    Then the response status code should be 200
-    And the JSON node "collection[0].attached" should be true
-
-  Scenario: Get attribute relation product grid without attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_id@?filter=id=@product_3_id@"
-    Then the response status code should be 200
-    And the JSON node "collection[0].attached" should be false
-
-  Scenario: Get second attribute relation product grid with attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_2_id@?filter=id=@product_1_id@"
-    Then the response status code should be 200
-    And the JSON node "collection[0].attached" should be false
-
-  Scenario: Get second attribute relation product grid without attached product
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/related/@attribute_2_id@?filter=id=@product_3_id@"
-    Then the response status code should be 200
-    And the JSON node "collection[0].attached" should be false
-
   Scenario: Edit product relation value in "en_GB" language
     When I send a PUT request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@" with body:
       """
