@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductCollectionTypeReadAction
 {
     /**
-     * @IsGranted("PRODUCT_COLLECTION_GET_TYPE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_GET_TYPE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -54,8 +52,8 @@ class ProductCollectionTypeReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(ProductCollectionType $productCollectionType): Response
+    public function __invoke(ProductCollectionType $productCollectionType): ProductCollectionType
     {
-        return new SuccessResponse($productCollectionType);
+        return $productCollectionType;
     }
 }

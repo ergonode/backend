@@ -14,12 +14,10 @@ use Ergonode\Account\Application\Form\Model\AvatarUploadModel;
 use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -44,7 +42,7 @@ class AvatarChangeAction
     }
 
     /**
-     * @IsGranted("ACCOUNT_POST_AVATAR")
+     * @IsGranted("ERGONODE_ROLE_ACCOUNT_POST_AVATAR")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -73,7 +71,7 @@ class AvatarChangeAction
      *     description="Success"
      * )
      */
-    public function __invoke(User $user, Request $request): Response
+    public function __invoke(User $user, Request $request): void
     {
         $uploadModel = new AvatarUploadModel();
 
@@ -86,7 +84,5 @@ class AvatarChangeAction
         } else {
             throw new FormValidationHttpException($form);
         }
-
-        return new EmptyResponse();
     }
 }

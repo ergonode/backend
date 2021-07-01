@@ -93,7 +93,7 @@ Feature: Product edit and inheritance value for product product with numeric att
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
@@ -139,7 +139,7 @@ Feature: Product edit and inheritance value for product product with numeric att
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
@@ -175,7 +175,7 @@ Feature: Product edit and inheritance value for product product with numeric att
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"

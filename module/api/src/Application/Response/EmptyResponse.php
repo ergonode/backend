@@ -11,6 +11,9 @@ namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @deprecated
+ */
 class EmptyResponse extends AbstractResponse
 {
     /**
@@ -19,6 +22,12 @@ class EmptyResponse extends AbstractResponse
      */
     public function __construct($data = null, array $headers = [])
     {
+        @trigger_error(
+            'Ergonode\Api\Application\Response\CreatedResponse is deprecated and will be removed in 2.0.'
+                .' Return `void` or `null` from your controller instead.',
+            \E_USER_DEPRECATED,
+        );
+
         parent::__construct($data, Response::HTTP_NO_CONTENT, $headers);
     }
 }

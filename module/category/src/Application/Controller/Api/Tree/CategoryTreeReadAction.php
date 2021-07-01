@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -28,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryTreeReadAction
 {
     /**
-     * @IsGranted("CATEGORY_GET_TREE")
+     * @IsGranted("ERGONODE_ROLE_CATEGORY_GET_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(
@@ -62,8 +60,8 @@ class CategoryTreeReadAction
      *     description="Not found"
      * )
      */
-    public function __invoke(CategoryTree $tree, Language $language): Response
+    public function __invoke(CategoryTree $tree, Language $language): CategoryTree
     {
-        return new SuccessResponse($tree);
+        return $tree;
     }
 }

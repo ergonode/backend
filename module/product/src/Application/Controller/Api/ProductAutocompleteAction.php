@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -72,15 +70,13 @@ class ProductAutocompleteAction
      *     description="Return products",
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): array
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->productQuery->autocomplete($search, $limit, $field, $order);
-
-        return new SuccessResponse($data);
+        return $this->productQuery->autocomplete($search, $limit, $field, $order);
     }
 }

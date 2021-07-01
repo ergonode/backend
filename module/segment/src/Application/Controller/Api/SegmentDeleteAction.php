@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipTypeMessageBuilder;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -48,7 +46,7 @@ class SegmentDeleteAction
     }
 
     /**
-     * @IsGranted("SEGMENT_DELETE")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_DELETE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -78,7 +76,7 @@ class SegmentDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(Segment $segment): Response
+    public function __invoke(Segment $segment): void
     {
         $relationships = $this->relationshipsResolver->resolve($segment->getId());
         if (null !== $relationships) {
@@ -87,7 +85,5 @@ class SegmentDeleteAction
 
         $command = new DeleteSegmentCommand($segment->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

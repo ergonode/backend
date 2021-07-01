@@ -137,7 +137,7 @@ Feature: Segment module
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
 
   Scenario: Create condition set

@@ -10,13 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,7 +53,7 @@ class AttributeChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_PUT")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_PUT")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -95,7 +93,7 @@ class AttributeChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, Request $request): Response
+    public function __invoke(AbstractAttribute $attribute, Request $request): void
     {
         $formClass = $this->formProvider->provide($attribute->getType());
 
@@ -107,7 +105,7 @@ class AttributeChangeAction
                 $command = $this->factoryProvider->provide($attribute->getType())->create($attribute->getId(), $form);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return;
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

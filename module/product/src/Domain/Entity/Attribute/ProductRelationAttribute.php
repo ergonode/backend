@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 
 class ProductRelationAttribute extends AbstractCollectionAttribute
 {
+    public const MAX_RELATIONS = 100;
     public const TYPE = 'PRODUCT_RELATION';
 
     public function getType(): string

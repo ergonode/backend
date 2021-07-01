@@ -147,7 +147,7 @@ Feature: Variable product available children grid feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Add product 1 option value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -171,7 +171,7 @@ Feature: Variable product available children grid feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Add product 2 option value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -195,7 +195,7 @@ Feature: Variable product available children grid feature
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Add children to variable product 1
     When I send a POST request to "/api/v1/en_GB/products/@variable_product_1_id@/children" with body:

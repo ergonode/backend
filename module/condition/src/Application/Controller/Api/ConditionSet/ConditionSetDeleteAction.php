@@ -9,13 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -75,7 +73,7 @@ class ConditionSetDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(ConditionSet $conditionSet): Response
+    public function __invoke(ConditionSet $conditionSet): void
     {
         $relationships = $this->relationshipsResolver->resolve($conditionSet->getId());
         if (null !== $relationships) {
@@ -84,7 +82,5 @@ class ConditionSetDeleteAction
 
         $command = new DeleteConditionSetCommand($conditionSet->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

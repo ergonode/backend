@@ -22,6 +22,12 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: -127 }
 
+    Ergonode\Api\Application\HttpKernel\Controller\DTOInputValueResolver:
+        arguments:
+            $formatsMap:
+                # TODO consider using framework.request.format instead to be more consistent across project
+                application/json: json
+
     Ergonode\Api\Application\Mapper\ExceptionMapper:
         arguments:
             $map: '%ergonode_api.exceptions%'

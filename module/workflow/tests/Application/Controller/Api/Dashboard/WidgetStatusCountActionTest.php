@@ -46,7 +46,7 @@ class WidgetStatusCountActionTest extends TestCase
 
         $this->assertEquals(
             ['status data'],
-            $response->getContent(),
+            $response,
         );
     }
 }

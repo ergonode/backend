@@ -8,10 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Application\Provider\ChannelTypeDictionaryProvider;
 
@@ -45,10 +43,8 @@ class ChannelTypeDictionaryAction
      *     description="Returns export profile dictionary",
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $dictionary = $this->provider->provide($language);
-
-        return new SuccessResponse($dictionary);
+        return $this->provider->provide($language);
     }
 }

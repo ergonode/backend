@@ -108,7 +108,6 @@ ruleset:
     - EventSourcing
     - SharedKernel
   Completeness:
-    - Api
     - Attribute
     - Core
     - EventSourcing
@@ -116,9 +115,7 @@ ruleset:
     - SharedKernel
   Core:
     - Api
-    - Attribute # todo to remove
     - EventSourcing
-    - Product # todo to remove
     - SharedKernel
   Importer:
     - Api

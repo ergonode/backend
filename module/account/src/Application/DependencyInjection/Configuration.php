@@ -25,6 +25,10 @@ final class Configuration implements ConfigurationInterface
                     ->variableNode('hosts')
                         ->isRequired()
                     ->end()
+                    ->booleanNode('default_flysystem_config')
+                        ->defaultTrue()
+                        ->info('Disabled Flysystem configuration defaulting to `local` adapter')
+                    ->end()
                 ->end()
             ->end();
 

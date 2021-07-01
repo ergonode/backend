@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
@@ -21,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -53,7 +51,7 @@ class AttributeValidationAction
      *     }
      * )
      *
-     * @IsGranted("PRODUCT_ATTRIBUTE_POST_VALIDATION")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_POST_VALIDATION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -93,7 +91,7 @@ class AttributeValidationAction
         Language $language,
         AbstractAttribute $attribute,
         Request $request
-    ): Response {
+    ): array {
         $value = $request->request->get('value');
         $value = $value === '' ? null : $value;
         $aggregateId = null;
@@ -116,7 +114,7 @@ class AttributeValidationAction
 
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
-            return new SuccessResponse(['value' => $value]);
+            return ['value' => $value];
         }
 
         throw new ViolationsHttpException($violations);

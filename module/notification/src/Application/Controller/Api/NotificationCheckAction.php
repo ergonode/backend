@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -49,11 +47,10 @@ class NotificationCheckAction
      *
      * @throws \Exception
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
         $user = $this->userProvider->provide();
-        $result = $this->query->check($user->getId());
 
-        return new SuccessResponse($result);
+        return $this->query->check($user->getId());
     }
 }

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Limenius\Liform\Liform;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -43,7 +42,7 @@ class ChannelTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_CONFIGURATION_GRID")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_CONFIGURATION_GRID")
      *
      * @SWG\Tag(name="Channel")
      *
@@ -79,6 +78,6 @@ class ChannelTypeConfigurationAction
 
         $result = json_encode($this->liForm->transform($form), JSON_THROW_ON_ERROR, 512);
 
-        return new SuccessResponse($result);
+        return new Response($result);
     }
 }

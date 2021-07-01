@@ -12,7 +12,7 @@ namespace Ergonode\Attribute\Domain\Query;
 interface CurrencyQueryInterface
 {
     /**
-     * @return array
+     * @return array<string,string>
      */
     public function getDictionary(): array;
 }

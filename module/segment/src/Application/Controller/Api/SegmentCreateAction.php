@@ -10,18 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Application\Form\CreateSegmentForm;
 use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
@@ -41,7 +40,7 @@ class SegmentCreateAction
     }
 
     /**
-     * @IsGranted("SEGMENT_POST")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_POST")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -67,11 +66,9 @@ class SegmentCreateAction
      *     description="Not found",
      * )
      *
-     *
-     *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): SegmentId
     {
         $form = $this->formFactory->create(CreateSegmentForm::class);
         $form->handleRequest($request);
@@ -88,7 +85,7 @@ class SegmentCreateAction
             );
             $this->commandBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return $command->getId();
         }
 
         throw new FormValidationHttpException($form);

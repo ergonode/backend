@@ -117,7 +117,7 @@ Feature: Product edit and inheritance value for product product with file attrib
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product file value in "en_GB" language (batch endpoint) (value not an array)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -141,7 +141,7 @@ Feature: Product edit and inheritance value for product product with file attrib
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product file value in "en_GB" language (batch endpoint) (value not uuid)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -208,7 +208,7 @@ Feature: Product edit and inheritance value for product product with file attrib
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Remove value for "pl_PL" language
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"

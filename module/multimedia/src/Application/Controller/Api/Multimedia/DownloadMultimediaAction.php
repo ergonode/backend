@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Ergonode\Api\Application\Response\FileContentResponse;
+use Ergonode\Core\Application\HttpFoundation\FileContentResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -35,7 +35,7 @@ class DownloadMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_GET_DOWNLOAD")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET_DOWNLOAD")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

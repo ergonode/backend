@@ -56,14 +56,14 @@ class PostGridConfiguration implements GridConfigurationInterface
 
             $column = $filter['column'];
             $operator = $filter['operator'];
-            $value = $filter['value'] ?? null;
+            $value = $filter['value'] ? (string) $filter['value']: null;
             $language = array_key_exists('language', $filter) ? new Language($filter['language']) : null;
             $key = $filter['column'];
             if ($language) {
                 $key = sprintf('%s:%s', $key, $language->getCode());
             }
 
-            $this->filters->addFilter($column, new FilterValue($column, $operator, $value, $language));
+            $this->filters->addFilter($key, new FilterValue($column, $operator, $value, $language));
             $this->columns[$key] = new RequestColumn($column, $language, false);
         }
 

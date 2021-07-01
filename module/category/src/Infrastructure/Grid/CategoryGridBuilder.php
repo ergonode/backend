@@ -39,18 +39,18 @@ class CategoryGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_category_read',
                     'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
-                    'privilege' => 'CATEGORY_GET',
+                    'privilege' => 'ERGONODE_ROLE_CATEGORY_GET',
                 ],
                 'edit' => [
                     'route' => 'ergonode_category_change',
                     'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
-                    'privilege' => 'CATEGORY_PUT',
+                    'privilege' => 'ERGONODE_ROLE_CATEGORY_PUT',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_category_delete',
                     'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
-                    'privilege' => 'CATEGORY_DELETE',
+                    'privilege' => 'ERGONODE_ROLE_CATEGORY_DELETE',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]))

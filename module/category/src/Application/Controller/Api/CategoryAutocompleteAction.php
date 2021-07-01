@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -73,15 +71,13 @@ class CategoryAutocompleteAction
      *     description="Return categories",
      * )
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Language $language, Request $request): array
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->categoryQuery->autocomplete($language, $search, $limit, $field, $order);
-
-        return new SuccessResponse($data);
+        return $this->categoryQuery->autocomplete($language, $search, $limit, $field, $order);
     }
 }

@@ -154,7 +154,7 @@ Feature: Product edit and inheritance value for product product with text attrib
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product values in "de_DE" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"

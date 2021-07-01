@@ -73,7 +73,7 @@ class AssociatedProductAvailableChildrenGridBuilder implements GridBuilderInterf
         }
         $grid->addColumn('_links', new LinkColumn('hal', [
             'delete' => [
-                'privilege' => 'PRODUCT_DELETE_RELATIONS_CHILD',
+                'privilege' => 'ERGONODE_ROLE_PRODUCT_DELETE_RELATIONS_CHILD',
                 'route' => 'ergonode_product_child_remove',
                 'parameters' => [
                     'language' => $language->getCode(),

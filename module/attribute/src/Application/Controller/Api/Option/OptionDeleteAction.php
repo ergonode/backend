@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
@@ -18,7 +17,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,7 +50,7 @@ class OptionDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE_OPTION")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_DELETE_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -87,7 +85,7 @@ class OptionDeleteAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
+    public function __invoke(AbstractAttribute $attribute, AbstractOption $option): void
     {
         $relations = $this->relationshipsResolver->resolve($option->getId());
         if (null !== $relations) {
@@ -96,7 +94,5 @@ class OptionDeleteAction
         $command = new DeleteOptionCommand($option->getId(), $attribute->getId());
 
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

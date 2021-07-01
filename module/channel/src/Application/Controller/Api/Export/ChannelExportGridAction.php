@@ -11,12 +11,10 @@ namespace Ergonode\Channel\Application\Controller\Api\Export;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
@@ -53,7 +51,7 @@ class ChannelExportGridAction
     }
 
     /**
-     * @IsGranted("CHANNEL_GET_EXPORT_GRID")
+     * @IsGranted("ERGONODE_ROLE_CHANNEL_GET_EXPORT_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
@@ -122,12 +120,10 @@ class ChannelExportGridAction
         Language $language,
         AbstractChannel $channel,
         RequestGridConfiguration $configuration
-    ): Response {
+    ): array {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->query->getGridQuery($channel->getId(), $language));
 
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
-
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

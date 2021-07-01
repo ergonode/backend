@@ -11,6 +11,9 @@ namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @deprecated
+ */
 class AcceptedResponse extends AbstractResponse
 {
     /**
@@ -19,6 +22,12 @@ class AcceptedResponse extends AbstractResponse
      */
     public function __construct($data = null, array $headers = [])
     {
+        @trigger_error(
+            'Ergonode\Api\Application\Response\AcceptedResponse is deprecated and will be removed in 2.0.'
+                .' Use Symfony\Component\HttpFoundation\Response instead.',
+            \E_USER_DEPRECATED,
+        );
+
         parent::__construct($data, Response::HTTP_ACCEPTED, $headers);
     }
 }

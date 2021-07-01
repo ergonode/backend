@@ -55,12 +55,12 @@ class AccountGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_account_user_read',
                     'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                    'privilege' => 'ACCOUNT_GET',
+                    'privilege' => 'ERGONODE_ROLE_ACCOUNT_GET',
                 ],
                 'edit' => [
                     'route' => 'ergonode_account_user_change',
                     'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                    'privilege' => 'ACCOUNT_PUT',
+                    'privilege' => 'ERGONODE_ROLE_ACCOUNT_PUT',
                     'method' => Request::METHOD_PUT,
                 ],
             ]));

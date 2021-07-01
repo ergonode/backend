@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Infrastructure\Provider\DateFormatProvider;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -42,8 +40,8 @@ class DateFormatReadAction
      *     description="Returns collection of available date formats",
      * )
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
-        return new SuccessResponse($this->dateFormatProvider->dictionary());
+        return $this->dateFormatProvider->dictionary();
     }
 }

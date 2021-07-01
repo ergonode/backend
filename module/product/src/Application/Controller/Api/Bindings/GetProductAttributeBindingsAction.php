@@ -9,14 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -36,7 +34,7 @@ class GetProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_BINDING")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -58,10 +56,8 @@ class GetProductAttributeBindingsAction extends AbstractController
      *     description="Returns list of binded attributes",
      * )
      */
-    public function __invoke(Language $language, AbstractProduct $product): Response
+    public function __invoke(Language $language, AbstractProduct $product): array
     {
-        $result = $this->query->getBindings($product->getId());
-
-        return new SuccessResponse($result);
+        return $this->query->getBindings($product->getId());
     }
 }

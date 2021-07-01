@@ -8,10 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api\Notification;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -42,10 +40,8 @@ class BatchActionNotificationAction
      *     description="Returns batch action information",
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $data = $this->query->getProfileInfo();
-
-        return new SuccessResponse($data);
+        return $this->query->getProfileInfo();
     }
 }

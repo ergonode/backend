@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -48,7 +46,7 @@ class AttributeGroupDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE_GROUP")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_DELETE_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -78,7 +76,7 @@ class AttributeGroupDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(AttributeGroup $attributeGroup): Response
+    public function __invoke(AttributeGroup $attributeGroup): void
     {
         $relationships = $this->relationshipsResolver->resolve($attributeGroup->getId());
         if (null !== $relationships) {
@@ -87,7 +85,5 @@ class AttributeGroupDeleteAction
 
         $command = new DeleteAttributeGroupCommand($attributeGroup->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

@@ -19,14 +19,21 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Importer\Infrastructure\Exception\MaxImportedRelationsExceededException;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class ImportProductRelationAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     private ProductQueryInterface $productQuery;
 
-    public function __construct(ProductQueryInterface $productQuery)
-    {
+    private int $maxRelations;
+
+    public function __construct(
+        ProductQueryInterface $productQuery,
+        int $maxRelations = ProductRelationAttribute::MAX_RELATIONS
+    ) {
         $this->productQuery = $productQuery;
+        $this->maxRelations = $maxRelations;
     }
 
     public function supported(AttributeType $type): bool
@@ -44,6 +51,15 @@ class ImportProductRelationAttributeStrategy implements ImportProductAttributeSt
             $skuValues = explode(',', $valueByLanguage);
 
             if ($skuValues) {
+                $current = count($skuValues);
+                if ($current > $this->maxRelations) {
+                    throw new MaxImportedRelationsExceededException(
+                        $code,
+                        new Language($language),
+                        $current,
+                        $this->maxRelations
+                    );
+                }
                 $productIds = [];
                 foreach ($skuValues as $skuValue) {
                     $sku = new Sku($skuValue);

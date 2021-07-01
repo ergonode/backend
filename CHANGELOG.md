@@ -1,5 +1,8 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)
+- refactor [#1487](https://github.com/ergonode/backend/issues/1487) Change Security Role Voter (wfajczyk)
+- refactor [#1484](https://github.com/ergonode/backend/issues/1484) ViewEvent HTTP response handling (piotrkreft)
 - feature [#1472](https://github.com/ergonode/backend/issues/1472) Grid filter extension(wfajczyk)
 - tests [#1468](https://github.com/ergonode/backend/issues/1468) Database transactions on Behat features (piotrkreft)
 - bugfix [#1450](https://github.com/ergonode/backend/issues/1450) Low product collection column query performance for product grid (rprzedzik)
@@ -14,6 +17,8 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.2
+- bugfix [#1489](https://github.com/ergonode/backend/issues/1489) Removed local cache attribute decorators (piotrkreft)
+- bugfix [#1478](https://github.com/ergonode/backend/issues/1478) Allowed to override default storages (piotrkreft)
 - bugfix [#1473](https://github.com/ergonode/backend/issues/1473) Error on import previously deleted products (rprzedzik)
 - bugfix [#1460](https://github.com/ergonode/backend/issues/1460) handle escaping newlines on CSV export/import (kardi31)
 

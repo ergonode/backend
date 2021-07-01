@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Application\Form\Type;
+namespace Ergonode\Attribute\Application\Form\Type;
 
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
 use Symfony\Component\Form\AbstractType;

@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -43,10 +41,8 @@ class AttributeGroupReadAction
      *     description="Returns collection attribute groups"
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $types = $this->attributeGroupQuery->getAttributeGroups($language);
-
-        return new SuccessResponse($types);
+        return $this->attributeGroupQuery->getAttributeGroups($language);
     }
 }

@@ -9,12 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -41,11 +38,8 @@ class ProfileReadAction
      *     description="Returns information about current logged user"
      * )
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
-        /** @var User $profile */
-        $profile = $this->query->getProfile($this->userProvider->provide()->getId());
-
-        return new SuccessResponse($profile);
+        return $this->query->getProfile($this->userProvider->provide()->getId());
     }
 }

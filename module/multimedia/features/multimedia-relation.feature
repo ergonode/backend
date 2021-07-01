@@ -75,7 +75,7 @@ Feature: Multimedia relations
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get multimedia relation
     When I send a GET request to "/api/v1/en_GB/multimedia/@multimedia_id@/relation"

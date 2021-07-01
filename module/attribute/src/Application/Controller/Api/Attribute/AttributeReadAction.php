@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,7 +34,7 @@ class AttributeReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GET")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_GET")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -62,12 +60,12 @@ class AttributeReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractAttribute $attribute): Response
+    public function __invoke(AbstractAttribute $attribute): array
     {
         $result = $this->attributeQuery->getAttribute($attribute->getId());
 
         if ($result) {
-            return new SuccessResponse($result);
+            return $result;
         }
 
         throw new NotFoundHttpException();

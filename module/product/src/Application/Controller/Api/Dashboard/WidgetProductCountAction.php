@@ -12,10 +12,8 @@ namespace Ergonode\Product\Application\Controller\Api\Dashboard;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Domain\Query\ProductDashboardQueryInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -35,7 +33,7 @@ class WidgetProductCountAction
     }
 
     /**
-     * @IsGranted("PRODUCT_GET_WIDGET")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_WIDGET")
      *
      * @SWG\Tag(name="Dashboard")
      * @SWG\Parameter(
@@ -50,10 +48,8 @@ class WidgetProductCountAction
      *     description="widget product count information",
      * )
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Language $language, Request $request): array
     {
-        $result = $this->query->getProductCount($language);
-
-        return new SuccessResponse($result);
+        return $this->query->getProductCount($language);
     }
 }

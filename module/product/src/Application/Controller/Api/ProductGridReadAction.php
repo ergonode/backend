@@ -12,7 +12,6 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -23,7 +22,7 @@ use Ergonode\Grid\GridConfigurationInterface;
 class ProductGridReadAction extends ProductGridAction
 {
     /**
-     * @IsGranted("PRODUCT_GET_GRID")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_GRID")
      * @SWG\Get(description="This endpoint is depricated, use `GET /api/v1/{language}/products/grid` instead")
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -93,7 +92,7 @@ class ProductGridReadAction extends ProductGridAction
      *     description="Returns import",
      * )
      */
-    public function __invoke(Language $language, GridConfigurationInterface $configuration): Response
+    public function __invoke(Language $language, GridConfigurationInterface $configuration): array
     {
         return parent::__invoke($language, $configuration);
     }

@@ -11,7 +11,7 @@ Feature: Notification module
 
   Scenario: Mark all notifications
     When I send a POST request to "/api/v1/profile/notifications/mark-all"
-    Then the response status code should be 202
+    Then the response status code should be 204
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:
@@ -95,7 +95,7 @@ Feature: Notification module
 
   Scenario: Mark one notification as read
     When I send a POST request to "/api/v1/profile/notifications/@notification_id@/mark"
-    Then the response status code should be 202
+    Then the response status code should be 204
 
   Scenario: Mark one notification as read (wrong id)
     When I send a POST request to "/api/v1/profile/notifications/not_uid/mark"
@@ -109,7 +109,7 @@ Feature: Notification module
 
   Scenario: Mark all notifications
     When I send a POST request to "/api/v1/profile/notifications/mark-all"
-    Then the response status code should be 202
+    Then the response status code should be 204
 
   Scenario: Check Notifications
     When I send a GET request to "/api/v1/profile/notifications/check"

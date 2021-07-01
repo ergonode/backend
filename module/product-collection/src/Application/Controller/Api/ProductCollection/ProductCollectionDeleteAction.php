@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollection;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -17,7 +16,6 @@ use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -48,7 +46,7 @@ class ProductCollectionDeleteAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_COLLECTION_DELETE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -78,7 +76,7 @@ class ProductCollectionDeleteAction
      *     description="Existing relationships"
      * )
      */
-    public function __invoke(ProductCollection $productCollection): Response
+    public function __invoke(ProductCollection $productCollection): void
     {
         $relations = $this->relationshipsResolver->resolve($productCollection->getId());
         if (null !== $relations) {
@@ -87,7 +85,5 @@ class ProductCollectionDeleteAction
 
         $command = new DeleteProductCollectionCommand($productCollection->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

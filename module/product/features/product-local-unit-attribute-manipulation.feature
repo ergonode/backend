@@ -144,7 +144,7 @@ Feature: Product edit and inheritance value for product product with unit attrib
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product unit value in "en_GB" language (batch endpoint) - wrong value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:

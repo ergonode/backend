@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Application\Provider\WorkflowTypeProvider;
 
 /**
@@ -49,10 +47,9 @@ class WorkflowTypeDictionaryAction
      *     description="Returns workflow types"
      * )
      *
-     *
      * @throws \Exception
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
         $dictionary = [];
         $types = $this->provider->provide();
@@ -60,6 +57,6 @@ class WorkflowTypeDictionaryAction
             $dictionary[$type] = $this->translator->trans($type, [], 'workflow');
         }
 
-        return new SuccessResponse($dictionary);
+        return $dictionary;
     }
 }

@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Entity\Unit;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UnitReadAction
 {
     /**
-     * @IsGranted("CORE_GET_UNIT")
+     * @IsGranted("ERGONODE_ROLE_CORE_GET_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(
@@ -54,8 +52,8 @@ class UnitReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Unit $unit): Response
+    public function __invoke(Unit $unit): Unit
     {
-        return new SuccessResponse($unit);
+        return $unit;
     }
 }

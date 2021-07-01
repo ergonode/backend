@@ -8,14 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Category;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,7 +34,7 @@ class AddProductCategoryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_POST_CATEGORY")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_POST_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      *
@@ -72,11 +70,9 @@ class AddProductCategoryAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(AbstractProduct $product, AbstractCategory $category): Response
+    public function __invoke(AbstractProduct $product, AbstractCategory $category): void
     {
         $command = new AddProductCategoryCommand($product->getId(), $category->getId());
         $this->commandBus->dispatch($command);
-
-        return new EmptyResponse();
     }
 }

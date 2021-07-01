@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Dashboard;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -46,10 +44,8 @@ class WidgetStatusCountAction
      *     description="widget status count information",
      * )
      */
-    public function __invoke(Language $language, Language $workflowLanguage): Response
+    public function __invoke(Language $language, Language $workflowLanguage): array
     {
-        $result = $this->query->getStatusCount($language, $workflowLanguage);
-
-        return new SuccessResponse($result);
+        return $this->query->getStatusCount($language, $workflowLanguage);
     }
 }

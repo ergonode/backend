@@ -78,7 +78,7 @@ Feature: Multi multi select attribute manipulation
         }
       }
       """
-    Then the response status code should be 201
+    Then the response status code should be 200
 
   Scenario: Update option for attribute (existing option)
     And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_id@" with body:

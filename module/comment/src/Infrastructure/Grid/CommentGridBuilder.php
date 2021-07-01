@@ -40,21 +40,21 @@ class CommentGridBuilder implements GridBuilderInterface
             'get' => [
                 'route' => 'ergonode_comment_read',
                 'parameters' => ['language' => $language->getCode(), 'comment' => '{id}'],
-                'privilege' => 'COMMENT_GET',
+                'privilege' => 'ERGONODE_ROLE_COMMENT_GET',
             ],
             'edit' => [
                 'show' => ['author_id' => $userId->getValue()],
                 'route' => 'ergonode_comment_change',
                 'parameters' => ['language' => $language->getCode(), 'comment' => '{id}'],
                 'method' => Request::METHOD_PUT,
-                'privilege' => 'COMMENT_PUT',
+                'privilege' => 'ERGONODE_ROLE_COMMENT_PUT',
             ],
             'delete' => [
                 'show' => ['author_id' => $userId->getValue()],
                 'route' => 'ergonode_comment_delete',
                 'parameters' => ['language' => $language->getCode(), 'comment' => '{id}'],
                 'method' => Request::METHOD_DELETE,
-                'privilege' => 'COMMENT_DELETE',
+                'privilege' => 'ERGONODE_ROLE_COMMENT_DELETE',
             ],
         ];
 

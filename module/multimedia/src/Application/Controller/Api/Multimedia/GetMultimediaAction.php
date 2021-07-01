@@ -12,9 +12,7 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
@@ -27,7 +25,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 class GetMultimediaAction
 {
     /**
-     * @IsGranted("MULTIMEDIA_GET")
+     * @IsGranted("ERGONODE_ROLE_MULTIMEDIA_GET")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
@@ -47,8 +45,8 @@ class GetMultimediaAction
      *
      * @throws \Exception
      */
-    public function __invoke(Multimedia $multimedia): Response
+    public function __invoke(Multimedia $multimedia): Multimedia
     {
-        return new SuccessResponse($multimedia);
+        return $multimedia;
     }
 }

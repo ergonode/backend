@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
 
@@ -42,10 +40,8 @@ class CurrencyReadAction
      *     description="Returns collection of currencies",
      * )
      */
-    public function __invoke(): Response
+    public function __invoke(): array
     {
-        $languages = $this->currencyQuery->getDictionary();
-
-        return new SuccessResponse($languages);
+        return $this->currencyQuery->getDictionary();
     }
 }

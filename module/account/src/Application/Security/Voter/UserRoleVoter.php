@@ -17,6 +17,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
+/**
+ * @deprecated
+ */
 class UserRoleVoter extends Voter
 {
     private RoleRepositoryInterface $repository;
@@ -35,6 +38,10 @@ class UserRoleVoter extends Voter
      */
     public function supports($attribute, $subject): bool
     {
+        if (0 === stripos($attribute, 'ERGONODE_ROLE_')) {
+            return false;
+        }
+
         $privileges = $this->query->getPrivilegesEndPoint();
 
         return in_array($attribute, array_column($privileges, 'name'), true);
@@ -45,6 +52,11 @@ class UserRoleVoter extends Voter
      */
     public function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
+        @trigger_error(
+            'You should use roles starting with ERGONODE_ROLE_*.
+            The current method is deprecated and will not be supported in 2.0.',
+            E_USER_DEPRECATED,
+        );
         /** @var User $user */
         $user = $token->getUser();
         if (!$user instanceof User) {

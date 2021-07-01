@@ -17,9 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Api\Application\Response\EmptyResponse;
 
 /**
  * @Route(
@@ -50,7 +48,7 @@ class DeleteProductsAttributesAction
     }
 
     /**
-     * @IsGranted("PRODUCT_ATTRIBUTES_DELETE")
+     * @IsGranted("ERGONODE_ROLE_PRODUCT_ATTRIBUTES_DELETE")
      *
      * @SWG\Tag(name="Product")
      *
@@ -85,7 +83,7 @@ class DeleteProductsAttributesAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): void
     {
         $form = $this->formFactory->create(
             DeleteProductAttributeCollectionForm::class,
@@ -103,7 +101,7 @@ class DeleteProductsAttributesAction
                 $this->commandBus->dispatch($command);
             }
 
-            return new EmptyResponse();
+            return;
         }
 
         throw new FormValidationHttpException($form);

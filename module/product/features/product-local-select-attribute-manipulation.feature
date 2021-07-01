@@ -171,7 +171,7 @@ Feature: Product edit and inheritance value for product product with select attr
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Edit product select value in "en_GB" language (batch endpoint) (value not an array)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:

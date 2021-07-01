@@ -11,6 +11,9 @@ namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @deprecated
+ */
 class AbstractResponse extends Response
 {
     /**

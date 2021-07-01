@@ -59,7 +59,7 @@ Feature: Product edit and inheritance value with text attribute
           ]
         }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Delete text attribute
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"

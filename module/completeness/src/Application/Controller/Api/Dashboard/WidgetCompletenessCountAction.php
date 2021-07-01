@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Completeness\Application\Controller\Api\Dashboard;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 
@@ -46,10 +44,8 @@ class WidgetCompletenessCountAction
      *     description="widget completeness count information",
      * )
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language): array
     {
-        $result = $this->query->getCompletenessCount($language);
-
-        return new SuccessResponse($result);
+        return $this->query->getCompletenessCount($language);
     }
 }

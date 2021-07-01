@@ -10,10 +10,8 @@ namespace Ergonode\BatchAction\Application\Controller\Api;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -125,11 +123,10 @@ class GetBatchActionEntryGridAction
         Language $language,
         BatchAction $action,
         RequestGridConfiguration $configuration
-    ): Response {
+    ): array {
         $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->dataSetFactory->create($this->query->getGridQuery($action->getId()));
-        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
-        return new SuccessResponse($data);
+        return $this->gridRenderer->render($grid, $configuration, $dataSet);
     }
 }

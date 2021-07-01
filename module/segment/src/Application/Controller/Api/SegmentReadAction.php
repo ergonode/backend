@@ -9,11 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentReadAction
 {
     /**
-     * @IsGranted("SEGMENT_GET")
+     * @IsGranted("ERGONODE_ROLE_SEGMENT_GET")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -52,8 +50,8 @@ class SegmentReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(Segment $segment): Response
+    public function __invoke(Segment $segment): Segment
     {
-        return new SuccessResponse($segment);
+        return $segment;
     }
 }
