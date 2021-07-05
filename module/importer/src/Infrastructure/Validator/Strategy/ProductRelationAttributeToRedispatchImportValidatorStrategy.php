@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-class ProductRelationAttributeToRedispatchImportValidatorStrategy implements AttributeRedispatchImportValidatorStrategyInterface
+class ProductRelationAttributeToRedispatchImportValidatorStrategy implements AttributeToRedispatchImportValidatorStrategyInterface //phpcs:ignore
 {
     private ProductQueryInterface $productQuery;
 

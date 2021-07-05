@@ -12,19 +12,19 @@ namespace Ergonode\Importer\Infrastructure\Validator;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeRedispatchImportValidatorStrategyInterface;
+use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeToRedispatchImportValidatorStrategyInterface;
 use Webmozart\Assert\Assert;
 
 class AttributeToRedispatchImportValidator
 {
     /**
-     * @var AttributeRedispatchImportValidatorStrategyInterface[]
+     * @var AttributeToRedispatchImportValidatorStrategyInterface[]
      */
     private iterable $strategies;
 
     public function __construct(iterable $strategies)
     {
-        Assert::allIsInstanceOf($strategies, AttributeRedispatchImportValidatorStrategyInterface::class);
+        Assert::allIsInstanceOf($strategies, AttributeToRedispatchImportValidatorStrategyInterface::class);
 
         $this->strategies = $strategies;
     }

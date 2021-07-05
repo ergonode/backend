@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-interface AttributeRedispatchImportValidatorStrategyInterface
+interface AttributeToRedispatchImportValidatorStrategyInterface
 {
     public function supported(AttributeType $attributeType): bool;
 
