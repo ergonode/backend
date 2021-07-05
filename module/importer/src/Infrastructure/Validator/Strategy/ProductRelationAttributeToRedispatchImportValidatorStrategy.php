@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-class ProductRelationAttributeImportValidator implements AttributeImportValidatorInterface
+class ProductRelationAttributeToRedispatchImportValidatorStrategy implements AttributeRedispatchImportValidatorStrategyInterface
 {
     private ProductQueryInterface $productQuery;
 
@@ -38,7 +38,6 @@ class ProductRelationAttributeImportValidator implements AttributeImportValidato
             if (!$valueByLanguage) {
                 continue;
             }
-            $skuValues = explode(',', $valueByLanguage);
             $skuValues = array_merge(explode(',', $valueByLanguage), $skuValues);
         }
 

@@ -10,6 +10,7 @@ namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
 use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
+use Ergonode\Importer\Infrastructure\Filter\AttributeToRedispatchImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
@@ -27,22 +28,26 @@ class ImportSimpleProductCommandHandler
 
     private LoggerInterface $logger;
 
-    private AttributeImportFilter $attributeImportFilter;
+    private AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter;
 
     private CommandBusInterface $commandBus;
+
+    private AttributeImportFilter $attributeImportFilter;
 
     public function __construct(
         SimpleProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
-        AttributeImportFilter $attributeImportFilter,
-        CommandBusInterface $commandBus
+        AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter,
+        CommandBusInterface $commandBus,
+        AttributeImportFilter $attributeImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
-        $this->attributeImportFilter = $attributeImportFilter;
+        $this->attributeToRedispatchImportFilter = $attributeToRedispatchImportFilter;
         $this->commandBus = $commandBus;
+        $this->attributeImportFilter = $attributeImportFilter;
     }
 
     public function __invoke(ImportSimpleProductCommand $command): void
@@ -59,8 +64,9 @@ class ImportSimpleProductCommandHandler
                 }
                 $categories[] = new CategoryCode($category);
             }
-            $attributesToRedispatch = $this->attributeImportFilter->filter($command->getAttributes());
-            $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
+            $filteredAttributes = $this->attributeImportFilter->filter($command->getAttributes(), $command->getSku());
+            $attributesToRedispatch = $this->attributeToRedispatchImportFilter->filter($filteredAttributes);
+            $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
                 $command->getTemplate(),

@@ -13,31 +13,29 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Infrastructure\Validator\AttributeImportValidator;
-use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Importer\Infrastructure\Validator\AttributeToRedispatchImportValidator;
 
-class AttributeImportFilter
+class AttributeToRedispatchImportFilter
 {
     private AttributeQueryInterface $attributeQuery;
 
-    private AttributeImportValidator $attributeImportValidator;
+    private AttributeToRedispatchImportValidator $attributeToRedispatchImportValidator;
 
     public function __construct(
         AttributeQueryInterface $attributeQuery,
-        AttributeImportValidator $attributeImportValidator
+        AttributeToRedispatchImportValidator $attributeToRedispatchImportValidator
     ) {
         $this->attributeQuery = $attributeQuery;
-        $this->attributeImportValidator = $attributeImportValidator;
+        $this->attributeToRedispatchImportValidator = $attributeToRedispatchImportValidator;
     }
 
+
     /**
-     * @param TranslatableString[] $attributes
-     *
-     * @return TranslatableString[]
+     * @var TranslatableString[]
      */
-    public function filter(array $attributes, string $skuValue): array
+    public function filter(array $attributes): array
     {
-        $filteredAttributes = [];
+        $attributesToRedispatch = [];
         foreach ($attributes as $codeValue => $attribute) {
             $code = new AttributeCode($codeValue);
             $attributeType = $this->attributeQuery->getAttributeTypeByCode($code);
@@ -49,13 +47,11 @@ class AttributeImportFilter
                 );
             }
 
-            $filteredAttributes[$codeValue] = $this->attributeImportValidator->validate(
-                $attributeType,
-                new Sku($skuValue),
-                $attribute
-            );
+            if (!$this->attributeToRedispatchImportValidator->validate($attributeType, $code, $attribute)) {
+                $attributesToRedispatch[$codeValue] = $attribute;
+            }
         }
 
-        return $filteredAttributes;
+        return $attributesToRedispatch;
     }
 }
