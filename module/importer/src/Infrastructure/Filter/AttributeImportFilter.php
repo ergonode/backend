@@ -38,6 +38,7 @@ class AttributeImportFilter
     public function filter(array $attributes, string $skuValue): array
     {
         $filteredAttributes = [];
+        $sku = new Sku($skuValue);
         foreach ($attributes as $codeValue => $attribute) {
             $code = new AttributeCode($codeValue);
             $attributeType = $this->attributeQuery->getAttributeTypeByCode($code);
@@ -51,7 +52,7 @@ class AttributeImportFilter
 
             $filteredAttributes[$codeValue] = $this->attributeImportValidator->validate(
                 $attributeType,
-                new Sku($skuValue),
+                $sku,
                 $attribute
             );
         }
