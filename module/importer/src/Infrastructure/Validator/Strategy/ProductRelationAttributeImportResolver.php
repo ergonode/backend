@@ -15,14 +15,14 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Product\Domain\Entity\Attribute\ProductRelationAttribute;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-class ProductRelationAttributeImportValidatorStrategy implements AttributeImportValidatorStrategyInterface
+class ProductRelationAttributeImportResolver implements AttributeImportResolverInterface
 {
     public function supported(AttributeType $attributeType): bool
     {
         return $attributeType->getValue() === ProductRelationAttribute::TYPE;
     }
 
-    public function validate(Sku $parentSku, TranslatableString $attribute): TranslatableString
+    public function resolve(Sku $parentSku, TranslatableString $attribute): TranslatableString
     {
         foreach ($attribute->getTranslations() as $language => $valueByLanguage) {
             if (!$valueByLanguage) {

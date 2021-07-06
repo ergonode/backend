@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Filter\AttributeValidationImportFilter;
 use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
-use Ergonode\Importer\Infrastructure\Filter\AttributeToRedispatchImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
@@ -28,26 +28,26 @@ class ImportGroupingProductCommandHandler
 
     private LoggerInterface $logger;
 
-    private AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter;
+    private AttributeImportFilter $attributeImportFilter;
 
     private CommandBusInterface $commandBus;
 
-    private AttributeImportFilter $attributeImportFilter;
+    private AttributeValidationImportFilter $attributeValidationImportFilter;
 
     public function __construct(
         GroupingProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
-        AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter,
+        AttributeImportFilter $attributeToRedispatchImportFilter,
         CommandBusInterface $commandBus,
-        AttributeImportFilter $attributeImportFilter
+        AttributeValidationImportFilter $attributeValidationImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
-        $this->attributeToRedispatchImportFilter = $attributeToRedispatchImportFilter;
+        $this->attributeImportFilter = $attributeToRedispatchImportFilter;
         $this->commandBus = $commandBus;
-        $this->attributeImportFilter = $attributeImportFilter;
+        $this->attributeValidationImportFilter = $attributeValidationImportFilter;
     }
 
     public function __invoke(ImportGroupingProductCommand $command): void
@@ -72,8 +72,8 @@ class ImportGroupingProductCommandHandler
                 }
                 $children[] = new Sku($child);
             }
-            $filteredAttributes = $this->attributeImportFilter->filter($command->getAttributes(), $command->getSku());
-            $attributesToRedispatch = $this->attributeToRedispatchImportFilter->filter($filteredAttributes);
+            $filteredAttributes = $this->attributeValidationImportFilter->filter($command->getAttributes(), $command->getSku());
+            $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
             $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),

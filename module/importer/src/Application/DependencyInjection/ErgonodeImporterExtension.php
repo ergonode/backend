@@ -11,8 +11,8 @@ namespace Ergonode\Importer\Application\DependencyInjection;
 
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductAttributeStrategyInterface;
-use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportValidatorStrategyInterface;
-use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeToRedispatchImportValidatorStrategyInterface;
+use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportResolverInterface;
+use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportValidatorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -69,12 +69,12 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
             ->addTag('ergonode.importer.attribute_strategy');
 
         $container
-            ->registerForAutoconfiguration(AttributeToRedispatchImportValidatorStrategyInterface::class)
-            ->addTag('ergonode.importer.attribute_to_redispatch_validator');
+            ->registerForAutoconfiguration(AttributeImportValidatorInterface::class)
+            ->addTag('ergonode.importer.attribute_validator');
 
         $container
-            ->registerForAutoconfiguration(AttributeImportValidatorStrategyInterface::class)
-            ->addTag('ergonode.importer.attribute_validator');
+            ->registerForAutoconfiguration(AttributeImportResolverInterface::class)
+            ->addTag('ergonode.importer.attribute_resolver');
 
         $loader->load('services.yml');
     }

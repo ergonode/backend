@@ -7,39 +7,40 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Importer\Infrastructure\Validator;
+namespace Ergonode\Importer\Infrastructure\Resolver;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeToRedispatchImportValidatorStrategyInterface;
+use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportResolverInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Webmozart\Assert\Assert;
 
-class AttributeToRedispatchImportValidator
+class AttributeImportResolver
 {
+
     /**
-     * @var AttributeToRedispatchImportValidatorStrategyInterface[]
+     * @var AttributeImportResolverInterface[]
      */
     private iterable $strategies;
 
     public function __construct(iterable $strategies)
     {
-        Assert::allIsInstanceOf($strategies, AttributeToRedispatchImportValidatorStrategyInterface::class);
+        Assert::allIsInstanceOf($strategies, AttributeImportResolverInterface::class);
 
         $this->strategies = $strategies;
     }
 
-    public function validate(
+    public function resolve(
         AttributeType $attributeType,
-        AttributeCode $attributeCode,
+        Sku $sku,
         TranslatableString $attribute
-    ): bool {
+    ): TranslatableString {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supported($attributeType)) {
-                return $strategy->validate($attributeCode, $attribute);
+                return $strategy->resolve($sku, $attribute);
             }
         }
 
-        return true;
+        return $attribute;
     }
 }

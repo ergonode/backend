@@ -14,31 +14,28 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Infrastructure\Validator\AttributeImportValidator;
-use Ergonode\Product\Domain\ValueObject\Sku;
 
 class AttributeImportFilter
 {
     private AttributeQueryInterface $attributeQuery;
 
-    private AttributeImportValidator $attributeImportValidator;
+    private AttributeImportValidator $attributeToRedispatchImportValidator;
 
     public function __construct(
         AttributeQueryInterface $attributeQuery,
-        AttributeImportValidator $attributeImportValidator
+        AttributeImportValidator $attributeToRedispatchImportValidator
     ) {
         $this->attributeQuery = $attributeQuery;
-        $this->attributeImportValidator = $attributeImportValidator;
+        $this->attributeToRedispatchImportValidator = $attributeToRedispatchImportValidator;
     }
 
+
     /**
-     * @param TranslatableString[] $attributes
-     *
-     * @return TranslatableString[]
+     * @var TranslatableString[]
      */
-    public function filter(array $attributes, string $skuValue): array
+    public function filter(array $attributes): array
     {
-        $filteredAttributes = [];
-        $sku = new Sku($skuValue);
+        $attributesToRedispatch = [];
         foreach ($attributes as $codeValue => $attribute) {
             $code = new AttributeCode($codeValue);
             $attributeType = $this->attributeQuery->getAttributeTypeByCode($code);
@@ -50,13 +47,11 @@ class AttributeImportFilter
                 );
             }
 
-            $filteredAttributes[$codeValue] = $this->attributeImportValidator->validate(
-                $attributeType,
-                $sku,
-                $attribute
-            );
+            if (!$this->attributeToRedispatchImportValidator->validate($attributeType, $code, $attribute)) {
+                $attributesToRedispatch[$codeValue] = $attribute;
+            }
         }
 
-        return $filteredAttributes;
+        return $attributesToRedispatch;
     }
 }

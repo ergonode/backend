@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Validator\Strategy;
 
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Product\Domain\ValueObject\Sku;
 
-interface AttributeImportValidatorStrategyInterface
+interface AttributeImportValidatorInterface
 {
     public function supported(AttributeType $attributeType): bool;
 
-    public function validate(Sku $parentSku, TranslatableString $attribute): TranslatableString;
+    public function validate(AttributeCode $code, TranslatableString $attribute): bool;
 }

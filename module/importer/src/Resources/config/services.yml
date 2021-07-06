@@ -54,10 +54,10 @@ services:
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\AttributeTemplateElementBuilderStrategy'
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\LabelTemplateElementBuilderStrategy'
 
-    Ergonode\Importer\Infrastructure\Validator\AttributeToRedispatchImportValidator:
-        arguments:
-            $strategies: !tagged_iterator ergonode.importer.attribute_to_redispatch_validator
-
     Ergonode\Importer\Infrastructure\Validator\AttributeImportValidator:
         arguments:
             $strategies: !tagged_iterator ergonode.importer.attribute_validator
+
+    Ergonode\Importer\Infrastructure\Resolver\AttributeImportResolver:
+        arguments:
+            $strategies: !tagged_iterator ergonode.importer.attribute_resolver

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Filter\AttributeValidationImportFilter;
 use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
-use Ergonode\Importer\Infrastructure\Filter\AttributeToRedispatchImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
@@ -28,26 +28,26 @@ class ImportSimpleProductCommandHandler
 
     private LoggerInterface $logger;
 
-    private AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter;
+    private AttributeImportFilter $attributeImportFilter;
 
     private CommandBusInterface $commandBus;
 
-    private AttributeImportFilter $attributeImportFilter;
+    private AttributeValidationImportFilter $attributeValidationImportFilter;
 
     public function __construct(
         SimpleProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
-        AttributeToRedispatchImportFilter $attributeToRedispatchImportFilter,
+        AttributeImportFilter $attributeImportFilter,
         CommandBusInterface $commandBus,
-        AttributeImportFilter $attributeImportFilter
+        AttributeValidationImportFilter $attributeValidationImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
-        $this->attributeToRedispatchImportFilter = $attributeToRedispatchImportFilter;
-        $this->commandBus = $commandBus;
         $this->attributeImportFilter = $attributeImportFilter;
+        $this->commandBus = $commandBus;
+        $this->attributeValidationImportFilter = $attributeValidationImportFilter;
     }
 
     public function __invoke(ImportSimpleProductCommand $command): void
@@ -64,8 +64,8 @@ class ImportSimpleProductCommandHandler
                 }
                 $categories[] = new CategoryCode($category);
             }
-            $filteredAttributes = $this->attributeImportFilter->filter($command->getAttributes(), $command->getSku());
-            $attributesToRedispatch = $this->attributeToRedispatchImportFilter->filter($filteredAttributes);
+            $filteredAttributes = $this->attributeValidationImportFilter->filter($command->getAttributes(), $command->getSku());
+            $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
             $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
