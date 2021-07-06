@@ -64,7 +64,10 @@ class ImportSimpleProductCommandHandler
                 }
                 $categories[] = new CategoryCode($category);
             }
-            $filteredAttributes = $this->attributeValidationImportFilter->filter($command->getAttributes(), $command->getSku());
+            $filteredAttributes = $this->attributeValidationImportFilter->filter(
+                $command->getAttributes(),
+                $command->getSku()
+            );
             $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
             $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(

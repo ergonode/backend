@@ -72,7 +72,10 @@ class ImportGroupingProductCommandHandler
                 }
                 $children[] = new Sku($child);
             }
-            $filteredAttributes = $this->attributeValidationImportFilter->filter($command->getAttributes(), $command->getSku());
+            $filteredAttributes = $this->attributeValidationImportFilter->filter(
+                $command->getAttributes(),
+                $command->getSku()
+            );
             $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
             $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
             $product = $this->action->action(
