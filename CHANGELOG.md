@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- feature [#1504](https://github.com/ergonode/backend/issues/1504) Possibility of adding product itself as product relation (wiewiurdp)
 - feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)
 - refactor [#1487](https://github.com/ergonode/backend/issues/1487) Change Security Role Voter (wfajczyk)
 - refactor [#1484](https://github.com/ergonode/backend/issues/1484) ViewEvent HTTP response handling (piotrkreft)
