@@ -38,14 +38,14 @@ class ImportGroupingProductCommandHandler
         GroupingProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
-        AttributeImportFilter $attributeToRedispatchImportFilter,
+        AttributeImportFilter $attributeImportFilter,
         CommandBusInterface $commandBus,
         AttributeValidationImportFilter $attributeValidationImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
-        $this->attributeImportFilter = $attributeToRedispatchImportFilter;
+        $this->attributeImportFilter = $attributeImportFilter;
         $this->commandBus = $commandBus;
         $this->attributeValidationImportFilter = $attributeValidationImportFilter;
     }

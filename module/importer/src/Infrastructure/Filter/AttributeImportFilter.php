@@ -19,14 +19,14 @@ class AttributeImportFilter
 {
     private AttributeQueryInterface $attributeQuery;
 
-    private AttributeImportValidator $attributeToRedispatchImportValidator;
+    private AttributeImportValidator $attributeImportValidator;
 
     public function __construct(
         AttributeQueryInterface $attributeQuery,
-        AttributeImportValidator $attributeToRedispatchImportValidator
+        AttributeImportValidator $attributeImportValidator
     ) {
         $this->attributeQuery = $attributeQuery;
-        $this->attributeToRedispatchImportValidator = $attributeToRedispatchImportValidator;
+        $this->attributeImportValidator = $attributeImportValidator;
     }
 
 
@@ -47,7 +47,7 @@ class AttributeImportFilter
                 );
             }
 
-            if (!$this->attributeToRedispatchImportValidator->validate($attributeType, $code, $attribute)) {
+            if (!$this->attributeImportValidator->validate($attributeType, $code, $attribute)) {
                 $attributesToRedispatch[$codeValue] = $attribute;
             }
         }
