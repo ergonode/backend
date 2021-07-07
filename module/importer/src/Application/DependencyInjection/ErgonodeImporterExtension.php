@@ -11,6 +11,7 @@ namespace Ergonode\Importer\Application\DependencyInjection;
 
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductAttributeStrategyInterface;
+use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportResolverInterface;
 use Ergonode\Importer\Infrastructure\Validator\Strategy\AttributeImportValidatorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -70,6 +71,10 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(AttributeImportValidatorInterface::class)
             ->addTag('ergonode.importer.attribute_validator');
+
+        $container
+            ->registerForAutoconfiguration(AttributeImportResolverInterface::class)
+            ->addTag('ergonode.importer.attribute_resolver');
 
         $loader->load('services.yml');
     }

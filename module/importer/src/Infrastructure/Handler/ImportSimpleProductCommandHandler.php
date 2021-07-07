@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Filter\AttributeValidationImportFilter;
 use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
@@ -31,18 +32,22 @@ class ImportSimpleProductCommandHandler
 
     private CommandBusInterface $commandBus;
 
+    private AttributeValidationImportFilter $attributeValidationImportFilter;
+
     public function __construct(
         SimpleProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
         AttributeImportFilter $attributeImportFilter,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        AttributeValidationImportFilter $attributeValidationImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
         $this->attributeImportFilter = $attributeImportFilter;
         $this->commandBus = $commandBus;
+        $this->attributeValidationImportFilter = $attributeValidationImportFilter;
     }
 
     public function __invoke(ImportSimpleProductCommand $command): void
@@ -59,8 +64,12 @@ class ImportSimpleProductCommandHandler
                 }
                 $categories[] = new CategoryCode($category);
             }
-            $attributesToRedispatch = $this->attributeImportFilter->filter($command->getAttributes());
-            $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
+            $filteredAttributes = $this->attributeValidationImportFilter->filter(
+                $command->getAttributes(),
+                $command->getSku()
+            );
+            $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
+            $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
                 $command->getTemplate(),

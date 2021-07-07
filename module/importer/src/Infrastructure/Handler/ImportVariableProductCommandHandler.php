@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\Attribute\ImportProductAttributesValueCommand;
+use Ergonode\Importer\Infrastructure\Filter\AttributeValidationImportFilter;
 use Ergonode\Importer\Infrastructure\Filter\AttributeImportFilter;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
@@ -32,18 +33,22 @@ class ImportVariableProductCommandHandler
 
     private CommandBusInterface $commandBus;
 
+    private AttributeValidationImportFilter $attributeValidationImportFilter;
+
     public function __construct(
         VariableProductImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger,
         AttributeImportFilter $attributeImportFilter,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        AttributeValidationImportFilter $attributeValidationImportFilter
     ) {
         $this->action = $action;
         $this->repository = $repository;
         $this->logger = $logger;
         $this->attributeImportFilter = $attributeImportFilter;
         $this->commandBus = $commandBus;
+        $this->attributeValidationImportFilter = $attributeValidationImportFilter;
     }
 
     public function __invoke(ImportVariableProductCommand $command): void
@@ -76,7 +81,11 @@ class ImportVariableProductCommandHandler
                 }
                 $bindings[] = new AttributeCode($binding);
             }
-            $attributesToRedispatch = $this->attributeImportFilter->filter($command->getAttributes());
+            $filteredAttributes = $this->attributeValidationImportFilter->filter(
+                $command->getAttributes(),
+                $command->getSku()
+            );
+            $attributesToRedispatch = $this->attributeImportFilter->filter($filteredAttributes);
             $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),

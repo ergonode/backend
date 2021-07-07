@@ -25,6 +25,9 @@ Product:
 
 Importer:
 * Endpoint `[PUT] /api/v1/{language}/sources/{source}` returns 200 instead of 201
+* Class `ImportSimpleProductCommandHandler` constructor has changed
+* Class `ImportGroupingProductCommandHandler` constructor has changed
+* Class `ImportVariableProductCommandHandler` constructor has changed
 
 Notification
 * Endpoint `[POST] /api/v1/profile/notifications/mark-all` returns 204 instead of 202

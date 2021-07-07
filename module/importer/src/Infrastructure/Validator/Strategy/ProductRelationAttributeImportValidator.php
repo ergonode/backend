@@ -38,7 +38,6 @@ class ProductRelationAttributeImportValidator implements AttributeImportValidato
             if (!$valueByLanguage) {
                 continue;
             }
-            $skuValues = explode(',', $valueByLanguage);
             $skuValues = array_merge(explode(',', $valueByLanguage), $skuValues);
         }
 
