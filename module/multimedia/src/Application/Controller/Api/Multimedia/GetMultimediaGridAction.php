@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -29,7 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GetMultimediaGridAction
 {
-    private MultimediaGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private MultimediaGridQueryInterface $query;
 
@@ -38,7 +39,7 @@ class GetMultimediaGridAction
     private GridRenderer $renderer;
 
     public function __construct(
-        MultimediaGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         MultimediaGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $renderer
