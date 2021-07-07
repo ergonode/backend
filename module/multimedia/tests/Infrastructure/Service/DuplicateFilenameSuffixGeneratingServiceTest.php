@@ -42,18 +42,14 @@ class DuplicateFilenameSuffixGeneratingServiceTest extends TestCase
                 'expected' => 'Zut0cqgECIl0WO3c(123)',
             ],
             [
-                'name' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYo
-                FKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQttFoEfM',
+                'name' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQttFoEfM',// phpcs:ignore
                 'iterationIndex' => 2,
-                'expected' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGr
-                YoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQtt(2)',
+                'expected' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQtt(2)',// phpcs:ignore
             ],
             [
-                'name' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYoFKX
-                ZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQttFoEfM',
+                'name' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQttFoEfM',// phpcs:ignore
                 'iterationIndex' => 123,
-                'expected' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGr
-                YoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQ(123)',
+                'expected' => 'VmtFB8y7FbvnBNx1KGXgk0Esm7E1HIC7RL1yjpwpPK32OsRBuJzpeGrYoFKXZcNEidAUSLTMBBPrbyarwVhb0rfHNylDMVeLGa7ODk0VQcekgC8zPUjpnjHoskQ(123)',// phpcs:ignore
             ],
         ];
     }
