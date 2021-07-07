@@ -14,7 +14,6 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface;
-use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
