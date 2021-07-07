@@ -16,8 +16,8 @@ class DuplicateFilenameSuffixGeneratingService implements SuffixGeneratingServic
     public function generateSuffix(string $name, int $iterationIndex): string
     {
         $suffix = '('.$iterationIndex.')';
-        if (strlen($name) > (self::MAX_LENGTH - 3)) {
-            return substr($name, 0, self::MAX_LENGTH - 3).$suffix;
+        if (strlen($name) > (self::MAX_LENGTH - strlen($suffix))) {
+            return substr($name, 0, self::MAX_LENGTH - strlen($suffix)).$suffix;
         }
 
         return $name.$suffix;
