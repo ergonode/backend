@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Multimedia\Infrastructure\Service;
+namespace Ergonode\Multimedia\Application\Service;
 
 interface SuffixGeneratingServiceInterface
 {

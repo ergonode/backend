@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Multimedia\Infrastructure\Service;
+namespace Ergonode\Multimedia\Application\Service;
 
 class DuplicateFilenameSuffixGeneratingService implements SuffixGeneratingServiceInterface
 {
@@ -16,8 +16,8 @@ class DuplicateFilenameSuffixGeneratingService implements SuffixGeneratingServic
     public function generateSuffix(string $name, int $iterationIndex): string
     {
         $suffix = '('.$iterationIndex.')';
-        if (strlen($name) > (self::MAX_LENGTH - strlen($suffix))) {
-            return substr($name, 0, self::MAX_LENGTH - strlen($suffix)).$suffix;
+        if (mb_strlen($name) > (self::MAX_LENGTH - mb_strlen($suffix))) {
+            return mb_substr($name, 0, self::MAX_LENGTH - mb_strlen($suffix)).$suffix;
         }
 
         return $name.$suffix;
