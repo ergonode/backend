@@ -53,6 +53,9 @@ Feature: Multimedia
         "name": "new-name.png",
         "alt": {
           "pl_PL": "pl alt"
+        },
+        "title": {
+          "pl_PL": "pl title"
         }
       }
       """
@@ -62,9 +65,11 @@ Feature: Multimedia
     And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | id        | @multimedia_id@ |
-      | extension | png             |
-      | mime      | image/png       |
+      | id          | @multimedia_id@ |
+      | extension   | png             |
+      | mime        | image/png       |
+      | alt.pl_PL   | pl alt          |
+      | title.pl_PL | pl title        |
 
   Scenario: Update multimedia information
     And I send a PUT request to "api/v1/en_EN/multimedia/@multimedia_id@" with body:
@@ -72,11 +77,24 @@ Feature: Multimedia
       {
         "name": "multimedia-test-image.png",
         "alt": {
-          "pl_PL": "pl alt"
+          "pl_PL": "pl alt 2"
+        },
+        "title": {
+          "pl_PL": "pl title 2"
         }
       }
       """
     Then the response status code should be 204
+
+  Scenario: Get multimedia
+    And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id          | @multimedia_id@ |
+      | extension   | png             |
+      | mime        | image/png       |
+      | alt.pl_PL   | pl alt 2        |
+      | title.pl_PL | pl title 2      |
 
   Scenario: Download multimedia file
     And I send a GET request to "api/v1/multimedia/@multimedia_id@/download"

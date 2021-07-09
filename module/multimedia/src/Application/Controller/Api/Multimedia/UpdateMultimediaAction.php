@@ -76,7 +76,8 @@ class UpdateMultimediaAction
                 $command = new UpdateMultimediaCommand(
                     $multimedia->getId(),
                     $data->name,
-                    new TranslatableString($data->alt)
+                    new TranslatableString($data->alt),
+                    new TranslatableString($data->title),
                 );
 
                 $this->commandBus->dispatch($command);

@@ -34,4 +34,17 @@ class MultimediaModel
      * })
      */
     public array $alt = [];
+
+    /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Length(
+     *       max=125,
+     *       maxMessage="Multimedia title is too long. It should contain {{ limit }} characters or less."
+     *     )
+     * })
+     */
+    public array $title = [];
 }

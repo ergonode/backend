@@ -23,10 +23,12 @@ class UpdateMultimediaCommandTest extends TestCase
         $id = $this->createMock(MultimediaId::class);
         $name = 'any name';
         $alt = $this->createMock(TranslatableString::class);
+        $title = $this->createMock(TranslatableString::class);
 
-        $command = new UpdateMultimediaCommand($id, $name, $alt);
+        $command = new UpdateMultimediaCommand($id, $name, $alt, $title);
         self::assertEquals($id, $command->getId());
         self::assertEquals($name, $command->getName());
         self::assertEquals($alt, $command->getAlt());
+        self::assertEquals($title, $command->getTitle());
     }
 }

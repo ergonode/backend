@@ -16,6 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaTitleChangedEvent;
 
 abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
@@ -35,6 +36,8 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     private Hash $hash;
 
     private TranslatableString $alt;
+
+    private TranslatableString $title;
 
     /**
      * @param int $size The file size in bytes.
@@ -79,6 +82,16 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     /**
      * @throws \Exception
      */
+    public function changeTitle(TranslatableString $title): void
+    {
+        if (!$title->isEqual($this->title)) {
+            $this->apply(new MultimediaTitleChangedEvent($this->id, $title));
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function changeName(string $name): void
     {
         if ($name !== $this->getName()) {
@@ -94,6 +107,11 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     public function getAlt(): TranslatableString
     {
         return $this->alt;
+    }
+
+    public function getTitle(): TranslatableString
+    {
+        return $this->title;
     }
 
     public function getName(): string
@@ -130,11 +148,17 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
         $this->size = $event->getSize();
         $this->hash = $event->getHash();
         $this->alt = new TranslatableString();
+        $this->title = new TranslatableString();
     }
 
     protected function applyMultimediaAltChangedEvent(MultimediaAltChangedEvent $event): void
     {
         $this->alt = $event->getAlt();
+    }
+
+    protected function applyMultimediaTitleChangedEvent(MultimediaTitleChangedEvent $event): void
+    {
+        $this->title = $event->getTitle();
     }
 
     protected function applyMultimediaNameChangedEvent(MultimediaNameChangedEvent $event): void

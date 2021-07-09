@@ -31,6 +31,10 @@ class MultimediaForm extends AbstractType
             ->add(
                 'alt',
                 TranslationType::class
+            )
+            ->add(
+                'title',
+                TranslationType::class
             );
     }
 
