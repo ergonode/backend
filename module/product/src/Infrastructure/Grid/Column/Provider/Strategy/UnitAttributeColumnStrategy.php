@@ -48,6 +48,7 @@ class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
 
         $column = new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
         $column->setSuffix($unit->getSymbol());
+        $column->setExtension('parameters', ['unit' => $unit->getSymbol()]);
 
         return $column;
     }

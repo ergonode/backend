@@ -33,10 +33,14 @@ class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterfac
     {
         $columnKey = $attribute->getCode()->getValue();
 
-        return new TextAreaColumn(
+        $column = new TextAreaColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
             new TextFilter()
         );
+
+        $column->setExtension('parameters', $attribute->getParameters());
+
+        return $column;
     }
 }
