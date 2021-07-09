@@ -26,13 +26,13 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         $this->connection = $connection;
     }
 
-    public function fileExists(Hash $hash): bool
+    public function fileExists(string $name): bool
     {
         $query = $this->getQuery();
         $result = $query
             ->select('id')
-            ->where($query->expr()->eq('hash', ':hash'))
-            ->setParameter(':hash', $hash)
+            ->where($query->expr()->eq('name', ':name'))
+            ->setParameter(':name', $name)
             ->execute()
             ->fetch();
 
