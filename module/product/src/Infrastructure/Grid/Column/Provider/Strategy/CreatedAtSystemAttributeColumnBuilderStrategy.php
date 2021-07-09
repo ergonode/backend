@@ -33,10 +33,14 @@ class CreatedAtSystemAttributeColumnBuilderStrategy implements AttributeColumnSt
     {
         $columnKey = $attribute->getCode()->getValue();
 
-        return new DateTimeColumn(
+        $column = new DateTimeColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
             new DateTimeFilter()
         );
+
+        $column->setExtension('parameters', $attribute->getParameters());
+
+        return $column;
     }
 }
