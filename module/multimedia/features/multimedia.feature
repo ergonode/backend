@@ -19,8 +19,7 @@ Feature: Multimedia
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.png |
-    Then the response status code should be 201
-    And the JSON node "id" should exist
+    Then the response status code should be 400
 
   Scenario: Upload new multimedia file with unsupported extension
     When I send a POST request to "/api/v1/multimedia/upload" with params:
