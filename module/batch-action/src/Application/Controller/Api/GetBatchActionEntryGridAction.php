@@ -116,8 +116,8 @@ class GetBatchActionEntryGridAction
      *     description="Returns batch information",
      * )
      *
-     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction")
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction", name="action")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

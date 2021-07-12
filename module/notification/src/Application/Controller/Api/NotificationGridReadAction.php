@@ -110,7 +110,7 @@ class NotificationGridReadAction
      *     description="Returns notifications",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(RequestGridConfiguration $configuration): array
     {

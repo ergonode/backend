@@ -64,8 +64,7 @@ class ChannelReadAction
      *     description="Not found",
      * )
      *
-     *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
      */
     public function __invoke(AbstractChannel $channel): array
     {

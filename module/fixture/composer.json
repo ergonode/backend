@@ -26,11 +26,11 @@
         "ergonode/shared-kernel": "^1.1.0",
         "ergonode/workflow": "^1.1.0",
         "nelmio/alice": "^3.5",
-        "symfony/config": "^4.4",
-        "symfony/console": "^4.4",
-        "symfony/dependency-injection": "^4.4",
-        "symfony/http-kernel": "^4.4",
-        "symfony/yaml": "^4.4"
+        "symfony/config": "^4.4|^5.3",
+        "symfony/console": "^4.4|^5.3",
+        "symfony/dependency-injection": "^4.4|^5.3",
+        "symfony/http-kernel": "^4.4|^5.3",
+        "symfony/yaml": "^4.4|^5.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"

@@ -113,7 +113,7 @@ class AccountReadAction
      *     description="Returns accounts log collection"
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(RequestGridConfiguration $configuration): array
     {

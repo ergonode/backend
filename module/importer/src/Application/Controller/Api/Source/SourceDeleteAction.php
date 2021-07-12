@@ -77,9 +77,7 @@ class SourceDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     *
-     *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource", name="source")
      *
      * @throws \Exception
      */

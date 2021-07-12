@@ -7,12 +7,12 @@
          colors="true"
          bootstrap="tests/bootstrap.php"
          verbose="true"
-         failOnWarning="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="max[direct]=10000&#038;max[indirect]=999999&#038;max[self]=999999&#038;verbose=1" />
     </php>
 
     <testsuites>

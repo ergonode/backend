@@ -36,7 +36,7 @@ class CategoryCodeValidator extends ConstraintValidator
         $value = trim((string) $value);
         if (mb_strlen($value) > $constraint->max) {
             $this->context->buildViolation($constraint->maxMessage)
-                ->setParameter('{{ limit }}', $constraint->max)
+                ->setParameter('{{ limit }}', (string) $constraint->max)
                 ->addViolation();
 
             return;
@@ -44,7 +44,7 @@ class CategoryCodeValidator extends ConstraintValidator
 
         if (mb_strlen($value) < $constraint->min) {
             $this->context->buildViolation($constraint->minMessage)
-                ->setParameter('{{ limit }}', $constraint->min)
+                ->setParameter('{{ limit }}', (string) $constraint->min)
                 ->addViolation();
 
             return;

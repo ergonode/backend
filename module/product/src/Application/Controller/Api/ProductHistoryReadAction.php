@@ -118,7 +118,7 @@ class ProductHistoryReadAction
      *     description="Returns product history collection"
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

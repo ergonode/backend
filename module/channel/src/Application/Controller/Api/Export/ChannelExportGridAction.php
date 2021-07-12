@@ -113,8 +113,8 @@ class ChannelExportGridAction
      *     description="Returns export collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

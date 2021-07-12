@@ -189,6 +189,9 @@
             "var/storage/.gitignore"
         ]
     },
+    "league/mime-type-detection": {
+        "version": "1.7.0"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "2.3",
         "recipe": {

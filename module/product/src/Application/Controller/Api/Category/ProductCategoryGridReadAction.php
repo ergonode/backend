@@ -111,7 +111,7 @@ class ProductCategoryGridReadAction
      *     response=200,
      *     description="Returns categories from product",
      * )
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

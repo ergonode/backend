@@ -72,10 +72,8 @@ class ChannelExportDownloadAction
      *     description="export file download",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
-     *
-     *
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export", name="export")
      *
      * @throws FileNotFoundException
      */
