@@ -15,7 +15,7 @@
     "php": "^7.4",
     "ext-pdo": "*",
     "ext-zip": "*",
-    "ergonode/importer": "^1.0.0",
+    "ergonode/importer": "^1.1.0",
     "ramsey/uuid": "^3.8",
     "ramsey/uuid-doctrine": "^1.5",
     "league/csv": "^9.6",
