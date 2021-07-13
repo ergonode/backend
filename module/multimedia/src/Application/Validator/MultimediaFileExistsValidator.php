@@ -42,7 +42,7 @@ class MultimediaFileExistsValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, UploadedFile::class);
         }
 
-        if ($this->multimediaQuery->fileExists($value->getClientOriginalName())) {
+        if ($this->multimediaQuery->findIdByFilename($value->getClientOriginalName())) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value->getClientOriginalName())
                 ->addViolation();

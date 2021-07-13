@@ -37,4 +37,4 @@ Workflow
 * Endpoint `[PUT] /api/v1/{language}/workflow/default` returns 200 instead of 201
 
 Multimedia
-* Interface method `fileExists` signature has changed from `fileExists(Hash $hash)` to `fileExists(string $name)`
+* Class `UploadMultimediaAction` constructor has changed
