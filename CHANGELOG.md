@@ -1,3 +1,7 @@
+## CHANGELOG FOR 1.2.x
+#### 1.2.0
+- build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
+
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
 - bugfix [#1510](https://github.com/ergonode/backend/issues/1510) Return incorrect value in UnitColumn extension (rprzedzik)

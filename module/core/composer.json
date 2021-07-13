@@ -36,7 +36,7 @@
         "phpunit/phpunit": "^9"
     },
     "suggest": {
-        "behatch/contexts": "For using providing behat contexts"
+        "behatch/contexts": "For using provided behat contexts"
     },
     "autoload": {
         "psr-4": {
