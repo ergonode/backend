@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
@@ -56,37 +57,34 @@ class MultimediaFromUrlImportAction
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $name = pathinfo($filename, PATHINFO_FILENAME);
 
-        $id = $this->multimediaQuery->findIdByFilename($name);
-
-        if (!$id) {
-            $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
-
-            $content = $this->downloader->download($url);
-            file_put_contents($tmpFile, $content);
-            $file = new File($tmpFile);
-
-            $hash = $this->hashService->calculateHash($file);
-            $filename = sprintf('%s.%s', $hash->getValue(), $extension);
-            if (!$this->multimediaStorage->has($filename)) {
-                $this->multimediaStorage->write($filename, $content);
-            }
-
-            $size = $this->multimediaStorage->getSize($filename);
-            $mime = $this->multimediaStorage->getMimetype($filename);
-
-            $id = MultimediaId::generate();
-            $multimedia = new Multimedia(
-                $id,
-                $name,
-                $extension,
-                $size,
-                $hash,
-                $mime,
-            );
-
-            $this->repository->save($multimedia);
-            unlink($tmpFile);
+        if ($this->multimediaQuery->findIdByFilename($name)) {
+            throw new ImportException('Multimedia with {name} already exists in the system', ['{name}' => $name]);
         }
+
+        $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
+
+        $content = $this->downloader->download($url);
+        file_put_contents($tmpFile, $content);
+        $file = new File($tmpFile);
+
+        $hash = $this->hashService->calculateHash($file);
+        $id = MultimediaId::generate();
+        $filename = sprintf('%s.%s', $id->getValue(), $extension);
+        $this->multimediaStorage->write($filename, $content);
+        $size = $this->multimediaStorage->getSize($filename);
+        $mime = $this->multimediaStorage->getMimetype($filename);
+
+        $multimedia = new Multimedia(
+            $id,
+            $name,
+            $extension,
+            $size,
+            $hash,
+            $mime,
+        );
+
+        $this->repository->save($multimedia);
+        unlink($tmpFile);
 
         return $id;
     }

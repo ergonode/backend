@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Model;
 
+use Ergonode\Multimedia\Application\Validator\MultimediaFileExists;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -28,6 +29,8 @@ class MultimediaUploadModel
      * @MultimediaExtension()
      *
      * @MultimediaName(max="128")
+     *
+     * @MultimediaFileExists()
      */
     public ?UploadedFile $upload;
 
