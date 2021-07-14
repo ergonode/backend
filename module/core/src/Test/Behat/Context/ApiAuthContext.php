@@ -12,17 +12,18 @@ namespace Ergonode\Core\Test\Behat\Context;
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
 use Ergonode\Core\Test\Behat\Service\RequestAuthenticatorInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ApiAuthContext implements Context
 {
-    private Request $request;
     private RequestAuthenticatorInterface $authenticator;
+    private ContainerInterface $container;
 
-    public function __construct(Request $request, RequestAuthenticatorInterface $authenticator)
+    public function __construct(RequestAuthenticatorInterface $authenticator, ContainerInterface $container)
     {
-        $this->request = $request;
         $this->authenticator = $authenticator;
+        $this->container = $container;
     }
 
     /**
@@ -30,6 +31,11 @@ class ApiAuthContext implements Context
      */
     public function iAmAuthenticatedAsUser(UserInterface $user): void
     {
-        $this->authenticator->authenticate($this->request, $user);
+        /** @var Request $request */
+        $request = $this->container
+            ->get('behat.service_container')
+            ->get('behatch.http_call.request');
+
+        $this->authenticator->authenticate($request, $user);
     }
 }
