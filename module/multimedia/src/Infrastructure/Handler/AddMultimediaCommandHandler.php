@@ -43,7 +43,7 @@ class AddMultimediaCommandHandler
         /** @var UploadedFile $file */
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        $originalName = $file->getClientOriginalName();
+        $originalName = $command->getName() ?? $file->getClientOriginalName();
 
         $extension = $file->getClientOriginalExtension();
         if (empty($extension) || '.' === $extension) {

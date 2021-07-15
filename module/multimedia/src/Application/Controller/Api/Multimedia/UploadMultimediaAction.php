@@ -72,7 +72,11 @@ class UploadMultimediaAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
+            $command = new AddMultimediaCommand(
+                MultimediaId::generate(),
+                $uploadModel->upload,
+                $uploadModel->upload->getClientOriginalName(),
+            );
             $this->commandBus->dispatch($command);
             $id = $command->getId();
         } else {
