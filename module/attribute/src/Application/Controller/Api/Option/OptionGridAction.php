@@ -100,7 +100,7 @@ class OptionGridAction
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         AbstractAttribute $attribute,

@@ -77,8 +77,8 @@ class TextareaAttributeForm extends AbstractType implements AttributeFormInterfa
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

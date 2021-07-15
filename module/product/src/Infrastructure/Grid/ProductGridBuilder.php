@@ -79,9 +79,7 @@ class ProductGridBuilder implements GridBuilderInterface
             $user = $this->userRepository->load($userId);
             Assert::isInstanceOf($user, User::class, sprintf('User not found %s', $userId));
         }
-        $result = [];
 
-        /** @var RequestColumn[] $columns */
         $columns = array_merge(
             [
                 new RequestColumn('id'),
@@ -97,42 +95,40 @@ class ProductGridBuilder implements GridBuilderInterface
             ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
 
         foreach ($columns as $column) {
-            if (!array_key_exists($column->getKey(), $result)) {
-                $code = $column->getColumn();
-                $key = $column->getKey();
-                $language = $column->getLanguage() ?: $language;
+            $code = $column->getColumn();
+            $key = $column->getKey();
+            $language = $column->getLanguage() ?: $language;
 
-                if (in_array($code, $codes, true)
-                    && $user->hasReadLanguagePrivilege($language)
-                    && $this->languageQuery->getLanguageNodeInfo($language)) {
-                    $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
-                    $attribute = $this->repository->load($id);
-                    Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
+            if (in_array($code, $codes, true)
+                && $user->hasReadLanguagePrivilege($language)
+                && $this->languageQuery->getLanguageNodeInfo($language)) {
+                $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
+                $attribute = $this->repository->load($id);
+                Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 
-                    $new = $this->provider->provide($attribute, $language);
-                    $new->setAttribute($attribute);
-                    $new->setExtension('element_id', $id->getValue());
-                    $new->setExtension('parameters', $attribute->getParameters());
-                    $new->setEditable($attribute->isEditable());
-                    $new->setDeletable($attribute->isDeletable());
-                    if (!$column->isShow()) {
-                        $new->setVisible(false);
-                    }
+                $new = $this->provider->provide($attribute, $language);
+                $new->setAttribute($attribute);
+                $new->setExtension('element_id', $id->getValue());
 
-                    if ($column->getLanguage()) {
-                        $new->setLanguage($column->getLanguage());
-                    }
-                    if (!$user->hasEditLanguagePrivilege($language)) {
+                $new->setEditable($attribute->isEditable());
+                $new->setDeletable($attribute->isDeletable());
+                if (!$column->isShow()) {
+                    $new->setVisible(false);
+                }
+
+                if ($column->getLanguage()) {
+                    $new->setLanguage($column->getLanguage());
+                }
+                if (!$user->hasEditLanguagePrivilege($language)) {
+                    $new->setEditable(false);
+                }
+                if ($attribute->getScope()->isGlobal()) {
+                    $rootLanguage = $this->languageQuery->getRootLanguage();
+                    if (!$rootLanguage->isEqual($language)) {
                         $new->setEditable(false);
                     }
-                    if ($attribute->getScope()->isGlobal()) {
-                        $rootLanguage = $this->languageQuery->getRootLanguage();
-                        if (!$rootLanguage->isEqual($language)) {
-                            $new->setEditable(false);
-                        }
-                    }
-                    $grid->addColumn($key, $new);
                 }
+                $grid->addColumn($key, $new);
             }
         }
 

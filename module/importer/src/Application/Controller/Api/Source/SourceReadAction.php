@@ -59,7 +59,7 @@ class SourceReadAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource", name="source")
      */
     public function __invoke(AbstractSource $source): array
     {

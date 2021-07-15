@@ -83,9 +83,9 @@ class ImportErrorGridAction
      *     description="Returns import  errors",
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource", name="source")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import", name="import")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

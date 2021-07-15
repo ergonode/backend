@@ -1,5 +1,11 @@
+## CHANGELOG FOR 1.2.x
+#### 1.2.0
+- build [#1171](https://github.com/ergonode/backend/issues/1171) Compatibility with Symfony 5.3 (piotrkreft)
+- build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
+
 ## CHANGELOG FOR 1.1.x
 #### 1.1.0
+- bugfix [#1510](https://github.com/ergonode/backend/issues/1510) Return incorrect value in UnitColumn extension (rprzedzik)
 - feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)
 - refactor [#1487](https://github.com/ergonode/backend/issues/1487) Change Security Role Voter (wfajczyk)
 - refactor [#1484](https://github.com/ergonode/backend/issues/1484) ViewEvent HTTP response handling (piotrkreft)

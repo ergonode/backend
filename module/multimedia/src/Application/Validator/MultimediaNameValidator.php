@@ -34,7 +34,7 @@ class MultimediaNameValidator extends ConstraintValidator
 
         if ($constraint->max < strlen($value->getClientOriginalName())) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ limit }}', $constraint->max)
+                ->setParameter('{{ limit }}', (string) $constraint->max)
                 ->addViolation();
         }
     }

@@ -1,4 +1,7 @@
 services:
+    _defaults:
+        autoconfigure: true
+
     Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator:
         arguments:
             $JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
@@ -11,3 +14,18 @@ services:
             $tokenStorage: '@security.token_storage'
         tags:
             - 'messenger.transport_factory'
+
+    Ergonode\Core\Test\Behat\Context\UserContext:
+        $userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
+
+    Ergonode\Core\Test\Behat\Context\ApiAuthContext:
+        $authenticator: '@Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator'
+        $container: '@service_container'
+
+    Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
+        $authHeader: '%authorization_header%'
+        $container: '@service_container'
+
+    Ergonode\Core\Test\Behat\Context\AuthenticationContext:
+        $username: 'test@ergonode.com'
+        $password: 'abcd1234'

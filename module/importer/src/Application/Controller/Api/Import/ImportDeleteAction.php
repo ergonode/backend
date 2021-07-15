@@ -86,10 +86,8 @@ class ImportDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
-     *
-     *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource", name="source")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import", name="import")
      *
      * @throws \Exception
      */

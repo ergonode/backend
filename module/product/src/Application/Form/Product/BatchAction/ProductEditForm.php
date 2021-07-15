@@ -75,8 +75,8 @@ class ProductEditForm extends AbstractType implements BatchActionFormInterface
         );
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

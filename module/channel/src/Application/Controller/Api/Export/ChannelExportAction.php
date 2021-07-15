@@ -80,8 +80,8 @@ class ChannelExportAction
      *     description="Returns export information",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export", name="export")
      */
     public function __invoke(Language $language, AbstractChannel $channel, Export $export): array
     {

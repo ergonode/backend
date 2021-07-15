@@ -9,26 +9,28 @@ declare(strict_types=1);
 namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Behatch\HttpCall\Request;
+use Psr\Container\ContainerInterface;
 
 class ApiAuthTokenContext implements Context
 {
-    private Request $request;
-
     private string $authHeader;
+    private ContainerInterface $container;
 
-    public function __construct(Request $request, string $authHeader)
+    public function __construct(string $authHeader, ContainerInterface $container)
     {
-        $this->request = $request;
         $this->authHeader = $authHeader;
+        $this->container = $container;
     }
+
 
     /**
      * @Given I use Authenticated token :token
      */
     public function iAmAuthenticatedAsToken(string $token): void
     {
-        /** @phpstan-ignore-next-line */
-        $this->request->setHttpHeader($this->authHeader, 'Bearer '.$token);
+        $this->container
+            ->get('behat.service_container')
+            ->get('behatch.http_call.request')
+            ->setHttpHeader($this->authHeader, 'Bearer '.$token);
     }
 }

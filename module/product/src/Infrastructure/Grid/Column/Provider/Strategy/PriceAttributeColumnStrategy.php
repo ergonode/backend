@@ -46,6 +46,8 @@ class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
         $column =  new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
         $column->setSuffix($attribute->getCurrency()->getCode());
 
+        $column->setExtension('parameters', $attribute->getParameters());
+
         return $column;
     }
 }

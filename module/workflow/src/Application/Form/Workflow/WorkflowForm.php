@@ -65,8 +65,8 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

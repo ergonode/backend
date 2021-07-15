@@ -69,8 +69,8 @@ class ProductRelationAttributeForm extends AbstractType implements AttributeForm
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }
