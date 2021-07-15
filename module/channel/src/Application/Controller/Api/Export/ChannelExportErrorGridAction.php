@@ -85,9 +85,9 @@ class ChannelExportErrorGridAction
      *     description="Returns export errors",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export", name="export")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
         Language $language,

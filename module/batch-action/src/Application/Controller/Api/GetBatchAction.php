@@ -53,7 +53,7 @@ class GetBatchAction
      *     description="Returns batch information",
      * )
      *
-     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction")
+     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction", name="action")
      */
     public function __invoke(Language $language, BatchAction $action): BatchActionInformationModel
     {

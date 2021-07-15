@@ -89,7 +89,7 @@ class AttributeAutocompleteAction
     {
         $search = $request->query->get('search');
         $type = $request->query->get('type');
-        $limit = $request->query->getInt('limit', null);
+        $limit = $request->query->has('limit') ? $request->query->getInt('limit') : null;
         $field = $request->query->get('field');
         $system = $request->query->get('system');
         $order = $request->query->get('order');

@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- build [#1171](https://github.com/ergonode/backend/issues/1171) Compatibility with Symfony 5.3 (piotrkreft)
 - build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
 
 ## CHANGELOG FOR 1.1.x

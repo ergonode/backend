@@ -49,6 +49,8 @@ class AggregateRootParamConverterTest extends TestCase
         $this->manager = $this->createMock(EventStoreManagerInterface::class);
         $this->classA = $this->getClassA();
         $this->classB = $this->getClassB();
+
+        $this->configuration->method('getName')->willReturn('name');
     }
 
     public function testSupportedClass(): void
