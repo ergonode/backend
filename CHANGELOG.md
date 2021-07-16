@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.1.x
 #### 1.1.1
+- bugfix [#1522](https://github.com/ergonode/backend/issues/1522) Remove ramsey/uuid-doctrine composer relation (wfajczyk)
 - bugfix [#1519](https://github.com/ergonode/backend/issues/1519) Fixed caught exception in DTOInputValueResolver (piotrkreft)
 
 #### 1.1.0
