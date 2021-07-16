@@ -25,6 +25,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.3
+- bugfix [#1522](https://github.com/ergonode/backend/issues/1522) Remove ramsey/uuid-doctrine composer relation (wfajczyk)
+
 #### 1.0.2
 - bugfix [#1489](https://github.com/ergonode/backend/issues/1489) Removed local cache attribute decorators (piotrkreft)
 - bugfix [#1478](https://github.com/ergonode/backend/issues/1478) Allowed to override default storages (piotrkreft)
