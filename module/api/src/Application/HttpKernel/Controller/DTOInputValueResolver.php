@@ -11,14 +11,13 @@ namespace Ergonode\Api\Application\HttpKernel\Controller;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\SharedKernel\Application\Api\DTOInputInterface;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DeserializationException;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
-use Symfony\Component\Serializer\Exception\RuntimeException;
-use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -82,8 +81,8 @@ class DTOInputValueResolver implements ArgumentValueResolverInterface
 
         try {
             $dto = $this->serializer->deserialize($request->getContent(), $type, $format);
-        } catch (RuntimeException | UnexpectedValueException $exception) {
-            throw new BadRequestHttpException($exception->getMessage());
+        } catch (DeserializationException $exception) {
+            throw new BadRequestHttpException(($exception->getPrevious() ?? $exception)->getMessage());
         }
 
         $violationList = $this->validator->validate($dto);
