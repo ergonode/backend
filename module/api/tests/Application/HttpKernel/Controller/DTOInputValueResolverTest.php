@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Api\Tests\Application\HttpKernel\Controller\ArgumentResolver;
+namespace Ergonode\Api\Tests\Application\HttpKernel\Controller;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\HttpKernel\Controller\DTOInputValueResolver;
@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Serializer\Exception\RuntimeException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
