@@ -26,7 +26,6 @@
         "ergonode/shared-kernel": "^1.0.0",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
-        "ramsey/uuid-doctrine": "^1.5",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/form": "^4.4.11",
         "symfony/messenger": "^4.4",
