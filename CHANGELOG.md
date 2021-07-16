@@ -1,4 +1,7 @@
 ## CHANGELOG FOR 1.1.x
+#### 1.1.1
+- bugfix [#1519](https://github.com/ergonode/backend/issues/1519) Fixed caught exception in DTOInputValueResolver (piotrkreft)
+
 #### 1.1.0
 - bugfix [#1510](https://github.com/ergonode/backend/issues/1510) Return incorrect value in UnitColumn extension (rprzedzik)
 - feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)

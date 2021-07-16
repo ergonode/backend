@@ -7,18 +7,18 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Api\Tests\Application\HttpKernel\Controller\ArgumentResolver;
+namespace Ergonode\Api\Tests\Application\HttpKernel\Controller;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\HttpKernel\Controller\DTOInputValueResolver;
 use Ergonode\SharedKernel\Application\Api\DTOInputInterface;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DeserializationException;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Serializer\Exception\RuntimeException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -175,7 +175,7 @@ class DTOInputValueResolverTest extends TestCase
         );
         $request = new Request([], [], [], [], [], ['CONTENT_TYPE' => 'application/json'], 'body');
 
-        $exception = new RuntimeException('Serializer exception');
+        $exception = new DeserializationException('Serializer exception');
         $this->mockSerializer
             ->method('deserialize')
             ->with('body', get_class($dto), 'json')
