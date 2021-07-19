@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Designer\Domain\Query\TemplateGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/templates", methods={"GET"})
@@ -27,7 +28,7 @@ class TemplateGridReadAction
 {
     private TemplateGridQueryInterface $designerTemplateQuery;
 
-    private TemplateGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +36,7 @@ class TemplateGridReadAction
 
     public function __construct(
         TemplateGridQueryInterface $designerTemplateQuery,
-        TemplateGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
