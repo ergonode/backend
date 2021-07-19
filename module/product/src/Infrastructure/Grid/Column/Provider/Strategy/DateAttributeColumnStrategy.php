@@ -33,10 +33,14 @@ class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
     {
         $columnKey = $attribute->getCode()->getValue();
 
-        return new DateColumn(
+        $column = new DateColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
             new DateFilter()
         );
+
+        $column->setExtension('parameters', $attribute->getParameters());
+
+        return $column;
     }
 }

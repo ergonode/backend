@@ -43,8 +43,8 @@ class ProductCollectionElementFromSegmentsForm extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

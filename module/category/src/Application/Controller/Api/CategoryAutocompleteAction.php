@@ -74,7 +74,7 @@ class CategoryAutocompleteAction
     public function __invoke(Language $language, Request $request): array
     {
         $search = $request->query->get('search');
-        $limit = $request->query->getInt('limit', null);
+        $limit = $request->query->has('limit') ? $request->query->getInt('limit') : null;
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 

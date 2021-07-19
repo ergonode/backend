@@ -71,8 +71,8 @@ class MultiSelectAttributeForm extends AbstractType implements AttributeFormInte
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

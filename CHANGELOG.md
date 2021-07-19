@@ -1,5 +1,14 @@
+## CHANGELOG FOR 1.2.x
+#### 1.2.0
+- build [#1171](https://github.com/ergonode/backend/issues/1171) Compatibility with Symfony 5.3 (piotrkreft)
+- build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
+
 ## CHANGELOG FOR 1.1.x
+#### 1.1.1
+- bugfix [#1519](https://github.com/ergonode/backend/issues/1519) Fixed caught exception in DTOInputValueResolver (piotrkreft)
+
 #### 1.1.0
+- bugfix [#1510](https://github.com/ergonode/backend/issues/1510) Return incorrect value in UnitColumn extension (rprzedzik)
 - feature [#1497](https://github.com/ergonode/backend/issues/1497) DTO input value resolving (piotrkreft)
 - refactor [#1487](https://github.com/ergonode/backend/issues/1487) Change Security Role Voter (wfajczyk)
 - refactor [#1484](https://github.com/ergonode/backend/issues/1484) ViewEvent HTTP response handling (piotrkreft)
@@ -16,6 +25,10 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.3
+- bugfix [#1526](https://github.com/ergonode/backend/issues/1526) Opened gesdinet/jwt-refresh-token-bundle dependency (piotrkreft)
+- bugfix [#1522](https://github.com/ergonode/backend/issues/1522) Remove ramsey/uuid-doctrine composer relation (wfajczyk)
+
 #### 1.0.2
 - bugfix [#1489](https://github.com/ergonode/backend/issues/1489) Removed local cache attribute decorators (piotrkreft)
 - bugfix [#1478](https://github.com/ergonode/backend/issues/1478) Allowed to override default storages (piotrkreft)

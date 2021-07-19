@@ -86,9 +86,7 @@ class ImportUploadAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource", name="source")
      *
      * @throws \Exception
      */

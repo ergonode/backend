@@ -17,15 +17,6 @@
     "behat/mink-extension": {
         "version": "2.3.1"
     },
-    "behat/symfony2-extension": {
-        "version": "2.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.1",
-            "ref": "6b63fb76d3bb2dd16098f12adf6d6ca844e21862"
-        }
-    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -197,6 +188,9 @@
             "config/packages/flysystem.yaml",
             "var/storage/.gitignore"
         ]
+    },
+    "league/mime-type-detection": {
+        "version": "1.7.0"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.3",

@@ -74,9 +74,7 @@ class SchedulerGetAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     *
-     *
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel", name="channel")
      *
      * @throws \Exception
      */

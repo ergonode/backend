@@ -33,6 +33,9 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
      */
     private int $size;
 
+    /**
+     * @deprecated
+     */
     private Hash $hash;
 
     private TranslatableString $alt;
@@ -66,7 +69,7 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
 
     public function getFileName(): string
     {
-        return sprintf('%s.%s', $this->hash->getValue(), $this->extension);
+        return sprintf('%s.%s', $this->id->getValue(), $this->extension);
     }
 
     /**
@@ -134,6 +137,9 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
         return $this->size;
     }
 
+    /**
+     * @deprecated
+     */
     public function getHash(): Hash
     {
         return $this->hash;

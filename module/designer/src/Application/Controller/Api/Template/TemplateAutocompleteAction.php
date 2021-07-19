@@ -73,7 +73,7 @@ class TemplateAutocompleteAction
     public function __invoke(Request $request): array
     {
         $search = $request->query->get('search');
-        $limit = $request->query->getInt('limit', null);
+        $limit = $request->query->has('limit') ? $request->query->getInt('limit') : null;
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 

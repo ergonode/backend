@@ -109,7 +109,7 @@ class CommentGridAction
      *     description="Returns attribute collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {

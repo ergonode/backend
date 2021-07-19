@@ -71,8 +71,8 @@ class GalleryAttributeForm extends AbstractType implements AttributeFormInterfac
         ]);
     }
 
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

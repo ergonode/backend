@@ -40,6 +40,8 @@ class ExportParamConverterTest extends TestCase
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
         $this->repository = $this->createMock(ExportRepositoryInterface::class);
+
+        $this->configuration->method('getName')->willReturn('name');
     }
 
     public function testSupportedClass(): void

@@ -15,20 +15,20 @@
         "php": "^7.4",
         "doctrine/annotations": "^1.8",
         "doctrine/dbal": "^2.13",
-        "ergonode/api": "^1.0.0",
-        "ergonode/grid": "^1.0.0",
-        "ergonode/migration": "^1.0.0",
-        "ergonode/shared-kernel": "^1.0.0",
+        "ergonode/api": "^1.1.0",
+        "ergonode/grid": "^1.1.0",
+        "ergonode/migration": "^1.1.0",
+        "ergonode/shared-kernel": "^1.1.0",
         "league/flysystem": ">1.0.54",
         "limenius/liform-bundle": "^0.17.0",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",
-        "symfony/form": "^4.4.11",
-        "symfony/messenger": "^4.4",
+        "symfony/form": "^4.4.11|^5.3",
+        "symfony/messenger": "^4.4|^5.3",
         "symfony/polyfill-php80": "^1.0",
-        "symfony/serializer": "^4.4",
-        "symfony/translation": "^4.4"
+        "symfony/serializer": "^4.4|^5.3",
+        "symfony/translation": "^4.4|^5.3"
     },
     "require-dev": {
         "behat/behat": "^3.6",
@@ -36,7 +36,7 @@
         "phpunit/phpunit": "^9"
     },
     "suggest": {
-        "behatch/contexts": "For using providing behat contexts"
+        "behatch/contexts": "For using provided behat contexts"
     },
     "autoload": {
         "psr-4": {

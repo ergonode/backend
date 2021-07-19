@@ -61,8 +61,8 @@ class GroupingProductForm extends AbstractType implements ProductFormInterface
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix(): ?string
+    public function getBlockPrefix(): string
     {
-        return null;
+        return '';
     }
 }

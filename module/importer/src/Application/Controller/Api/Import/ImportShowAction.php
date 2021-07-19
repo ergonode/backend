@@ -70,9 +70,7 @@ class ImportShowAction
      *     description="Not found",
      * )
      *
-     *
-     *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import", name="import")
      */
     public function __invoke(Language $language, Import $import): array
     {
