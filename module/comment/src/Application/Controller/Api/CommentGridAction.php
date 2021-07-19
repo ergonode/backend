@@ -13,7 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Comment\Domain\Query\CommentGridQueryInterface;
-use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

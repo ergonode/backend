@@ -13,7 +13,6 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

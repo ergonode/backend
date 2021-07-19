@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Controller\Api\TemplateType;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

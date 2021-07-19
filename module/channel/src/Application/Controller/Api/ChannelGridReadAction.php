@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
-use Ergonode\Channel\Infrastructure\Grid\ChannelGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;

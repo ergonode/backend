@@ -12,7 +12,6 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
-use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;

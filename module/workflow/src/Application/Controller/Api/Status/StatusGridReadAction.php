@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Status;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Infrastructure\Grid\StatusGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

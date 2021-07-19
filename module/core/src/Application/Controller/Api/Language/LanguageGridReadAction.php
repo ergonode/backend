@@ -11,7 +11,6 @@ namespace Ergonode\Core\Application\Controller\Api\Language;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Grid\LanguageGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

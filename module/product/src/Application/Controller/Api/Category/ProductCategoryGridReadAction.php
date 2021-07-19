@@ -13,7 +13,6 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductCategoryGridQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\ProductCategoryGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

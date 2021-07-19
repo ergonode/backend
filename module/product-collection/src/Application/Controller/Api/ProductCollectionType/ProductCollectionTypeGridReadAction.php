@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionTypeGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

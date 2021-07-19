@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;

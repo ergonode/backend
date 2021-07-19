@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface;

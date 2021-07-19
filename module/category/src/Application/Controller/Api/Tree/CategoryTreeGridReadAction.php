@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
-use Ergonode\Category\Infrastructure\Grid\TreeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;

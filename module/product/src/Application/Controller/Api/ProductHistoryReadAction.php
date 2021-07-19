@@ -18,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Product\Infrastructure\Grid\ProductHistoryGridBuilder;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Grid\GridBuilderInterface;
 

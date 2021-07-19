@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Log;
 
-use Ergonode\Account\Infrastructure\Grid\LogGridBuilder;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;

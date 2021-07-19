@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Channel\Domain\Query\ExportGridQueryInterface;

@@ -12,7 +12,6 @@ namespace Ergonode\Notification\Application\Controller\Api;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Notification\Infrastructure\Grid\NotificationGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;

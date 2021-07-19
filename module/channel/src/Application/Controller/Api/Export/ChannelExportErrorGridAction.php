@@ -16,7 +16,6 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface;

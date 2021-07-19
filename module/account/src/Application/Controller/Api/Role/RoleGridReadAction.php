@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
-use Ergonode\Account\Infrastructure\Grid\RoleGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;

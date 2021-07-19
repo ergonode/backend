@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Infrastructure\Grid\TransitionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
