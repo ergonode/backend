@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -35,13 +36,13 @@ class ProductCategoryGridReadAction
 
     private DbalDataSetFactory $factory;
 
-    private ProductCategoryGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     public function __construct(
         ProductCategoryGridQueryInterface $productCategoryQuery,
         GridRenderer $gridRenderer,
         DbalDataSetFactory $factory,
-        ProductCategoryGridBuilder $gridBuilder
+        GridBuilderInterface $gridBuilder
     ) {
         $this->productCategoryQuery = $productCategoryQuery;
         $this->gridRenderer = $gridRenderer;

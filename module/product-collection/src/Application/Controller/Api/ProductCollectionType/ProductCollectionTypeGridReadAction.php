@@ -19,13 +19,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/collections/type", methods={"GET"})
  */
 class ProductCollectionTypeGridReadAction
 {
-    private ProductCollectionTypeGridBuilder $productCollectionTypeGridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ProductCollectionTypeGridQueryInterface $collectionTypeQuery;
 
@@ -34,12 +35,12 @@ class ProductCollectionTypeGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ProductCollectionTypeGridBuilder $productCollectionTypeGridBuilder,
+        GridBuilderInterface $gridBuilder,
         ProductCollectionTypeGridQueryInterface $collectionTypeQuery,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->productCollectionTypeGridBuilder = $productCollectionTypeGridBuilder;
+        $this->gridBuilder = $gridBuilder;
         $this->collectionTypeQuery = $collectionTypeQuery;
         $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
@@ -112,7 +113,7 @@ class ProductCollectionTypeGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {
-        $grid = $this->productCollectionTypeGridBuilder->build($configuration, $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->collectionTypeQuery->getGridQuery($language));
 
         return $this->gridRenderer->render($grid, $configuration, $dataSet);

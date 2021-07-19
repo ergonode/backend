@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("products/grid", methods={"GET"})
@@ -26,14 +27,14 @@ class ProductGridAction
 {
     private DbalProductDataSetFactory $dataSetFactory;
 
-    private ProductGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         DbalProductDataSetFactory $dataSetFactory,
-        ProductGridBuilder $gridBuilder
+        GridBuilderInterface $gridBuilder
     ) {
         $this->dataSetFactory = $dataSetFactory;
         $this->gridBuilder = $gridBuilder;
