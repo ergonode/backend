@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Account\Domain\Query\RoleGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/roles", methods={"GET"})
@@ -27,7 +28,7 @@ class RoleGridReadAction
 {
     private RoleGridQueryInterface $query;
 
-    private RoleGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +36,7 @@ class RoleGridReadAction
 
     public function __construct(
         RoleGridQueryInterface $query,
-        RoleGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {

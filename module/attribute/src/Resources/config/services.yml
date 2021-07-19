@@ -54,6 +54,16 @@ services:
         arguments:
             $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
 
+    Ergonode\Attribute\Application\Controller\Api\AttributeGroup\AttributeGroupGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGridBuilder'
+
+    Ergonode\Attribute\Application\Controller\Api\Option\OptionGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\OptionGridBuilder'
+
     Ergonode\Attribute\Application\Serializer\Normalizer\AttributeNormalizer:
         tags:
             - {name: 'serializer.normalizer', priority: -10}

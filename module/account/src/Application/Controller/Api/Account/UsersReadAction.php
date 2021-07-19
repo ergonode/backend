@@ -19,13 +19,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Account\Domain\Query\AccountGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/accounts", methods={"GET"})
  */
 class UsersReadAction
 {
-    private AccountGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private AccountGridQueryInterface $query;
 
@@ -34,7 +35,7 @@ class UsersReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        AccountGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         AccountGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

@@ -19,6 +19,7 @@ use Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Channel\Domain\Query\ExportGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -30,7 +31,7 @@ use Ergonode\Channel\Domain\Query\ExportGridQueryInterface;
  */
 class ChannelExportGridAction
 {
-    private ExportGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ExportGridQueryInterface $query;
 
@@ -39,7 +40,7 @@ class ChannelExportGridAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ExportGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ExportGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

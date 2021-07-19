@@ -19,19 +19,20 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Infrastructure\Grid\OptionGridBuilder;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/attributes/{attribute}/options/grid", methods={"GET"})
  */
 class OptionGridAction
 {
-    private OptionGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private OptionQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(OptionGridBuilder $gridBuilder, OptionQueryInterface $query, GridRenderer $gridRenderer)
+    public function __construct(GridBuilderInterface $gridBuilder, OptionQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;

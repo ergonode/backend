@@ -18,6 +18,7 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -31,7 +32,7 @@ class GetBatchActionEntryGridAction
 {
     private BatchActionEntryGridQueryInterface $query;
 
-    private BatchActionEntryGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $dataSetFactory;
 
@@ -39,7 +40,7 @@ class GetBatchActionEntryGridAction
 
     public function __construct(
         BatchActionEntryGridQueryInterface $query,
-        BatchActionEntryGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $dataSetFactory,
         GridRenderer $gridRenderer
     ) {

@@ -20,6 +20,7 @@ use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -34,7 +35,7 @@ use Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface;
  */
 class ChannelExportErrorGridAction
 {
-    private ExportErrorsGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ExportErrorGridQueryInterface $query;
 
@@ -43,7 +44,7 @@ class ChannelExportErrorGridAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ExportErrorsGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ExportErrorGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

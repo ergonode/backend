@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Query\ChannelGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -29,7 +30,7 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
  */
 class ChannelGridReadAction
 {
-    private ChannelGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ChannelGridQueryInterface $query;
 
@@ -38,7 +39,7 @@ class ChannelGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ChannelGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ChannelGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

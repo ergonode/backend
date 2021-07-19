@@ -17,13 +17,14 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/attributes/groups", methods={"GET"})
  */
 class AttributeGroupGridReadAction
 {
-    private AttributeGroupGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private AttributeGroupQueryInterface $query;
 
@@ -31,7 +32,7 @@ class AttributeGroupGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        AttributeGroupGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         AttributeGroupQueryInterface $query
     ) {
         $this->gridBuilder = $gridBuilder;

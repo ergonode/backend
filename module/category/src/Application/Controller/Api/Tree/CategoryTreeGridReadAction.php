@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Category\Domain\Query\TreeGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/trees", methods={"GET"})
@@ -27,7 +28,7 @@ class CategoryTreeGridReadAction
 {
     private TreeGridQueryInterface $query;
 
-    private TreeGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +36,7 @@ class CategoryTreeGridReadAction
 
     public function __construct(
         TreeGridQueryInterface $query,
-        TreeGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
