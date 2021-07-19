@@ -72,7 +72,7 @@ class NumericAttributeValueConditionConditionConfigurationStrategy implements Co
                 ],
                 [
                     'name' => 'value',
-                    'type' => 'TEXT',
+                    'type' => 'NUMERIC',
                 ],
             ],
         ];
