@@ -19,13 +19,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Segment\Domain\Query\SegmentGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("segments", methods={"GET"})
  */
 class SegmentGridReadAction
 {
-    private SegmentGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private SegmentGridQueryInterface $query;
 
@@ -34,7 +35,7 @@ class SegmentGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        SegmentGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         SegmentGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

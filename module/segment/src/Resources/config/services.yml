@@ -11,6 +11,16 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Segment\Application\Controller\Api\SegmentGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Segment\Infrastructure\Grid\SegmentGridBuilder'
+
+    Ergonode\Segment\Application\Controller\Api\SegmentProductsGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Segment\Infrastructure\Grid\SegmentProductsGridBuilder'
+
     Ergonode\Segment\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'

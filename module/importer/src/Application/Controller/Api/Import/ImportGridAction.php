@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\ImportGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -31,7 +32,7 @@ use Ergonode\Importer\Domain\Query\ImportGridQueryInterface;
  */
 class ImportGridAction
 {
-    private ImportGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ImportGridQueryInterface $query;
 
@@ -40,7 +41,7 @@ class ImportGridAction
     private GridRenderer $renderer;
 
     public function __construct(
-        ImportGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ImportGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $renderer

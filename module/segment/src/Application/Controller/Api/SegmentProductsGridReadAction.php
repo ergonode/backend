@@ -20,6 +20,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Segment\Domain\Query\SegmentProductsGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -30,7 +31,7 @@ use Ergonode\Segment\Domain\Query\SegmentProductsGridQueryInterface;
  */
 class SegmentProductsGridReadAction
 {
-    private SegmentProductsGridBuilder $segmentProductsGridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private SegmentProductsGridQueryInterface $segmentProductsQuery;
 
@@ -39,12 +40,12 @@ class SegmentProductsGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        SegmentProductsGridBuilder $segmentProductsGridBuilder,
+        GridBuilderInterface $gridBuilder,
         SegmentProductsGridQueryInterface $segmentProductsQuery,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->segmentProductsGridBuilder = $segmentProductsGridBuilder;
+        $this->gridBuilder = $gridBuilder;
         $this->segmentProductsQuery = $segmentProductsQuery;
         $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
@@ -119,7 +120,7 @@ class SegmentProductsGridReadAction
         RequestGridConfiguration $configuration,
         Segment $segment
     ): array {
-        $grid = $this->segmentProductsGridBuilder->build($configuration, $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->segmentProductsQuery->getGridQuery($segment->getId()));
 
         return $this->gridRenderer->render($grid, $configuration, $dataSet);

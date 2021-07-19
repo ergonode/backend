@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Workflow\Domain\Query\StatusGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -35,13 +36,13 @@ class StatusGridReadAction
 
     private DbalDataSetFactory $factory;
 
-    private StatusGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     public function __construct(
         GridRenderer $gridRenderer,
         StatusGridQueryInterface $query,
         DbalDataSetFactory $factory,
-        StatusGridBuilder $gridBuilder
+        GridBuilderInterface $gridBuilder
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;

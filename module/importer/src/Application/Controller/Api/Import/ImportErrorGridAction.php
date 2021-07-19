@@ -20,6 +20,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -34,7 +35,7 @@ use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
  */
 class ImportErrorGridAction
 {
-    private ImportErrorsGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ImportErrorGridQueryInterface $query;
 
@@ -43,7 +44,7 @@ class ImportErrorGridAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ImportErrorsGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ImportErrorGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

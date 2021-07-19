@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Query\TransitionGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -31,7 +32,7 @@ class TransitionGridReadAction
 {
     private TransitionGridQueryInterface $query;
 
-    private TransitionGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -39,7 +40,7 @@ class TransitionGridReadAction
 
     public function __construct(
         TransitionGridQueryInterface $query,
-        TransitionGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
