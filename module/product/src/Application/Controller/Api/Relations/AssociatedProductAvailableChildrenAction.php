@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
-use Ergonode\Grid\GridBuilderInterface;
+use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 
 /**
  * @Route(
@@ -39,7 +39,7 @@ class AssociatedProductAvailableChildrenAction
 
     private DbalDataSetFactory $factory;
 
-    private GridBuilderInterface $gridBuilder;
+    private AssociatedProductAvailableChildrenGridBuilder $gridBuilder;
 
     private AttributeRepositoryInterface $attributeRepository;
 
@@ -47,7 +47,7 @@ class AssociatedProductAvailableChildrenAction
         ProductChildrenAvailableGridQueryInterface $query,
         GridRenderer $gridRenderer,
         DbalDataSetFactory $factory,
-        GridBuilderInterface $gridBuilder,
+        AssociatedProductAvailableChildrenGridBuilder $gridBuilder,
         AttributeRepositoryInterface $attributeRepository
     ) {
         $this->query = $query;
