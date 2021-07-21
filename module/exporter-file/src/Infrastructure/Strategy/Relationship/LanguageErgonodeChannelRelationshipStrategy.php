@@ -19,7 +19,8 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class LanguageErgonodeChannelRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with channel %relations%';
+    private const ONE_MESSAGE = 'Language is used in channel';
+    private const MULTIPLE_MESSAGE = 'Language is used in %count% channels';
 
     private LanguageQueryInterface $languageQuery;
 
@@ -37,21 +38,14 @@ class LanguageErgonodeChannelRelationshipStrategy implements RelationshipStrateg
         $this->channelRepository = $channelRepository;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof LanguageId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        $relation = [];
+        $relations = [];
         $channelIds = $this->channelQuery->findChannelIdsByType(FileExportChannel::TYPE);
 
         $language = $this->languageQuery->getLanguageById($id->getValue());
@@ -61,7 +55,7 @@ class LanguageErgonodeChannelRelationshipStrategy implements RelationshipStrateg
                 if ($channel instanceof FileExportChannel) {
                     foreach ($channel->getLanguages() as $channelLanguage) {
                         if ($channelLanguage->isEqual($language)) {
-                            $relation[] = $channelId;
+                            $relations[] = $channelId;
                             break;
                         }
                     }
@@ -69,6 +63,8 @@ class LanguageErgonodeChannelRelationshipStrategy implements RelationshipStrateg
             }
         }
 
-        return new RelationshipGroup(self::MESSAGE, $relation);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

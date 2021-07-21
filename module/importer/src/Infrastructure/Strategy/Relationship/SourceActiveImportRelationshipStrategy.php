@@ -17,7 +17,8 @@ use Webmozart\Assert\Assert;
 
 class SourceActiveImportRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Source has active import %relations%';
+    private const ONE_MESSAGE = 'Source has one active import';
+    private const MULTIPLE_MESSAGE = 'Source has %count% active imports';
 
     private ImportQueryInterface $importQuery;
 
@@ -35,6 +36,9 @@ class SourceActiveImportRelationshipStrategy implements RelationshipStrategyInte
     {
         Assert::isInstanceOf($id, SourceId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->importQuery->findActiveImport($id));
+        $relations = $this->importQuery->findActiveImport($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

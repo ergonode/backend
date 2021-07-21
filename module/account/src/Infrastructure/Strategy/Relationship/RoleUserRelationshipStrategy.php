@@ -18,7 +18,7 @@ use Webmozart\Assert\Assert;
 
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with user %relations%';
+    private const MESSAGE = 'Role has {count} relations with some users';
 
     private AccountQueryInterface $query;
 
@@ -27,17 +27,11 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
         $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof RoleId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, RoleId::class);

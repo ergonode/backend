@@ -17,7 +17,7 @@ use Webmozart\Assert\Assert;
 
 class ActiveExportRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Export is active %relations%';
+    private const MESSAGE = 'Export is active';
 
     private ExportRepositoryInterface $exportRepository;
 
@@ -26,17 +26,11 @@ class ActiveExportRelationshipStrategy implements RelationshipStrategyInterface
         $this->exportRepository = $exportRepository;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof ExportId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, ExportId::class);

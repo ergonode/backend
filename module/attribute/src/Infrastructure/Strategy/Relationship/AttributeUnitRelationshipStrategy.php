@@ -18,7 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with attribute %relations%';
+    private const ONE_MESSAGE = 'Unit group has a relation with attribute';
+    private const MULTIPLE_MESSAGE = 'Unit group has %count% relations with some attributes';
 
     private AttributeQueryInterface $query;
 
@@ -27,21 +28,18 @@ class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
         $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof UnitId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, UnitId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findAttributeIdsByUnitId($id));
+        $relations = $this->query->findAttributeIdsByUnitId($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

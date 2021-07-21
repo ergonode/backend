@@ -31,7 +31,11 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
         foreach ($relationship as $group) {
             $messages[] = $this->translator->trans(
                 $group->getMessage(),
-                ['%relations%' => implode(', ', $group->getRelations())]
+                [
+                    '%relations%' => implode(', ', $group->getRelations()),
+                    '%count%' => count($group->getRelations()),
+                ],
+                'relations'
             );
         }
 
