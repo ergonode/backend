@@ -10,20 +10,20 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/attributes/groups", methods={"GET"})
  */
 class AttributeGroupGridReadAction
 {
-    private AttributeGroupGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private AttributeGroupQueryInterface $query;
 
@@ -31,7 +31,7 @@ class AttributeGroupGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        AttributeGroupGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         AttributeGroupQueryInterface $query
     ) {
         $this->gridBuilder = $gridBuilder;

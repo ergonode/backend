@@ -15,13 +15,13 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
-use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 
 /**
  * @Route(

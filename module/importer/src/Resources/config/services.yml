@@ -18,6 +18,21 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Importer\Application\Controller\Api\Import\ImportGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Importer\Infrastructure\Grid\ImportGridBuilder'
+
+    Ergonode\Importer\Application\Controller\Api\Import\ImportErrorGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder'
+
+    Ergonode\Importer\Application\Controller\Api\Source\SourceGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Importer\Infrastructure\Grid\SourceGridBuilder'
+
     Ergonode\Importer\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
@@ -28,7 +43,6 @@ services:
     Ergonode\Importer\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
-
 
     Ergonode\Importer\Domain\Repository\ImportRepositoryInterface: '@Ergonode\Importer\Infrastructure\Persistence\Repository\DbalImportRepository'
 

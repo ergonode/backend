@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Controller\Api\TemplateGroup;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -18,6 +17,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Designer\Domain\Query\TemplateGroupGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/templates/groups", methods={"GET"})
@@ -26,7 +26,7 @@ class TemplateGroupGridReadAction
 {
     private TemplateGroupGridQueryInterface $query;
 
-    private TemplateGroupGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -34,7 +34,7 @@ class TemplateGroupGridReadAction
 
     public function __construct(
         TemplateGroupGridQueryInterface $query,
-        TemplateGroupGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {

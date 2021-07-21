@@ -20,6 +20,16 @@ services:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
 
+    Ergonode\Workflow\Application\Controller\Api\Status\StatusGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Workflow\Infrastructure\Grid\StatusGridBuilder'
+
+    Ergonode\Workflow\Application\Controller\Api\Transition\TransitionGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Workflow\Infrastructure\Grid\TransitionGridBuilder'
+
     Ergonode\Workflow\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']

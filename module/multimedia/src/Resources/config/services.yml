@@ -19,6 +19,11 @@ services:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Multimedia\Application\Controller\Api\Multimedia\GetMultimediaGridAction:
+        arguments:
+            $gridBuilder: '@Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder'
+        tags: ['controller.service_arguments']
+
     Ergonode\Multimedia\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
@@ -26,6 +31,8 @@ services:
     Ergonode\Multimedia\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
+
+
 
     Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaQuery'
     Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaGridQuery'

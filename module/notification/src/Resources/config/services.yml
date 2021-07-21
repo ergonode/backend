@@ -15,6 +15,11 @@ services:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Notification\Application\Controller\Api\NotificationGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Notification\Infrastructure\Grid\NotificationGridBuilder'
+
     Ergonode\Notification\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']

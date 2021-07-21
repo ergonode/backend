@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
-use Ergonode\Account\Infrastructure\Grid\AccountGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,13 +18,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Account\Domain\Query\AccountGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/accounts", methods={"GET"})
  */
 class UsersReadAction
 {
-    private AccountGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private AccountGridQueryInterface $query;
 
@@ -34,7 +34,7 @@ class UsersReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        AccountGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         AccountGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
