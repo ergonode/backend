@@ -17,7 +17,8 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class ConditionSetLanguageRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with condition set %relations%';
+    private const ONE_MESSAGE = 'Language is used in one condition set';
+    private const MULTIPLE_MESSAGE = 'Language is used in %count% condition sets';
 
     private LanguageQueryInterface $languageQuery;
 
@@ -36,13 +37,15 @@ class ConditionSetLanguageRelationshipStrategy implements RelationshipStrategyIn
 
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        $conditions = [];
+        $relations = [];
 
         $language = $this->languageQuery->getLanguageById($id->getValue());
         if ($language) {
-            $conditions = $this->conditionSetQuery->findLanguageConditionRelations($language);
+            $relations = $this->conditionSetQuery->findLanguageConditionRelations($language);
         }
 
-        return new RelationshipGroup(self::MESSAGE, $conditions);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

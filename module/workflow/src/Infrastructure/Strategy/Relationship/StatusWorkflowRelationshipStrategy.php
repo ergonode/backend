@@ -19,7 +19,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with workflow {relations}';
+    private const ONE_MESSAGE = 'Status has a relation with a workflow';
+    private const MULTIPLE_MESSAGE = 'Status has %count% relations with some workflows';
 
     private TransitionQueryInterface $query;
 
@@ -31,17 +32,11 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
         $this->provider = $provider;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof StatusId;
     }
 
-    /**
-     * @throws \Exception
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, StatusId::class);
@@ -49,11 +44,13 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
         $workflow = $this->provider->provide();
         $workflowId = $workflow->getId();
 
-        $result = [];
+        $relations = [];
         if ($this->query->hasStatus($workflowId, $id)) {
-            $result[] = $workflowId;
+            $relations[] = $workflowId;
         }
 
-        return new RelationshipGroup(self::MESSAGE, $result);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

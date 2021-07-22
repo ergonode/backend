@@ -38,7 +38,7 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $payload
      */
     public function process(BatchActionId $id, AggregateId $resourceId, $payload = null): array
     {
@@ -71,6 +71,12 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
             $relations[] = $relation->getValue();
         }
 
-        return new BatchActionMessage($group->getMessage(), ['{relations}' => implode(',', $relations)]);
+        return new BatchActionMessage(
+            $group->getMessage(),
+            [
+                '%relations%' => implode(',', $relations),
+                '%count%' => (string) count($relations),
+            ],
+        );
     }
 }

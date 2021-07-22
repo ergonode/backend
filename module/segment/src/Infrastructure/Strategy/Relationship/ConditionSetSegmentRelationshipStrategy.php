@@ -18,7 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with segment %relations%';
+    private const ONE_MESSAGE = 'Condition set has a relation with a segment';
+    private const MULTIPLE_MESSAGE = 'Condition set has %count% relations with some segments';
 
     private SegmentQueryInterface $query;
 
@@ -27,21 +28,18 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
         $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof ConditionSetId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, ConditionSetId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findIdByConditionSetId($id));
+        $relations = $this->query->findIdByConditionSetId($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

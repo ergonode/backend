@@ -18,7 +18,8 @@ use Ergonode\Product\Domain\Query\ProductRelationAttributeQueryInterface;
 
 class ProductRelationAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with product %relations%';
+    private const ONE_MESSAGE = 'Product has a relation with another a product';
+    private const MULTIPLE_MESSAGE = 'Product has %count% relations with other products';
 
     private ProductRelationAttributeQueryInterface $query;
 
@@ -36,6 +37,9 @@ class ProductRelationAttributeRelationshipStrategy implements RelationshipStrate
     {
         Assert::isInstanceOf($id, ProductId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findProductRelatedIds($id));
+        $relations =  $this->query->findProductRelatedIds($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

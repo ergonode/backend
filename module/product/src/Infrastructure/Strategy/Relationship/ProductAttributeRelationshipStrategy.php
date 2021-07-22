@@ -18,7 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with product %relations%';
+    private const ONE_MESSAGE = 'Attribute has a relation with a product';
+    private const MULTIPLE_MESSAGE = 'Attribute has %count% relations with some products';
 
     private ProductQueryInterface $query;
 
@@ -27,21 +28,18 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
         $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof AttributeId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, AttributeId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findProductIdByAttributeId($id));
+        $relations = $this->query->findProductIdByAttributeId($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }
