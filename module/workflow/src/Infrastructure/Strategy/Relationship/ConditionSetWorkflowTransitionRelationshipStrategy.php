@@ -17,8 +17,8 @@ use Webmozart\Assert\Assert;
 
 class ConditionSetWorkflowTransitionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Condition set has a relation with transition';
-    private const MULTIPLE_MESSAGE = 'Condition set has %count% relations with some transitions';
+    private const ONE_MESSAGE = 'Condition set has a relation with a status transition';
+    private const MULTIPLE_MESSAGE = 'Condition set has %count% relations with some status transitions';
 
     private TransitionConditionSetQueryInterface $query;
 

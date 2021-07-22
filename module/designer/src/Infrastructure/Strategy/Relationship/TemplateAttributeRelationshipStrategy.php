@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class TemplateAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Attribute has a relation with template';
+    private const ONE_MESSAGE = 'Attribute has a relation with a template';
     private const MULTIPLE_MESSAGE = 'Attribute has %count% relations with some template';
 
     private TemplateQueryInterface $query;

@@ -18,8 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Multimedia has a relation with product';
-    private const MULTIPLE_MESSAGE = 'Multimedia has %count% relations with some products';
+    private const ONE_MESSAGE = 'Multimedia have a relation with a product';
+    private const MULTIPLE_MESSAGE = 'Multimedia have %count% relations with some products';
 
     private ProductQueryInterface $productQuery;
 

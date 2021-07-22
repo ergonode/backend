@@ -34,8 +34,7 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
                 [
                     '%relations%' => implode(', ', $group->getRelations()),
                     '%count%' => count($group->getRelations()),
-                ],
-                'relations'
+                ]
             );
         }
 

@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ChildrenProductRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Product has a relation with another product';
+    private const ONE_MESSAGE = 'Product has a relation with other product';
     private const MULTIPLE_MESSAGE = 'Product has %count% relations with others products';
 
     private ProductChildrenQueryInterface $query;

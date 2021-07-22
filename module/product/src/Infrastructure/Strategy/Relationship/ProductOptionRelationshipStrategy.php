@@ -17,7 +17,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductOptionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Option has a relation with product %sku%';
+    private const ONE_MESSAGE = 'Option has a relation with a product';
     private const MULTIPLE_MESSAGE = 'Option has %count% relations with some products';
 
     private ProductQueryInterface $query;

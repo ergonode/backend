@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Condition set has a relation with segment';
+    private const ONE_MESSAGE = 'Condition set has a relation with a segment';
     private const MULTIPLE_MESSAGE = 'Condition set has %count% relations with some segments';
 
     private SegmentQueryInterface $query;

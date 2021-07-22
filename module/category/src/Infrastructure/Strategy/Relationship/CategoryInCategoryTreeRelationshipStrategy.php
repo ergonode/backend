@@ -18,7 +18,7 @@ use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
 class CategoryInCategoryTreeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Category has a relation with category tree';
+    private const ONE_MESSAGE = 'Category has a relation with a category tree';
     private const MULTIPLE_MESSAGE = 'Category has %count% relations with some category trees';
 
     private TreeQueryInterface $query;

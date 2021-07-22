@@ -19,7 +19,7 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class LanguageErgonodeChannelRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Language is used in channel';
+    private const ONE_MESSAGE = 'Language is used in a channel';
     private const MULTIPLE_MESSAGE = 'Language is used in %count% channels';
 
     private LanguageQueryInterface $languageQuery;

@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductTemplateRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Template has a relation with product';
+    private const ONE_MESSAGE = 'Template has a relation with a product';
     private const MULTIPLE_MESSAGE = 'Template has %count% relations with some products';
 
     private TemplateQueryInterface $query;

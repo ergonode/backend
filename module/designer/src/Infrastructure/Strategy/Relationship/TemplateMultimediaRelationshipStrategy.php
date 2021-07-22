@@ -18,8 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Multimedia has a relation with template';
-    private const MULTIPLE_MESSAGE = 'Multimedia has %count% relations with some templates';
+    private const ONE_MESSAGE = 'Multimedia have a relation with a template';
+    private const MULTIPLE_MESSAGE = 'Multimedia have %count% relations with some templates';
 
     private TemplateQueryInterface $templateQuery;
 

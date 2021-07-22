@@ -19,7 +19,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Status has a relation with workflow';
+    private const ONE_MESSAGE = 'Status has a relation with a workflow';
     private const MULTIPLE_MESSAGE = 'Status has %count% relations with some workflows';
 
     private TransitionQueryInterface $query;

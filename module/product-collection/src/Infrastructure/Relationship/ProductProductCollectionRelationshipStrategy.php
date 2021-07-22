@@ -18,7 +18,7 @@ use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 
 class ProductProductCollectionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Product has a relation with collection';
+    private const ONE_MESSAGE = 'Product has a relation with a collection';
     private const MULTIPLE_MESSAGE = 'Product has %count% relations with some collections';
 
     private ProductCollectionQueryInterface $query;

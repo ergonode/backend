@@ -18,7 +18,7 @@ use Ergonode\Workflow\Domain\Query\ProductStatusQueryInterface;
 
 class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Status has a relation with product';
+    private const ONE_MESSAGE = 'Status has a relation with a product';
     private const MULTIPLE_MESSAGE = 'Status has %count% relations with some products';
 
     private ProductStatusQueryInterface $query;

@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class AttributeAttributeGroupRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Attribute group has a relation with attribute';
+    private const ONE_MESSAGE = 'Attribute group has a relation with an attribute';
     private const MULTIPLE_MESSAGE = 'Attribute group has %count% relations with some attributes';
 
     private AttributeQueryInterface $query;

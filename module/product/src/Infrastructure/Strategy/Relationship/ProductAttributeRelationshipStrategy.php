@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Attribute has a relation with product';
+    private const ONE_MESSAGE = 'Attribute has a relation with a product';
     private const MULTIPLE_MESSAGE = 'Attribute has %count% relations with some products';
 
     private ProductQueryInterface $query;
