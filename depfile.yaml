@@ -21,10 +21,22 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\BatchAction\\.*
+  - name: Category
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Category\\.*
+  - name: Channel
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Channel\\.*
   - name: Comment
     collectors:
       - type: className
         regex: .*Ergonode\\Comment\\.*
+  - name: Condition
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Condition\\.*
   - name: Completeness
     collectors:
       - type: className
@@ -33,10 +45,22 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Core\\.*
+  - name: Designer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Designer\\.*
+  - name: ExporterFile
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterFile\\.*
   - name: EventSourcing
     collectors:
       - type: className
         regex: .*Ergonode\\EventSourcing\\.*
+  - name: Grid
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Grid\\.*
   - name: Importer
     collectors:
       - type: className
@@ -45,18 +69,14 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ImporterErgonode1\\.*
-  - name: Channel
-    collectors:
-      - type: className
-        regex: .*Ergonode\\Channel\\.*
-  - name: ExporterFile
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ExporterFile\\.*
   - name: Mailer
     collectors:
       - type: className
         regex: .*Ergonode\\Mailer\\.*
+  - name: Multimedia
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Multimedia\\.*
   - name: Notification
     collectors:
       - type: className
@@ -69,18 +89,32 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ProductCollection\\.*
+  - name: Segment
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Segment\\.*
   - name: SharedKernel
     collectors:
       - type: className
         regex: .*Ergonode\\SharedKernel\\.*
+  - name: Value
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Value\\.*
+  - name: Workflow
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Workflow\\.*
 ruleset:
   Account:
     - Api
     - Attribute
     - Core
     - EventSourcing
+    - Grid
     - Mailer
     - SharedKernel
+    - Value
   Api:
     - Core
     - SharedKernel
@@ -88,43 +122,114 @@ ruleset:
     - Api
     - Core
     - EventSourcing
+    - Grid
+    - Multimedia
     - SharedKernel
+    - Value
+    - Workflow  # @todo incorrect relation need fix
   Authentication:
     - Account
     - Core
     - SharedKernel
   BatchAction:
     - Account
-    - Attribute # temporary solution, need fix grid column attribute relation
+    - Attribute # @todo temporary solution, need fix grid column attribute relation
     - Api
     - Core
     - EventSourcing
+    - Grid
     - Notification
+    - SharedKernel
+  Category:
+    - Api
+    - Attribute
+    - Core
+    - Grid
+    - EventSourcing
+    - Product # @todo incorrect relation need fix
+    - SharedKernel
+    - Value
+  Channel:
+    - Api
+    - Core
+    - EventSourcing
+    - Grid
+    - Product
     - SharedKernel
   Comment:
     - Account
     - Api
     - Core
     - EventSourcing
+    - Grid
     - SharedKernel
   Completeness:
     - Attribute
     - Core
+    - Designer
     - EventSourcing
     - Product
     - SharedKernel
+  Condition:
+    - Api
+    - Account
+    - Attribute
+    - Category
+    - Completeness
+    - Core
+    - Designer
+    - EventSourcing
+    - Grid
+    - Product
+    - SharedKernel
+    - Workflow
+    - Value
   Core:
     - Api
     - EventSourcing
+    - Grid # @todo incorrect relation need fix
     - SharedKernel
-  Importer:
+  Designer:
     - Api
     - Attribute
     - Core
     - EventSourcing
+    - Grid
+    - Multimedia
+    - Product # @todo incorrect relation need fix
+    - SharedKernel
+  EventSourcing:
+    - SharedKernel
+  ExporterFile:
+    - Attribute
+    - Category
+    - Core
+    - Channel
+    - Designer
+    - EventSourcing
+    - Product
+    - SharedKernel
+  Grid:
+    - Api
+    - Attribute # @todo incorrect relation need fix
+    - Core
+    - EventSourcing
+    - Product # @todo incorrect relation need fix
+    - SharedKernel
+  Importer:
+    - Api
+    - Attribute
+    - Category
+    - Core
+    - EventSourcing
+    - Designer
+    - Grid
+    - Multimedia
     - Notification
     - Product
     - SharedKernel
+    - Value
+    - Workflow
   Importer-Ergonode-1:
     - Attribute
     - Core
@@ -132,43 +237,70 @@ ruleset:
     - Importer
     - Product
     - SharedKernel
-  EventSourcing:
-    - SharedKernel
-  ExporterFile:
-    - Attribute
-    - Core
-    - Channel
-    - EventSourcing
-    - Product
-    - SharedKernel
-  Channel:
-    - Api
-    - Core
-    - EventSourcing
-    - Product
-    - SharedKernel
   Mailer:
     - Core
     - EventSourcing
+    - SharedKernel
+  Multimedia:
+    - Api
+    - Core
+    - EventSourcing
+    - Grid
     - SharedKernel
   Notification:
     - Account
     - Api
     - Core
     - EventSourcing
+    - Grid
     - SharedKernel
   Product:
     - Account
     - Api
-    - BatchAction
-    - Core
     - Attribute
+    - BatchAction
+    - Category
+    - Core
+    - Designer
     - EventSourcing
+    - Grid
+    - Multimedia
     - SharedKernel
+    - Segment  # @todo incorrect relation need fix
+    - Workflow  # @todo incorrect relation need fix
+    - Value
   ProductCollection:
     - Api
     - Attribute
     - Core
     - EventSourcing
+    - Grid
     - Product
+    - Segment  # @todo incorrect relation need fix
+    - SharedKernel
+  Segment:
+    - Api
+    - Condition
+    - Core
+    - EventSourcing
+    - Grid
+    - Product
+    - SharedKernel
+  Workflow:
+    - Account
+    - Api
+    - Attribute
+    - Condition # @todo incorrect relation need fix
+    - Core
+    - EventSourcing
+    - Grid
+    - Notification
+    - Product
+    - SharedKernel
+    - Value
+  Value:
+    - Api
+    - Attribute # @todo incorrect relation need fix
+    - Core
+    - EventSourcing
     - SharedKernel
