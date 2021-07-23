@@ -72,10 +72,10 @@ class SymfonySerializer implements SerializerInterface, NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($data)
+    public function normalize($data, ?string $format = self::FORMAT)
     {
         try {
-            return $this->serializer->normalize($data);
+            return $this->serializer->normalize($data, $format);
         } catch (ExceptionInterface $exception) {
             $this->logger->error($exception);
 
@@ -89,10 +89,10 @@ class SymfonySerializer implements SerializerInterface, NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, string $type)
+    public function denormalize($data, string $type, ?string $format = self::FORMAT)
     {
         try {
-            return $this->serializer->denormalize($data, $type);
+            return $this->serializer->denormalize($data, $type, $format);
         } catch (ExceptionInterface $exception) {
             $this->logger->error($exception);
 
