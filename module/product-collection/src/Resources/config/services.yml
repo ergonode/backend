@@ -18,6 +18,26 @@ services:
     Ergonode\ProductCollection\Application\Controller\:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
+
+    Ergonode\ProductCollection\Application\Controller\Api\Element\ProductCollectionElementGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGridBuilder'
+
+    Ergonode\ProductCollection\Application\Controller\Api\Product\ProductProductCollectionGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\ProductCollection\Infrastructure\Grid\ProductProductCollectionGridBuilder'
+
+    Ergonode\ProductCollection\Application\Controller\Api\ProductCollection\ProductCollectionGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGridBuilder'
+
+    Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType\ProductCollectionTypeGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionTypeGridBuilder'
     
     Ergonode\ProductCollection\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'

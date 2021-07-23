@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Category\Infrastructure\Grid\CategoryGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,13 +18,14 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Category\Domain\Query\CategoryGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/categories", methods={"GET"})
  */
 class CategoryGridReadAction
 {
-    private CategoryGridBuilder $categoryGridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private CategoryGridQueryInterface $categoryQuery;
 
@@ -34,12 +34,12 @@ class CategoryGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        CategoryGridBuilder $categoryGridBuilder,
+        GridBuilderInterface $gridBuilder,
         CategoryGridQueryInterface $categoryQuery,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->categoryGridBuilder = $categoryGridBuilder;
+        $this->gridBuilder = $gridBuilder;
         $this->categoryQuery = $categoryQuery;
         $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
@@ -112,7 +112,7 @@ class CategoryGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): array
     {
-        $grid = $this->categoryGridBuilder->build($configuration, $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->factory->create($this->categoryQuery->getDataSet($language));
 
         return $this->gridRenderer->render($grid, $configuration, $dataSet);

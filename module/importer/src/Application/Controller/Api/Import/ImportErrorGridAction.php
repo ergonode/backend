@@ -13,13 +13,13 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -34,7 +34,7 @@ use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
  */
 class ImportErrorGridAction
 {
-    private ImportErrorsGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ImportErrorGridQueryInterface $query;
 
@@ -43,7 +43,7 @@ class ImportErrorGridAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ImportErrorsGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ImportErrorGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

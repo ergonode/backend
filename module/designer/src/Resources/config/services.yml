@@ -19,6 +19,21 @@ services:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Designer\Application\Controller\Api\Template\TemplateGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Designer\Infrastructure\Grid\TemplateGridBuilder'
+
+    Ergonode\Designer\Application\Controller\Api\TemplateGroup\TemplateGroupGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Designer\Infrastructure\Grid\TemplateGroupGridBuilder'
+
+    Ergonode\Designer\Application\Controller\Api\TemplateType\TemplateTypeGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGridBuilder'
+
     Ergonode\Designer\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']

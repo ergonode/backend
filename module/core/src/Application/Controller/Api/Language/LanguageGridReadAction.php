@@ -11,13 +11,13 @@ namespace Ergonode\Core\Application\Controller\Api\Language;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Grid\LanguageGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/languages", methods={"GET"})
@@ -26,14 +26,14 @@ class LanguageGridReadAction
 {
     private LanguageQueryInterface $query;
 
-    private LanguageGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         LanguageQueryInterface $query,
-        LanguageGridBuilder $gridBuilder
+        GridBuilderInterface $gridBuilder
     ) {
         $this->query = $query;
         $this->gridBuilder = $gridBuilder;

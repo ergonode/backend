@@ -13,19 +13,19 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Comment\Domain\Query\CommentGridQueryInterface;
-use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/comments", methods={"GET"}, name="ergonode_comment_grid")
  */
 class CommentGridAction
 {
-    private CommentGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private CommentGridQueryInterface $query;
 
@@ -34,7 +34,7 @@ class CommentGridAction
     private GridRenderer $renderer;
 
     public function __construct(
-        CommentGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         CommentGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $renderer

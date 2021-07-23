@@ -20,6 +20,11 @@ services:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
 
+    Ergonode\Comment\Application\Controller\Api\CommentGridAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder'
+
     Ergonode\Comment\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
