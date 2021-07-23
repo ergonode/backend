@@ -5,6 +5,12 @@ parameters:
   status_draft_translation:
     'pl_PL': 'Szkic'
     'en_GB': 'Draft'
+  status_blocked_translation:
+    'pl_PL': 'Zablokowany'
+    'en_GB': 'Blocked'
+  status_processed_translation:
+    'pl_PL': 'Procesowany'
+    'en_GB': 'Processed'
   transition_name_translation:
     'pl_PL': 'Rozpocznij'
     'en_GB': 'Start'
@@ -27,6 +33,20 @@ Ergonode\Workflow\Domain\Entity\Status:
       - '<color(#FFC108)>'
       - '<translation(<{status_draft_translation}>)>'
       - '<translation(<{status_draft_translation}>)>'
+  status_blocked:
+    __construct:
+      - '<statusId("blocked")>'
+      - '<statusCode("blocked")>'
+      - '<color(#C62828)>'
+      - '<translation(<{status_blocked_translation}>)>'
+      - '<translation(<{status_blocked_translation}>)>'
+  status_processed:
+    __construct:
+      - '<statusId("processed")>'
+      - '<statusCode("processed")>'
+      - '<color(#304FFE)>'
+      - '<translation(<{status_processed_translation}>)>'
+      - '<translation(<{status_processed_translation}>)>'
 
 Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
   default_workflow:
@@ -38,8 +58,18 @@ Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
         - '@status_draft->id'
 
 Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
-  add_status_new:
+  add_status_new_draft:
     __construct:
       - '@default_workflow->id'
       - '@status_new->id'
+      - '@status_draft->id'
+  add_status_new_processed:
+    __construct:
+      - '@default_workflow->id'
+      - '@status_new->id'
+      - '@status_processed->id'
+  add_status_blocked_draft:
+    __construct:
+      - '@default_workflow->id'
+      - '@status_blocked->id'
       - '@status_draft->id'
