@@ -18,8 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const ONE_MESSAGE = 'Unit group has a relation with an attribute';
-    private const MULTIPLE_MESSAGE = 'Unit group has %count% relations with some attributes';
+    private const ONE_MESSAGE = 'Unit has a relation with an attribute';
+    private const MULTIPLE_MESSAGE = 'Unit has %count% relations with some attributes';
 
     private AttributeQueryInterface $query;
 

@@ -38,6 +38,6 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
             );
         }
 
-        return implode(',', $messages);
+        return implode(', '.PHP_EOL, $messages);
     }
 }
