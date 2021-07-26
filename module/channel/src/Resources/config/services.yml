@@ -11,6 +11,21 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Channel\Application\Controller\Api\Export\ChannelExportGridAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder'
+
+    Ergonode\Channel\Application\Controller\Api\Export\ChannelExportErrorGridAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder'
+
+    Ergonode\Channel\Application\Controller\Api\ChannelGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Channel\Infrastructure\Grid\ChannelGridBuilder'
+
     Ergonode\Channel\Application\Command\:
         resource: '../../Application/Command/*'
         tags: ['console.command']

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
-use Ergonode\Account\Infrastructure\Grid\RoleGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,6 +18,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Account\Domain\Query\RoleGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/roles", methods={"GET"})
@@ -27,7 +27,7 @@ class RoleGridReadAction
 {
     private RoleGridQueryInterface $query;
 
-    private RoleGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +35,7 @@ class RoleGridReadAction
 
     public function __construct(
         RoleGridQueryInterface $query,
-        RoleGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {

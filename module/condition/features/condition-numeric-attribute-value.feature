@@ -71,6 +71,23 @@ Feature: Condition Product sku exists
     Then the response status code should be 201
     And store response param "id" as "condition_set_id"
 
+  Scenario: create NUMERIC_ATTRIBUTE_VALUE_CONDITION condition set  with integer value
+    When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
+      """
+        {
+          "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "operator": "=",
+              "attribute": "@attribute_id@",
+              "value": 100
+            }
+          ]
+        }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "condition_set_id_2"
+
   Scenario: create condition set with incorrect attribute uuid
     When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
@@ -299,6 +316,10 @@ Feature: Condition Product sku exists
 
   Scenario: Delete NUMERIC_ATTRIBUTE_VALUE_CONDITION condition set
     When I send a DELETE request to "/api/v1/en_GB/conditionsets/@condition_set_id@"
+    Then the response status code should be 204
+
+  Scenario: Delete second NUMERIC_ATTRIBUTE_VALUE_CONDITION condition set
+    When I send a DELETE request to "/api/v1/en_GB/conditionsets/@condition_set_id_2@"
     Then the response status code should be 204
 
   Scenario: Delete numeric attribute

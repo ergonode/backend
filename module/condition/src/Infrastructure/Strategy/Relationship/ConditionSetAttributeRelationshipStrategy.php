@@ -18,7 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ConditionSetAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with condition set %relations%';
+    private const ONE_MESSAGE = 'Attribute is used in one condition set';
+    private const MULTIPLE_MESSAGE = 'Attribute is used in %count% condition sets';
 
     private ConditionSetQueryInterface $query;
 
@@ -27,21 +28,18 @@ class ConditionSetAttributeRelationshipStrategy implements RelationshipStrategyI
         $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof AttributeId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, AttributeId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findAttributeIdConditionRelations($id));
+        $relations = $this->query->findAttributeIdConditionRelations($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

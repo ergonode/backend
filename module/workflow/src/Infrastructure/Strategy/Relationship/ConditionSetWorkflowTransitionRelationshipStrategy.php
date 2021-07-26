@@ -17,7 +17,8 @@ use Webmozart\Assert\Assert;
 
 class ConditionSetWorkflowTransitionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with workflow transition %relations%';
+    private const ONE_MESSAGE = 'Condition set has a relation with a status transition';
+    private const MULTIPLE_MESSAGE = 'Condition set has %count% relations with some status transitions';
 
     private TransitionConditionSetQueryInterface $query;
 
@@ -35,7 +36,9 @@ class ConditionSetWorkflowTransitionRelationshipStrategy implements Relationship
     {
         Assert::isInstanceOf($id, ConditionSetId::class);
 
+        $relations = $this->query->findIdByConditionSetId($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findIdByConditionSetId($id));
+        return new RelationshipGroup($message, $relations);
     }
 }

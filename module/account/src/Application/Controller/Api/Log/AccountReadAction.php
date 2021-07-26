@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Log;
 
-use Ergonode\Account\Infrastructure\Grid\LogGridBuilder;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,6 +18,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Account\Domain\Query\LogGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/{language}/accounts/log", methods={"GET"})
@@ -27,7 +27,7 @@ class AccountReadAction
 {
     private LogGridQueryInterface $query;
 
-    private LogGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private AuthenticatedUserProviderInterface $userProvider;
 
@@ -37,7 +37,7 @@ class AccountReadAction
 
     public function __construct(
         LogGridQueryInterface $query,
-        LogGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         AuthenticatedUserProviderInterface $userProvider,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

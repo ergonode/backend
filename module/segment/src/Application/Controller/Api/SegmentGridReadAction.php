@@ -12,20 +12,20 @@ namespace Ergonode\Segment\Application\Controller\Api;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Segment\Infrastructure\Grid\SegmentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Segment\Domain\Query\SegmentGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("segments", methods={"GET"})
  */
 class SegmentGridReadAction
 {
-    private SegmentGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private SegmentGridQueryInterface $query;
 
@@ -34,7 +34,7 @@ class SegmentGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        SegmentGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         SegmentGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

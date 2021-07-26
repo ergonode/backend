@@ -12,19 +12,19 @@ namespace Ergonode\Notification\Application\Controller\Api;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Notification\Infrastructure\Grid\NotificationGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Notification\Domain\Query\NotificationGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/profile/notifications", methods={"GET"})
  */
 class NotificationGridReadAction
 {
-    private NotificationGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private NotificationGridQueryInterface $query;
 
@@ -35,7 +35,7 @@ class NotificationGridReadAction
     private AuthenticatedUserProviderInterface $userProvider;
 
     public function __construct(
-        NotificationGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         NotificationGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer,

@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\Product;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductProductCollectionGridBuilder;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -20,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\ProductCollection\Domain\Query\ProductProductCollectionGridQueryInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -30,7 +30,7 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
  */
 class ProductProductCollectionGridReadAction
 {
-    private ProductProductCollectionGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private ProductProductCollectionGridQueryInterface $collectionQuery;
 
@@ -39,7 +39,7 @@ class ProductProductCollectionGridReadAction
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ProductProductCollectionGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         ProductProductCollectionGridQueryInterface $collectionQuery,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer

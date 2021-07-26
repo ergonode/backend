@@ -11,27 +11,27 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Grid\UnitGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/units", methods={"GET"})
  */
 class UnitGridReadAction
 {
-    private UnitGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private UnitQueryInterface $unitQuery;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        UnitGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         UnitQueryInterface $unitQuery,
         GridRenderer $gridRenderer
     ) {

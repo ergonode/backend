@@ -15,6 +15,16 @@ services:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
 
+    Ergonode\Core\Application\Controller\Api\Language\LanguageGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Core\Infrastructure\Grid\LanguageGridBuilder'
+
+    Ergonode\Core\Application\Controller\Api\Unit\UnitGridReadAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $gridBuilder: '@Ergonode\Core\Infrastructure\Grid\UnitGridBuilder'
+
     Ergonode\Core\Infrastructure\:
         resource: '../../Infrastructure/*'
 

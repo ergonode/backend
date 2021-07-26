@@ -20,6 +20,16 @@ services:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
 
+    Ergonode\Category\Application\Controller\Api\CategoryGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Category\Infrastructure\Grid\CategoryGridBuilder'
+
+    Ergonode\Category\Application\Controller\Api\Tree\CategoryTreeGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Category\Infrastructure\Grid\TreeGridBuilder'
+
     Ergonode\Category\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']

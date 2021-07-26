@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Infrastructure\Grid\TemplateGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,6 +18,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Designer\Domain\Query\TemplateGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/templates", methods={"GET"})
@@ -27,7 +27,7 @@ class TemplateGridReadAction
 {
     private TemplateGridQueryInterface $designerTemplateQuery;
 
-    private TemplateGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +35,7 @@ class TemplateGridReadAction
 
     public function __construct(
         TemplateGridQueryInterface $designerTemplateQuery,
-        TemplateGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {

@@ -11,6 +11,21 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
+    Ergonode\Account\Application\Controller\Api\Account\UsersReadAction:
+        arguments:
+            $gridBuilder: '@Ergonode\Account\Infrastructure\Grid\AccountGridBuilder'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Account\Application\Controller\Api\Role\RoleGridReadAction:
+        arguments:
+            $gridBuilder: '@Ergonode\Account\Infrastructure\Grid\RoleGridBuilder'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Account\Application\Controller\Api\Log\AccountReadAction:
+        arguments:
+            $gridBuilder: '@Ergonode\Account\Infrastructure\Grid\LogGridBuilder'
+        tags: ['controller.service_arguments']
+
     Ergonode\Account\Application\Command\:
         resource: '../../Application/Command/*'
         tags: ['console.command']

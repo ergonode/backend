@@ -28,8 +28,24 @@ class MetadataService
      */
     public function getMetadata(Multimedia $multimedia): array
     {
+        $info = [];
         $resource = $this->multimediaStorage->readStream($multimedia->getFileName());
 
-        return $this->reader->read($resource);
+        $info['size'] = number_format($multimedia->getSize() / 1024, 2).' KB';
+
+        if ($multimedia->getMime()) {
+            $info['type'] = ucfirst(substr($multimedia->getMime(), 0, strpos($multimedia->getMime(), '/')));
+        }
+
+        $timestamp = $this->multimediaStorage->getTimestamp($multimedia->getFileName());
+        if ($timestamp) {
+            $date = new \DateTime();
+            $date->setTimestamp($timestamp);
+            $info['created at'] = $date->format('Y-m-d H:i');
+        }
+
+        $metadata = $this->reader->read($resource);
+
+        return array_merge($info, $metadata);
     }
 }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
-use Ergonode\Category\Infrastructure\Grid\TreeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,6 +18,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Category\Domain\Query\TreeGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route("/trees", methods={"GET"})
@@ -27,7 +27,7 @@ class CategoryTreeGridReadAction
 {
     private TreeGridQueryInterface $query;
 
-    private TreeGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private DbalDataSetFactory $factory;
 
@@ -35,7 +35,7 @@ class CategoryTreeGridReadAction
 
     public function __construct(
         TreeGridQueryInterface $query,
-        TreeGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {

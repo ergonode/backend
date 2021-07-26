@@ -24,6 +24,31 @@ services:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
 
+    Ergonode\Product\Application\Controller\Api\ProductGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Product\Infrastructure\Grid\ProductGridBuilder'
+
+    Ergonode\Product\Application\Controller\Api\ProductGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Product\Infrastructure\Grid\ProductGridBuilder'
+
+    Ergonode\Product\Application\Controller\Api\ProductHistoryReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Product\Infrastructure\Grid\ProductHistoryGridBuilder'
+
+    Ergonode\Product\Application\Controller\Api\Category\ProductCategoryGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Product\Infrastructure\Grid\ProductCategoryGridBuilder'
+
+    Ergonode\Product\Application\Controller\Api\Relations\ProductChildGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Product\Infrastructure\Grid\ProductChildrenGridBuilder'
+
     Ergonode\Product\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']

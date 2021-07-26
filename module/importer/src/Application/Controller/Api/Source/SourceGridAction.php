@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Importer\Infrastructure\Grid\SourceGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\SourceGridQueryInterface;
+use Ergonode\Grid\GridBuilderInterface;
 
 /**
  * @Route(
@@ -29,7 +29,7 @@ use Ergonode\Importer\Domain\Query\SourceGridQueryInterface;
  */
 class SourceGridAction
 {
-    private SourceGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
     private SourceGridQueryInterface $query;
 
@@ -38,7 +38,7 @@ class SourceGridAction
     private GridRenderer $renderer;
 
     public function __construct(
-        SourceGridBuilder $gridBuilder,
+        GridBuilderInterface $gridBuilder,
         SourceGridQueryInterface $query,
         DbalDataSetFactory $factory,
         GridRenderer $renderer

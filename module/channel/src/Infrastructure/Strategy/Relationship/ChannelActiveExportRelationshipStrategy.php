@@ -17,30 +17,28 @@ use Webmozart\Assert\Assert;
 
 class ChannelActiveExportRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Channel has active export %relations%';
+    private const ONE_MESSAGE = 'Channel has one active export';
+    private const MULTIPLE_MESSAGE = 'Channel has %count% active exports';
 
-    private ExportQueryInterface $exportQuery;
+    private ExportQueryInterface $query;
 
-    public function __construct(ExportQueryInterface $exportQuery)
+    public function __construct(ExportQueryInterface $query)
     {
-        $this->exportQuery = $exportQuery;
+        $this->query = $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof ChannelId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, ChannelId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->exportQuery->findActiveExport($id));
+        $relations = $this->query->findActiveExport($id);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

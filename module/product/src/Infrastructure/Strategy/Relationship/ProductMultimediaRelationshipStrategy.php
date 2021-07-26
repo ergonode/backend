@@ -18,7 +18,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with multimedia %relations%';
+    private const ONE_MESSAGE = 'Multimedia have a relation with a product';
+    private const MULTIPLE_MESSAGE = 'Multimedia have %count% relations with some products';
 
     private ProductQueryInterface $productQuery;
 
@@ -27,28 +28,24 @@ class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInter
         $this->productQuery = $productQuery;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AggregateId $id): bool
     {
         return $id instanceof MultimediaId;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, MultimediaId::class);
 
-        $result = [];
+        $relations = [];
 
         $list = $this->productQuery->getMultimediaRelation($id);
         foreach (array_keys($list) as $productId) {
-            $result[] = new ProductId($productId);
+            $relations[] = new ProductId($productId);
         }
 
-        return new RelationshipGroup(self::MESSAGE, $result);
+        $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
+
+        return new RelationshipGroup($message, $relations);
     }
 }

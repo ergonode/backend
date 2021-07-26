@@ -17,7 +17,7 @@ use Webmozart\Assert\Assert;
 
 class ActiveImportRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Import is active %relations%';
+    private const MESSAGE = 'Import is active';
 
     private ImportRepositoryInterface $importRepository;
 
