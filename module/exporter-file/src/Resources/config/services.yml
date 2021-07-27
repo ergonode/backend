@@ -34,36 +34,46 @@ services:
         resource: '../../Domain/*'
         exclude: '../../Domain/{ValueObject}'
 
+    Ergonode\ExporterFile\Infrastructure\Processor\Step\:
+        resource: '../../Infrastructure/Processor/Step/*'
+        tags: ['export-file.steps_process']
+
+    Ergonode\ExporterFile\Infrastructure\Handler\Export\StartProcessCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            $builders: !tagged_iterator 'export-file.header_builder'
+
     Ergonode\ExporterFile\Infrastructure\Handler\ProcessExportCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
-            $steps:
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\AttributeExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\OptionExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\CategoryExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'
+            $steps: !tagged_iterator 'export-file.steps_process'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder:
+        tags: ['export-file.header_builder']
         arguments:
             $builders: !tagged_iterator 'export-file.template_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilder:
-       arguments:
-           $builders: !tagged_iterator 'export-file.template_element_builder'
+        tags: ['export-file.header_builder']
+        arguments:
+            $builders: !tagged_iterator 'export-file.template_element_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilder:
+        tags: ['export-file.header_builder']
         arguments:
             $builders: !tagged_iterator 'export-file.product_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilder:
+        tags: ['export-file.header_builder']
         arguments:
             $builders: !tagged_iterator 'export-file.category_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportAttributeBuilder:
+        tags: ['export-file.header_builder']
         arguments:
             $builders: !tagged_iterator 'export-file.attribute_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilder:
+        tags: ['export-file.header_builder']
         arguments:
             $builders: !tagged_iterator 'export-file.option_builder'

@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportAttributeBuilder
+class ExportAttributeBuilder implements ExportHeaderBuilderInterface
 {
     /**
      * @var ExportAttributeBuilderInterface[]
@@ -44,6 +44,11 @@ class ExportAttributeBuilder
                 ...$result
             )
         );
+    }
+
+    public function fileName(): string
+    {
+        return 'attributes';
     }
 
 
