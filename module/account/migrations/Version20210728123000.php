@@ -11,6 +11,7 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
+use Doctrine\DBAL\FetchMode;
 
 class Version20210728123000 extends AbstractErgonodeMigration
 {
@@ -21,7 +22,7 @@ class Version20210728123000 extends AbstractErgonodeMigration
             [
                 'class' => UserPasswordChangedEvent::class,
             ]
-        )->fetchOne();
+        )->fetch(FetchMode::COLUMN);
 
         $aggregates = $this->connection->executeQuery(
             'SELECT aggregate_id, payload->\'password\' as password 
@@ -29,7 +30,7 @@ class Version20210728123000 extends AbstractErgonodeMigration
             [
                 'id' => $eventId,
             ]
-        )->fetchAllAssociative();
+        )->fetchAll();
 
         foreach ($aggregates as $aggregate) {
             $this->addSql(
