@@ -5,53 +5,10 @@ Feature: Segment module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_attribute"
-
-  Scenario: Create template
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@product_template_attribute@",
-              "required": true
-            }
-          }
-        ]
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template"
-
-  Scenario: Create category
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "CATEGORY_@@random_uuid@@",
-        "name": {"de_DE": "Test de", "en_GB": "Test en"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_category"
+  Scenario: Get template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_id"
 
   Scenario: Create product
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -59,8 +16,7 @@ Feature: Segment module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template@",
-        "categoryIds": ["@product_category@"]
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
@@ -346,8 +302,7 @@ Feature: Segment module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template@",
-        "categoryIds": ["@product_category@"]
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201

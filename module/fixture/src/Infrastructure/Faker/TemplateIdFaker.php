@@ -17,8 +17,12 @@ class TemplateIdFaker extends BaseProvider
     /**
      * @throws \Exception
      */
-    public function templateId(): TemplateId
+    public function templateId(string $uuid = null): TemplateId
     {
+        if ($uuid) {
+            return new TemplateId($uuid);
+        }
+
         return TemplateId::generate();
     }
 }
