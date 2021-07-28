@@ -19,24 +19,27 @@ class Version20210728123000 extends AbstractErgonodeMigration
         $eventId = $this->connection->executeQuery(
             'SELECT id FROM event_store_event WHERE event_class = :class',
             [
-                'class' => UserPasswordChangedEvent::class
+                'class' => UserPasswordChangedEvent::class,
             ]
         )->fetchOne();
 
         $aggregates = $this->connection->executeQuery(
-            'SELECT aggregate_id, payload->\'password\' as password FROM event_store WHERE event_id = :id AND sequence = 2',
+            'SELECT aggregate_id, payload->\'password\' as password 
+                 FROM event_store WHERE event_id = :id AND sequence = 2',
             [
-                'id' => $eventId
+                'id' => $eventId,
             ]
         )->fetchAllAssociative();
 
         foreach ($aggregates as $aggregate) {
-            $this->addSql('UPDATE event_store SET payload = jsonb_set(payload, \'{password}\',:password::JSONB) 
-                                WHERE aggregate_id = :id and sequence = 1',
+            $this->addSql(
+                'UPDATE event_store SET payload = jsonb_set(payload, \'{password}\',:password::JSONB) 
+                     WHERE aggregate_id = :id and sequence = 1',
                 [
                     'password' => $aggregate['password'],
                     'id' => $aggregate['aggregate_id'],
-                ] );
+                ]
+            );
         }
     }
 }
