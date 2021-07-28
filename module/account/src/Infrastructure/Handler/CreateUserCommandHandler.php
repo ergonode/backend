@@ -15,6 +15,7 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Account\Domain\ValueObject\Password;
 
 class CreateUserCommandHandler
 {
@@ -44,21 +45,26 @@ class CreateUserCommandHandler
         foreach ($activeLanguages as $activeLanguage) {
             $languagePrivilegesCollection[$activeLanguage->getCode()] = new LanguagePrivileges(true, true);
         }
-        $user = new User(
+
+        $plainPasswordUser = $this->createUser($command, $command->getPassword(), $languagePrivilegesCollection);
+        $encodedPassword = $this->userPasswordEncoder->encode($plainPasswordUser, $command->getPassword());
+        $user = $this->createUser($command, $encodedPassword, $languagePrivilegesCollection);
+
+        $this->repository->save($user);
+    }
+
+    private function createUser(CreateUserCommand $command, Password $password, array $languagePrivilege): User
+    {
+        return new User(
             $command->getId(),
             $command->getFirstName(),
             $command->getLastName(),
             $command->getEmail(),
             $command->getLanguage(),
-            $command->getPassword(),
+            $password,
             $command->getRoleId(),
-            $languagePrivilegesCollection,
+            $languagePrivilege,
             $command->isActive()
         );
-
-        $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
-        $user->changePassword($encodedPassword);
-
-        $this->repository->save($user);
     }
 }
