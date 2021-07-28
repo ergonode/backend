@@ -43,12 +43,14 @@ class StartProcessCommandHandlerTest extends TestCase
         $handler = new StartProcessCommandHandler(
             $exportRepository,
             $storage,
-            $productBuilder,
-            $elementBuilder,
-            $attributeBuilder,
-            $optionBuilder,
-            $categoryBuilder,
-            $templateBuilder
+            [
+                $productBuilder,
+                $elementBuilder,
+                $attributeBuilder,
+                $optionBuilder,
+                $categoryBuilder,
+                $templateBuilder,
+            ],
         );
         $handler->__invoke($command);
     }
