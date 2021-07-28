@@ -46,8 +46,8 @@ class CreateUserCommandHandler
             $languagePrivilegesCollection[$activeLanguage->getCode()] = new LanguagePrivileges(true, true);
         }
 
-        $helpUser = $this->createUser($command, $command->getPassword(), $languagePrivilegesCollection);
-        $encodedPassword = $this->userPasswordEncoder->encode($helpUser, $command->getPassword());
+        $plainPasswordUser = $this->createUser($command, $command->getPassword(), $languagePrivilegesCollection);
+        $encodedPassword = $this->userPasswordEncoder->encode($plainPasswordUser, $command->getPassword());
         $user = $this->createUser($command, $encodedPassword, $languagePrivilegesCollection);
 
         $this->repository->save($user);
