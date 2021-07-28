@@ -75,7 +75,7 @@ class NotTheSameProductValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate(Uuid::uuid4()->toString(), $constraint);
 
         $assertion = $this->buildViolation($constraint->messageNotProduct)
-            ->setParameter('{{ value }}', $this->aggregateId);
+            ->setParameter('{{ value }}', $this->aggregateId->getValue());
         $assertion->assertRaised();
     }
 

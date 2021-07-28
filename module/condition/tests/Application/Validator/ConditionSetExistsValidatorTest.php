@@ -66,7 +66,7 @@ class ConditionSetExistsValidatorTest extends ConstraintValidatorTestCase
         $value = ConditionSetId::generate();
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);
+        $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value->getValue());
         $assertion->assertRaised();
     }
 

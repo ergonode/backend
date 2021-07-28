@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportCategoryBuilder
+class ExportCategoryBuilder implements ExportHeaderBuilderInterface
 {
     /**
      * @var ExportCategoryBuilderInterface[]
@@ -39,6 +39,11 @@ class ExportCategoryBuilder
         }
 
         return array_unique(array_merge(['_code', '_name', '_language', ], ...$line));
+    }
+
+    public function fileName(): string
+    {
+        return 'categories';
     }
 
     public function build(AbstractCategory $category, FileExportChannel $channel): ExportData

@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportProductBuilder
+class ExportProductBuilder implements ExportHeaderBuilderInterface
 {
     /**
      * @var ExportProductBuilderInterface[]
@@ -39,6 +39,11 @@ class ExportProductBuilder
         }
 
         return array_unique(array_merge(['_sku', '_type', '_language'], ...$result));
+    }
+
+    public function fileName(): string
+    {
+        return 'products';
     }
 
     public function build(AbstractProduct $product, FileExportChannel $channel): ExportData

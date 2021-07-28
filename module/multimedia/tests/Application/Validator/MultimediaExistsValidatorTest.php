@@ -49,7 +49,7 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($value, $constrain);
 
-        $assertion = $this->buildViolation($constrain->message)->setParameter('{{ value }}', $value);
+        $assertion = $this->buildViolation($constrain->message)->setParameter('{{ value }}', $value->getValue());
         $assertion->assertRaised();
     }
 

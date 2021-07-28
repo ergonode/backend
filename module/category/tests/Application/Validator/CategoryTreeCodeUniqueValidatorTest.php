@@ -63,7 +63,7 @@ class CategoryTreeCodeUniqueValidatorTest extends ConstraintValidatorTestCase
         $constraint = new CategoryTreeCodeUnique();
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);
+        $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value->getValue());
         $assertion->assertRaised();
     }
 
