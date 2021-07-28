@@ -53,15 +53,10 @@ Feature: Batch Action change Product Attribute Value
       | 4  | Option pl 4 | Option en 4 |
       | 5  | Option pl 5 | Option en 5 |
 
-  Scenario Outline: Create template
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_<lp>"
+  Scenario Outline: Get template ids
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_<lp>&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "product_template_<lp>"
     Examples:
       | lp |
       | 1  |
@@ -69,7 +64,6 @@ Feature: Batch Action change Product Attribute Value
       | 3  |
       | 4  |
       | 5  |
-
 
   Scenario Outline:  Create products
     When I send a POST request to "/api/v1/en_GB/products" with body:

@@ -13,15 +13,10 @@ Feature: Notification module
     When I send a POST request to "/api/v1/profile/notifications/mark-all"
     Then the response status code should be 204
 
-  Scenario: Create template
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_id"
+  Scenario: Get template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_id"
 
   Scenario: Create first product
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -29,7 +24,7 @@ Feature: Notification module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
               }
       """
     Then the response status code should be 201
@@ -41,7 +36,7 @@ Feature: Notification module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
               }
       """
     Then the response status code should be 201
