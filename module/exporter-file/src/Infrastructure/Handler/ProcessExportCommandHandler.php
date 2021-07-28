@@ -30,7 +30,7 @@ class ProcessExportCommandHandler
     /**
      * @var ExportStepProcessInterface[]
      */
-    private array $steps;
+    private iterable $steps;
 
     /**
      * @param ExportStepProcessInterface[] $steps
@@ -39,11 +39,13 @@ class ProcessExportCommandHandler
         ChannelRepositoryInterface $channelRepository,
         ExportRepositoryInterface $exportRepository,
         CommandBusInterface $commandBus,
-        array $steps
+        iterable $steps
     ) {
         $this->channelRepository = $channelRepository;
         $this->exportRepository = $exportRepository;
         $this->commandBus = $commandBus;
+
+        Assert::allIsInstanceOf($steps, ExportStepProcessInterface::class);
         $this->steps = $steps;
     }
 

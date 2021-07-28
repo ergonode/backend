@@ -49,7 +49,10 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $value = 'CODE_NOT_VALID_'.str_repeat('a', 114);
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->maxMessage)->setParameter('{{ limit }}', $constraint->max);
+        $assertion = $this->buildViolation($constraint->maxMessage)->setParameter(
+            '{{ limit }}',
+            (string) $constraint->max
+        );
         $assertion->assertRaised();
     }
 
@@ -59,7 +62,10 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $value = ' ';
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->minMessage)->setParameter('{{ limit }}', $constraint->min);
+        $assertion = $this->buildViolation($constraint->minMessage)->setParameter(
+            '{{ limit }}',
+            (string) $constraint->min
+        );
         $assertion->assertRaised();
     }
 

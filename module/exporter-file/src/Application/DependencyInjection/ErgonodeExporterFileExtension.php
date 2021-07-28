@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Application\DependencyInjection;
 
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportHeaderBuilderInterface;
+use Ergonode\ExporterFile\Infrastructure\Processor\Step\ExportStepProcessInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -63,6 +65,15 @@ class ErgonodeExporterFileExtension extends Extension implements PrependExtensio
         $container
             ->registerForAutoconfiguration(ExportOptionBuilderInterface::class)
             ->addTag('export-file.option_builder');
+
+        $container
+            ->registerForAutoconfiguration(ExportHeaderBuilderInterface::class)
+            ->addTag('export-file.header_builder');
+
+        $container
+            ->registerForAutoconfiguration(ExportStepProcessInterface::class)
+            ->addTag('export-file.steps_process');
+
 
         $loader->load('services.yml');
     }

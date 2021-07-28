@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportTemplateBuilder
+class ExportTemplateBuilder implements ExportHeaderBuilderInterface
 {
     /**
      * @var ExportTemplateBuilderInterface[]
@@ -40,6 +40,12 @@ class ExportTemplateBuilder
 
         return array_unique(array_merge(['_name', '_language'], ...$result));
     }
+
+    public function fileName(): string
+    {
+        return 'templates';
+    }
+
 
     public function build(Template $template, FileExportChannel $channel): ExportData
     {
