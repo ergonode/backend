@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportOptionBuilder
+class ExportOptionBuilder implements ExportHeaderBuilderInterface
 {
     /**
      * @var ExportOptionBuilderInterface[]
@@ -39,6 +39,11 @@ class ExportOptionBuilder
         }
 
         return array_unique(array_merge(['_code', '_language', '_label'], ...$line));
+    }
+
+    public function fileName(): string
+    {
+        return 'options';
     }
 
     public function build(AbstractOption $option, FileExportChannel $channel): ExportData

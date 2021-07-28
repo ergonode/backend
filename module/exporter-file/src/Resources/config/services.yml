@@ -34,23 +34,23 @@ services:
         resource: '../../Domain/*'
         exclude: '../../Domain/{ValueObject}'
 
+    Ergonode\ExporterFile\Infrastructure\Handler\Export\StartProcessCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            $builders: !tagged_iterator 'export-file.header_builder'
+
     Ergonode\ExporterFile\Infrastructure\Handler\ProcessExportCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
-            $steps:
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\AttributeExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\OptionExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\CategoryExportProcessorStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'
+            $steps: !tagged_iterator 'export-file.steps_process'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder:
         arguments:
             $builders: !tagged_iterator 'export-file.template_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilder:
-       arguments:
-           $builders: !tagged_iterator 'export-file.template_element_builder'
+        arguments:
+            $builders: !tagged_iterator 'export-file.template_element_builder'
 
     Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilder:
         arguments:
