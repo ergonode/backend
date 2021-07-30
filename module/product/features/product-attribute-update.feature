@@ -5,22 +5,10 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
-
-  Scenario: Get attribute
-    And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
     Then the response status code should be 200
-    And store response param "code" as "attribute_code"
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
@@ -107,8 +95,8 @@ Feature: Product module
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | attributes.@attribute_code@.pl_PL | test_PL |
-      | attributes.@attribute_code@.en_GB | test_GB |
+      | attributes.text_attribute_local.pl_PL | test_PL |
+      | attributes.text_attribute_local.en_GB | test_GB |
 
   Scenario: Update attributes with null value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -141,9 +129,9 @@ Feature: Product module
   Scenario: Get product
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@.en_GB" should be null
+    And the JSON node "attributes.text_attribute_local.en_GB" should be null
     And the JSON nodes should contain:
-      | attributes.@attribute_code@.pl_PL | test_PL |
+      | attributes.text_attribute_local.pl_PL | test_PL |
 
   Scenario: Delete product attributes pl_PL language
     When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:
@@ -167,8 +155,8 @@ Feature: Product module
   Scenario: Get product
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@.en_GB" should be null
-    And the JSON node "attributes.@attribute_code@.pl_PL" should not exist
+    And the JSON node "attributes.text_attribute_local.en_GB" should be null
+    And the JSON node "attributes.text_attribute_local.pl_PL" should not exist
 
   Scenario: Delete product attributes en_GB language
     When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:
@@ -192,7 +180,7 @@ Feature: Product module
   Scenario: Get product
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should not exist
+    And the JSON node "attributes.text_attribute_local" should not exist
 
   Scenario Outline: Delete product attributes with product
     When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:

@@ -38,19 +38,10 @@ Feature: Product edit and inheritance value for product product with text attrib
       """
     Then the response status code should be 204
 
-  Scenario: Create text attribute
-    Given remember param "attribute_code" with value "text_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "@attribute_code@",
-        "type": "TEXT",
-        "scope": "global",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_global&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
@@ -98,19 +89,19 @@ Feature: Product edit and inheritance value for product product with text attrib
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english (batch) |
+      | attributes.text_attribute_global | text attribute value in english (batch) |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english (batch) |
+      | attributes.text_attribute_global | text attribute value in english (batch) |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english (batch) |
+      | attributes.text_attribute_global | text attribute value in english (batch) |
 
   Scenario: Remove value for "pl_PL" language
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
@@ -144,10 +135,10 @@ Feature: Product edit and inheritance value for product product with text attrib
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in polish (batch) |
+      | attributes.text_attribute_global | text attribute value in polish (batch) |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in polish (batch) |
+      | attributes.text_attribute_global | text attribute value in polish (batch) |

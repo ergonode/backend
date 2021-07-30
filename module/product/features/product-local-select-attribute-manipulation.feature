@@ -20,84 +20,41 @@ Feature: Product edit and inheritance value for product product with select attr
     When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {
-          "languages":
-            {
-              "language_id":"@language_id_en@",
-              "children":[
-                {
-                  "language_id":"@language_id_pl@",
-                  "children":[]
-                },
-                {
-                  "language_id":"@language_id_fr@",
-                  "children":[]
-                },
-                {
-                  "language_id":"@language_id_de@",
-                  "children":[]
-                }
-              ]
-            }
-
+          "languages": {
+            "language_id":"@language_id_en@",
+            "children":[
+              {
+                "language_id":"@language_id_pl@",
+                "children":[]
+              },
+              {
+                "language_id":"@language_id_fr@",
+                "children":[]
+              },
+              {
+                "language_id":"@language_id_de@",
+                "children":[]
+              }
+            ]
+          }
         }
       """
     Then the response status code should be 204
 
-  Scenario: Create select attribute
-    Given remember param "attribute_code" with value "price_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "@attribute_code@",
-        "type": "SELECT",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=select_attribute_local;type=SELECT&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
-  Scenario: Create first option for attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_1",
-        "label":  {
-          "pl_PL": "Option pl 1",
-          "en_GB": "Option en 1"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_1_id"
-
-  Scenario: Create second option for attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_2",
-        "label":  {
-          "pl_PL": "Option pl 2",
-          "en_GB": "Option en 2"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_2_id"
-
-  Scenario: Create third option for attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_3",
-        "label":  {
-          "pl_PL": "Option pl 3",
-          "en_GB": "Option en 3"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_3_id"
+  Scenario Outline:  Get option <key> id
+    When I send a GET request to "/api/v1/en_GB/attributes/@attribute_id@/options/grid?filter=code=<key>&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "<key>_id"
+    Examples:
+      | key      |
+      | option_1 |
+      | option_2 |
+      | option_3 |
 
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
@@ -130,7 +87,7 @@ Feature: Product edit and inheritance value for product product with select attr
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @option_3_id@ |
+      | attributes.select_attribute_local | @option_3_id@ |
 
   Scenario: Delete product select value in "en_GB" language
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@"
@@ -139,7 +96,7 @@ Feature: Product edit and inheritance value for product product with select attr
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should not exist
+    And the JSON node "attributes.select_attribute_local" should not exist
 
   Scenario: Edit product select value in "en_GB", "pl_PL" and "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -227,19 +184,19 @@ Feature: Product edit and inheritance value for product product with select attr
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @option_2_id@ |
+      | attributes.select_attribute_local | @option_2_id@ |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @option_1_id@ |
+      | attributes.select_attribute_local | @option_1_id@ |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @option_1_id@ |
+      | attributes.select_attribute_local | @option_1_id@ |
 
   Scenario: Remove value for "pl_PL" language
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
@@ -249,4 +206,4 @@ Feature: Product edit and inheritance value for product product with select attr
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @option_1_id@ |
+      | attributes.select_attribute_local | @option_1_id@ |

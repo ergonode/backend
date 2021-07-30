@@ -158,7 +158,7 @@ Feature: Category module
     And the JSON node "properties.code" should exist
     And the JSON node "properties.name" should exist
 
-  Scenario: Get attribute types dictionary
+  Scenario: Get categories types dictionary
     And I send a "GET" request to "/api/v1/en_GB/dictionary/categories/types"
     Then the response status code should be 200
     And the JSON node "DEFAULT" should exist
