@@ -43,19 +43,10 @@ Feature: Product edit and inheritance value for product product with numeric att
       """
     Then the response status code should be 204
 
-  Scenario: Create numeric attribute
-    Given remember param "attribute_code" with value "numeric_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "@attribute_code@",
-        "type": "NUMERIC",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=numeric_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
@@ -88,7 +79,7 @@ Feature: Product edit and inheritance value for product product with numeric att
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 300 |
+      | attributes.numeric_attribute_local | 300 |
 
   Scenario: Delete product  numeric value in "en_GB" language
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@"
@@ -97,7 +88,7 @@ Feature: Product edit and inheritance value for product product with numeric att
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should not exist
+    And the JSON node "attributes.numeric_attribute_local" should not exist
 
   Scenario: Edit product numeric value in "en_GB", "pl_PL" and "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -160,26 +151,26 @@ Feature: Product edit and inheritance value for product product with numeric att
   Scenario: Get product values in "de_DE" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should be null
+    And the JSON node "attributes.numeric_attribute_local" should be null
 
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 200 |
+      | attributes.numeric_attribute_local | 200 |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100 |
+      | attributes.numeric_attribute_local | 100 |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100 |
+      | attributes.numeric_attribute_local | 100 |
 
   Scenario: Remove value for "pl_PL" language
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
@@ -189,4 +180,4 @@ Feature: Product edit and inheritance value for product product with numeric att
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100 |
+      | attributes.numeric_attribute_local | 100 |

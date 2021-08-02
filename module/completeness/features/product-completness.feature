@@ -10,44 +10,20 @@ Feature: Completeness module
     Then the response status code should be 200
     And store response param "collection[0].id" as "template_id"
 
-  Scenario: Create text attribute 1
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "TEXT_@@random_code@@",
-        "scope": "global",
-        "type": "TEXT",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id_1"
+  Scenario: Get text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_global&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id_1"
 
-  Scenario: Create text attribute 2
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "TEXT_@@random_code@@",
-        "scope": "global",
-        "type": "NUMERIC",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id_2"
+  Scenario: Get numeric attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=numeric_attribute_global&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id_2"
 
-  Scenario: Create text attribute 3
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "TEXT_@@random_code@@",
-        "scope": "global",
-        "type": "NUMERIC",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id_3"
+  Scenario: Get price attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=price_attribute_global&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id_3"
 
   Scenario: Update template
     When I send a PUT request to "/api/v1/en_GB/templates/@template_id@" with body:

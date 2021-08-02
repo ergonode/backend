@@ -10,32 +10,15 @@ Feature: batch action product deletion
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_template_id"
 
-  Scenario: Create select attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "SELECT_BIND_@@random_code@@",
-          "type": "SELECT",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=select_attribute_local;type=SELECT&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
-  Scenario: Create option for attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_1",
-        "label":  {
-          "pl_PL": "Option pl 1",
-          "en_GB": "Option en 1"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_id_1"
+  Scenario:  Get option id
+    When I send a GET request to "/api/v1/en_GB/attributes/@attribute_id@/options/grid?filter=code=option_1&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "option_id"
 
   Scenario: Create variable product
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -74,7 +57,7 @@ Feature: batch action product deletion
     When I send a PUT request to "/api/v1/en_GB/products/@simple_product_id@/attribute/@attribute_id@" with body:
       """
         {
-          "value": "@option_id_1@"
+          "value": "@option_id@"
         }
       """
     Then the response status code should be 200

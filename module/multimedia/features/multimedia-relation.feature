@@ -20,18 +20,10 @@ Feature: Multimedia relations
     Then the response status code should be 200
     And store response param "collection[0].id" as "template_id"
 
-  Scenario: Create image attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "MULTIMEDIA_RELATION_@@random_code@@",
-          "type": "IMAGE",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get local image attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=image_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Create product
     When I send a POST request to "/api/v1/en_GB/products" with body:

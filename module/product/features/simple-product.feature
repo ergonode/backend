@@ -5,20 +5,10 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_attribute"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "product_template_attribute"
 
   Scenario: Get 1 template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_1&view=list"

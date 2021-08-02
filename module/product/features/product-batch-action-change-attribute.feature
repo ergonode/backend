@@ -5,18 +5,10 @@ Feature: Batch Action change Product Attribute Value
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When remember param "text_attribute_code" with value "text_@@random_code@@"
-    And I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "@text_attribute_code@",
-          "type": "TEXT",
-          "scope": "local"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "text_attribute_id"
+  Scenario: Get text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "text_attribute_id"
 
   Scenario: Create multi-select attribute
     When remember param "multi_select_code" with value "multi_select_@@random_code@@"
@@ -151,8 +143,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                                      |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_include_GB                        |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_include_PL                        |
+      | attributes.text_attribute_local.en_GB | test_batch-action_include_GB                        |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_include_PL                        |
       | attributes.@multi_select_code@.en_GB   | @multiselect_option_id_2@,@multiselect_option_id_3@ |
       | attributes.@multi_select_code@.pl_PL   | @multiselect_option_id_1@,@multiselect_option_id_2@ |
     Examples:
@@ -219,8 +211,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                                      |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_include_GB                        |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_include_PL                        |
+      | attributes.text_attribute_local.en_GB | test_batch-action_include_GB                        |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_include_PL                        |
       | attributes.@multi_select_code@.en_GB   | @multiselect_option_id_2@,@multiselect_option_id_3@ |
       | attributes.@multi_select_code@.pl_PL   | @multiselect_option_id_1@,@multiselect_option_id_2@ |
 
@@ -229,8 +221,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                                      |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_exclude_GB                        |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_exclude_PL                        |
+      | attributes.text_attribute_local.en_GB | test_batch-action_exclude_GB                        |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_exclude_PL                        |
       | attributes.@multi_select_code@.en_GB   | @multiselect_option_id_4@,@multiselect_option_id_5@ |
       | attributes.@multi_select_code@.pl_PL   | @multiselect_option_id_4@,@multiselect_option_id_5@ |
     Examples:
@@ -273,8 +265,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_template_GB |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_template_PL |
+      | attributes.text_attribute_local.en_GB | test_batch-action_template_GB |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_template_PL |
     Examples:
       | product_id     |
       | @product_id_4@ |
@@ -320,8 +312,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                         |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_template_included_GB |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_template_included_PL |
+      | attributes.text_attribute_local.en_GB | test_batch-action_template_included_GB |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_template_included_PL |
     Examples:
       | product_id     |
       | @product_id_1@ |
@@ -367,8 +359,8 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                                   | SIMPLE-PRODUCT                        |
-      | attributes.@text_attribute_code@.en_GB | test_batch-action_template_exclude_GB |
-      | attributes.@text_attribute_code@.pl_PL | test_batch-action_template_exclude_PL |
+      | attributes.text_attribute_local.en_GB | test_batch-action_template_exclude_GB |
+      | attributes.text_attribute_local.pl_PL | test_batch-action_template_exclude_PL |
     Examples:
       | product_id     |
       | @product_id_5@ |

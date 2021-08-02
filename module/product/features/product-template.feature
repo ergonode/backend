@@ -10,19 +10,10 @@ Feature: Product module
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_template"
 
-  Scenario: Create text attribute
-    Given remember param "attribute_code" with value "TEXT_@@random_code@@"
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:

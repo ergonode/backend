@@ -5,31 +5,10 @@ Feature: Condition Product sku exists
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create numeric attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "CONDITION_NUMERIC_@@random_code@@",
-          "type": "NUMERIC",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "second_attribute_id"
-
-  Scenario: Create second numeric attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "CONDITION_NUMERIC_@@random_code@@",
-          "type": "NUMERIC",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get global numeric attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=numeric_attribute_global&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Get product sku exists condition configuration
     When I send a GET request to "/api/v1/en_GB/conditions/ATTRIBUTE_EXISTS_CONDITION"

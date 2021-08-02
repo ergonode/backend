@@ -15,18 +15,10 @@ Feature: Variable product
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_template_id"
 
-  Scenario: Create select attribute
-    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "SELECT_BIND_@@random_code@@",
-          "type": "SELECT",
-          "scope": "local",
-          "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=select_attribute_local;type=SELECT&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Create simple product
     Given remember param "simple_product_sku" with value "SIMPLE_SKU_@@random_code@@"

@@ -5,21 +5,15 @@ Feature: Batch action get templates
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Get template id
-    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_1&view=list"
+  Scenario Outline: Get template <number> id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_<number>&view=list"
     Then the response status code should be 200
-    And store response param "collection[0].id" as "template_1_id"
-
-  Scenario: Get template id
-    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_1&view=list"
-    Then the response status code should be 200
-    And store response param "collection[0].id" as "template_2_id"
-
-  Scenario: Get template id
-    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_1&view=list"
-    Then the response status code should be 200
-    And store response param "collection[0].id" as "template_3_id"
-
+    And store response param "collection[0].id" as "template_<number>_id"
+    Examples:
+      | number |
+      | 1      |
+      | 2      |
+      | 3      |
 
   Scenario: Create product 1
     And remember param "product_sku_1" with value "SKU_@@random_code@@"

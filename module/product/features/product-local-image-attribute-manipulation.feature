@@ -43,19 +43,10 @@ Feature: Product edit and inheritance value for product product with image attri
       """
     Then the response status code should be 204
 
-  Scenario: Create image attribute
-    Given remember param "attribute_code" with value "image_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "@attribute_code@",
-        "type": "IMAGE",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=image_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Upload new first multimedia file
     When I send a POST request to "/api/v1/multimedia/upload" with params:
@@ -173,19 +164,19 @@ Feature: Product edit and inheritance value for product product with image attri
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @multimedia_2_id@ |
+      | attributes.image_attribute_local | @multimedia_2_id@ |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @multimedia_1_id@ |
+      | attributes.image_attribute_local | @multimedia_1_id@ |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @multimedia_1_id@ |
+      | attributes.image_attribute_local | @multimedia_1_id@ |
 
   Scenario: Edit product image value in "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -219,4 +210,4 @@ Feature: Product edit and inheritance value for product product with image attri
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | @multimedia_1_id@ |
+      | attributes.image_attribute_local | @multimedia_1_id@ |

@@ -32,14 +32,14 @@ Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
       - '@template->id'
       - []
       -
-        'attribute_image': '<translatableStringValue(@attribute_image_value)>'
-        'attribute_text':  '<translatableStringValue(@attribute_text_value)>'
-        'attribute_textarea':  '<translatableStringValue(@attribute_textarea_value)>'
-        'attribute_numeric':  '<translatableStringValue(@attribute_numeric_value)>'
-        'attribute_price':  '<translatableStringValue(@attribute_price_value)>'
-        'attribute_unit':  '<translatableStringValue(@attribute_unit_value)>'
-        'attribute_select':  '<translatableStringValue(@attribute_select_value)>'
-        'attribute_multiselect':  '<stringCollectionValue(@attribute_multiselect_value)>'
+        'image_attribute_local': '<translatableStringValue(@attribute_image_value)>'
+        'text_attribute_local':  '<translatableStringValue(@attribute_text_value)>'
+        'textarea_attribute_local':  '<translatableStringValue(@attribute_textarea_value)>'
+        'numeric_attribute_local':  '<translatableStringValue(@attribute_numeric_value)>'
+        'price_attribute_local':  '<translatableStringValue(@attribute_price_value)>'
+        'unit_attribute_local':  '<translatableStringValue(@attribute_unit_value)>'
+        'select_attribute_local':  '<translatableStringValue(@attribute_select_value)>'
+        'multiselect_attribute_local':  '<stringCollectionValue(@attribute_multiselect_value)>'
   test_simple_product_3:
     __construct:
       - '<productId(sku_test_3)>'
