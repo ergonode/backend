@@ -26,14 +26,11 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
 
     private ErgonodeZipExtractor $extractor;
     private SourceRepositoryInterface $repository;
-    /**
-     * @var ErgonodeProcessorStepInterface[]
-     */
-    private array $steps;
+    private iterable $steps;
 
     public function __construct(
         ErgonodeZipExtractor $extractor,
-        array $steps,
+        iterable $steps,
         SourceRepositoryInterface $repository
     ) {
         Assert::allIsInstanceOf($steps, ErgonodeProcessorStepInterface::class);
