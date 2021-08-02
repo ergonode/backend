@@ -26,6 +26,9 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
 
     private ErgonodeZipExtractor $extractor;
     private SourceRepositoryInterface $repository;
+    /**
+     * @var ErgonodeProcessorStepInterface[]
+     */
     private iterable $steps;
 
     public function __construct(
