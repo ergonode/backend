@@ -17,20 +17,10 @@ Feature: Condition module
     When I send a GET request to "/api/v1/en_GB/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 200
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "CONDITION_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "condition_text_attribute"
+  Scenario: Get local text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=numeric_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "condition_text_attribute"
 
   Scenario: Create condition set without conditions
     Given I send a POST request to "/api/v1/en_GB/conditionsets" with body:

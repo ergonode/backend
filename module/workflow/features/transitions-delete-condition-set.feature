@@ -5,21 +5,10 @@ Feature: Segment delete condition set
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_text"
-
+  Scenario: Get local text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_text"
 
   Scenario: Create source status
     When I send a POST request to "/api/v1/en_GB/status" with body:
@@ -82,8 +71,4 @@ Feature: Segment delete condition set
 
   Scenario: Delete transition in default workflow
     When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_id@/@workflow_destination_status_id@"
-    Then the response status code should be 204
-
-  Scenario: Delete attribute
-    And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_text@"
     Then the response status code should be 204

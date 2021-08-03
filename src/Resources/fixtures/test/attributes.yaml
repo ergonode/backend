@@ -10,6 +10,10 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             - 'pl_PL': 'Option_PL_2_<current()>'
               'en_GB': 'Option_EN_2_<current()>'
+    option_value_3_{1..2}:
+        __construct:
+            - 'pl_PL': 'Option_PL_3_<current()>'
+              'en_GB': 'Option_EN_3_<current()>'
     label_{1..15}:
         __construct:
             - 'pl_PL': 'Polish_label_<current()>'
@@ -85,7 +89,7 @@ Ergonode\Attribute\Domain\Entity\AttributeGroup:
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
     test_attribute_image:
         __construct:
-            - '<AttributeCode(attribute_image)>'
+            - '<AttributeCode(image_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
@@ -94,35 +98,57 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
     test_attribute_text:
         __construct:
-            - '<AttributeCode(attribute_text)>'
+            - '<AttributeCode(text_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
+    test_attribute_text_global:
+        __construct:
+            - '<AttributeCode(text_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand:
     test_attribute_textarea:
         __construct:
-            - '<AttributeCode(attribute_textarea)>'
+            - '<AttributeCode(textarea_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
             -  true
+    test_attribute_textarea_global:
+        __construct:
+            - '<AttributeCode(textarea_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
+            -  true
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
     test_attribute_numeric:
         __construct:
-            - '<AttributeCode(attribute_numeric)>'
+            - '<AttributeCode(numeric_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
+    test_attribute_numeric_global:
+        __construct:
+            - '<AttributeCode(numeric_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand:
     test_attribute_date:
         __construct:
-            - '<AttributeCode(attribute_date)>'
+            - '<AttributeCode(date_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
@@ -132,27 +158,43 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand:
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand:
     test_attribute_price:
         __construct:
-            - '<AttributeCode(attribute_price)>'
+            - '<AttributeCode(price_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
             - '<Currency()>'
+    test_attribute_price_global:
+        __construct:
+            - '<AttributeCode(price_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
+            - '<Currency()>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
     test_attribute_unit:
         __construct:
-            - '<AttributeCode(attribute_unit)>'
+            - '<AttributeCode(unit_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
             - '@unit_metre->id'
+    test_attribute_unit_global:
+        __construct:
+            - '<AttributeCode(unit_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
+            - '@unit_metre->id'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
     test_attribute_select:
         __construct:
-            - '<AttributeCode(attribute_select)>'
+            - '<AttributeCode(select_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
@@ -161,7 +203,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand:
     test_attribute_multiselect:
         __construct:
-            - '<AttributeCode(attribute_multiselect)>'
+            - '<AttributeCode(multiselect_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
@@ -170,16 +212,23 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCom
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
     test_attribute_gallery:
         __construct:
-            - '<AttributeCode(attribute_gallery)>'
+            - '<AttributeCode(gallery_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
             - '<AttributeScope(local)>'
+    test_attribute_gallery_global:
+        __construct:
+            - '<AttributeCode(gallery_attribute_global)>'
+            - '@empty'
+            - '@empty'
+            - '@empty'
+            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand:
     test_attribute_file:
         __construct:
-            - '<AttributeCode(attribute_file)>'
+            - '<AttributeCode(file_attribute_local)>'
             - '@empty'
             - '@empty'
             - '@empty'
@@ -189,23 +238,33 @@ Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
     test_attribute_select_option_1:
         __construct:
             - '@test_attribute_select->id'
-            - '<OptionKey(key_1)>'
+            - '<OptionKey(option_1)>'
             - '@option_value_1_1'
     test_attribute_select_option_2:
         __construct:
             - '@test_attribute_select->id'
-            - '<OptionKey(key_2)>'
+            - '<OptionKey(option_2)>'
             - '@option_value_2_1'
+    test_attribute_select_option_3:
+        __construct:
+            - '@test_attribute_select->id'
+            - '<OptionKey(option_3)>'
+            - '@option_value_3_1'
     test_attribute_multiselect_option_1:
         __construct:
             - '@test_attribute_multiselect->id'
-            - '<OptionKey(key_1)>'
+            - '<OptionKey(option_1)>'
             - '@option_value_1_1'
     test_attribute_multiselect_option_2:
         __construct:
             - '@test_attribute_multiselect->id'
-            - '<OptionKey(key_2)>'
+            - '<OptionKey(option_2)>'
             - '@option_value_2_1'
+    test_attribute_multiselect_option_3:
+        __construct:
+            - '@test_attribute_multiselect->id'
+            - '<OptionKey(option_3)>'
+            - '@option_value_3_1'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
     attribute_esa_status:

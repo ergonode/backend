@@ -5,40 +5,20 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_attribute"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "product_template_attribute"
 
-  Scenario: Create template 1
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_1"
+  Scenario: Get 1 template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_1&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_1_id"
 
-  Scenario: Create template 2
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_2"
+  Scenario: Get 2 template id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_2&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_2_id"
 
   Scenario: Create category
     When I send a POST request to "/api/v1/en_GB/categories" with body:
@@ -68,7 +48,7 @@ Feature: Product module
       {
         "sku": <sku>,
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": []
       }
       """
@@ -90,7 +70,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": ["@product_category@"]
       }
       """
@@ -103,7 +83,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@"
+        "templateId": "@template_1_id@"
       }
       """
     Then the response status code should be 201
@@ -115,7 +95,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@"
+        "templateId": "@template_1_id@"
       }
       """
     Then the response status code should be 201
@@ -171,7 +151,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": []
       }
       """
@@ -183,7 +163,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@"
+        "templateId": "@template_1_id@"
       }
       """
     Then the response status code should be 201
@@ -194,7 +174,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": ["test"]
       }
       """
@@ -206,7 +186,7 @@ Feature: Product module
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@"
+        "templateId": "@template_1_id@"
       }
       """
     Then the response status code should be 201
@@ -215,7 +195,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en_GB/products/@product_2@" with body:
       """
       {
-        "templateId": "@product_template_2@",
+        "templateId": "@template_2_id@",
         "categoryIds": []
       }
       """
@@ -224,13 +204,13 @@ Feature: Product module
   Scenario: Get updated product new template
     When I send a GET request to "/api/v1/en_GB/products/@product_2@"
     Then the response status code should be 200
-    And the JSON node "design_template_id" should be equal to "@product_template_2@"
+    And the JSON node "design_template_id" should be equal to "@template_2_id@"
 
   Scenario: Update product two categories
     When I send a PUT request to "/api/v1/en_GB/products/@product_2@" with body:
       """
       {
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": ["@product_category@", "@product_category_2@"]
       }
       """
@@ -246,7 +226,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en_GB/products/@product_2@" with body:
       """
       {
-        "templateId": "@product_template_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": ["@product_category_2@"]
       }
       """

@@ -5,36 +5,15 @@ Feature: Batch action get templates
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create template 1
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_id_1"
-
-  Scenario: Create template 2
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_id_2"
-
-  Scenario: Create template 3
-    When I send a POST request to "/api/v1/en_GB/templates" with body:
-      """
-      {
-        "name": "@@random_md5@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_template_id_3"
-
+  Scenario Outline: Get template <number> id
+    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template_<number>&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_<number>_id"
+    Examples:
+      | number |
+      | 1      |
+      | 2      |
+      | 3      |
 
   Scenario: Create product 1
     And remember param "product_sku_1" with value "SKU_@@random_code@@"
@@ -43,7 +22,7 @@ Feature: Batch action get templates
       {
         "sku": "@product_sku_1@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id_1@",
+        "templateId": "@template_1_id@",
         "categoryIds": []
       }
       """
@@ -57,7 +36,7 @@ Feature: Batch action get templates
       {
         "sku": "@product_sku_2@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id_2@",
+        "templateId": "@template_2_id@",
         "categoryIds": []
       }
       """
@@ -71,12 +50,12 @@ Feature: Batch action get templates
       {
         "sku": "@product_sku_3@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id_3@",
+        "templateId": "@template_3_id@",
         "categoryIds": []
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product_id_ 3"
+    And store response param "id" as "product_id_3"
 
   Scenario: Get templates excluded with Id
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
@@ -127,7 +106,7 @@ Feature: Batch action get templates
       }
       """
     Then the response status code should be 200
-      | [0] | @product_template_id_1@ |
+      | [0] | @template_1_id@ |
     And the JSON node "[1]" should not exist
 
   Scenario: Get templates included and query
@@ -146,8 +125,8 @@ Feature: Batch action get templates
       }
       """
     Then the response status code should be 200
-      | [0] | @product_template_id_1@ |
-      | [1] | @product_template_id_2@ |
+      | [0] | @template_1_id@ |
+      | [1] | @template_2_id@ |
     And the JSON node "[2]" should not exist
 
   Scenario: Get templates excluded and query
@@ -178,7 +157,7 @@ Feature: Batch action get templates
       }
       """
     Then the response status code should be 200
-      | [0] | @product_template_id_1@ |
+      | [0] | @template_1_id@ |
     And the JSON node "[1]" should not exist
 
   Scenario: Get templates with no products

@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- refactor [#1552](https://github.com/ergonode/backend/issues/1552) Add tag support for ErgonodeProcessorStepInterface (rprzedzik)
 - refactor [#1542](https://github.com/ergonode/backend/issues/1542) Opening the file export extension to other modules (wfajczyk)
 - bugfix [#1538](https://github.com/ergonode/backend/issues/1538) Bug when denormalize int value as float type in json (rprzedzik)
 - build [#1171](https://github.com/ergonode/backend/issues/1171) Compatibility with Symfony 5.3 (piotrkreft)
@@ -27,6 +28,10 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.4
+- bugfix [#1548](https://github.com/ergonode/backend/issues/1548) Plain text password in CreateUserEvent (rprzedzik)
+- bugfix [#1545](https://github.com/ergonode/backend/issues/1545) Unnecessary sending of password changing e-mail (rprzedzik)
+
 #### 1.0.3
 - bugfix [#1526](https://github.com/ergonode/backend/issues/1526) Opened gesdinet/jwt-refresh-token-bundle dependency (piotrkreft)
 - bugfix [#1522](https://github.com/ergonode/backend/issues/1522) Remove ramsey/uuid-doctrine composer relation (wfajczyk)

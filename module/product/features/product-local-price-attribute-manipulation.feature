@@ -43,23 +43,10 @@ Feature: Product edit and inheritance value for product product with price attri
       """
     Then the response status code should be 204
 
-  Scenario: Create price attribute
-    Given remember param "attribute_code" with value "price_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-        "code": "@attribute_code@",
-        "type": "PRICE",
-        "scope": "local",
-        "groups": [],
-        "parameters":
-        {
-          "currency": "PLN"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=price_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
@@ -92,7 +79,7 @@ Feature: Product edit and inheritance value for product product with price attri
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 300.11 |
+      | attributes.price_attribute_local | 300.11 |
 
   Scenario: Delete product  price value in "en_GB" language
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@"
@@ -101,7 +88,7 @@ Feature: Product edit and inheritance value for product product with price attri
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should not exist
+    And the JSON node "attributes.price_attribute_local" should not exist
 
   Scenario: Edit product price value in "en_GB", "pl_PL" and "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -164,25 +151,25 @@ Feature: Product edit and inheritance value for product product with price attri
   Scenario: Get product values in "de_DE" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should be null
+    And the JSON node "attributes.price_attribute_local" should be null
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 200.99 |
+      | attributes.price_attribute_local | 200.99 |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
+      | attributes.price_attribute_local | 100.99 |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
+      | attributes.price_attribute_local | 100.99 |
 
   Scenario: Remove value for "pl_PL" language
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
@@ -192,4 +179,4 @@ Feature: Product edit and inheritance value for product product with price attri
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
+      | attributes.price_attribute_local | 100.99 |

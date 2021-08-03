@@ -13,7 +13,7 @@ Feature: Variable product
   Scenario: Get template id
     When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
     Then the response status code should be 200
-    And store response param "collection[0].id" as "product_template_id"
+    And store response param "collection[0].id" as "template_id"
 
   Scenario: Create workflow status
     And I send a "POST" request to "/api/v1/en_GB/status" with body:
@@ -76,7 +76,7 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
@@ -97,7 +97,7 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
@@ -109,7 +109,7 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
@@ -121,7 +121,7 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
@@ -143,7 +143,7 @@ Feature: Variable product
       """
       {
         "sku": "SKU_@@random_code@@",
-        "templateId": "@product_template_id@"
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 204

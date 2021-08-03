@@ -5,35 +5,15 @@ Feature: Designer module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
-          "scope": "local",
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "template_text_attribute"
+  Scenario: Get local text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_text_attribute"
 
-  Scenario: Create image attribute
-    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "IMAGE_@@random_code@@",
-          "type": "IMAGE",
-          "scope": "local",
-          "label": {"pl_PL": "Atrybut zdjeciowy", "en_GB": "Image attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "template_image_attribute"
+  Scenario: Get local image attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=image_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "template_image_attribute"
 
   Scenario: Multimedia upload image
     When I send a POST request to "/api/v1/multimedia/upload" with params:

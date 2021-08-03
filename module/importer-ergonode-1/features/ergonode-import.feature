@@ -5,19 +5,10 @@ Feature: Ergonode import module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute
-    When I send a "POST" request to "/api/v1/en_GB/attributes" with body:
-      """
-      {
-          "code": "IMPORT_E1_TEST_@@random_code@@",
-          "type": "TEXT",
-          "scope": "local",
-          "groups": [],
-          "parameters": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "attribute_id"
+  Scenario: Get local text attribute id
+    When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "attribute_id"
 
   Scenario: Create Ergonode ZIP Source with default attribute
     When I send a POST request to "/api/v1/en_GB/sources" with body:

@@ -14,6 +14,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 
 class ErgonodeImporterErgonode1Extension extends Extension
 {
@@ -34,6 +35,10 @@ class ErgonodeImporterErgonode1Extension extends Extension
         $container
             ->registerForAutoconfiguration(ImportAttributeCommandFactoryInterface::class)
             ->addTag('component.ergonode-importer.attribute_command_factory');
+
+        $container
+            ->registerForAutoconfiguration(ErgonodeProcessorStepInterface::class)
+            ->addTag('component.ergonode-importer.ergonode_processor_step');
 
         $loader->load('services.yml');
     }
