@@ -6,14 +6,14 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Application\Validator;
+namespace Ergonode\Product\Application\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class ProductAttribute  extends Constraint
+class ProductAttribute extends Constraint
 {
     public function getTargets(): string
     {

@@ -6,17 +6,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Application\Validator;
+namespace Ergonode\Product\Application\Validator;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateAttributeValueFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class ProductAttributeValidator extends ConstraintValidator
 {
@@ -36,6 +36,10 @@ class ProductAttributeValidator extends ConstraintValidator
         $this->validator = $validator;
     }
 
+    /**
+     * @param mixed|UpdateAttributeValueFormModel $value
+     * @param Constraint|ProductAttribute         $constraint
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ProductAttribute) {
@@ -45,10 +49,19 @@ class ProductAttributeValidator extends ConstraintValidator
         if (null === $value || '' === $value) {
             return;
         }
-//        if($value instanceof Att)
-dump($value);die;
-        $attributeId = new AttributeId($value->id);
-        $attribute = $this->attributeRepository->load($attributeId);
+
+        if (!$value instanceof UpdateAttributeValueFormModel) {
+            return; //maybe Exception
+        }
+
+        if ($value->id === null || !AttributeId::isValid($value->id)) {
+            return;
+        }
+
+        $attribute = $this->attributeRepository->load(new AttributeId($value->id));
+        if (null === $attribute) {
+            return;
+        }
 
         $secondConstraint = $this->provider->provide($attribute);
         $i = 0;
@@ -59,7 +72,7 @@ dump($value);die;
                 foreach ($violations as $violation) {
                     $this->context
                         ->buildViolation($violation->getMessage())
-                        ->atPath('values[' . $i . '].value')
+                        ->atPath('values['.$i.'].value')
                         ->addViolation();
                 }
             }
