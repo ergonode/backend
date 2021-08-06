@@ -112,8 +112,8 @@ Feature: Product edit and inheritance value for product product with text attrib
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "Expected a value to contain at most 255 characters"
+    Then the response status code should be 400
+    And the JSON node "errors.data.element-0.payload.element-0.values.element-0.value[0]" should contain "This value is too long. It should have 255 characters or less."
 
   Scenario: Edit product text value in "en_GB", "pl_PL" and "de_DE" language
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:

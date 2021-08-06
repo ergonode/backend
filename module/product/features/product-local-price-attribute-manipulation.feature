@@ -144,8 +144,8 @@ Feature: Product edit and inheritance value for product product with price attri
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "Expected a numeric. Got: string"
+    Then the response status code should be 400
+    And the JSON node "errors.data.element-0.payload.element-0.values.element-0.value[0]" should contain "This value should be of type numeric."
 
 
   Scenario: Get product values in "de_DE" language
