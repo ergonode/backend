@@ -11,39 +11,24 @@ namespace Ergonode\BatchAction\Domain\Command;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 
-class ProcessBatchActionEntryCommand extends AbstractPayloadCommand implements DomainCommandInterface
+class ProcessBatchActionEntryCommand implements DomainCommandInterface
 {
     private BatchActionId $id;
 
-    private BatchActionType $type;
-
     private AggregateId $resourceId;
 
-    /**
-     * @param mixed $payload
-     */
     public function __construct(
         BatchActionId $id,
-        BatchActionType $type,
-        AggregateId $resourceId,
-        $payload = null
+        AggregateId $resourceId
     ) {
         $this->id = $id;
-        $this->type = $type;
         $this->resourceId = $resourceId;
-        parent::__construct($payload);
     }
 
     public function getId(): BatchActionId
     {
         return $this->id;
-    }
-
-    public function getType(): BatchActionType
-    {
-        return $this->type;
     }
 
     public function getResourceId(): AggregateId

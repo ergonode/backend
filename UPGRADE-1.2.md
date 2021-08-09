@@ -9,3 +9,6 @@ Core\Test:
 ExporterFile:
 * The signature of constructor `StartProcessCommandHandler` has changed  
 * The signature of constructor `ProcessExportCommandHandler` has changed
+
+BatchAction: 
+* The signature of constructor `ProcessBatchActionEntryCommand` has changed
