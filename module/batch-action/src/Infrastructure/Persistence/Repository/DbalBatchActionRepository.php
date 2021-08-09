@@ -29,6 +29,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     private const FIELDS = [
         'id',
         'type',
+        'payload',
     ];
 
     private Connection $connection;

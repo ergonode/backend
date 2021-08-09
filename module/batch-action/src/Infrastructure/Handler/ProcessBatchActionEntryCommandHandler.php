@@ -35,7 +35,7 @@ class ProcessBatchActionEntryCommandHandler
         $id = $batchAction->getId();
         $type = $batchAction->getType();
         $resourceId = $command->getResourceId();
-        $payload = ''; //todo
+        $payload = $batchAction->getPayload();
 
         $processor = $this->provider->provide($type);
 

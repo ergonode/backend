@@ -20,6 +20,7 @@ class DbalBatchActionMapper
         return [
             'id' => $batchAction->getId(),
             'type' => $batchAction->getType()->getValue(),
+            'payload' => serialize($batchAction->getPayload()),
         ];
     }
 
@@ -27,7 +28,11 @@ class DbalBatchActionMapper
     {
         $id = new BatchActionId($record['id']);
         $type = new BatchActionType($record['type']);
+        $payload = null;
+        if (null !== $record['payload'] && 'null' !== $record['payload']) {
+            $payload = unserialize($record['payload']);
+        }
 
-        return new BatchAction($id, $type);
+        return new BatchAction($id, $type, $payload);
     }
 }

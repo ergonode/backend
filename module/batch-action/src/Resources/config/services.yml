@@ -137,7 +137,6 @@ services:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Symfony\Contracts\Translation\TranslatorInterface'
 
-
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider:
         arguments:
             $strategies: !tagged_iterator 'batch_action.processor_provider.interface'

@@ -16,10 +16,19 @@ class BatchAction
 
     private BatchActionType $type;
 
-    public function __construct(BatchActionId $id, BatchActionType $type)
+    /**
+     * @var mixed
+     */
+    private $payload;
+
+    /**
+     * @param mixed $payload
+     */
+    public function __construct(BatchActionId $id, BatchActionType $type, $payload = null)
     {
         $this->id = $id;
         $this->type = $type;
+        $this->payload = $payload;
     }
 
     public function getId(): BatchActionId
@@ -30,5 +39,13 @@ class BatchAction
     public function getType(): BatchActionType
     {
         return $this->type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayload()
+    {
+        return $this->payload;
     }
 }

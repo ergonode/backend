@@ -21,10 +21,12 @@ class DbalBatchActionMapperTest extends TestCase
     {
         $id =  BatchActionId::generate();
         $type = new BatchActionType('test batch type');
+        $payload = new \stdClass();
 
         $batchAction = $this->createMock(BatchAction::class);
         $batchAction->method('getId')->willReturn($id);
         $batchAction->method('getType')->willReturn($type);
+        $batchAction->method('getPayload')->willReturn($payload);
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->map($batchAction);
@@ -33,17 +35,20 @@ class DbalBatchActionMapperTest extends TestCase
         self::assertArrayHasKey('type', $result);
         self::assertEquals($id->getValue(), $result['id']);
         self::assertEquals($type->getValue(), $result['type']);
+        self::assertEquals(serialize($payload), $result['payload']);
     }
 
     public function testCreation(): void
     {
         $record['id'] = Uuid::uuid4()->toString();
         $record['type'] = 'test type';
+        $record['payload'] = serialize(new \stdClass());
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->create($record);
 
         self::assertEquals($record['id'], $result->getId()->getValue());
         self::assertEquals($record['type'], $result->getType()->getValue());
+        self::assertEquals($record['payload'], serialize($result->getPayload()));
     }
 }
