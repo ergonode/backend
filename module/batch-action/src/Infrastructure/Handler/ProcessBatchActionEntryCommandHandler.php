@@ -11,6 +11,8 @@ namespace Ergonode\BatchAction\Infrastructure\Handler;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
+use Webmozart\Assert\Assert;
+use Ergonode\BatchAction\Domain\Entity\BatchAction;
 
 class ProcessBatchActionEntryCommandHandler
 {
@@ -26,13 +28,17 @@ class ProcessBatchActionEntryCommandHandler
 
     public function __invoke(ProcessBatchActionEntryCommand $command): void
     {
-        $id = $command->getId();
-        $type = $command->getType();
+        $batchAction = $this->repository->load($command->getId());
+
+        Assert::isInstanceOf($batchAction, BatchAction::class);
+
+        $id = $batchAction->getId();
+        $type = $batchAction->getType();
         $resourceId = $command->getResourceId();
-        $payload = $command->getPayload();
+        $payload = ''; //todo
 
         $processor = $this->provider->provide($type);
-        $message = $processor->process($id, $resourceId, $payload);
-        $this->repository->markEntry($id, $resourceId, $message);
+
+        $processor->process($id, $resourceId, $payload);
     }
 }

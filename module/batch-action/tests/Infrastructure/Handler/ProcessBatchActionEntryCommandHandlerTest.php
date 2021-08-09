@@ -13,6 +13,7 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 use Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
+use Ergonode\BatchAction\Domain\Entity\BatchAction;
 
 class ProcessBatchActionEntryCommandHandlerTest extends TestCase
 {
@@ -20,16 +21,16 @@ class ProcessBatchActionEntryCommandHandlerTest extends TestCase
 
     private BatchActionProcessorProvider $processorProvider;
 
-
     private ProcessBatchActionEntryCommand $command;
 
     protected function setUp(): void
     {
+        $batchAction = $this->createMock(BatchAction::class);
+
         $this->batchActionRepository = $this->createMock(BatchActionRepositoryInterface::class);
-        $this->batchActionRepository->expects(self::once())->method('markEntry');
+        $this->batchActionRepository->expects(self::once())->method('load')->willReturn($batchAction);
         $this->processorProvider = $this->createMock(BatchActionProcessorProvider::class);
         $this->processorProvider->expects(self::once())->method('provide');
-
         $this->command = $this->createMock(ProcessBatchActionEntryCommand::class);
     }
 

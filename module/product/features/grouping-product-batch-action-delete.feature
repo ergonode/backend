@@ -68,12 +68,12 @@ Feature: batch action product deletion
     And the JSON nodes should contain:
       | collection[0].message   | Batch action "delete products" ended |
 
-  Scenario: Get not exists batch action
-    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
-    Then the response status code should be 200
-    And the JSON node "entries[0].id" should exist
+#  Scenario: Get not exists batch action
+#    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
+#    Then the response status code should be 200
+#    And the JSON node "entries[0].id" should exist
 
-  Scenario: Create batch action with releated simple product
+  Scenario: Create batch action with related simple product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
