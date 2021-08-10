@@ -32,7 +32,7 @@ class SegmentGridBuilder implements GridBuilderInterface
             ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
             ->addColumn('description', new TextColumn('description', 'Description', new TextFilter()))
             ->addColumn('status', new TextColumn('status', 'Status', new TextFilter()))
-            ->addColumn('products_count', new NumericColumn('products_count', 'Products ', new TextFilter()))
+            ->addColumn('products_count', new NumericColumn('products_count', 'Products', new TextFilter()))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
                     'route' => 'ergonode_segment_read',
