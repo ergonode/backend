@@ -26,7 +26,7 @@ class ProcessBatchActionEntryCommandHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(ProcessBatchActionEntryCommand $command): void
+    public function __invoke(ProcessBatchActionEntryCommand $command): array
     {
         $batchAction = $this->repository->load($command->getId());
 
@@ -39,6 +39,6 @@ class ProcessBatchActionEntryCommandHandler
 
         $processor = $this->provider->provide($type);
 
-        $processor->process($id, $resourceId, $payload);
+        return $processor->process($id, $resourceId, $payload);
     }
 }

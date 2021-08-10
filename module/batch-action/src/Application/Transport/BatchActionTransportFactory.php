@@ -12,19 +12,23 @@ use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Doctrine\DBAL\Connection;
+use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 
 class BatchActionTransportFactory implements TransportFactoryInterface
 {
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private BatchActionRepositoryInterface $repository;
+
+    public function __construct(Connection $connection, BatchActionRepositoryInterface $repository)
     {
         $this->connection = $connection;
+        $this->repository = $repository;
     }
 
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
     {
-        return new BatchActionTransport($this->connection);
+        return new BatchActionTransport($this->connection, $this->repository);
     }
 
     public function supports(string $dsn, array $options): bool

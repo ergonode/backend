@@ -12,7 +12,7 @@ use Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler;
 use PHPUnit\Framework\TestCase;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider;
 
 class CreateBatchActionCommandHandlerTest extends TestCase
 {
@@ -20,19 +20,19 @@ class CreateBatchActionCommandHandlerTest extends TestCase
 
     private CreateBatchActionCommand $command;
 
-    private CommandBusInterface $messageBus;
+    private BatchActionFilterIdsProvider $provider;
 
     protected function setUp(): void
     {
         $this->repository = $this->createMock(BatchActionRepositoryInterface::class);
         $this->command = $this->createMock(CreateBatchActionCommand::class);
-        $this->messageBus = $this->createMock(CommandBusInterface::class);
+        $this->provider = $this->createMock(BatchActionFilterIdsProvider::class);
     }
 
     public function testCommandHandling(): void
     {
         $this->repository->expects(self::once())->method('save');
-        $handler = new CreateBatchActionCommandHandler($this->repository, $this->messageBus);
+        $handler = new CreateBatchActionCommandHandler($this->repository, $this->provider);
         $handler->__invoke($this->command);
     }
 }

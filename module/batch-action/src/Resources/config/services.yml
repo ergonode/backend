@@ -51,6 +51,12 @@ services:
     Ergonode\BatchAction\Application\Validator\BatchActionFilterValidator:
         tags: ['validator.constraint_validator']
 
+    Ergonode\BatchAction\Application\Transport\BatchActionTransportFactory:
+        tags: [messenger.transport_factory]
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
     Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder:
     Ergonode\BatchAction\Infrastructure\Grid\Renderer\BatchActionMessageColumnRenderer:
         tags: ['component.grid.renderer.column']
@@ -105,7 +111,7 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
-            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
 
     Ergonode\BatchAction\Infrastructure\Handler\StartBatchActionCommandHandler:
         tags: ['messenger.message_handler']
