@@ -29,7 +29,7 @@ class DbalProductRelationAttributeQuery implements ProductRelationAttributeQuery
         $records = $qb->select('DISTINCT pv.product_id')
             ->from('value_translation', 'vt')
             ->where($qb->expr()->like('value', ':id'))
-            ->setParameter(':id', $id->getValue())
+            ->setParameter(':id', '%'.$id->getValue().'%')
             ->join('vt', 'product_value', 'pv', 'pv.value_id = vt.value_id')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
