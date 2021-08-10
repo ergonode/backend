@@ -113,13 +113,6 @@ services:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
 
-    Ergonode\BatchAction\Infrastructure\Handler\StartBatchActionCommandHandler:
-        tags: ['messenger.message_handler']
-        arguments:
-            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
-            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
-            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
-
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider:
         arguments:
             $strategies: !tagged_iterator 'batch_action.filter_provider.interface'
@@ -129,11 +122,6 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
-
-    Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
-        tags: [ 'messenger.message_handler' ]
-        arguments:
-            - '@Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface'
 
     Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]
