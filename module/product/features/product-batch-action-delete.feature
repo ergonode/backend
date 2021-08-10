@@ -79,10 +79,10 @@ Feature: batch action product deletion
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@/entries"
     Then the response status code should be 200
 
-  Scenario: Get simple product
-    When I send a GET request to "/api/v1/en_GB/products/@simple_product_id_no_relation@"
-    Then the response status code should be 404
-
-  Scenario: Get grouping product
-    When I send a GET request to "/api/v1/en_GB/products/@grouping_product_id@"
-    Then the response status code should be 404
+#  Scenario: Get simple product
+#    When I send a GET request to "/api/v1/en_GB/products/@simple_product_id_no_relation@"
+#    Then the response status code should be 404
+#
+#  Scenario: Get grouping product
+#    When I send a GET request to "/api/v1/en_GB/products/@grouping_product_id@"
+#    Then the response status code should be 404
