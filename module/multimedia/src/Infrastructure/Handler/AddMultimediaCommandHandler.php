@@ -53,7 +53,7 @@ class AddMultimediaCommandHandler
         $filename = sprintf('%s.%s', $id, $extension);
 
         if ($this->multimediaStorage->has($filename)) {
-            throw new \LogicException('File {filename} already exists.', ['{filename}' => $filename]);
+            throw new \LogicException(sprintf('File %s already exists.', $filename));
         }
         $content = file_get_contents($file->getRealPath());
         $this->multimediaStorage->write($filename, $content);

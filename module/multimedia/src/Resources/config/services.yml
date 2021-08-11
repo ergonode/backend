@@ -32,6 +32,9 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
+    Ergonode\Multimedia\Infrastructure\Service\Migration\:
+        resource: '../../Infrastructure/Service/Migration/*'
+        public: true
 
 
     Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaQuery'
