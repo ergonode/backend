@@ -10,6 +10,7 @@ namespace Ergonode\Attribute\Tests\Application\Validator;
 
 use Ergonode\Attribute\Application\Validator\AttributeCode;
 use Ergonode\Attribute\Application\Validator\AttributeCodeValidator;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
@@ -75,7 +76,24 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $value = 'SKU!!';
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->regexMessage);
+        $assertion = $this->buildViolation($constraint->regexMessage)->setParameter(
+            '{{ prefix }}',
+            SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX
+        );
+        $assertion->assertRaised();
+    }
+
+    public function testInCorrectPrefixValueValidation(): void
+    {
+        $constraint = new AttributeCode();
+        $value = 'esa_test';
+        $this->validator->validate($value, $constraint);
+
+        $assertion = $this->buildViolation($constraint->regexMessage)
+            ->setParameter(
+                '{{ prefix }}',
+                SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX
+            );
         $assertion->assertRaised();
     }
 

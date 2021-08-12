@@ -18,7 +18,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Column\IntegerColumn;
@@ -80,19 +79,12 @@ class ProductGridBuilder implements GridBuilderInterface
             Assert::isInstanceOf($user, User::class, sprintf('User not found %s', $userId));
         }
 
-        $columns = array_merge(
-            [
-                new RequestColumn('id'),
-                new RequestColumn('index'),
-                new RequestColumn('sku'),
-            ],
-            $configuration->getColumns()
-        );
+        $columns = $configuration->getColumns();
 
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('index', new IntegerColumn('index', 'Index', new TextFilter()))
-            ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+            ->addColumn('esa_index', new IntegerColumn('esa_index', 'Index', new TextFilter()))
+            ->addColumn('esa_sku', new TextColumn('esa_sku', 'Sku', new TextFilter()));
 
         foreach ($columns as $column) {
             $code = $column->getColumn();

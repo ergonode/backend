@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
@@ -28,7 +28,7 @@ class CreatedAtSystemAttribute extends AbstractDateAttribute
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
-        $code = new AttributeCode(self::CODE);
+        $code = new SystemAttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
         $scope = new AttributeScope(AttributeScope::GLOBAL);

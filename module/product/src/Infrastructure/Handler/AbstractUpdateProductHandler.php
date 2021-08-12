@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Core\Application\Security\Security;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -42,7 +43,7 @@ abstract class AbstractUpdateProductHandler
     {
         $user = $this->security->getUser();
         if ($user) {
-            $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
+            $editedByCode = new SystemAttributeCode(EditedBySystemAttribute::CODE);
             $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
             $this->attributeUpdate($product, $editedByCode, $editedByValue);
         }

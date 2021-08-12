@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Validator;
 
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -16,7 +17,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode as ValueObject;
 class AttributeCodeValidator extends ConstraintValidator
 {
     /**
-     * @param mixed                        $value
+     * @param mixed                    $value
      * @param AttributeCode|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
@@ -50,8 +51,12 @@ class AttributeCodeValidator extends ConstraintValidator
             return;
         }
 
-        if (!preg_match($constraint->pattern, $value)) {
+        if (!preg_match($constraint->pattern, $value) || 0 === strpos(
+            $value,
+            SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX
+        )) {
             $this->context->buildViolation($constraint->regexMessage)
+                ->setParameter('{{ prefix }}', SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX)
                 ->addViolation();
 
             return;

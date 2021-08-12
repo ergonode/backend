@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
@@ -56,6 +57,16 @@ abstract class AbstractAttributeImportAction
     {
         if (!AttributeCode::isValid($command->getCode())) {
             throw new ImportException('Attribute code {code} is not valid', ['{code}' => $command->getCode()]);
+        }
+
+        if (0 === strpos($command->getCode(), SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX)) {
+            throw new ImportException(
+                'Attribute code {code} can\'t start with {prefix}',
+                [
+                    '{code}' => $command->getCode(),
+                    '{prefix}' => SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX,
+                ]
+            );
         }
 
         if (!AttributeScope::isValid($command->getScope())) {
