@@ -21,6 +21,7 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
+use Psr\Log\LoggerInterface;
 
 class BatchActionTransport implements TransportInterface
 {
@@ -30,55 +31,71 @@ class BatchActionTransport implements TransportInterface
 
     private UserRepositoryInterface $userRepository;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         Connection $connection,
         BatchActionRepositoryInterface $repository,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        LoggerInterface $logger
     ) {
         $this->connection = $connection;
         $this->repository = $repository;
         $this->userRepository = $userRepository;
+        $this->logger = $logger;
     }
 
     public function get(): iterable
     {
         $this->connection->beginTransaction();
+        $envelope = null;
 
-        $envelope = $this->getEntryMessage();
-        if (null === $envelope) {
-            $envelope = $this->getBatchActionMessage();
+        try {
+            $envelope = $this->getBatchActionEntryMessage();
+            if (!$envelope) {
+                // close mass action if there is no entry to process
+                $envelope = $this->getBatchActionMessage();
+            }
+
+            // Transaction is close if there is no messages to process,
+            // in other case transaction is closing in ack or reject method
+            $this->connection->commit();
+        } catch (\Exception $exception) {
+            $this->connection->rollBack();
+            $this->logger->error($exception);
         }
 
-        if ($envelope) {
-            return [$envelope];
-        }
-
-        $this->connection->commit();
-
-        return [];
+        return $envelope ? [$envelope] : [];
     }
 
     public function ack(Envelope $envelope): void
     {
         $message = $envelope->getMessage();
 
-        if ($message instanceof ProcessBatchActionEntryCommand) {
-            /** @var HandledStamp $stamp */
-            $stamp = $envelope->last(HandledStamp::class);
+        try {
+            if ($message instanceof ProcessBatchActionEntryCommand) {
+                /** @var HandledStamp $stamp */
+                $stamp = $envelope->last(HandledStamp::class);
 
-            $this->repository->markEntry($message->getId(), $message->getResourceId(), $stamp->getResult());
+                $this->repository->markEntry($message->getId(), $message->getResourceId(), $stamp->getResult());
+            }
+
+            if ($message instanceof BatchActionEndedEvent) {
+                $this->repository->endBatchAction($message->getId());
+            }
+
+            // Close transaction to release table lock after ack processed message
+            $this->connection->commit();
+        } catch (\Exception $exception) {
+            $this->connection->rollBack();
+            $this->logger->error($exception);
         }
-
-        if ($message instanceof BatchActionEndedEvent) {
-            $this->repository->endBatchAction($message->getId());
-        }
-
-        $this->connection->commit();
     }
 
     public function reject(Envelope $envelope): void
     {
-        $this->connection->commit();
+        // Close transaction to release table lock after reject processed message
+        $this->connection->rollBack();
     }
 
     public function send(Envelope $envelope): Envelope
@@ -86,7 +103,7 @@ class BatchActionTransport implements TransportInterface
         return $envelope;
     }
 
-    private function getEntryMessage(): ?Envelope
+    private function getBatchActionEntryMessage(): ?Envelope
     {
         $record = $this->connection->executeQuery(
             'SELECT ba.id, bae.resource_id, ba.created_by

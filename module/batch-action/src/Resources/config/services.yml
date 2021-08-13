@@ -57,6 +57,7 @@ services:
             - '@doctrine.dbal.default_connection'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\Account\Domain\Repository\UserRepositoryInterface'
+            - '@logger'
 
     Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder:
     Ergonode\BatchAction\Infrastructure\Grid\Renderer\BatchActionMessageColumnRenderer:
