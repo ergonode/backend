@@ -20,8 +20,10 @@ class ProcessBatchActionEntryCommandHandler
 
     private BatchActionRepositoryInterface $repository;
 
-    public function __construct(BatchActionProcessorProvider $provider, BatchActionRepositoryInterface $repository)
-    {
+    public function __construct(
+        BatchActionProcessorProvider $provider,
+        BatchActionRepositoryInterface $repository
+    ) {
         $this->provider = $provider;
         $this->repository = $repository;
     }
