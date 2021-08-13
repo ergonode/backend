@@ -76,31 +76,31 @@ Feature: Notification module
     """
     Then the response status code should be 201
 
-#  Scenario: Check Notifications
-#    When I send a GET request to "/api/v1/profile/notifications/check"
-#    Then the response status code should be 200
-#    And the JSON nodes should contain:
-#      | unread | 2 |
+  Scenario: Check Notifications
+    When I send a GET request to "/api/v1/profile/notifications/check"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | unread | 2 |
 
-#  Scenario: Get notification grid
-#    When I send a GET request to "/api/v1/profile/notifications?order=DESC&field=created_at"
-#    Then the response status code should be 200
-#    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-#    And store response param "collection[0].id" as "notification_id"
+  Scenario: Get notification grid
+    When I send a GET request to "/api/v1/profile/notifications?order=DESC&field=created_at"
+    Then the response status code should be 200
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    And store response param "collection[0].id" as "notification_id"
 
-#  Scenario: Mark one notification as read
-#    When I send a POST request to "/api/v1/profile/notifications/@notification_id@/mark"
-#    Then the response status code should be 204
+  Scenario: Mark one notification as read
+    When I send a POST request to "/api/v1/profile/notifications/@notification_id@/mark"
+    Then the response status code should be 204
 
   Scenario: Mark one notification as read (wrong id)
     When I send a POST request to "/api/v1/profile/notifications/not_uid/mark"
     Then the response status code should be 400
 
-#  Scenario: Check Notifications
-#    When I send a GET request to "/api/v1/profile/notifications/check"
-#    Then the response status code should be 200
-#    And the JSON nodes should contain:
-#      | unread | 1 |
+  Scenario: Check Notifications
+    When I send a GET request to "/api/v1/profile/notifications/check"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | unread | 1 |
 
   Scenario: Mark all notifications
     When I send a POST request to "/api/v1/profile/notifications/mark-all"
