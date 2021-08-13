@@ -45,16 +45,22 @@ class BatchActionTransport implements TransportInterface
         $this->logger = $logger;
     }
 
+    /**
+     * @return Envelope[]
+     */
     public function get(): iterable
     {
         $this->connection->beginTransaction();
-        $envelope = null;
 
         try {
             $envelope = $this->getBatchActionEntryMessage();
             if (!$envelope) {
                 // close mass action if there is no entry to process
                 $envelope = $this->getBatchActionMessage();
+            }
+
+            if ($envelope) {
+                return [$envelope];
             }
 
             // Transaction is close if there is no messages to process,
@@ -65,7 +71,7 @@ class BatchActionTransport implements TransportInterface
             $this->logger->error($exception);
         }
 
-        return $envelope ? [$envelope] : [];
+        return [];
     }
 
     public function ack(Envelope $envelope): void

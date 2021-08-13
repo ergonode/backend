@@ -29,3 +29,9 @@ services:
     Ergonode\Core\Test\Behat\Context\AuthenticationContext:
         $username: 'test@ergonode.com'
         $password: 'abcd1234'
+
+    Ergonode\BatchAction\Test\Infrastructure\Handler\TestCreateBatchActionCommandHandler:
+        tags: [ { name: 'messenger.message_handler', priority: -10 } ]
+        arguments:
+            - '@messenger.transport.batch-action'
+            - '@messenger.bus.sync'
