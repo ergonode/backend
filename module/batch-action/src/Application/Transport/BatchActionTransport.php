@@ -16,6 +16,11 @@ use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
+use Ergonode\Core\Application\Security\User\CachedUser;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
+use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
 
 class BatchActionTransport implements TransportInterface
 {
@@ -23,45 +28,51 @@ class BatchActionTransport implements TransportInterface
 
     private BatchActionRepositoryInterface $repository;
 
-    public function __construct(Connection $connection, BatchActionRepositoryInterface $repository)
-    {
+    private UserRepositoryInterface $userRepository;
+
+    public function __construct(
+        Connection $connection,
+        BatchActionRepositoryInterface $repository,
+        UserRepositoryInterface $userRepository
+    ) {
         $this->connection = $connection;
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
     }
 
     public function get(): iterable
     {
         $this->connection->beginTransaction();
-        $result = [];
-        $record = $this->connection->executeQuery(
-            'SELECT batch_action_id, resource_id 
-                 FROM batch_action_entry 
-                 WHERE processed_at is NULL LIMIT 1 FOR UPDATE SKIP LOCKED'
-        )->fetchAssociative();
 
-        if (!empty($record)) {
-            echo ($record['resource_id']).PHP_EOL;
-            $result[] = new Envelope(
-                new ProcessBatchActionEntryCommand(
-                    new BatchActionId($record['batch_action_id']),
-                    new AggregateId($record['resource_id'])
-                )
-            );
-        } else {
-            $this->connection->commit();
+        $envelope = $this->getEntryMessage();
+        if (null === $envelope) {
+            $envelope = $this->getBatchActionMessage();
         }
 
-        return $result;
+        if ($envelope) {
+            return [$envelope];
+        }
+
+        $this->connection->commit();
+
+        return [];
     }
 
     public function ack(Envelope $envelope): void
     {
-        /** @var ProcessBatchActionEntryCommand $message */
         $message = $envelope->getMessage();
-        /** @var HandledStamp $stamp */
-        $stamp = $envelope->last(HandledStamp::class);
 
-        $this->repository->markEntry($message->getId(), $message->getResourceId(), $stamp->getResult());
+        if ($message instanceof ProcessBatchActionEntryCommand) {
+            /** @var HandledStamp $stamp */
+            $stamp = $envelope->last(HandledStamp::class);
+
+            $this->repository->markEntry($message->getId(), $message->getResourceId(), $stamp->getResult());
+        }
+
+        if ($message instanceof BatchActionEndedEvent) {
+            $this->repository->endBatchAction($message->getId());
+        }
+
         $this->connection->commit();
     }
 
@@ -72,6 +83,68 @@ class BatchActionTransport implements TransportInterface
 
     public function send(Envelope $envelope): Envelope
     {
+        return $envelope;
+    }
+
+    private function getEntryMessage(): ?Envelope
+    {
+        $record = $this->connection->executeQuery(
+            'SELECT ba.id, bae.resource_id, ba.created_by
+                 FROM batch_action_entry bae 
+                 JOIN batch_action ba ON ba.id = bae.batch_action_id 
+                 WHERE bae.processed_at is NULL LIMIT 1 FOR UPDATE SKIP LOCKED'
+        )->fetchAssociative();
+
+        if (!empty($record)) {
+            $envelope = new Envelope(
+                new ProcessBatchActionEntryCommand(
+                    new BatchActionId($record['id']),
+                    new AggregateId($record['resource_id'])
+                )
+            );
+
+            if (!empty($record['created_by'])) {
+                $envelope = $this->addUSerStamp($envelope, new UserId($record['created_by']));
+            }
+
+            return $envelope;
+        }
+
+        return null;
+    }
+
+    private function getBatchActionMessage(): ?Envelope
+    {
+        $record = $this->connection->executeQuery(
+            'SELECT id, created_by
+                 FROM batch_action 
+                 WHERE processed_at IS NULL LIMIT 1 FOR UPDATE SKIP LOCKED'
+        )
+            ->fetchAssociative();
+
+        if (!empty($record)) {
+            $envelope = new Envelope(new BatchActionEndedEvent(new BatchActionId($record['id'])));
+            if (!empty($record['created_by'])) {
+                $envelope = $this->addUSerStamp($envelope, new UserId($record['created_by']));
+            }
+
+            return $envelope;
+        }
+
+        return null;
+    }
+
+    private function addUserStamp(Envelope $envelope, UserId $userId): Envelope
+    {
+        $user = $this->userRepository->load($userId);
+        if ($user) {
+            $envelope = $envelope->with(
+                new UserStamp(
+                    CachedUser::createFromUser($user),
+                ),
+            );
+        }
+
         return $envelope;
     }
 }

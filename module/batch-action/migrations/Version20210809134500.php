@@ -19,5 +19,7 @@ final class Version20210809134500 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE batch_action ADD COLUMN payload TEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE batch_action ADD COLUMN processed_at TIMESTAMP WITH TIME ZONE DEFAULT NULL');
+        $this->addSql('ALTER TABLE batch_action ADD COLUMN created_by UUID DEFAULT NULL');
     }
 }
