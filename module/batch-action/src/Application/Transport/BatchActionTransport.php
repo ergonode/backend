@@ -66,12 +66,12 @@ class BatchActionTransport implements TransportInterface
             // Transaction is close if there is no messages to process,
             // in other case transaction is closing in ack or reject method
             $this->connection->commit();
-
-            return [];
         } catch (\Exception $exception) {
             $this->connection->rollBack();
             $this->logger->error($exception);
         }
+
+        return [];
     }
 
     public function ack(Envelope $envelope): void
