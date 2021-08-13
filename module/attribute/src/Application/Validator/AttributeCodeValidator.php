@@ -51,10 +51,7 @@ class AttributeCodeValidator extends ConstraintValidator
             return;
         }
 
-        if (!preg_match($constraint->pattern, $value) || 0 === strpos(
-            $value,
-            SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX
-        )) {
+        if (!preg_match($constraint->pattern, $value)) {
             $this->context->buildViolation($constraint->regexMessage)
                 ->setParameter('{{ prefix }}', SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX)
                 ->addViolation();

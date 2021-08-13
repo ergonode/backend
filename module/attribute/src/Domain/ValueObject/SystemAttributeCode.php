@@ -9,15 +9,16 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
+use Ergonode\SharedKernel\Domain\AbstractCode;
+
 class SystemAttributeCode extends AttributeCode
 {
-    public const SYSTEM_ATTRIBUTE_PREFIX = 'esa_';
 
     public static function isValid(string $value): bool
     {
         $value = strtolower($value);
 
-        return parent::isValid($value)
-            && 0 === strpos($value, self::SYSTEM_ATTRIBUTE_PREFIX);
+        return AbstractCode::isValid($value)
+            && preg_match(self::SYSTEM_ATTRIBUTE_PATTERN, $value);
     }
 }

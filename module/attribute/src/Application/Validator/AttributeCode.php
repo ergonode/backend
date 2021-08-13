@@ -23,5 +23,5 @@ class AttributeCode extends SystemCode
 
     public int $max = ValueObject::MAX_LENGTH;
 
-    public string $pattern = ValueObject::PATTERN;
+    public string $pattern = ValueObject::NOT_SYSTEM_ATTRIBUTE_PATTERN;
 }
