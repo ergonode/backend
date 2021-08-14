@@ -22,7 +22,6 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Grid\Column\LinkColumn;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +93,7 @@ class ProductGridBuilder implements GridBuilderInterface
             if (in_array($code, $codes, true)
                 && $user->hasReadLanguagePrivilege($language)
                 && $this->languageQuery->getLanguageNodeInfo($language)) {
-                $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
+                $id = AttributeId::fromKey($code);
                 $attribute = $this->repository->load($id);
                 Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 

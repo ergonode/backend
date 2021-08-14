@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
@@ -70,7 +71,10 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
 
         foreach (array_filter($attributes) as $code => $value) {
-            $this->addAttribute(new AttributeCode($code), $value);
+            $this->addAttribute(
+                AttributeCode::isValid($code) ? new AttributeCode($code) : new SystemAttributeCode($code),
+                $value
+            );
         }
     }
 
