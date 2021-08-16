@@ -22,10 +22,18 @@ class AttributeNormalizerTest extends TestCase
      * @var NormalizerInterface|MockObject
      */
     private $mockNormalizer;
+    /**
+     * @var DenormalizerInterface|MockObject
+     */
     private $mockDenormalizer;
+
     private AttributeNormalizer $normalizer;
+
     private array $data;
-    private AbstractAttribute $attribute;
+    /**
+     * @var AbstractAttribute|MockObject
+     */
+    private $attribute;
 
     protected function setUp(): void
     {

@@ -41,6 +41,9 @@ class AttributeNormalizer implements
         return $attribute;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
         $context[$this->getDenormalizeContextKey()] = true;
@@ -54,6 +57,7 @@ class AttributeNormalizer implements
         }
         $code = $data['code'];
         unset($data['code']);
+        /** @var AbstractAttribute $attribute */
         $attribute = $this->denormalizer->denormalize($data, $type, $format, $context);
 
         try {
@@ -77,6 +81,9 @@ class AttributeNormalizer implements
         return $data instanceof AbstractAttribute && !isset($context[$this->getContextKey($data)]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return is_subclass_of($type, AbstractAttribute::class) && !isset($context[$this->getDenormalizeContextKey()]);
