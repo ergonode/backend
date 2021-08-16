@@ -26,7 +26,7 @@ final class Version20210811100500 extends AbstractErgonodeMigration implements C
     {
         /** @var FileMigrationService $fileService */
         $fileService = $this->container
-            ->get('Ergonode\Multimedia\Infrastructure\Service\Migration\FileMigrationService');
+            ->get(FileMigrationService::class);
 
         $data = $this->getHash();
 

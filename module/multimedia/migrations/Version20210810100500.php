@@ -25,7 +25,7 @@ final class Version20210810100500 extends AbstractErgonodeMigration implements C
     {
         /** @var NameMigrationService $nameService */
         $nameService = $this->container
-            ->get('Ergonode\Multimedia\Infrastructure\Service\Migration\NameMigrationService');
+            ->get(NameMigrationService::class);
 
         $ids = $this->getIds();
         foreach ($ids as $id) {
