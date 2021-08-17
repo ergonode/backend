@@ -49,7 +49,7 @@ class AttributeNormalizer implements
         $context[$this->getDenormalizeContextKey()] = true;
 
         if (!is_array($data)) {
-            throw new NotNormalizableValueException('data must be an array');
+            throw new NotNormalizableValueException('Data must be an array');
         }
 
         if (!is_string($data['code'] ?? null)) {

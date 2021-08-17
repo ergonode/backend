@@ -14,11 +14,13 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 class SystemAttributeCode extends AttributeCode
 {
 
+    public const PATTERN = '/^'.self::SYSTEM_ATTRIBUTE_PREFIX.'[a-zA-Z0-9_]+$/';
+
     public static function isValid(string $value): bool
     {
         $value = strtolower($value);
 
         return AbstractCode::isValid($value)
-            && preg_match(self::SYSTEM_ATTRIBUTE_PATTERN, $value);
+            && preg_match(self::PATTERN, $value);
     }
 }
