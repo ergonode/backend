@@ -18,6 +18,7 @@
         "ergonode/core": "^1.1.0",
         "ergonode/designer": "^1.1.0",
         "ergonode/shared-kernel": "^1.1.0",
+        "ergonode/grid": "^1.1.0",
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",
