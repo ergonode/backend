@@ -66,3 +66,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'pl_PL': 'Typ produktu'
                 'en_GB': 'Product type'
+    label_esa_completeness:
+        __construct:
+            -   'pl_PL': 'Kompletność'
+                'en_GB': 'Completeness'

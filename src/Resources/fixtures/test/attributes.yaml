@@ -78,6 +78,10 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             - 'pl_PL': 'Typ produktu'
               'en_GB': 'Product type'
+    label_esa_completeness:
+        __construct:
+            - 'pl_PL': 'Kompletność'
+              'en_GB': 'Completeness'
 
 Ergonode\Attribute\Domain\Entity\AttributeGroup:
     attribute_group:
@@ -340,5 +344,12 @@ Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
     attribute_esa_default_image:
         __construct:
             - '@label_esa_default_image'
+            - '@empty'
+            - '@empty'
+            -
+Ergonode\Completeness\Domain\Entity\Attribute\CompletenessSystemAttribute:
+    attribute_esa_completeness:
+        __construct:
+            - '@label_esa_completeness'
             - '@empty'
             - '@empty'
