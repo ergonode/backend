@@ -45,4 +45,9 @@ class CompletenessSystemAttribute extends AbstractNumericAttribute
     {
         return true;
     }
+
+    public function isEditable(): bool
+    {
+        return false;
+    }
 }
