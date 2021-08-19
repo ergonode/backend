@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
@@ -36,8 +37,8 @@ abstract class AbstractValueCommandHandler
     protected function updateAudit(UserInterface $user, AbstractProduct $product): void
     {
         $updatedAt = new \DateTime();
-        $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
-        $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
+        $editedByCode = new SystemAttributeCode(EditedBySystemAttribute::CODE);
+        $editedAtCode = new SystemAttributeCode(EditedAtSystemAttribute::CODE);
         $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
         $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:sO'));
         $this->attributeUpdate($product, $editedByCode, $editedByValue);

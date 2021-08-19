@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Validator;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode as ValueObject;
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\SharedKernel\Application\Validator\SystemCode;
 
 /**
@@ -16,7 +17,10 @@ use Ergonode\SharedKernel\Application\Validator\SystemCode;
  */
 class AttributeCode extends SystemCode
 {
-    public string $regexMessage = 'System name can have only letters, digits or underscore symbol';
+    public string $regexMessage =
+        'System name can\'t start with '
+        .SystemAttributeCode::SYSTEM_ATTRIBUTE_PREFIX.
+        ' and can have only letters, digits or underscore symbol';
 
     public int $min = ValueObject::MIN_LENGTH;
 

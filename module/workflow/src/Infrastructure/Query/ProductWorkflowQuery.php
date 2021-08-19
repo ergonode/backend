@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Query;
 
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -44,7 +44,7 @@ class ProductWorkflowQuery
         Language $language,
         Language $productLanguage
     ): array {
-        $code = new AttributeCode(StatusSystemAttribute::CODE);
+        $code = new SystemAttributeCode(StatusSystemAttribute::CODE);
         $result = [];
         if ($product->hasAttribute($code)) {
             $value = $product->getAttribute($code)->getValue();
@@ -52,7 +52,8 @@ class ProductWorkflowQuery
             $status = $this->statusRepository->load($statusId);
             Assert::notNull($status, sprintf('status %s not exists', $statusId->getValue()));
             $result['status'] = [
-                'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
+                'attribute_id' =>
+                    AttributeId::fromKey((new SystemAttributeCode(StatusSystemAttribute::CODE))->getValue()),
                 'id' => $status->getId()->getValue(),
                 'name' => $status->getName()->get($language),
                 'code' => $status->getCode()->getValue(),

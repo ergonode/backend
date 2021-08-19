@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Column;
 
+use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Grid\FilterInterface;
@@ -27,7 +28,12 @@ class LabelColumn extends AbstractColumn
     ) {
         parent::__construct($field, $label, $filter);
 
-        $this->setExtension('element_id', AttributeId::fromKey((new AttributeCode($field))->getValue())->getValue());
+        $this->setExtension(
+            'element_id',
+            AttributeId::fromKey((
+                AttributeCode::isValid($field) ? new AttributeCode($field) : new SystemAttributeCode($field)
+            )->getValue())
+        );
     }
 
     /**
