@@ -289,7 +289,7 @@ Feature: Product module
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order by index)
-    When I send a GET request to "/api/v1/en_GB/products?field=index"
+    When I send a GET request to "/api/v1/en_GB/products?field=esa_index"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order by sku)
@@ -297,15 +297,15 @@ Feature: Product module
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order ASC)
-    When I send a GET request to "/api/v1/en_GB/products?field=index&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/products?field=esa_index&order=ASC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order DESC)
-    When I send a GET request to "/api/v1/en_GB/products?field=index&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/products?field=esa_index&order=DESC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (filter by index)
-    When I send a GET request to "/api/v1/en_GB/products?limit=25&offset=0&filter=index%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/products?limit=25&offset=0&filter=esa_index%3Dasd"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (filter by id)

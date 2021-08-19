@@ -11,22 +11,16 @@ namespace Ergonode\Attribute\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\AbstractCode;
 
-class AttributeCode extends AbstractCode
+class SystemAttributeCode extends AttributeCode
 {
-    public const PATTERN = '/^(?!'.self::SYSTEM_ATTRIBUTE_PREFIX.')[a-zA-Z0-9_]+$/';
 
-    public const SYSTEM_ATTRIBUTE_PREFIX = 'esa_';
-
-    public function __construct(string $value)
-    {
-        parent::__construct(strtolower($value));
-    }
+    public const PATTERN = '/^'.self::SYSTEM_ATTRIBUTE_PREFIX.'[a-zA-Z0-9_]+$/';
 
     public static function isValid(string $value): bool
     {
         $value = strtolower($value);
 
-        return parent::isValid($value)
+        return AbstractCode::isValid($value)
             && preg_match(self::PATTERN, $value);
     }
 }

@@ -79,6 +79,16 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
+    public function testInCorrectPrefixValueValidation(): void
+    {
+        $constraint = new AttributeCode();
+        $value = 'esa_test';
+        $this->validator->validate($value, $constraint);
+
+        $assertion = $this->buildViolation($constraint->regexMessage);
+        $assertion->assertRaised();
+    }
+
     protected function createValidator(): AttributeCodeValidator
     {
         return new AttributeCodeValidator();
