@@ -62,9 +62,6 @@ parameters:
   name_product_collection_type_other:
     'pl_PL': 'Inny'
     'en_GB': 'Other'
-  label_esa_completeness:
-    'pl_PL': 'Kompletność'
-    'en_GB': 'Completeness'
   empty: []
 
 Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
@@ -426,13 +423,6 @@ Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
   attribute_esa_default_image:
     __construct:
       - '<translation(<{label_esa_default_image}>)>'
-      - '<translation(<{empty}>)>'
-      - '<translation(<{empty}>)>'
-      
-Ergonode\Completeness\Domain\Entity\Attribute\CompletenessSystemAttribute:
-  attribute_esa_completeness:
-    __construct:
-      - '<translation(<{label_esa_completeness}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
 
