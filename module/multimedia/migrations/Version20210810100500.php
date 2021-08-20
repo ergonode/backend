@@ -29,7 +29,11 @@ final class Version20210810100500 extends AbstractErgonodeMigration implements C
 
         $ids = $this->getIds();
         foreach ($ids as $id) {
-            $nameService->migrateName(new MultimediaId($id));
+            try {
+                $nameService->migrateName(new MultimediaId($id));
+            } catch (\Exception $exception) {
+                $this->write($exception->getMessage());
+            }
         }
     }
 

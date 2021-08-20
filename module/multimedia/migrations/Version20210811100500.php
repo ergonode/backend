@@ -32,7 +32,11 @@ final class Version20210811100500 extends AbstractErgonodeMigration implements C
 
 
         foreach ($data as $row) {
-            $fileService->migrateFile(new MultimediaId($row['id']), new Hash($row['hash']), $row['extension']);
+            try {
+                $fileService->migrateFile(new MultimediaId($row['id']), new Hash($row['hash']), $row['extension']);
+            } catch (\Exception $exception) {
+                $this->write($exception->getMessage());
+            }
         }
     }
 
