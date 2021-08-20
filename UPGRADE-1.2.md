@@ -9,6 +9,3 @@ Core\Test:
 ExporterFile:
 * The signature of constructor `StartProcessCommandHandler` has changed  
 * The signature of constructor `ProcessExportCommandHandler` has changed
-
-Migration 
-* Extension `MigrateMigrationCommand` to use the `ContainerInterface`.

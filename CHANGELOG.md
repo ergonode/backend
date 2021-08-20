@@ -1,6 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
-- refactor [#1573](https://github.com/ergonode/backend/issues/1573) Migration upgrade with ContainerInterface (wfajczyk)
+- refactor [#1573](https://github.com/ergonode/backend/issues/1573) Migration support for ContainerAwareInterface (wfajczyk)
 - refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk)
 - refactor [#1552](https://github.com/ergonode/backend/issues/1552) Add tag support for ErgonodeProcessorStepInterface (rprzedzik)
 - refactor [#1542](https://github.com/ergonode/backend/issues/1542) Opening the file export extension to other modules (wfajczyk)
