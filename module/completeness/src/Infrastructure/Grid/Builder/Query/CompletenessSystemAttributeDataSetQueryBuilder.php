@@ -28,7 +28,7 @@ class CompletenessSystemAttributeDataSetQueryBuilder implements AttributeDataSet
 
         $sql = sprintf(
             '(
-                SELECT completeness->>\'%s\'
+                SELECT COALESCE(completeness->>\'%s\',\'0\')
                 FROM public.product pp
                          LEFT JOIN public.product_completeness ppc ON ppc.product_id = pp.id
                 WHERE pp.id = p.id     
