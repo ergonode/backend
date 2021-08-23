@@ -31,17 +31,20 @@ class Version20210818160000 extends AbstractErgonodeMigration
             ]
         )->fetchOne();
         $recorded_at = new \DateTime('now');
-        $payload = [
-            "id" => $attributeId->getValue(),
-            "code" => CompletenessSystemAttribute::CODE,
-            "hint" => [],
-            "type" => CompletenessSystemAttribute::TYPE,
-            "label" => ["en_GB" => "Completeness", "pl_PL" => "Kompletność"],
-            "scope" => "local",
-            "system" => true,
-            "parameters" => [],
-            "placeholder" => [],
-        ];
+        $payload = json_encode(
+            [
+                "id" => $attributeId->getValue(),
+                "code" => CompletenessSystemAttribute::CODE,
+                "hint" => [],
+                "type" => CompletenessSystemAttribute::TYPE,
+                "label" => ["en_GB" => "Completeness", "pl_PL" => "Kompletność"],
+                "scope" => "local",
+                "system" => true,
+                "parameters" => [],
+                "placeholder" => [],
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
 
         $this->addSql(
             'INSERT INTO attribute (id, type, code, label, placeholder, hint, scope, system) VALUES (?,?,?,?,?,?,?,?)',
@@ -83,7 +86,32 @@ class Version20210818160000 extends AbstractErgonodeMigration
                 $attributeId->getValue(),
                 1,
                 $eventId,
-                json_encode($payload, JSON_UNESCAPED_UNICODE),
+                $payload,
+                $recorded_at->format('Y-m-d H:i:s.u'),
+            ]
+        );
+
+        $this->addSql(
+            'INSERT INTO event_store_class (aggregate_id, class) VALUES (?,?)',
+            [
+                $attributeId->getValue(),
+                CompletenessSystemAttribute::class,
+            ]
+        );
+
+        $this->addSql(
+            'INSERT INTO event_store_snapshot (
+                                  aggregate_id,
+                                  sequence, 
+                                  payload,
+                                  recorded_by, 
+                                  recorded_at
+                                  ) VALUES (?,?,?,?,?)',
+            [
+                $attributeId->getValue(),
+                1,
+                $payload,
+                Uuid::uuid4()->toString(),
                 $recorded_at->format('Y-m-d H:i:s.u'),
             ]
         );
