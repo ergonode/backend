@@ -10,9 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\DependencyInjection;
 
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateElementProviderCompilerPass;
-use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
-use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -33,10 +31,6 @@ class ErgonodeDesignerExtension extends Extension implements PrependExtensionInt
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
-
-        $container
-            ->registerForAutoconfiguration(TemplateGeneratorInterface::class)
-            ->addTag(TemplateGeneratorStrategyCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(BuilderTemplateElementStrategyInterface::class)
