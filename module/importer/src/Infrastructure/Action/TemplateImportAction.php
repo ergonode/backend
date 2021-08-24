@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Importer\Infrastructure\Action\Process\Template\TemplateElementBuilderProvider;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateImportAction
 {
@@ -43,7 +44,7 @@ class TemplateImportAction
     /**
      * @throws \Exception
      */
-    public function action(string $code, array $elements): Template
+    public function action(TemplateCode $code, array $elements): Template
     {
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
@@ -56,11 +57,12 @@ class TemplateImportAction
             $groupId = $this->templateGroupQuery->getDefaultId();
             $template = new Template(
                 TemplateId::generate(),
-                $groupId,
                 $code,
+                $groupId,
+                $code->getValue(),
             );
         } else {
-            $template->changeName($code);
+            $template->changeName($code->getValue());
         }
 
         $elements = $this->getElements($template, $elements);

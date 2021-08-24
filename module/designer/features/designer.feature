@@ -28,6 +28,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
+        "code": "code_@@random_md5@@",
         "image": "@multimedia_id@",
         "defaultLabel": "@template_text_attribute@",
         "defaultImage": "@template_image_attribute@",
@@ -48,80 +49,79 @@ Feature: Designer module
     Then the response status code should be 201
     And store response param "id" as "template"
 
+  Scenario: Create template (code not exists)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code is required"
+
+  Scenario: Create template (to long code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code is too long. It should contain 128 characters or less."
+
+  Scenario: Create template (unique code code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "template",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "The value is not unique."
+
   Scenario: Create template (wrong default label attribute)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
         "image": "@multimedia_id@",
-        "defaultLabel": "@template_image_attribute@",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "defaultLabel": "@template_image_attribute@"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.defaultLabel" should exist
 
   Scenario: Create template (wrong default image attribute)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
-        "defaultImage": "@template_text_attribute@",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "code": "code_@@random_md5@@",
+        "defaultImage": "@template_text_attribute@"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.defaultImage" should exist
 
   Scenario: Create template (wrong image)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "test",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "image": "test"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.image" should exist
 
   Scenario: Create template (wrong position)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": "test", "y": 0},
@@ -137,13 +137,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.position.x" should exist
 
   Scenario: Create template (wrong size)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -159,13 +160,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.size.width" should exist
 
   Scenario: Create template (wrong attribute_id)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -181,13 +183,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.properties.attribute_id" should exist
 
-  Scenario: Create template (wrong required)
+  Scenario: Create template (wrong element required)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -203,6 +206,7 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.properties.required" should exist
 
   Scenario: Update template
     When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:

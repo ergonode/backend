@@ -7,30 +7,36 @@ Ergonode\Designer\Domain\Entity\Template:
     template:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template)>'
             - '@template_group_id'
             - 'Template'
     template_1:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template_1)>'
             - '@template_group_id'
             - 'Template_1'
     template_2:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template_2)>'
             - '@template_group_id'
             - 'Template_2'
     template_3:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template_3)>'
             - '@template_group_id'
             - 'Template_3'
     template_4:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template_4)>'
             - '@template_group_id'
             - 'Template_4'
     template_5:
         __construct:
             - '<templateId()>'
+            - '<templateCode(template_5)>'
             - '@template_group_id'
             - 'Template_5'

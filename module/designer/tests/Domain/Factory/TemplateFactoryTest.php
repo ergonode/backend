@@ -14,42 +14,30 @@ use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateFactoryTest extends TestCase
 {
-    /**
-     * @var TemplateId|MockObject
-     */
-    private MockObject $id;
+    private TemplateId $id;
 
-    /**
-     * @var TemplateGroupId|MockObject
-     */
-    private MockObject $groupId;
+    private TemplateCode $code;
+
+    private TemplateGroupId $groupId;
 
     private string $name;
 
-    /**
-     * @var TemplateElementInterface|MockObject
-     */
-    private MockObject $element;
+    private TemplateElementInterface $element;
 
-    /**
-     * @var AttributeId|MockObject
-     */
-    private MockObject $defaultText;
+    private AttributeId $defaultText;
 
-    /**
-     * @var AttributeId|MockObject
-     */
-    private MockObject $defaultImage;
+    private AttributeId $defaultImage;
 
     protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
+        $this->code = $this->createMock(TemplateCode::class);
         $this->defaultText = $this->createMock(AttributeId::class);
         $this->defaultImage = $this->createMock(AttributeId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
@@ -63,6 +51,7 @@ class TemplateFactoryTest extends TestCase
         $factory = new TemplateFactory();
         $template = $factory->create(
             $this->id,
+            $this->code,
             $this->groupId,
             $this->name,
             $this->defaultText,
@@ -71,6 +60,7 @@ class TemplateFactoryTest extends TestCase
         );
 
         $this->assertEquals($this->id, $template->getId());
+        $this->assertEquals($this->code, $template->getCode());
         $this->assertEquals($this->groupId, $template->getGroupId());
         $this->assertEquals($this->name, $template->getName());
         $this->assertCount(1, $template->getElements());

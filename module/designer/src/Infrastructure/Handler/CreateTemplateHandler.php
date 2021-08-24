@@ -38,6 +38,7 @@ class CreateTemplateHandler
 
         $template = $this->templateFactory->create(
             $command->getId(),
+            $command->getCode(),
             $groupId,
             $command->getName(),
             $command->getDefaultLabel(),

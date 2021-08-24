@@ -15,10 +15,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class CreateTemplateCommand implements TemplateCommandInterface
 {
     private TemplateId $templateId;
+
+    private TemplateCode $code;
 
     private string $name;
 
@@ -38,6 +41,7 @@ class CreateTemplateCommand implements TemplateCommandInterface
      */
     public function __construct(
         string $name,
+        TemplateCode $code,
         ArrayCollection $elements,
         ?AttributeId $defaultLabel = null,
         ?AttributeId $defaultImage = null,
@@ -50,6 +54,7 @@ class CreateTemplateCommand implements TemplateCommandInterface
         );
 
         $this->templateId = TemplateId::generate();
+        $this->code = $code;
         $this->name = $name;
         $this->defaultLabel = $defaultLabel;
         $this->defaultImage = $defaultImage;
@@ -60,6 +65,11 @@ class CreateTemplateCommand implements TemplateCommandInterface
     public function getId(): TemplateId
     {
         return $this->templateId;
+    }
+
+    public function getCode(): TemplateCode
+    {
+        return $this->code;
     }
 
     public function getName(): string

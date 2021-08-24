@@ -13,19 +13,20 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class GroupingProductImportAction extends AbstractProductImportAction
 {
     public function action(
         Sku $sku,
-        string $template,
+        TemplateCode $code,
         array $categories,
         array $children,
         array $attributes = []
     ): GroupingProduct {
-        $templateId = $this->templateQuery->findTemplateIdByCode($template);
+        $templateId = $this->templateQuery->findTemplateIdByCode($code);
         if (null === $templateId) {
-            throw new ImportException('Missing {template} template.', ['{template}' => $template]);
+            throw new ImportException('Missing {code} template.', ['{code}' => $code->getValue()]);
         }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
