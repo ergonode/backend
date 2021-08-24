@@ -38,12 +38,9 @@ class DbalTransitionGridQuery implements TransitionGridQueryInterface
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select(sprintf(
-                'ss.id as source,'.
-                'ds.id as destination, t.name->>\'%s\' as name, t.description->>\'%s\' as description',
-                $language->getCode(),
-                $language->getCode()
-            ))
+            ->select(
+                'ss.id as source, ds.id as destination'
+            )
             ->addSelect('roles, condition_set_id')
             ->join('t', 'status', 'ss', 'ss.id = t.source_id')
             ->join('t', 'status', 'ds', 'ds.id = t.destination_id')
