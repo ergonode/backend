@@ -17,8 +17,8 @@ Feature: Designer module
 
   Scenario: Multimedia upload image
     When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key    | value |
-      | upload | @image/test.jpg      |
+      | key    | value           |
+      | upload | @image/test.jpg |
     Then the response status code should be 201
     And the JSON node "id" should exist
     And store response param "id" as "multimedia_id"
@@ -360,22 +360,6 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en_GB/templates"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
-  Scenario: Get templates (order by id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by name)
-    When I send a GET request to "/api/v1/en_GB/templates?field=name"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by image_id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=image_id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by group_id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=group_id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
   Scenario: Get templates (order ASC)
     When I send a GET request to "/api/v1/en_GB/templates?field=name&order=ASC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
@@ -384,21 +368,28 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en_GB/templates?field=name&order=DESC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
-  Scenario: Get templates (filter by id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=id%3D1"
+  Scenario Outline: Get templates (order by <field>)
+    When I send a GET request to "/api/v1/en_GB/templates?field=<field>"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    And the JSON node "collection[0].<field>" should exist
+    Examples:
+      | field    |
+      | id       |
+      | name     |
+      | code     |
+      | image_id |
+      | group_id |
 
-  Scenario: Get templates (filter by name)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=name%3Dasd"
+  Scenario Outline: Get templates (filter by <field>)
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=<field>%3D<value>"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (filter by image_id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=image_id%3Dasd"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (filter by group_id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=group_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    Examples:
+      | field    | value |
+      | id       | 1     |
+      | code     | code  |
+      | name     | name  |
+      | image_id | id    |
+      | group_id | id    |
 
   Scenario: Get template groups
     When I send a GET request to "/api/v1/en_GB/templates/groups"
