@@ -9,3 +9,8 @@ Core\Test:
 ExporterFile:
 * The signature of constructor `StartProcessCommandHandler` has changed  
 * The signature of constructor `ProcessExportCommandHandler` has changed
+
+Designer:
+* The signature of constructor `Template` has changed
+* The signature of constructor `TemplateCreateEvent` has changed
+* * The signature of constructor `CreateTemplateCommand` has changed

@@ -19,6 +19,7 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class ImportSimpleProductCommandHandler
 {
@@ -72,7 +73,7 @@ class ImportSimpleProductCommandHandler
             $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
-                $command->getTemplate(),
+                new TemplateCode($command->getTemplate()),
                 $categories,
                 $validatedAttributes,
             );

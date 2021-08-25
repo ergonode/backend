@@ -19,6 +19,7 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class ImportGroupingProductCommandHandler
 {
@@ -80,7 +81,7 @@ class ImportGroupingProductCommandHandler
             $validatedAttributes = array_diff_key($command->getAttributes(), $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
-                $command->getTemplate(),
+                new TemplateCode($command->getTemplate()),
                 $categories,
                 $children,
                 $validatedAttributes

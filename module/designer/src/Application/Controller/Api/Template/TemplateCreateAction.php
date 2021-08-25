@@ -76,7 +76,7 @@ class TemplateCreateAction
     public function __invoke(Request $request): TemplateId
     {
         $model = new TemplateFormModel();
-        $form = $this->formFactory->create(TemplateForm::class, $model);
+        $form = $this->formFactory->create(TemplateForm::class, $model, ['validation_groups' => ['Default', 'Create']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

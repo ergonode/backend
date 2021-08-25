@@ -16,6 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateFactory
 {
@@ -24,6 +25,7 @@ class TemplateFactory
      */
     public function create(
         TemplateId $id,
+        TemplateCode $code,
         TemplateGroupId $groupId,
         string $name,
         ?AttributeId $defaultLabel = null,
@@ -35,6 +37,7 @@ class TemplateFactory
 
         $template = new Template(
             $id,
+            $code,
             $groupId,
             $name,
             $defaultLabel,
