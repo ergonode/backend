@@ -20,6 +20,7 @@ class DbalTemplateGridQuery implements TemplateGridQueryInterface
     private const FIELDS = [
         't.id',
         't.name',
+        't.code',
         't.default_image',
         't.default_label',
         't.image_id',
