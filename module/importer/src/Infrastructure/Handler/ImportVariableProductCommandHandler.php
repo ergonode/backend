@@ -59,6 +59,10 @@ class ImportVariableProductCommandHandler
                 throw new ImportException('Sku {sku} is not valid', ['{sku}' => $command->getSku()]);
             }
 
+            if (!TemplateCode::isValid($command->getTemplate())) {
+                throw new ImportException('template code {code} is not valid', ['{code}' => $command->getTemplate()]);
+            }
+
             $categories = [];
             foreach ($command->getCategories() as $category) {
                 if (!CategoryCode::isValid($category)) {
