@@ -38,7 +38,9 @@ class ExportTemplateElementBuilder implements ExportHeaderBuilderInterface
             $result[] = $builder->header();
         }
 
-        return array_unique(array_merge(['_name', '_type', '_language', '_x', '_y', '_width', '_height'], ...$result));
+        return array_unique(
+            array_merge(['_name', '_code', '_type', '_language', '_x', '_y', '_width', '_height'], ...$result)
+        );
     }
 
     public function fileName(): string
@@ -55,6 +57,7 @@ class ExportTemplateElementBuilder implements ExportHeaderBuilderInterface
             foreach ($template->getElements() as $element) {
                 $line = new ExportLineData();
                 $line->set('_name', $template->getName());
+                $line->set('_code', $template->getCode()->getValue());
                 $line->set('_type', $element->getType());
                 $line->set('_language', $language->getCode());
                 $line->set('_x', (string) $element->getPosition()->getX());

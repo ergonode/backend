@@ -44,7 +44,7 @@ class TemplateImportAction
     /**
      * @throws \Exception
      */
-    public function action(TemplateCode $code, array $elements): Template
+    public function action(TemplateCode $code, string $name, array $elements): Template
     {
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
@@ -59,10 +59,10 @@ class TemplateImportAction
                 TemplateId::generate(),
                 $code,
                 $groupId,
-                $code->getValue(),
+                $name,
             );
         } else {
-            $template->changeName($code->getValue());
+            $template->changeName($name);
         }
 
         $elements = $this->getElements($template, $elements);
