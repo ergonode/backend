@@ -36,7 +36,11 @@ class ImportTemplateCommandHandler
     public function __invoke(ImportTemplateCommand $command): void
     {
         try {
-            $template = $this->action->action(new TemplateCode($command->getCode()), $command->getElements());
+            $template = $this->action->action(
+                new TemplateCode($command->getCode()),
+                $command->getName(),
+                $command->getElements()
+            );
             $this->repository->markLineAsSuccess($command->getId(), $template->getId());
         } catch (ImportException $exception) {
             $this->repository->markLineAsFailure($command->getId());
