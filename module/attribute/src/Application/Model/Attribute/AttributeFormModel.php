@@ -23,6 +23,10 @@ class AttributeFormModel
      * @AttributeAssert\AttributeCode(
      *     groups={"Create"}
      * )
+     * @Assert\Regex(
+     *     pattern="/^(?!esa_)[a-zA-Z0-9_]+$/",
+     *     message="The attribute code shouldn't start with esa_"
+     * )
      * @AttributeAssert\AttributeCodeUnique(
      *     groups={"Create"}
      * )
