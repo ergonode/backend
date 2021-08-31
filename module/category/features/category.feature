@@ -128,9 +128,9 @@ Feature: Category module
       | sequence       | DESC  | sequence       |
 
   Scenario: Get categories (filter by elements_count = 0)
-    When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=0"
+    When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=&elements_count=0"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/1/"
+    And the JSON node "info.filtered" should match "/3/"
 
   Scenario: Get categories (filter by elements_count = 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=9999999"
@@ -145,7 +145,7 @@ Feature: Category module
   Scenario: Get categories (filter by elements_count <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count<=9999999"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/1/"
+    And the JSON node "info.filtered" should match "/3/"
 
   Scenario: Get categories (filter by elements_count >= 888888 <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count>=8888888;elements_count<=9999999"
@@ -174,4 +174,4 @@ Feature: Category module
   Scenario: Get categories (filter by elements_count = 0)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=0"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/0/"
+    And the JSON node "info.filtered" should match "/2/"
