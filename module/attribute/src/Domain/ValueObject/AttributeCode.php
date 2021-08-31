@@ -13,9 +13,7 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 
 class AttributeCode extends AbstractCode
 {
-    public const PATTERN = '/^(?!'.self::SYSTEM_ATTRIBUTE_PREFIX.')[a-zA-Z0-9_]+$/';
-
-    public const SYSTEM_ATTRIBUTE_PREFIX = 'esa_';
+    public const PATTERN = '/^([a-zA-Z0-9_]+)$/';
 
     public function __construct(string $value)
     {

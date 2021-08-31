@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
@@ -28,7 +28,7 @@ class ProductTypeSystemAttribute extends AbstractTextAttribute
         TranslatableString $placeholder
     ) {
         $scope = new AttributeScope(AttributeScope::GLOBAL);
-        $code = new SystemAttributeCode(self::CODE);
+        $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);

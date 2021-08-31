@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Provider;
 
-use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
@@ -16,6 +15,7 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ProductStatusProvider
 {
@@ -31,7 +31,7 @@ class ProductStatusProvider
         AbstractWorkflow $workflow,
         Language $language
     ): AbstractProduct {
-        $code = new SystemAttributeCode(StatusSystemAttribute::CODE);
+        $code = new AttributeCode(StatusSystemAttribute::CODE);
 
         $value = [];
         if ($product->hasAttribute($code)) {
