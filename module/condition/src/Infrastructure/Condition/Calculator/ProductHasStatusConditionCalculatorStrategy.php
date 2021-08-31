@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
@@ -42,7 +42,7 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
                 )
             );
         }
-        $statusAttributeCode = new SystemAttributeCode(StatusSystemAttribute::CODE);
+        $statusAttributeCode = new AttributeCode(StatusSystemAttribute::CODE);
 
         Assert::true($product->hasAttribute($statusAttributeCode));
         $productStatuses = $product->getAttribute($statusAttributeCode)->getValue();

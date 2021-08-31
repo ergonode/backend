@@ -10,7 +10,7 @@ namespace Ergonode\Designer\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
-use Ergonode\Attribute\Domain\ValueObject\SystemAttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -27,7 +27,7 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
-        $code = new SystemAttributeCode(self::CODE);
+        $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
         $scope = new AttributeScope(AttributeScope::GLOBAL);
 
