@@ -16,36 +16,21 @@ Feature: Product edit feature
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template@",
-        "categoryIds": []
+        "templateId": "@product_template@"
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product"
 
-  Scenario: Create category
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "CATEGORY_TEST_AND_DELETE",
-        "type": "DEFAULT",
-        "name": {"en_GB": "Test Category 1"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "category1"
+  Scenario: Get 1 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_1&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "category1"
 
-  Scenario: Create category
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "CATEGORY_@@random_uuid@@",
-        "type": "DEFAULT",
-        "name": {"en_GB": "Test Category 2"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "category2"
+  Scenario: Get 1 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_2&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "category2"
 
   Scenario: Add Category1 to product
     When I send a POST request to "/api/v1/en_GB/products/@product@/category" with body:
@@ -82,9 +67,9 @@ Feature: Product edit feature
     When I send a GET request to "/api/v1/en_GB/products/@product@/category"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | collection[0].id   | @category1@              |
-      | collection[0].code | CATEGORY_TEST_AND_DELETE |
-      | collection[0].name | Test Category 1          |
+      | collection[0].id   | @category1@ |
+      | collection[0].code | category_1  |
+      | collection[0].name | Category_1  |
 
   Scenario: Remove Category1 from product
     When I send a DELETE request to "/api/v1/en_GB/products/@product@/category" with body:

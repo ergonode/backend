@@ -2,6 +2,24 @@ parameters:
   category_tree_name:
     'pl_PL': 'Drzewo kategorii'
     'en_GB': 'Category tree'
+  category_1_name:
+    'pl_PL': 'Kategoria_1'
+    'en_GB': 'Category_1'
+  category_2_name:
+    'pl_PL': 'Kategoria_2'
+    'en_GB': 'Category_2'
+
+Ergonode\Category\Domain\Command\CreateCategoryCommand:
+  category_1:
+    __construct:
+      - '<categoryId(category_1)>'
+      - '<categoryCode(category_1)>'
+      - '<translation(<{category_1_name}>)>'
+  category_2:
+    __construct:
+      - '<categoryId(category_2)>'
+      - '<categoryCode(category_2)>'
+      - '<translation(<{category_2_name}>)>'
 
 Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
   create_category_tree:

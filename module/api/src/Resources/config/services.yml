@@ -37,6 +37,7 @@ services:
     Ergonode\Api\Infrastructure\Normalizer\ExceptionDebugNormalizer:
         decorates: 'Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'
         arguments:
+            $exceptionNormalizer: '@Ergonode\Api\Infrastructure\Normalizer\ExceptionDebugNormalizer.inner'
             $debugMode: '%kernel.debug%'
 
     Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface: '@Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'
