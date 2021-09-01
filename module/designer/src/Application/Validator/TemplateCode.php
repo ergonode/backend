@@ -19,5 +19,5 @@ class TemplateCode extends SystemCode
 
     public string $maxMessage = 'Template code is too long. It should contain {{ limit }} characters or less.';
 
-    public string $validMessage = 'Template code can have only letters, digits or underscore symbol';
+    public string $validMessage = 'Template code can have only letters, digits or underscore symbol.';
 }
