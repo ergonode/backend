@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -49,7 +49,8 @@ final class Version20210823140000 extends AbstractErgonodeMigration
             sprintf(
                 'UPDATE event_store SET payload = jsonb_set(payload, \'{code}\', \'"%s"\')
                         WHERE event_id IN(SELECT id FROM event_store_event WHERE event_class = ? AND aggregate_id = ?)',
-                $code),
+                $code
+            ),
             [TemplateCreatedEvent::class, $id]
         );
     }
