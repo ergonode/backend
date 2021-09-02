@@ -16,8 +16,7 @@ Feature: Product history feature
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_edit_template@",
-        "categoryIds": []
+        "templateId": "@product_edit_template@"
       }
       """
     Then the response status code should be 201
