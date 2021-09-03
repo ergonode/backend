@@ -20,6 +20,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.5
+- bugfix [#1591](https://github.com/ergonode/backend/issues/1591) Slow export information endpoint requests (rprzedzik)
+
 #### 1.0.4
 - bugfix [#1548](https://github.com/ergonode/backend/issues/1548) Plain text password in CreateUserEvent (rprzedzik)
 - bugfix [#1545](https://github.com/ergonode/backend/issues/1545) Unnecessary sending of password changing e-mail (rprzedzik)
