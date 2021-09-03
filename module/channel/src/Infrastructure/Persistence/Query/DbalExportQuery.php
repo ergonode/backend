@@ -38,12 +38,30 @@ class DbalExportQuery implements ExportQueryInterface
 
         return $query
             ->addSelect('ch.name')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
+            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END AS errors')
+            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END AS processed')
+            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END AS items')
             ->orderBy('started_at', 'DESC')
             ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as errors, export_id  FROM exporter.export_error GROUP BY export_id)',
+                'ee',
+                'ee.export_id = e.id'
+            )
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as items, export_id  FROM exporter.export_line GROUP BY export_id)',
+                'ei',
+                'ei.export_id = e.id'
+            )
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as processed, export_id  FROM exporter.export_line 
+                        WHERE processed_at IS NOT NULL GROUP BY export_id)',
+                'ep',
+                'ep.export_id = e.id'
+            )
             ->setMaxResults(10)
             ->execute()
             ->fetchAll();
@@ -57,11 +75,29 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
+            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END AS errors')
+            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END AS processed')
+            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END AS items')
             ->where($query->expr()->eq('id', ':exportId'))
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as errors, export_id  FROM exporter.export_error GROUP BY export_id)',
+                'ee',
+                'ee.export_id = e.id'
+            )
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as items, export_id  FROM exporter.export_line GROUP BY export_id)',
+                'ei',
+                'ei.export_id = e.id'
+            )
+            ->leftJoin(
+                'e',
+                '(SELECT count(*) as processed, export_id  FROM exporter.export_line 
+                        WHERE processed_at IS NOT NULL GROUP BY export_id)',
+                'ep',
+                'ep.export_id = e.id'
+            )
             ->setParameter(':exportId', $exportId->getValue())
             ->execute()
             ->fetch();
