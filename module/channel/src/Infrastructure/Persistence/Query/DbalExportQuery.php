@@ -38,9 +38,9 @@ class DbalExportQuery implements ExportQueryInterface
 
         return $query
             ->addSelect('ch.name')
-            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END')
-            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END')
-            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END')
+            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END AS errors')
+            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END AS processed')
+            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END AS items')
             ->orderBy('started_at', 'DESC')
             ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
             ->leftJoin(
@@ -75,9 +75,9 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
-            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END')
-            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END')
-            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END')
+            ->addSelect('CASE WHEN ee.errors IS NULL THEN 0 ELSE ee.errors END AS errors')
+            ->addSelect('CASE WHEN ep.processed IS NULL THEN 0 ELSE ep.processed END AS processed')
+            ->addSelect('CASE WHEN ei.items IS NULL THEN 0 ELSE ei.items END AS items')
             ->where($query->expr()->eq('id', ':exportId'))
             ->leftJoin(
                 'e',

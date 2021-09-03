@@ -97,15 +97,39 @@ class DbalImportQuery implements ImportQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('i.id, status, started_at, ended_at')
             ->addSelect('s.name')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as items')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il 
-                                WHERE il.import_id = i.id AND il.status IS NOT NULL) AS processed')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il 
-                                WHERE il.import_id = i.id AND il.status = \'success\') AS succeeded')
-            ->addSelect('(SELECT count(*) FROM importer.import_error ie WHERE ie.import_id = i.id) AS errors')
+            ->addSelect('(CASE WHEN ii.items IS NULL THEN 0 ELSE ii.items END) AS items')
+            ->addSelect('(CASE WHEN ip.processed IS NULL THEN 0 ELSE ip.processed END) AS processed')
+            ->addSelect('(CASE WHEN ic.succeeded IS NULL THEN 0 ELSE ic.succeeded END) AS succeeded')
+            ->addSelect('(CASE WHEN ie.errors IS NULL THEN 0 ELSE ie.errors END) AS errors')
             ->from(self::TABLE, 'i')
             ->orderBy('started_at', 'DESC')
             ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
+            ->leftJoin(
+                'i',
+                '(SELECT count(*) AS items, import_id FROM importer.import_line GROUP BY import_id)',
+                'ii',
+                'ii.import_id = i.id'
+            )
+            ->leftJoin(
+                'i',
+                '(SELECT count(*) AS processed, import_id FROM importer.import_line 
+                WHERE status IS NOT NULL GROUP BY import_id)',
+                'ip',
+                'ip.import_id = i.id'
+            )
+            ->leftJoin(
+                'i',
+                '(SELECT count(*) AS succeeded, import_id FROM importer.import_line 
+                WHERE status = \'success\' GROUP BY import_id)',
+                'ic',
+                'ic.import_id = i.id'
+            )
+            ->leftJoin(
+                'i',
+                '(SELECT count(*) AS errors, import_id FROM importer.import_error GROUP BY import_id)',
+                'ie',
+                'ie.import_id = i.id'
+            )
             ->setMaxResults(10)
             ->execute()
             ->fetchAll();
