@@ -86,7 +86,8 @@
         "symfony/maker-bundle": "^1.13",
         "symfony/phpunit-bridge": "^4.4",
         "symfony/profiler-pack": "^1.0",
-        "symfony/var-dumper": "^4.4"
+        "symfony/var-dumper": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4"
     },
     "config": {
         "bin-dir": "bin",
