@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -32,6 +32,7 @@ class TemplateResultMapper
     {
         $result['id'] = $template->getId()->getValue();
         $result['name'] = $template->getName();
+        $result['code'] = $template->getCode();
         $result['image_id'] = $template->getImageId() ? $template->getImageId()->getValue() : null;
         $result['default_label'] = $template->getDefaultLabel() ? $template->getDefaultLabel()->getValue() : null;
         $result['default_image'] = $template->getDefaultImage() ? $template->getDefaultImage()->getValue() : null;

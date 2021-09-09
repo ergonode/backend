@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -28,7 +28,12 @@ class TemplateForm extends AbstractType
             ->add(
                 'name',
                 TextType::class
-            )->add(
+            )
+            ->add(
+                'code',
+                TextType::class
+            )
+            ->add(
                 'image',
                 TextType::class
             )->add(

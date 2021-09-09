@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -18,12 +18,10 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Grid\Column\LinkColumn;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,19 +78,12 @@ class ProductGridBuilder implements GridBuilderInterface
             Assert::isInstanceOf($user, User::class, sprintf('User not found %s', $userId));
         }
 
-        $columns = array_merge(
-            [
-                new RequestColumn('id'),
-                new RequestColumn('index'),
-                new RequestColumn('sku'),
-            ],
-            $configuration->getColumns()
-        );
+        $columns = $configuration->getColumns();
 
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('index', new IntegerColumn('index', 'Index', new TextFilter()))
-            ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+            ->addColumn('esa_index', new IntegerColumn('esa_index', 'Index', new TextFilter()))
+            ->addColumn('esa_sku', new TextColumn('esa_sku', 'Sku', new TextFilter()));
 
         foreach ($columns as $column) {
             $code = $column->getColumn();
@@ -102,7 +93,7 @@ class ProductGridBuilder implements GridBuilderInterface
             if (in_array($code, $codes, true)
                 && $user->hasReadLanguagePrivilege($language)
                 && $this->languageQuery->getLanguageNodeInfo($language)) {
-                $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
+                $id = AttributeId::fromKey($code);
                 $attribute = $this->repository->load($id);
                 Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 

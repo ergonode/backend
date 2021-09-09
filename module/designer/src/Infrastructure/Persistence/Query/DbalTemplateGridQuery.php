@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -20,6 +20,7 @@ class DbalTemplateGridQuery implements TemplateGridQueryInterface
     private const FIELDS = [
         't.id',
         't.name',
+        't.code',
         't.default_image',
         't.default_label',
         't.image_id',

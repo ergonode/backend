@@ -152,8 +152,8 @@ Feature: Product edit and inheritance value for product product with select attr
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "Expected a string. Got: array"
+    Then the response status code should be 400
+    And the JSON node "errors.value" should contain "The value you selected is not a valid choice."
 
   Scenario: Edit product select value in "en_GB" language (batch endpoint) (value not uuid)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -177,8 +177,8 @@ Feature: Product edit and inheritance value for product product with select attr
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "is not a valid UUID."
+    Then the response status code should be 400
+    And the JSON node "errors.data.element-0.payload.element-0.values.element-0.value[0]" should contain "The value you selected is not a valid choice."
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"

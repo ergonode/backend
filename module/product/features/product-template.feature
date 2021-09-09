@@ -5,11 +5,6 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Get template id
-    When I send a GET request to "/api/v1/en_GB/templates?filter=name=Template&view=list"
-    Then the response status code should be 200
-    And store response param "collection[0].id" as "product_template"
-
   Scenario: Get attribute id
     When I send a GET request to "/api/v1/en_GB/attributes?filter=code=text_attribute_local&view=list"
     Then the response status code should be 200
@@ -20,6 +15,7 @@ Feature: Product module
       """
       {
         "name": "@@random_md5@@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -20,6 +20,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateCommandFactory
 {
@@ -40,6 +41,7 @@ class TemplateCommandFactory
     {
         return new CreateTemplateCommand(
             $model->name,
+            new TemplateCode($model->code),
             $this->createElements($model),
             $model->defaultLabel ? new AttributeId($model->defaultLabel) : null,
             $model->defaultImage ? new AttributeId($model->defaultImage) : null,

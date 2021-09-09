@@ -115,7 +115,7 @@ Feature: Batch action get templates
             ],
             "included": true
           },
-          "query": "sku=@product_sku_2@"
+          "query": "esa_sku=@product_sku_2@"
         }
       }
       """
@@ -134,7 +134,7 @@ Feature: Batch action get templates
             ],
             "included": false
           },
-          "query": "sku=@product_sku_2@"
+          "query": "esa_sku=@product_sku_2@"
         }
       }
       """
@@ -147,7 +147,7 @@ Feature: Batch action get templates
       {
         "type": "product_edit",
         "filter": {
-          "query": "sku=@product_sku_2@"
+          "query": "esa_sku=@product_sku_2@"
         }
       }
       """
@@ -166,7 +166,7 @@ Feature: Batch action get templates
             ],
             "included": false
           },
-          "query": "sku=@product_sku_2@"
+          "query": "esa_sku=@product_sku_2@"
         }
       }
       """

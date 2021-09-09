@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -42,6 +42,7 @@ class TemplateGridBuilder implements GridBuilderInterface
 
         $grid
             ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'Code', new TextFilter()))
             ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
             ->addColumn('image_id', new ImageColumn('image_id', 'Template image'))
             ->addColumn('group_id', new SelectColumn('group_id', 'Group', new MultiSelectFilter($groups)))

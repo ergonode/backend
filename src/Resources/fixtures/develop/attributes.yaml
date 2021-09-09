@@ -186,7 +186,7 @@ Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
             - '@label_esa_status'
             - '@empty'
             - '@empty'
-            -
+            
 Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
     attribute_esa_created_at:
         __construct:

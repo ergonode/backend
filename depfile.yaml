@@ -170,6 +170,7 @@ ruleset:
     - EventSourcing
     - Product
     - SharedKernel
+    - Grid
   Condition:
     - Api
     - Account

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -14,6 +14,7 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
 {
     private const KEYS = [
         '_name',
+        '_code',
         '_language',
     ];
 
@@ -26,6 +27,7 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
 
             $item = new TemplateModel(
                 $record['_name'],
+                array_key_exists('_code', $record)? $record['_code']: $record['_name'],
             );
 
             foreach ($record as $key => $value) {

@@ -132,7 +132,7 @@ Feature: Product edit and inheritance value for product product with gallery att
           ]
         }
       """
-    Then the response status code should be 204
+    Then the response status code should be 400
 
   Scenario: Edit product gallery value in "en_GB" language (batch endpoint) (value not uuid)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -156,8 +156,8 @@ Feature: Product edit and inheritance value for product product with gallery att
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "is not a valid UUID."
+    Then the response status code should be 400
+    And the JSON node "errors.value" should contain "One or more of the given values is invalid."
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"

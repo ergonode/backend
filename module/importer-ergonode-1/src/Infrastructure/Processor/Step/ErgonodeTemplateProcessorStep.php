@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -48,7 +48,7 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
             $elements = [];
             $reader2->reset();
             while ($element = $reader2->read()) {
-                if ($element->getName() === $template->getName()) {
+                if ($element->getCode() === $template->getCode()) {
                     $elements[] = $element->toArray();
                 }
             }
@@ -57,8 +57,9 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
             $command = new ImportTemplateCommand(
                 $id,
                 $import->getId(),
-                $template->getName(),
+                $template->getCode(),
                 $elements,
+                $template->getName()
             );
 
             $this->importRepository->addLine($id, $import->getId(), 'TEMPLATE');

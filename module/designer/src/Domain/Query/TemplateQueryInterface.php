@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 interface TemplateQueryInterface
 {
@@ -30,7 +31,7 @@ interface TemplateQueryInterface
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
 
-    public function findTemplateIdByCode(string $code): ?TemplateId;
+    public function findTemplateIdByCode(TemplateCode $code): ?TemplateId;
 
     public function getMultimediaRelation(MultimediaId $id): array;
 

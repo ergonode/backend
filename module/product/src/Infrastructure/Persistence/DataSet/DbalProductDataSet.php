@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -143,7 +143,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $queryBuilder = clone $this->queryBuilder;
 
         return $queryBuilder
-            ->select('p.id, p.index, p.sku')
+            ->select('p.id, p.index as esa_index, p.sku as esa_sku')
             ->from(self::PRODUCT_TABLE, 'p');
     }
 }

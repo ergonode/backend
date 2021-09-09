@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -14,7 +14,9 @@ use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class AttributeNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+class AttributeNormalizer implements
+    ContextAwareNormalizerInterface,
+    NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 

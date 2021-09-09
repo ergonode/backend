@@ -35,10 +35,10 @@ Feature: Product edit feature
       | multi_select_option_2 | multiselect_attribute_local | option_2 |
 
   Scenario Outline: Get <product> product sku
-    When I send a GET request to "/api/v1/en_GB/products?columns=id,sku&filter=sku=<sku>&view=list"
+    When I send a GET request to "/api/v1/en_GB/products?columns=id,esa_sku&filter=esa_sku=<sku>&view=list"
     Then the response status code should be 200
     And the JSON node "info.filtered" should be equal to 1
-    And store response param "collection[0].sku" as "<name>_sku"
+    And store response param "collection[0].esa_sku" as "<name>_sku"
     And store response param "collection[0].id" as "<name>_id"
     Examples:
       | sku        | name      |
@@ -47,7 +47,7 @@ Feature: Product edit feature
       | sku_test_3 | product_3 |
 
   Scenario Outline: Request product grid filtered by <code> attribute
-    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>=<filter>;sku=sku_test_"
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>=<filter>;esa_sku=sku_test_"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id         | <code>        |
@@ -67,7 +67,7 @@ Feature: Product edit feature
       | NUMERIC      | unit_attribute_local           | unit_attribute_local        | 99.99                    |
 
   Scenario Outline: Request product grid filtered by <code> attribute with extended flag
-    When I send a GET request to "api/v1/en_GB/products?extended&columns=<code>&filter=<code>=<filter>;sku=sku_test_"
+    When I send a GET request to "api/v1/en_GB/products?extended&columns=<code>&filter=<code>=<filter>;esa_sku=sku_test_"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id         | <code>        |
@@ -105,7 +105,7 @@ Feature: Product edit feature
       | NUMERIC   | price_attribute_local    |
 
   Scenario Outline: Request product grid filtered by <code> attribute for not null values
-    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>!=;sku=sku_test_"
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>!=;esa_sku=sku_test_"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id         | <code>   |
@@ -127,8 +127,8 @@ Feature: Product edit feature
     When I send a GET request to "api/v1/en_GB/products?columns=id&filter=id=@product_1_id@,@product_2_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | collection[0].id | @product_2_id@ |
-      | collection[1].id | @product_1_id@ |
+      | collection[0].id | @product_1_id@ |
+      | collection[1].id | @product_2_id@ |
       | info.filtered    | 2              |
 
   Scenario: Request product grid filtered by product id
@@ -151,13 +151,13 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Request product order by index
-    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,index&field=index&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,esa_index&field=esa_index&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by attribute
-    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,index&field=@attribute_text_id@&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,esa_index&field=@attribute_text_id@&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by not exists attribute
-    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,index&field=xxxxxxx@&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@attribute_text_id@&,esa_index&field=xxxxxxx@&order=DESC"
     Then the response status code should be 200

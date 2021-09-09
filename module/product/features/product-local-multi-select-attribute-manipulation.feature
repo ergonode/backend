@@ -141,7 +141,7 @@ Feature: Product edit and inheritance value for product product with multi-selec
                   "values" : [
                      {
                       "language": "en_GB",
-                       "value": "@option_1_id@"
+                       "value": ["@option_1_id@"]
                     }
                   ]
                 }
@@ -174,8 +174,8 @@ Feature: Product edit and inheritance value for product product with multi-selec
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "is not a valid UUID."
+    Then the response status code should be 400
+    And the JSON node "errors.value" should contain "One or more of the given values is invalid."
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"

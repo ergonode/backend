@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class TemplateElementModel extends AbstractModel
 {
-    private string $name;
+    private string $code;
     private string $type;
     private int $x;
     private int $y;
@@ -18,14 +18,14 @@ class TemplateElementModel extends AbstractModel
     private int $height;
 
     public function __construct(
-        string $name,
+        string $code,
         string $type,
         int $x,
         int $y,
         int $width,
         int $height
     ) {
-        $this->name = $name;
+        $this->code = $code;
         $this->type = $type;
         $this->x = $x;
         $this->y = $y;
@@ -33,9 +33,9 @@ class TemplateElementModel extends AbstractModel
         $this->height = $height;
     }
 
-    public function getName(): string
+    public function getCode(): string
     {
-        return $this->name;
+        return $this->code;
     }
 
     public function getType(): string

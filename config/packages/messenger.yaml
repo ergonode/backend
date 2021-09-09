@@ -8,11 +8,6 @@ framework:
             export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
             core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
             notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
-            batch_action: "%env(MESSENGER_TRANSPORT_BATCH_ACTION_DSN)%"
-
-ergonode_batch_action:
-    messenger:
-        transport_name: 'batch_action'
 
 ergonode_category:
     messenger:

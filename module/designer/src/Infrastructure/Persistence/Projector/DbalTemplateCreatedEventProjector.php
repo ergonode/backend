@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -32,6 +32,7 @@ class DbalTemplateCreatedEventProjector
             self::TABLE,
             [
                 'id' => $event->getAggregateId()->getValue(),
+                'code' => $event->getCode()->getValue(),
                 'name' => $event->getName(),
                 'default_label' => $event->getDefaultLabel() ? $event->getDefaultLabel()->getValue() : null,
                 'default_image' => $event->getDefaultImage() ? $event->getDefaultImage()->getValue() : null,

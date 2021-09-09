@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -40,6 +40,6 @@ class ExportProductTemplateBuilder implements ExportProductBuilderInterface
         $template = $this->templateRepository->load($templateId);
         Assert::notNull($template);
 
-        return $template->getName();
+        return $template->getCode()->getValue();
     }
 }
