@@ -19,33 +19,15 @@ Feature: Category tree module
     Then the response status code should be 201
     And store response param "id" as "category_tree"
 
-  Scenario: Create category for update 1
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "TREE_CAT_@@random_code@@",
-        "name": {
-          "de_DE": "Test de",
-          "en_GB": "Test en"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "category_1"
+  Scenario: Get 1 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_1&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "category_1"
 
-  Scenario: Create category for update 2
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "TREE_CAT_@@random_code@@",
-        "name": {
-          "de_DE": "Test de",
-          "en_GB": "Test en"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "category_2"
+  Scenario: Get 2 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_2&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "category_2"
 
   Scenario: Create category tree (no Name)
     When I send a POST request to "/api/v1/en_GB/trees" with body:

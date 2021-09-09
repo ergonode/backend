@@ -20,27 +20,15 @@ Feature: Product module
     Then the response status code should be 200
     And store response param "collection[0].id" as "template_2_id"
 
-  Scenario: Create category
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "CATEGORY_@@random_uuid@@",
-        "name": {"de_DE": "Test de", "en_GB": "Test en"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_category"
+  Scenario: Get 1 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_1&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "product_category"
 
-  Scenario: Create category
-    When I send a POST request to "/api/v1/en_GB/categories" with body:
-      """
-      {
-        "code": "CATEGORY_@@random_uuid@@",
-        "name": {"de_DE": "Test de", "en_GB": "Test en"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_category_2"
+  Scenario: Get 2 category id
+    When I send a GET request to "/api/v1/en_GB/categories?filter=name=Category_2&view=list"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "product_category_2"
 
   Scenario Outline: Create product with invalid <sku> SKU
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -48,8 +36,7 @@ Feature: Product module
       {
         "sku": <sku>,
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@template_1_id@",
-        "categoryIds": []
+        "templateId": "@template_1_id@"
       }
       """
     Then the response status code should be 400
@@ -195,8 +182,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en_GB/products/@product_2@" with body:
       """
       {
-        "templateId": "@template_2_id@",
-        "categoryIds": []
+        "templateId": "@template_2_id@"
       }
       """
     Then the response status code should be 204

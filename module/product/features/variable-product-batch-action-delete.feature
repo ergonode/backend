@@ -95,7 +95,7 @@ Feature: batch action product deletion
     Then the response status code should be 200
     And the JSON node "entries[0].id" should exist
 
-  Scenario: Create batch action with releated simple product
+  Scenario: Create batch action with related simple product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
@@ -114,7 +114,7 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "batch_action_2_id"
 
-  Scenario: Create batch action with none releated simple product
+  Scenario: Create batch action with none related simple product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
