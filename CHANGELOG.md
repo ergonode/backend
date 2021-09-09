@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- feature [#1573](https://github.com/ergonode/backend/issues/1573) Migration support for ContainerAwareInterface (wfajczyk)
 - refactor [#1556](https://github.com/ergonode/backend/issues/1556) Batch Action - refactoring of resume process (rprzedzik)
 - feature [#1575](https://github.com/ergonode/backend/issues/1575) Add template code field (rprzedzik)
 - refactor [#1552](https://github.com/ergonode/backend/issues/1552) Add tag support for ErgonodeProcessorStepInterface (rprzedzik)
