@@ -58,7 +58,7 @@ Feature: batch action product deletion
             ],
             "included": true
           },
-            "query": "sku=@product_sku_3@"
+            "query": "esa_sku=@product_sku_3@"
         }
       }
     """

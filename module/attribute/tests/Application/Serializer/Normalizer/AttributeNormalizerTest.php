@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -21,7 +21,10 @@ class AttributeNormalizerTest extends TestCase
      * @var NormalizerInterface|MockObject
      */
     private $mockNormalizer;
+
     private AttributeNormalizer $normalizer;
+
+    private AbstractAttribute $attribute;
 
     protected function setUp(): void
     {
@@ -29,15 +32,16 @@ class AttributeNormalizerTest extends TestCase
 
         $this->normalizer = new AttributeNormalizer();
         $this->normalizer->setNormalizer($this->mockNormalizer);
+
+        $this->attribute = $this->createMock(AbstractAttribute::class);
+        $this->attribute->method('getType')->willReturn('TYPE');
     }
 
     public function testShouldNormalize(): void
     {
-        $attribute = $this->createMock(AbstractAttribute::class);
-        $attribute->method('getType')->willReturn('TYPE');
         $this->mockNormalizer->method('normalize')->willReturn(['normalized' => 'data']);
 
-        $result = $this->normalizer->normalize($attribute);
+        $result = $this->normalizer->normalize($this->attribute);
 
         $this->assertEquals(
             [
@@ -46,16 +50,15 @@ class AttributeNormalizerTest extends TestCase
             ],
             $result,
         );
-        $this->assertTrue($this->normalizer->supportsNormalization($attribute));
+        $this->assertTrue($this->normalizer->supportsNormalization($this->attribute));
     }
 
     public function testShouldNotSupportNormalizationOfAlreadyCached(): void
     {
-        $attribute = $this->createMock(AbstractAttribute::class);
         $supports = $this->normalizer->supportsNormalization(
-            $attribute,
+            $this->attribute,
             null,
-            ['attribute_normalization_'.spl_object_hash($attribute) => true],
+            ['attribute_normalization_'.spl_object_hash($this->attribute) => true],
         );
 
         $this->assertFalse($supports);

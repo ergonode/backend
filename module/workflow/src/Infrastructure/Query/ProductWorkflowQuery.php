@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Infrastructure\Query;
 
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -18,6 +17,7 @@ use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ProductWorkflowQuery
 {
@@ -52,7 +52,8 @@ class ProductWorkflowQuery
             $status = $this->statusRepository->load($statusId);
             Assert::notNull($status, sprintf('status %s not exists', $statusId->getValue()));
             $result['status'] = [
-                'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
+                'attribute_id' =>
+                    AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
                 'id' => $status->getId()->getValue(),
                 'name' => $status->getName()->get($language),
                 'code' => $status->getCode()->getValue(),

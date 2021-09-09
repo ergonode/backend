@@ -21,8 +21,7 @@ Feature: Product edit and inheritance value with text attribute
       {
         "type": "SIMPLE-PRODUCT",
         "sku": "SKU_@@random_code@@",
-        "templateId": "@template_id@",
-        "categoryIds": []
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201

@@ -36,10 +36,10 @@ Feature: Product grid post
       | multi_select_option_2 | multiselect_attribute_local | option_2 |
 
   Scenario Outline: Get <product> product sku
-    When I send a GET request to "/api/v1/en_GB/products?columns=id,sku&filter=sku=<sku>&view=list"
+    When I send a GET request to "/api/v1/en_GB/products?columns=id,esa_sku&filter=esa_sku=<sku>&view=list"
     Then the response status code should be 200
     And the JSON node "info.filtered" should be equal to 1
-    And store response param "collection[0].sku" as "<name>_sku"
+    And store response param "collection[0].esa_sku" as "<name>_sku"
     And store response param "collection[0].id" as "<name>_id"
     Examples:
       | sku        | name      |
@@ -64,7 +64,7 @@ Feature: Product grid post
             "value":"<filter>"
           },
           {
-            "column":"sku",
+            "column":"esa_sku",
             "operator":"=",
             "value": "sku_test_"
           }
@@ -105,7 +105,7 @@ Feature: Product grid post
             "value":<filter>
           },
           {
-            "column":"sku",
+            "column":"esa_sku",
             "operator":"=",
             "value": "sku_test_"
           }
@@ -143,7 +143,7 @@ Feature: Product grid post
             "value":"<filter>"
           },
           {
-            "column":"sku",
+            "column":"esa_sku",
             "operator":"=",
             "value": "sku_test_"
           }
@@ -218,7 +218,7 @@ Feature: Product grid post
             "value": null
           },
           {
-            "column":"sku",
+            "column":"esa_sku",
             "operator":"=",
             "value": "sku_test_"
           }
@@ -262,8 +262,8 @@ Feature: Product grid post
       """
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | collection[0].id | @product_2_id@ |
-      | collection[1].id | @product_1_id@ |
+      | collection[0].id | @product_1_id@ |
+      | collection[1].id | @product_2_id@ |
       | info.filtered    | 2              |
 
   Scenario: Request product grid filtered by product id

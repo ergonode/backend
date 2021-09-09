@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -12,10 +12,10 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ProductStatusProvider
 {

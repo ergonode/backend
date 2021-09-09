@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -16,7 +16,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode as ValueObject;
 class AttributeCodeValidator extends ConstraintValidator
 {
     /**
-     * @param mixed                        $value
+     * @param mixed                    $value
      * @param AttributeCode|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void

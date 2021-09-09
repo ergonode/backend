@@ -33,3 +33,39 @@ Feature: Attribute validation
       }
       """
     Then the response status code should be 400
+
+  Scenario: Create attribute with not valid code (spaces)
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+    {
+          "code": "code with spaces",
+          "type": "NUMERIC",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create attribute with not valid code (not allowed characters)
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+    {
+          "code": "test./test",
+          "type": "NUMERIC",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create attribute with not valid code (not allowed prefix)
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+    {
+          "code": "esa_test",
+          "type": "NUMERIC",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 400
