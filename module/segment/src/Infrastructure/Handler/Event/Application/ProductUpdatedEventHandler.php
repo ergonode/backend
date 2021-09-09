@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Infrastructure\Handler\Event\Application;
 use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
-class ProductUpdateEventHandler
+class ProductUpdatedEventHandler
 {
     private SegmentProductService $segmentService;
 
