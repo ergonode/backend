@@ -18,29 +18,24 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateTest extends TestCase
 {
-    /**
-     * @var TemplateId|MockObject
-     */
-    private MockObject $id;
+    private TemplateId $id;
 
-    /**
-     * @var TemplateGroupId|MockObject
-     */
-    private MockObject $groupId;
+    private TemplateCode $code;
+
+    private TemplateGroupId $groupId;
 
     private string $name;
 
-    /**
-     * @var TemplateElementInterface|MockObject
-     */
-    private MockObject $element;
+    private TemplateElementInterface $element;
 
     protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
+        $this->code = $this->createMock(TemplateCode::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
         $this->element = $this->createMock(TemplateElementInterface::class);
@@ -221,6 +216,7 @@ class TemplateTest extends TestCase
     {
         return new Template(
             $this->id,
+            $this->code,
             $this->groupId,
             $this->name,
             null,

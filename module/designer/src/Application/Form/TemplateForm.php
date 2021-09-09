@@ -28,7 +28,12 @@ class TemplateForm extends AbstractType
             ->add(
                 'name',
                 TextType::class
-            )->add(
+            )
+            ->add(
+                'code',
+                TextType::class
+            )
+            ->add(
                 'image',
                 TextType::class
             )->add(

@@ -19,6 +19,7 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class ImportSimpleProductCommandHandler
 {
@@ -57,6 +58,10 @@ class ImportSimpleProductCommandHandler
                 throw new ImportException('Sku {sku} is not valid', ['{sku}' => $command->getSku()]);
             }
 
+            if (!TemplateCode::isValid($command->getTemplate())) {
+                throw new ImportException('template code {code} is not valid', ['{code}' => $command->getTemplate()]);
+            }
+
             $categories = [];
             foreach ($command->getCategories() as $category) {
                 if (!CategoryCode::isValid($category)) {
@@ -72,7 +77,7 @@ class ImportSimpleProductCommandHandler
             $validatedAttributes = array_diff_key($filteredAttributes, $attributesToRedispatch);
             $product = $this->action->action(
                 new Sku($command->getSku()),
-                $command->getTemplate(),
+                new TemplateCode($command->getTemplate()),
                 $categories,
                 $validatedAttributes,
             );

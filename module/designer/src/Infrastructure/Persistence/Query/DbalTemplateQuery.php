@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class DbalTemplateQuery implements TemplateQueryInterface
 {
@@ -86,9 +87,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
         return $result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function findProductIdByTemplateId(TemplateId $templateId): array
     {
         $queryBuilder = $this->connection->createQueryBuilder();
@@ -110,13 +108,13 @@ class DbalTemplateQuery implements TemplateQueryInterface
         return $result;
     }
 
-    public function findTemplateIdByCode(string $code): ?TemplateId
+    public function findTemplateIdByCode(TemplateCode $code): ?TemplateId
     {
         $queryBuilder = $this->getQuery();
         $result = $queryBuilder
             ->select('t.id')
-            ->where($queryBuilder->expr()->eq('name', ':name'))
-            ->setParameter(':name', $code)
+            ->where($queryBuilder->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
 

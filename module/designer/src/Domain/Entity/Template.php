@@ -31,10 +31,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class Template extends AbstractAggregateRoot
 {
     private TemplateId $id;
+
+    private TemplateCode $code;
 
     private string $name;
 
@@ -53,18 +56,24 @@ class Template extends AbstractAggregateRoot
 
     public function __construct(
         TemplateId $id,
+        TemplateCode $code,
         TemplateGroupId $groupId,
         string $name,
         ?AttributeId $defaultLabel = null,
         ?AttributeId $defaultImage = null,
         ?MultimediaId $imageId = null
     ) {
-        $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultLabel, $defaultImage, $imageId));
+        $this->apply(new TemplateCreatedEvent($id, $code, $groupId, $name, $defaultLabel, $defaultImage, $imageId));
     }
 
     public function getId(): TemplateId
     {
         return $this->id;
+    }
+
+    public function getCode(): TemplateCode
+    {
+        return $this->code;
     }
 
     public function getGroupId(): TemplateGroupId
@@ -313,6 +322,7 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateCreatedEvent(TemplateCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
+        $this->code = $event->getCode();
         $this->name = $event->getName();
         $this->defaultLabel = $event->getDefaultLabel();
         $this->defaultImage = $event->getDefaultImage();

@@ -40,6 +40,6 @@ class ExportProductTemplateBuilder implements ExportProductBuilderInterface
         $template = $this->templateRepository->load($templateId);
         Assert::notNull($template);
 
-        return $template->getName();
+        return $template->getCode()->getValue();
     }
 }

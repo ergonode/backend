@@ -15,6 +15,8 @@ use Ergonode\Attribute\Application\Validator\AttributeTypeValid;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Multimedia\Application\Validator\MultimediaExists;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Designer\Application\Validator\TemplateCode;
+use Ergonode\Designer\Application\Validator\TemplateCodeUnique;
 
 class TemplateFormModel
 {
@@ -23,6 +25,13 @@ class TemplateFormModel
      * @Assert\Length(min="3", max="32")
      */
     public ?string $name;
+
+    /**
+     * @Assert\NotBlank(message="Template code is required", groups={"Create"})
+     * @TemplateCode(groups={"Create"})
+     * @TemplateCodeUnique(groups={"Create"})
+     */
+    public ?string $code;
 
     /**
      * @Assert\Uuid()

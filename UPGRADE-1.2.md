@@ -9,6 +9,13 @@ Core\Test:
 ExporterFile:
 * The signature of constructor `StartProcessCommandHandler` has changed  
 * The signature of constructor `ProcessExportCommandHandler` has changed
+* Column `_code` added to exported `templates_elements.csv` file, field '_name' become deprecated, will be removed in future version
+* Column `_code` added to exported `templates.csv` file
+
+Designer:
+* The signature of constructor `Template` has changed
+* The signature of constructor `TemplateCreateEvent` has changed
+* * The signature of constructor `CreateTemplateCommand` has changed
 
 BatchAction: 
 * The signature of constructor `ProcessBatchActionEntryCommand` has changed

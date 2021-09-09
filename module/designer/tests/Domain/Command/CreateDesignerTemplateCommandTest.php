@@ -15,31 +15,27 @@ use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class CreateDesignerTemplateCommandTest extends TestCase
 {
-    /**
-     * @throws \Exception
-     */
     public function testCreateCommand(): void
     {
+        $id = $this->createMock(TemplateId::class);
+        $code = $this->createMock(TemplateCode::class);
         $name = 'Any Name';
         $elements = new ArrayCollection();
         $elements->add($this->createMock(TemplateElementInterface::class));
-        /** @var MultimediaId $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
-        /** @var AttributeId $defaultLabel */
         $defaultLabel = $this->createMock(AttributeId::class);
-        /** @var AttributeId $defaultImage */
         $defaultImage = $this->createMock(AttributeId::class);
 
-        /** @var TemplateId|MockObject $id */
-        $id = $this->createMock(TemplateId::class);
-        $command = new CreateTemplateCommand($name, $elements, $defaultLabel, $defaultImage, $multimediaId);
+
+        $command = new CreateTemplateCommand($name, $code, $elements, $defaultLabel, $defaultImage, $multimediaId);
         $this->assertInstanceOf(TemplateId::class, $id);
         $this->assertSame($name, $command->getName());
+        $this->assertSame($code, $command->getCode());
         $this->assertSame($elements, $command->getElements());
         $this->assertSame($multimediaId, $command->getImageId());
         $this->assertSame($defaultLabel, $command->getDefaultLabel());

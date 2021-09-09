@@ -10,6 +10,7 @@ Feature: Condition Product has template
       """
       {
         "name": "@@random_md5@@",
+        "code": "code",
         "image": null,
         "defaultLabel": null,
         "defaultImage": null,

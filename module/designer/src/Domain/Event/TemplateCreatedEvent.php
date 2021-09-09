@@ -14,10 +14,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class TemplateCreatedEvent implements AggregateEventInterface
 {
     private TemplateId $id;
+
+    private TemplateCode $code;
 
     private TemplateGroupId $groupId;
 
@@ -31,6 +34,7 @@ class TemplateCreatedEvent implements AggregateEventInterface
 
     public function __construct(
         TemplateId $id,
+        TemplateCode $code,
         TemplateGroupId $groupId,
         string $name,
         ?AttributeId $defaultLabel,
@@ -38,6 +42,7 @@ class TemplateCreatedEvent implements AggregateEventInterface
         ?MultimediaId $imageId
     ) {
         $this->id = $id;
+        $this->code = $code;
         $this->groupId = $groupId;
         $this->name = $name;
         $this->defaultLabel = $defaultLabel;
@@ -49,6 +54,11 @@ class TemplateCreatedEvent implements AggregateEventInterface
     public function getAggregateId(): TemplateId
     {
         return $this->id;
+    }
+
+    public function getCode(): TemplateCode
+    {
+        return $this->code;
     }
 
     public function getGroupId(): TemplateGroupId

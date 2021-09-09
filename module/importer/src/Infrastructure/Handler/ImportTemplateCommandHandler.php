@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
 use Psr\Log\LoggerInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateCode;
 
 class ImportTemplateCommandHandler
 {
@@ -35,7 +36,11 @@ class ImportTemplateCommandHandler
     public function __invoke(ImportTemplateCommand $command): void
     {
         try {
-            $template = $this->action->action($command->getCode(), $command->getElements());
+            $template = $this->action->action(
+                new TemplateCode($command->getCode()),
+                $command->getName(),
+                $command->getElements()
+            );
             $this->repository->markLineAsSuccess($command->getId(), $template->getId());
         } catch (ImportException $exception) {
             $this->repository->markLineAsFailure($command->getId());

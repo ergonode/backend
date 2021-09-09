@@ -17,8 +17,8 @@ Feature: Designer module
 
   Scenario: Multimedia upload image
     When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key    | value |
-      | upload | @image/test.jpg      |
+      | key    | value           |
+      | upload | @image/test.jpg |
     Then the response status code should be 201
     And the JSON node "id" should exist
     And store response param "id" as "multimedia_id"
@@ -28,6 +28,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
+        "code": "code_@@random_md5@@",
         "image": "@multimedia_id@",
         "defaultLabel": "@template_text_attribute@",
         "defaultImage": "@template_image_attribute@",
@@ -48,80 +49,90 @@ Feature: Designer module
     Then the response status code should be 201
     And store response param "id" as "template"
 
+  Scenario: Create template (code not exists)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code is required"
+
+  Scenario: Create template (to long code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code is too long. It should contain 128 characters or less."
+
+  Scenario: Create template (unique code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "template",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code is not unique."
+
+  Scenario: Create template (invalid code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "template_!@#",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code can have only letters, digits or underscore symbol."
+
   Scenario: Create template (wrong default label attribute)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
         "image": "@multimedia_id@",
-        "defaultLabel": "@template_image_attribute@",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "defaultLabel": "@template_image_attribute@"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.defaultLabel" should exist
 
   Scenario: Create template (wrong default image attribute)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
-        "defaultImage": "@template_text_attribute@",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "code": "code_@@random_md5@@",
+        "defaultImage": "@template_text_attribute@"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.defaultImage" should exist
 
   Scenario: Create template (wrong image)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "test",
-        "elements": [
-          {
-            "position": {"x": 0, "y": 0},
-            "size": {"width": 2, "height": 1},
-            "variant": "attribute",
-            "type": "text",
-            "properties": {
-              "attribute_id": "@template_text_attribute@",
-              "required": true
-            }
-          }
-        ]
+        "image": "test"
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.image" should exist
 
   Scenario: Create template (wrong position)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": "test", "y": 0},
@@ -137,13 +148,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.position.x" should exist
 
   Scenario: Create template (wrong size)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -159,13 +171,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.size.width" should exist
 
   Scenario: Create template (wrong attribute_id)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -181,13 +194,14 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.properties.attribute_id" should exist
 
-  Scenario: Create template (wrong required)
+  Scenario: Create template (wrong element required)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
-        "image": "@multimedia_id@",
+        "code": "code_@@random_md5@@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -203,6 +217,7 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
+    And the JSON node "errors.elements.element-0.properties.required" should exist
 
   Scenario: Update template
     When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
@@ -356,22 +371,6 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en_GB/templates"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
-  Scenario: Get templates (order by id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by name)
-    When I send a GET request to "/api/v1/en_GB/templates?field=name"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by image_id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=image_id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (order by group_id)
-    When I send a GET request to "/api/v1/en_GB/templates?field=group_id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
   Scenario: Get templates (order ASC)
     When I send a GET request to "/api/v1/en_GB/templates?field=name&order=ASC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
@@ -380,21 +379,28 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en_GB/templates?field=name&order=DESC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
-  Scenario: Get templates (filter by id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=id%3D1"
+  Scenario Outline: Get templates (order by <field>)
+    When I send a GET request to "/api/v1/en_GB/templates?field=<field>"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    And the JSON node "collection[0].<field>" should exist
+    Examples:
+      | field    |
+      | id       |
+      | name     |
+      | code     |
+      | image_id |
+      | group_id |
 
-  Scenario: Get templates (filter by name)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=name%3Dasd"
+  Scenario Outline: Get templates (filter by <field>)
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=<field>%3D<value>"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (filter by image_id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=image_id%3Dasd"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get templates (filter by group_id)
-    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=group_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    Examples:
+      | field    | value |
+      | id       | 1     |
+      | code     | code  |
+      | name     | name  |
+      | image_id | id    |
+      | group_id | id    |
 
   Scenario: Get template groups
     When I send a GET request to "/api/v1/en_GB/templates/groups"

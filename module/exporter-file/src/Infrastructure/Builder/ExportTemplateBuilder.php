@@ -38,7 +38,7 @@ class ExportTemplateBuilder implements ExportHeaderBuilderInterface
             $result[] = $builder->header();
         }
 
-        return array_unique(array_merge(['_name', '_language'], ...$result));
+        return array_unique(array_merge(['_name', '_code', '_language'], ...$result));
     }
 
     public function fileName(): string
@@ -53,6 +53,7 @@ class ExportTemplateBuilder implements ExportHeaderBuilderInterface
         foreach ($channel->getLanguages() as $language) {
             $line = new ExportLineData();
             $line->set('_name', $template->getName());
+            $line->set('_code', $template->getCode()->getValue());
             $line->set('_language', $language->getCode());
             foreach ($this->builders as $builder) {
                 $builder->build($template, $line, $language);
