@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -25,4 +25,6 @@ interface BatchActionRepositoryInterface
      * @param BatchActionMessage[] $messages
      */
     public function markEntry(BatchActionId $id, AggregateId $resourceId, array $messages): void;
+
+    public function endBatchAction(BatchActionId $id): void;
 }
