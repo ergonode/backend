@@ -16,6 +16,8 @@ class BatchAction
 
     private BatchActionType $type;
 
+    private bool $autoEndOnErrors;
+
     /**
      * @var mixed
      */
@@ -24,11 +26,12 @@ class BatchAction
     /**
      * @param mixed $payload
      */
-    public function __construct(BatchActionId $id, BatchActionType $type, $payload = null)
+    public function __construct(BatchActionId $id, BatchActionType $type, $payload = null, bool $autoEndOnErrors = true)
     {
         $this->id = $id;
         $this->type = $type;
         $this->payload = $payload;
+        $this->autoEndOnErrors = $autoEndOnErrors;
     }
 
     public function getId(): BatchActionId
@@ -39,6 +42,11 @@ class BatchAction
     public function getType(): BatchActionType
     {
         return $this->type;
+    }
+
+    public function isAutoEndOnErrors(): bool
+    {
+        return $this->autoEndOnErrors;
     }
 
     /**

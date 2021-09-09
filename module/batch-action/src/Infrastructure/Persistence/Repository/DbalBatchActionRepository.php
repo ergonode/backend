@@ -33,6 +33,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         'id',
         'type',
         'payload',
+        'auto_end_on_errors',
     ];
 
     private Connection $connection;
