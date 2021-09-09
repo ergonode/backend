@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 
 final class Version20210823140000 extends AbstractErgonodeMigration
 {
@@ -41,6 +42,17 @@ final class Version20210823140000 extends AbstractErgonodeMigration
             $i++;
             $code = substr($name, 0, 120).'_'.$i;
         }
+
+        $this->connection->executeQuery('DELETE FROM event_store_snapshot WHERE aggregate_id = ?', [$id]);
+
+        $this->connection->executeQuery(
+            sprintf(
+                'UPDATE event_store SET payload = jsonb_set(payload, \'{code}\', \'"%s"\')
+                        WHERE event_id IN(SELECT id FROM event_store_event WHERE event_class = ? AND aggregate_id = ?)',
+                $code
+            ),
+            [TemplateCreatedEvent::class, $id]
+        );
     }
 
     private function changeCode(string $id, string $code): bool
@@ -55,7 +67,7 @@ final class Version20210823140000 extends AbstractErgonodeMigration
                 ->connection
                 ->executeQuery('UPDATE designer.template SET code = ? WHERE id = ?', [$code, $id]);
 
-            return  true;
+            return true;
         }
 
         return false;

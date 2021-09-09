@@ -15,5 +15,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class TemplateCodeUnique extends Constraint
 {
-    public string $uniqueMessage = 'The value is not unique.';
+    public string $uniqueMessage = 'Template code is not unique.';
 }

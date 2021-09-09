@@ -70,7 +70,7 @@ Feature: Designer module
     Then the response status code should be 400
     And the JSON node "errors.code[0]" should contain "Template code is too long. It should contain 128 characters or less."
 
-  Scenario: Create template (unique code code)
+  Scenario: Create template (unique code)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
@@ -79,7 +79,18 @@ Feature: Designer module
       }
       """
     Then the response status code should be 400
-    And the JSON node "errors.code[0]" should contain "The value is not unique."
+    And the JSON node "errors.code[0]" should contain "Template code is not unique."
+
+  Scenario: Create template (invalid code)
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
+      """
+      {
+        "code": "template_!@#",
+        "name": "@@random_md5@@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.code[0]" should contain "Template code can have only letters, digits or underscore symbol."
 
   Scenario: Create template (wrong default label attribute)
     When I send a POST request to "/api/v1/en_GB/templates" with body:
