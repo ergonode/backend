@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event\Application;
 
-use Ergonode\Product\Application\Event\ProductDeletedEvent;
+use Ergonode\Product\Application\Event\ProductUpdatedEvent;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
 class ProductUpdateEventHandler
@@ -21,7 +21,7 @@ class ProductUpdateEventHandler
         $this->segmentService = $segmentService;
     }
 
-    public function __invoke(ProductDeletedEvent $event): void
+    public function __invoke(ProductUpdatedEvent $event): void
     {
         $this->segmentService->recalculateProduct($event->getProduct()->getId());
     }
