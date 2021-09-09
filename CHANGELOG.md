@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk, wiewiurdp)
 - feature [#1573](https://github.com/ergonode/backend/issues/1573) Migration support for ContainerAwareInterface (wfajczyk)
 - refactor [#1556](https://github.com/ergonode/backend/issues/1556) Batch Action - refactoring of resume process (rprzedzik)
 - feature [#1575](https://github.com/ergonode/backend/issues/1575) Add template code field (rprzedzik)

@@ -18,13 +18,16 @@ class AddMultimediaCommand implements MultimediaCommandInterface
 
     private File $file;
 
+    private ?string $name;
+
     /**
      * @throws \Exception
      */
-    public function __construct(MultimediaId $id, File $file)
+    public function __construct(MultimediaId $id, File $file, ?string $name = null)
     {
         $this->id = $id;
         $this->file = $file;
+        $this->name = $name;
     }
 
     public function getId(): MultimediaId
@@ -35,5 +38,10 @@ class AddMultimediaCommand implements MultimediaCommandInterface
     public function getFile(): File
     {
         return $this->file;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
     }
 }

@@ -35,3 +35,6 @@ Notification
 
 Workflow
 * Endpoint `[PUT] /api/v1/{language}/workflow/default` returns 200 instead of 201
+
+Multimedia
+* Class `UploadMultimediaAction` constructor has changed

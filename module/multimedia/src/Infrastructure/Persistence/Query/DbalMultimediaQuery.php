@@ -26,6 +26,9 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         $this->connection = $connection;
     }
 
+    /**
+     * @deprecated
+     */
     public function fileExists(Hash $hash): bool
     {
         $query = $this->getQuery();
@@ -38,7 +41,9 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
 
         return $result ? true : false;
     }
-
+    /**
+     * @deprecated
+     */
     public function findIdByHash(Hash $hash): ?MultimediaId
     {
         $query = $this->getQuery();

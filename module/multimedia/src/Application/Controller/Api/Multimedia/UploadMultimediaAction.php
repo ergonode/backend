@@ -17,8 +17,6 @@ use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
-use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,22 +30,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class UploadMultimediaAction
 {
-    private MultimediaQueryInterface $query;
-
-    private HashCalculationServiceInterface $hashService;
-
     private FormFactoryInterface $formFactory;
 
     private CommandBusInterface $commandBus;
 
     public function __construct(
-        MultimediaQueryInterface $query,
-        HashCalculationServiceInterface $hashService,
         FormFactoryInterface $formFactory,
         CommandBusInterface $commandBus
     ) {
-        $this->query = $query;
-        $this->hashService = $hashService;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
     }
@@ -82,14 +72,13 @@ class UploadMultimediaAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $this->hashService->calculateHash($uploadModel->upload);
-            if ($this->query->fileExists($hash)) {
-                $id = $this->query->findIdByHash($hash);
-            } else {
-                $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
-                $this->commandBus->dispatch($command);
-                $id = $command->getId();
-            }
+            $command = new AddMultimediaCommand(
+                MultimediaId::generate(),
+                $uploadModel->upload,
+                $uploadModel->upload->getClientOriginalName(),
+            );
+            $this->commandBus->dispatch($command);
+            $id = $command->getId();
         } else {
             throw new FormValidationHttpException($form);
         }

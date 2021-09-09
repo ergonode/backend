@@ -43,19 +43,20 @@ class AddMultimediaCommandHandler
         /** @var UploadedFile $file */
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        $originalName = $file->getClientOriginalName();
+        $originalName = $command->getName() ?? $file->getClientOriginalName();
 
         $extension = $file->getClientOriginalExtension();
         if (empty($extension) || '.' === $extension) {
             $extension = $file->guessExtension();
         }
 
-        $filename = sprintf('%s.%s', $hash->getValue(), $extension);
+        $filename = sprintf('%s.%s', $id, $extension);
 
-        if (!$this->multimediaStorage->has($filename)) {
-            $content = file_get_contents($file->getRealPath());
-            $this->multimediaStorage->write($filename, $content);
+        if ($this->multimediaStorage->has($filename)) {
+            throw new \LogicException(sprintf('File %s already exists.', $filename));
         }
+        $content = file_get_contents($file->getRealPath());
+        $this->multimediaStorage->write($filename, $content);
 
         $multimedia = new Multimedia(
             $id,

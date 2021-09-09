@@ -39,6 +39,7 @@ class AbstractMultimediaTest extends TestCase
     protected function setUp(): void
     {
         $this->id = $this->createMock(MultimediaId::class);
+        $this->id->method('getValue')->willReturn('e3240a3a-f409-421f-8819-e4b8d7bb3e99');
         $this->filename = 'filename';
         $this->extension = 'extension';
         $this->size = 123;
@@ -55,7 +56,10 @@ class AbstractMultimediaTest extends TestCase
         $multimedia = $this->getClass();
 
         $this->assertEquals($this->id, $multimedia->getId());
-        $this->assertEquals(sprintf('hash.%s', $this->extension), $multimedia->getFileName());
+        $this->assertEquals(
+            sprintf('e3240a3a-f409-421f-8819-e4b8d7bb3e99.%s', $this->extension),
+            $multimedia->getFileName()
+        );
         $this->assertEquals($this->filename, $multimedia->getName());
         $this->assertEquals($this->extension, $multimedia->getExtension());
         $this->assertEquals($this->size, $multimedia->getSize());

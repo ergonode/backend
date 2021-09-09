@@ -14,8 +14,14 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 interface MultimediaQueryInterface
 {
+    /**
+     * @deprecated
+     */
     public function fileExists(Hash $hash): bool;
 
+    /**
+     * @deprecated
+     */
     public function findIdByHash(Hash $hash): ?MultimediaId;
 
     public function findIdByFilename(string $filename): ?MultimediaId;
