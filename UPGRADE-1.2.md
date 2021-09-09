@@ -9,3 +9,11 @@ Core\Test:
 ExporterFile:
 * The signature of constructor `StartProcessCommandHandler` has changed  
 * The signature of constructor `ProcessExportCommandHandler` has changed
+
+BatchAction: 
+* The signature of constructor `ProcessBatchActionEntryCommand` has changed
+* Class `EndBatchActionCommand` has been removed
+* Class `StartBatchActionCommand` has been removed
+* Class `EndBatchActionCommandHandler` has been removed
+* Class `StartBatchActionCommandHandler` has been removed
+* Rabbit queue configuration MESSENGER_TRANSPORT_BATCH_ACTION_DSN is no longer required 

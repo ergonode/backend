@@ -37,6 +37,7 @@ class BatchActionEndedEventHandler
     public function __invoke(BatchActionEndedEvent $event): void
     {
         $user = $this->security->getUser();
+
         $batchAction = $this->batchActionRepository->load($event->getId());
 
         if ($user && $batchAction) {

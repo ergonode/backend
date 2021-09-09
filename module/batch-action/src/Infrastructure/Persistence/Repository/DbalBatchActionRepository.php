@@ -21,6 +21,9 @@ use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
+use Symfony\Component\Security\Core\Security;
+use Ergonode\Account\Domain\Entity\User;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {
@@ -29,6 +32,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     private const FIELDS = [
         'id',
         'type',
+        'payload',
     ];
 
     private Connection $connection;
@@ -37,11 +41,18 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
 
     private SerializerInterface $serializer;
 
-    public function __construct(Connection $connection, DbalBatchActionMapper $mapper, SerializerInterface $serializer)
-    {
+    private Security $security;
+
+    public function __construct(
+        Connection $connection,
+        DbalBatchActionMapper $mapper,
+        SerializerInterface $serializer,
+        Security $security
+    ) {
         $this->connection = $connection;
         $this->mapper = $mapper;
         $this->serializer = $serializer;
+        $this->security = $security;
     }
 
     /**
@@ -140,6 +151,22 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         );
     }
 
+    public function endBatchAction(BatchActionId $id): void
+    {
+        $this->connection->update(
+            'batch_action',
+            [
+                'processed_at' => new \DateTime(),
+            ],
+            [
+                'id' => $id->getValue(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
+    }
+
     /**
      * @throws DBALException
      */
@@ -161,8 +188,10 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
      */
     private function insert(BatchAction $bachAction): void
     {
+
         $bachActionArray = $this->mapper->map($bachAction);
         $bachActionArray['created_at'] = new \DateTime();
+        $bachActionArray['created_by'] = $this->getUserId() ? $this->getUserId()->getValue() : null;
 
         $this->connection->insert(
             self::TABLE,
@@ -178,5 +207,15 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         return $this->connection->createQueryBuilder()
             ->select(self::FIELDS)
             ->from(self::TABLE);
+    }
+
+    private function getUserId(): ?UserId
+    {
+        $user = $this->security->getUser();
+        if ($user instanceof User) {
+            return $user->getId();
+        }
+
+        return null;
     }
 }

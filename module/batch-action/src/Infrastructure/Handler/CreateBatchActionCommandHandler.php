@@ -11,31 +11,33 @@ namespace Ergonode\BatchAction\Infrastructure\Handler;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
-use Ergonode\BatchAction\Domain\Command\StartBatchActionCommand;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider;
 
 class CreateBatchActionCommandHandler
 {
     private BatchActionRepositoryInterface $repository;
 
-    private CommandBusInterface $commandBus;
+    private BatchActionFilterIdsProvider $filterProvider;
 
     public function __construct(
         BatchActionRepositoryInterface $repository,
-        CommandBusInterface $commandBus
+        BatchActionFilterIdsProvider $filterProvider
     ) {
         $this->repository = $repository;
-        $this->commandBus = $commandBus;
+        $this->filterProvider = $filterProvider;
     }
 
     public function __invoke(CreateBatchActionCommand $command): void
     {
         $type = $command->getType();
         $id = $command->getId();
-        $batchAction = new BatchAction($id, $type);
+        $batchAction = new BatchAction($id, $type, $command->getPayload());
         $this->repository->save($batchAction);
 
-        $entryCommand = new StartBatchActionCommand($id, $command->getFilter(), $command->getPayload());
-        $this->commandBus->dispatch($entryCommand, true);
+        $ids = $this->filterProvider->provide($type)->filter($command->getFilter());
+
+        foreach ($ids as $resourceId) {
+            $this->repository->addEntry($id, $resourceId);
+        }
     }
 }

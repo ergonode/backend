@@ -51,6 +51,14 @@ services:
     Ergonode\BatchAction\Application\Validator\BatchActionFilterValidator:
         tags: ['validator.constraint_validator']
 
+    Ergonode\BatchAction\Application\Transport\BatchActionTransportFactory:
+        tags: [messenger.transport_factory]
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\Account\Domain\Repository\UserRepositoryInterface'
+            - '@logger'
+
     Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder:
     Ergonode\BatchAction\Infrastructure\Grid\Renderer\BatchActionMessageColumnRenderer:
         tags: ['component.grid.renderer.column']
@@ -77,6 +85,7 @@ services:
             - '@doctrine.dbal.default_connection'
             - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper'
             - '@Ergonode\SharedKernel\Application\Serializer\SerializerInterface'
+            - '@Symfony\Component\Security\Core\Security'
 
     Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery:
         arguments:
@@ -105,14 +114,7 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
-            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
-
-    Ergonode\BatchAction\Infrastructure\Handler\StartBatchActionCommandHandler:
-        tags: ['messenger.message_handler']
-        arguments:
-            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
-            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider:
         arguments:
@@ -124,11 +126,6 @@ services:
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
 
-    Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
-        tags: [ 'messenger.message_handler' ]
-        arguments:
-            - '@Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface'
-
     Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]
         arguments:
@@ -136,7 +133,6 @@ services:
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Symfony\Contracts\Translation\TranslatorInterface'
-
 
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider:
         arguments:
