@@ -16,3 +16,4 @@ BatchAction:
 * Class `StartBatchActionCommand` has been removed
 * Class `EndBatchActionCommandHandler` has been removed
 * Class `StartBatchActionCommandHandler` has been removed
+* Rabbit queue configuration MESSENGER_TRANSPORT_BATCH_ACTION_DSN is no longer required 
