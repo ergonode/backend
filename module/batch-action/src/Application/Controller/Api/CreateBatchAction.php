@@ -106,7 +106,8 @@ class CreateBatchAction
                     BatchActionId::generate(),
                     $actionType,
                     $filter,
-                    $data->payload ?: null
+                    $data->payload ?: null,
+                    $data->autoEndOnErrors
                 );
 
                 $this->commandBus->dispatch($command);

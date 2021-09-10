@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BatchActionForm extends AbstractType implements BatchActionFormInterface
 {
@@ -24,9 +25,6 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
         return $type === 'default';
     }
 
-    /**
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -59,6 +57,13 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
             ->add(
                 'payload',
                 TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'autoEndOnErrors',
+                CheckboxType::class,
                 [
                     'required' => false,
                 ]

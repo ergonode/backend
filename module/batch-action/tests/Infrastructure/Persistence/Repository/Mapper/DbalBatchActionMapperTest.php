@@ -27,6 +27,7 @@ class DbalBatchActionMapperTest extends TestCase
         $batchAction->method('getId')->willReturn($id);
         $batchAction->method('getType')->willReturn($type);
         $batchAction->method('getPayload')->willReturn($payload);
+        $batchAction->method('isAutoEndOnErrors')->willReturn(true);
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->map($batchAction);
@@ -36,6 +37,7 @@ class DbalBatchActionMapperTest extends TestCase
         self::assertEquals($id->getValue(), $result['id']);
         self::assertEquals($type->getValue(), $result['type']);
         self::assertEquals(serialize($payload), $result['payload']);
+        self::assertTrue($result['auto_end_on_errors']);
     }
 
     public function testCreation(): void
@@ -43,6 +45,7 @@ class DbalBatchActionMapperTest extends TestCase
         $record['id'] = Uuid::uuid4()->toString();
         $record['type'] = 'test type';
         $record['payload'] = serialize(new \stdClass());
+        $record['auto_end_on_errors'] = true;
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->create($record);
@@ -50,5 +53,6 @@ class DbalBatchActionMapperTest extends TestCase
         self::assertEquals($record['id'], $result->getId()->getValue());
         self::assertEquals($record['type'], $result->getType()->getValue());
         self::assertEquals($record['payload'], serialize($result->getPayload()));
+        self::assertEquals($record['auto_end_on_errors'], $result->isAutoEndOnErrors());
     }
 }

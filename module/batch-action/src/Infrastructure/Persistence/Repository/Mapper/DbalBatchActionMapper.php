@@ -21,6 +21,7 @@ class DbalBatchActionMapper
             'id' => $batchAction->getId(),
             'type' => $batchAction->getType()->getValue(),
             'payload' => serialize($batchAction->getPayload()),
+            'auto_end_on_errors' => $batchAction->isAutoEndOnErrors(),
         ];
     }
 
@@ -32,7 +33,8 @@ class DbalBatchActionMapper
         if (null !== $record['payload'] && 'null' !== $record['payload']) {
             $payload = unserialize($record['payload']);
         }
+        $autoEndOnErrors = $record['auto_end_on_errors'];
 
-        return new BatchAction($id, $type, $payload);
+        return new BatchAction($id, $type, $payload, $autoEndOnErrors);
     }
 }

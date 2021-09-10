@@ -75,6 +75,18 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
+  Scenario: Create batch action for all products with auto Error
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+    """
+      {
+        "type": "PRODUCT_DELETE",
+        "autoEndOnErrors": false,
+        "filter": "all"
+      }
+    """
+    Then the response status code should be 201
+    And store response param "id" as "batch_action_2_id"
+
   Scenario: Get batch action entry grid
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@/entries"
     Then the response status code should be 200

@@ -23,6 +23,11 @@ class BatchActionFormModel
     public ?string $type = null;
 
     /**
+     * @Assert\Type("boolean")
+     */
+    public bool $autoEndOnErrors = true;
+
+    /**
      * @Assert\Valid()
      * @Assert\NotBlank()
      * @AllFilterDisabled()
