@@ -12,6 +12,7 @@ namespace Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class DbalBatchActionMapper
 {
@@ -22,6 +23,7 @@ class DbalBatchActionMapper
             'type' => $batchAction->getType()->getValue(),
             'payload' => serialize($batchAction->getPayload()),
             'auto_end_on_errors' => $batchAction->isAutoEndOnErrors(),
+            'status' => $batchAction->getStatus()->getValue(),
         ];
     }
 
@@ -35,6 +37,9 @@ class DbalBatchActionMapper
         }
         $autoEndOnErrors = $record['auto_end_on_errors'];
 
-        return new BatchAction($id, $type, $payload, $autoEndOnErrors);
+        $batchAction = new BatchAction($id, $type, $payload, $autoEndOnErrors);
+        $batchAction->setStatus(new BatchActionStatus($record['status']));
+
+        return $batchAction;
     }
 }
