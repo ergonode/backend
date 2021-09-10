@@ -45,7 +45,7 @@ class BatchActionInformationModel
         int $processedEntries,
         \DateTime $createdAt,
         ?\DateTime $endedAt,
-        $payload
+        $payload = null
     ) {
         $this->id = $id;
         $this->type = $type;
