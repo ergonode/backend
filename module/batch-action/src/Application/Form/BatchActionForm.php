@@ -16,7 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BatchActionForm extends AbstractType implements BatchActionFormInterface
