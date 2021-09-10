@@ -122,6 +122,7 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
             ['val1', ['en_GB' => 'val2,val3', 'pl_PL' => 'val4,val1'], true],
             ['val3', ['en_GB' => 'val2,val3', 'pl_PL' => 'val4,val1'], true],
             ['val5', ['en_GB' => 'val2,val3', 'pl_PL' => 'val4,val1'], false],
+            ['val6', ['en_GB' => null], false],
         ];
     }
 }
