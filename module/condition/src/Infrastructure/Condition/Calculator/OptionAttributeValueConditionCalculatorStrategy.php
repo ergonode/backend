@@ -51,6 +51,9 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
         if ($object->hasAttribute($attribute->getCode())) {
             $values = $object->getAttribute($attribute->getCode())->getValue();
             foreach ($values as $value) {
+                if (null === $value) {
+                    continue;
+                }
                 // exploding for multiselect values sake
                 foreach (explode(',', $value) as $selected) {
                     if ($selected === $expected) {
