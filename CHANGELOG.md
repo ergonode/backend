@@ -1,6 +1,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.6
+- bugfix [#1617](https://github.com/ergonode/backend/issues/1617) Fixed option attribute value condition (piotrkreft)
 - bugfix [#1613](https://github.com/ergonode/backend/issues/1613) Fixed ProductUpdatedEvent handling for segments (piotrkreft)
 
 #### 1.0.5
