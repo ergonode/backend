@@ -36,6 +36,9 @@ class BatchActionInformationModel
      */
     private array $entries = [];
 
+    /**
+     * @param mixed $payload
+     */
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
