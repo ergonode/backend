@@ -20,6 +20,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.6
+- bugfix [#1613](https://github.com/ergonode/backend/issues/1613) Fixed ProductUpdatedEvent handling for segments (piotrkreft)
+
 #### 1.0.5
 - bugfix [#1591](https://github.com/ergonode/backend/issues/1591) Slow export information endpoint requests (rprzedzik)
 
