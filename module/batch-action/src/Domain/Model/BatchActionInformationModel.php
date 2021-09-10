@@ -30,7 +30,6 @@ class BatchActionInformationModel
      */
     private $payload;
 
-
     /**
      * @var BatchActionEntryModel[]
      */

@@ -60,7 +60,8 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             $record['all'] === $record['processed'] ?
                 new \DateTime($record['last_processed_at'] ??
                 $record['created_at']) : null,
-            unserialize($record['payload'])
+            $record['payload'] ??
+            null ? unserialize($record['payload']) : null
         );
 
         foreach ($this->getEntries($id, $language) as $entry) {
