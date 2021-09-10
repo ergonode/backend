@@ -1,6 +1,6 @@
 framework:
     messenger:
         transports:
-            batch-action: "batch-action://"
+            batch_action: "batch-action://"
         routing:
-            Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand: 'batch-action'
+            Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand: 'batch_action'
