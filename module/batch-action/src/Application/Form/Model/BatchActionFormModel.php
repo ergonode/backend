@@ -25,7 +25,7 @@ class BatchActionFormModel
     /**
      * @Assert\Type("boolean")
      */
-    public ?bool $autoEndOnErrors = null;
+    public bool $autoEndOnErrors = true;
 
     /**
      * @Assert\Valid()

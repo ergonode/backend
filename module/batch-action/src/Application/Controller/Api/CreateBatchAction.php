@@ -107,7 +107,7 @@ class CreateBatchAction
                     $actionType,
                     $filter,
                     $data->payload ?: null,
-                    $data->autoEndOnErrors ?: true
+                    $data->autoEndOnErrors
                 );
 
                 $this->commandBus->dispatch($command);

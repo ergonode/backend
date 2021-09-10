@@ -181,6 +181,9 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
             [
                 'id' => $bachAction->getId()->getValue(),
             ],
+            [
+                'auto_end_on_errors' => \PDO::PARAM_BOOL,
+            ]
         );
     }
 
@@ -199,6 +202,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
             $bachActionArray,
             [
                 'created_at' => Types::DATETIMETZ_MUTABLE,
+                'auto_end_on_errors' => \PDO::PARAM_BOOL,
             ],
         );
     }
