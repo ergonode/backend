@@ -115,7 +115,7 @@ class BatchActionTransport implements TransportInterface
             'SELECT ba.id, bae.resource_id, ba.created_by
                  FROM batch_action_entry bae 
                  JOIN batch_action ba ON ba.id = bae.batch_action_id 
-                 WHERE bae.processed_at is NULL LIMIT 1'
+                 WHERE bae.processed_at is NULL LIMIT 1 FOR UPDATE SKIP LOCKED'
         )->fetchAssociative();
 
         if (!empty($record)) {
@@ -141,7 +141,7 @@ class BatchActionTransport implements TransportInterface
         $record = $this->connection->executeQuery(
             'SELECT id, created_by
                  FROM batch_action 
-                 WHERE processed_at IS NULL LIMIT 1 '
+                 WHERE processed_at IS NULL LIMIT 1 FOR UPDATE SKIP LOCKED'
         )
             ->fetchAssociative();
 
