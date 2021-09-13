@@ -27,6 +27,10 @@ Feature: Batch action manipulation
       | type                              | ["not uuid"]                             | filter.ids.list |
       | type                              | []                                       | list |
 
+  Scenario: End batch action - not exists
+    And I send a "PUT" request to "/api/v1/en_GB/batch-action/@@random_uuid@@/end"
+    Then the response status code should be 404
+
   Scenario: Get not exists batch action
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@@random_uuid@@"
     Then the response status code should be 404

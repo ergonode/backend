@@ -64,6 +64,62 @@ Feature: batch action product deletion
     """
     Then the response status code should be 400
 
+  Scenario: Create batch action for one products auto errors
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+    """
+      {
+        "type": "PRODUCT_DELETE",
+        "autoEndOnErrors": true,
+        "filter": {
+          "ids": {
+            "list": [
+              "@simple_product_id@"
+            ],
+            "included": true
+          }
+        }
+      }
+    """
+    Then the response status code should be 201
+    And store response param "id" as "batch_action_one_no_errors_id"
+
+  Scenario: Get second batch action status
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_no_errors_id@"
+    And the JSON node "status" should contain "ENDED"
+
+  Scenario: Create batch action for one products no auto errors
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+    """
+      {
+        "type": "PRODUCT_DELETE",
+        "autoEndOnErrors": false,
+        "filter": {
+          "ids": {
+            "list": [
+              "@simple_product_id@"
+            ],
+            "included": true
+          }
+        }
+      }
+    """
+    Then the response status code should be 201
+    And store response param "id" as "batch_action_one_errors_id"
+
+  Scenario: Get second batch action status
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@"
+    Then the response status code should be 200
+    And the JSON node "status" should contain "WAITING_FOR_DECISION"
+
+  Scenario: End WAITING_FOR_DECISION batch action
+    And I send a "PUT" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@/end"
+    Then the response status code should be 200
+
+  Scenario: Get second batch action status after end
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@"
+    Then the response status code should be 200
+    And the JSON node "status" should contain "ENDED"
+
   Scenario: Create batch action for all products
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """

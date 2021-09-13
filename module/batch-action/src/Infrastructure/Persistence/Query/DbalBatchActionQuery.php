@@ -17,6 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\BatchAction\Domain\Model\BatchActionEntryModel;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class DbalBatchActionQuery implements BatchActionQueryInterface
 {
@@ -39,7 +40,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         $record = $qb
-            ->select('id, created_at, type, payload')
+            ->select('id, created_at, type, payload, status')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id) AS all')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id 
             AND success IS NOT NULL) AS processed')
@@ -54,6 +55,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         $model = new BatchActionInformationModel(
             new BatchActionId($record['id']),
             new BatchActionType($record['type']),
+            new BatchActionStatus($record['status']),
             $record['all'],
             $record['processed'],
             new \DateTime($record['created_at']),

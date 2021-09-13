@@ -66,9 +66,15 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
                 CheckboxType::class,
                 [
                     'required' => false,
-                    'empty_data' => 'true',
                 ]
-            );
+            )->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
+
+                if (!array_key_exists('autoEndOnErrors', $data)) {
+                    $data['autoEndOnErrors'] = true;
+                    $event->setData($data);
+                }
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
