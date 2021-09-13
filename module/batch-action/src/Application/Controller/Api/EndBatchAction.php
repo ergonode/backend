@@ -11,7 +11,6 @@ namespace Ergonode\BatchAction\Application\Controller\Api;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
-use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
@@ -58,7 +57,7 @@ class EndBatchAction
      */
     public function __invoke(BatchAction $action): void
     {
-        if(!$action->getStatus()->isWaitingForDecision()) {
+        if (!$action->getStatus()->isWaitingForDecision()) {
             throw new BadRequestHttpException('Only Batch action in %s status Can be manually ended');
         }
 
