@@ -111,9 +111,9 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     public function hasErrors(BatchActionId $id): bool
     {
         $qb = $this->connection->createQueryBuilder();
-        $result = $qb->select('id')
+        $result = $qb->select('batch_action_id')
             ->from('batch_action_entry')
-            ->where($qb->expr()->eq('id', ':id'))
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
             ->andWhere($qb->expr()->eq('success', ':success'))
             ->setParameter(':id', $id->getValue())
             ->setParameter('success', false, \PDO::PARAM_BOOL)
@@ -127,9 +127,9 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     public function hasEntriesToProcess(BatchActionId $id): bool
     {
         $qb = $this->connection->createQueryBuilder();
-        $result = $qb->select('id')
+        $result = $qb->select('batch_action_id')
             ->from('batch_action_entry')
-            ->where($qb->expr()->eq('id', ':id'))
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
             ->andWhere($qb->expr()->isNull('processed_at'))
             ->setParameter(':id', $id->getValue())
             ->setMaxResults(1)

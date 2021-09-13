@@ -42,10 +42,9 @@ class ProcessBatchActionCommandHandler
 
         Assert::isInstanceOf($batchAction, BatchAction::class);
 
-        $event = new BatchActionEndedEvent($batchAction->getId());
-        $status = new BatchActionStatus(BatchActionStatus::ENDED);
-
         if (!$this->query->hasEntriesToProcess($batchAction->getId())) {
+            $event = new BatchActionEndedEvent($batchAction->getId());
+            $status = new BatchActionStatus(BatchActionStatus::ENDED);
             if (!$batchAction->isAutoEndOnErrors() && $this->query->hasErrors($batchAction->getId())) {
                 $status = new BatchActionStatus(BatchActionStatus::WAITING_FOR_DECISION);
                 $event = new BatchActionStoppedEvent($batchAction->getId());
