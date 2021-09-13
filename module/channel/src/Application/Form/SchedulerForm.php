@@ -11,6 +11,7 @@ namespace Ergonode\Channel\Application\Form;
 use Symfony\Component\Form\AbstractType;
 use Ergonode\Core\Application\Form\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -53,6 +54,9 @@ class SchedulerForm extends AbstractType
             [
                 'data_class' => SchedulerModel::class,
                 'translation_domain' => 'channel',
+                'validation_groups' => fn (FormInterface $form): array =>
+                    $form->getData()->active ? ['Default', 'Active'] : ['Default']
+                ,
             ]
         );
     }

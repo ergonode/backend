@@ -26,17 +26,26 @@ class BatchActionInformationModel
     private ?\DateTime $endedAt;
 
     /**
+     * @var mixed
+     */
+    private $payload;
+
+    /**
      * @var BatchActionEntryModel[]
      */
     private array $entries = [];
 
+    /**
+     * @param mixed $payload
+     */
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
         int $allEntries,
         int $processedEntries,
         \DateTime $createdAt,
-        ?\DateTime $endedAt
+        ?\DateTime $endedAt,
+        $payload = null
     ) {
         $this->id = $id;
         $this->type = $type;
@@ -44,6 +53,7 @@ class BatchActionInformationModel
         $this->allEntries = $allEntries;
         $this->createdAt = $createdAt;
         $this->endedAt = $endedAt;
+        $this->payload = $payload;
     }
 
     public function addEntry(BatchActionEntryModel $entry): void
@@ -79,6 +89,14 @@ class BatchActionInformationModel
     public function getEndedAt(): ?\DateTime
     {
         return $this->endedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayload()
+    {
+        return $this->payload;
     }
 
     /**

@@ -19,21 +19,23 @@ class UpdateSchedulerCommand implements ChannelCommandInterface
 
     private bool $active;
 
-    private \DateTime $start;
+    private ?\DateTime $start;
 
-    private int $hour;
+    private ?int $hour;
 
-    private int $minute;
+    private ?int $minute;
 
-    public function __construct(AggregateId $id, bool $active, \DateTime $start, int $hour, int $minute)
+    public function __construct(AggregateId $id, bool $active, ?\DateTime $start, ?int $hour, ?int $minute)
     {
-        Assert::notNull($start);
-        Assert::greaterThanEq($hour, 0);
-        Assert::greaterThanEq($minute, 0);
-        Assert::lessThanEq($hour, Scheduler::HOURS);
-        Assert::lessThanEq($minute, Scheduler::MINUTES);
-        if (0 === $hour) {
-            Assert::greaterThan($minute, 0);
+        if ($active) {
+            Assert::notNull($start);
+            Assert::greaterThanEq($hour, 0);
+            Assert::greaterThanEq($minute, 0);
+            Assert::lessThanEq($hour, Scheduler::HOURS);
+            Assert::lessThanEq($minute, Scheduler::MINUTES);
+            if (0 === $hour) {
+                Assert::greaterThan($minute, 0);
+            }
         }
 
         $this->id = $id;
@@ -53,17 +55,17 @@ class UpdateSchedulerCommand implements ChannelCommandInterface
         return $this->active;
     }
 
-    public function getStart(): \DateTime
+    public function getStart(): ?\DateTime
     {
         return $this->start;
     }
 
-    public function getHour(): int
+    public function getHour(): ?int
     {
         return $this->hour;
     }
 
-    public function getMinute(): int
+    public function getMinute(): ?int
     {
         return $this->minute;
     }
