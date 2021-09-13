@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- bugfix [#1625](https://github.com/ergonode/backend/issues/1625) Allowed empty values for deactivated scheduler (piotrkreft)
 - refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk, wiewiurdp)
 - feature [#1573](https://github.com/ergonode/backend/issues/1573) Migration support for ContainerAwareInterface (wfajczyk)
 - refactor [#1556](https://github.com/ergonode/backend/issues/1556) Batch Action - refactoring of resume process (rprzedzik)
@@ -33,6 +34,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.6
+- bugfix [#1617](https://github.com/ergonode/backend/issues/1617) Fixed option attribute value condition (piotrkreft)
 - bugfix [#1613](https://github.com/ergonode/backend/issues/1613) Fixed ProductUpdatedEvent handling for segments (piotrkreft)
 
 #### 1.0.5
