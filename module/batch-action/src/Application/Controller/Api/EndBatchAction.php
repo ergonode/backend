@@ -15,6 +15,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @Route(
@@ -53,12 +54,14 @@ class EndBatchAction
      *     description="Returns batch information",
      * )
      *
-     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction")
+     * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction", name="action")
      */
-    public function __invoke(BatchAction $action): BatchActionId
+    public function __invoke(BatchAction $action): void
     {
-        $this->commandBus->dispatch(new EndBatchActionCommand($action->getId()));
+        if(!$action->getStatus()->isWaitingForDecision()) {
+            throw new BadRequestHttpException('Only Batch action in %s status Can be manually ended');
+        }
 
-        return $action->getId();
+        $this->commandBus->dispatch(new EndBatchActionCommand($action->getId()));
     }
 }

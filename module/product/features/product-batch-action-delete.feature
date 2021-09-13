@@ -113,7 +113,11 @@ Feature: batch action product deletion
 
   Scenario: End WAITING_FOR_DECISION batch action
     And I send a "PUT" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@/end"
-    Then the response status code should be 200
+    Then the response status code should be 204
+
+  Scenario: End ENDED batch action
+    And I send a "PUT" request to "/api/v1/en_GB/batch-action/@batch_action_one_no_errors_id@/end"
+    Then the response status code should be 400
 
   Scenario: Get second batch action status after end
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@"

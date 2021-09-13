@@ -29,6 +29,7 @@ Feature: Batch action manipulation
 
   Scenario: End batch action - not exists
     And I send a "PUT" request to "/api/v1/en_GB/batch-action/@@random_uuid@@/end"
+    And print last response
     Then the response status code should be 404
 
   Scenario: Get not exists batch action
