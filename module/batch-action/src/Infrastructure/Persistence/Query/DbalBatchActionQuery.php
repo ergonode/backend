@@ -39,7 +39,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         $record = $qb
-            ->select('id, created_at, type')
+            ->select('id, created_at, type, payload')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id) AS all')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id 
             AND success IS NOT NULL) AS processed')
@@ -59,7 +59,9 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             new \DateTime($record['created_at']),
             $record['all'] === $record['processed'] ?
                 new \DateTime($record['last_processed_at'] ??
-                $record['created_at']) : null
+                $record['created_at']) : null,
+            $record['payload'] ??
+            null ? unserialize($record['payload']) : null
         );
 
         foreach ($this->getEntries($id, $language) as $entry) {
