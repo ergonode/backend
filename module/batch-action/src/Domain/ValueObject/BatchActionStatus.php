@@ -23,7 +23,7 @@ class BatchActionStatus
 
     private string $value;
 
-    public function __construct(string $value = self::PROCESSED)
+    public function __construct(string $value)
     {
         $value = \strtoupper($value);
 
@@ -52,6 +52,11 @@ class BatchActionStatus
     public function isWaitingForDecision(): bool
     {
         return self::WAITING_FOR_DECISION === $this->value;
+    }
+
+    public static function isValid(string $value): bool
+    {
+        return in_array(strtoupper($value), self::AVAILABLE);
     }
 
     public function __toString(): string

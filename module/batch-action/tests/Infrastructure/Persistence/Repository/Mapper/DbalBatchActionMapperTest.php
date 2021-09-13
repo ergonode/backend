@@ -23,7 +23,7 @@ class DbalBatchActionMapperTest extends TestCase
         $id =  BatchActionId::generate();
         $type = new BatchActionType('test batch type');
         $payload = new \stdClass();
-        $status = new BatchActionStatus();
+        $status = new BatchActionStatus(BatchActionStatus::PROCESSED);
 
         $batchAction = $this->createMock(BatchAction::class);
         $batchAction->method('getId')->willReturn($id);
@@ -46,7 +46,7 @@ class DbalBatchActionMapperTest extends TestCase
 
     public function testCreation(): void
     {
-        $status = new BatchActionStatus();
+        $status = new BatchActionStatus(BatchActionStatus::PROCESSED);
 
         $record['id'] = Uuid::uuid4()->toString();
         $record['type'] = 'test type';
