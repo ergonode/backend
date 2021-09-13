@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Domain\Entity;
 
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class BatchAction
 {
@@ -17,6 +18,8 @@ class BatchAction
     private BatchActionType $type;
 
     private bool $autoEndOnErrors;
+
+    private BatchActionStatus $status;
 
     /**
      * @var mixed
@@ -32,11 +35,22 @@ class BatchAction
         $this->type = $type;
         $this->payload = $payload;
         $this->autoEndOnErrors = $autoEndOnErrors;
+        $this->status = new BatchActionStatus();
     }
 
     public function getId(): BatchActionId
     {
         return $this->id;
+    }
+
+    public function getStatus(): BatchActionStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(BatchActionStatus $status): void
+    {
+        $this->status = $status;
     }
 
     public function getType(): BatchActionType

@@ -75,13 +75,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('id')
-            ->addSelect('(select (case
-                                            when (select count(*)
-                                                  from batch_action_entry
-                                                  where batch_action_id = ba.id 
-                                                    and success is null ) = 0 then \'ENDED\'
-                                            else \'PRECESSED\' end) as status)')
+        return $qb->select('id, status')
             ->addSelect('created_at as started_at')
             ->addSelect('(select (case
                                 when (select count(*)
@@ -114,6 +108,37 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             ->setMaxResults(self::PROFILE_RESULT)
             ->execute()
             ->fetchAll();
+    }
+
+    public function hasErrors(BatchActionId $id): bool
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('batch_action_id')
+            ->from('batch_action_entry')
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
+            ->andWhere($qb->expr()->eq('success', ':success'))
+            ->setParameter(':id', $id->getValue())
+            ->setParameter('success', false, \PDO::PARAM_BOOL)
+            ->setMaxResults(1)
+            ->execute()
+            ->rowCount();
+
+        return (bool) $result;
+    }
+
+    public function hasEntriesToProcess(BatchActionId $id): bool
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('batch_action_id')
+            ->from('batch_action_entry')
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
+            ->andWhere($qb->expr()->isNull('processed_at'))
+            ->setParameter(':id', $id->getValue())
+            ->setMaxResults(1)
+            ->execute()
+            ->rowCount();
+
+        return (bool) $result;
     }
 
     private function getEntries(BatchActionId $id, Language $language): array

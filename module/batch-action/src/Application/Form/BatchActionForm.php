@@ -66,6 +66,7 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
                 CheckboxType::class,
                 [
                     'required' => false,
+                    'empty_data' => 'true',
                 ]
             );
     }

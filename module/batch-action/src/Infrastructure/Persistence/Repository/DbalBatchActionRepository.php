@@ -33,6 +33,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         'id',
         'type',
         'payload',
+        'status',
         'auto_end_on_errors',
     ];
 

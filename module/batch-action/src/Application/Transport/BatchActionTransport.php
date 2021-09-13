@@ -19,9 +19,9 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\Core\Application\Security\User\CachedUser;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\Core\Application\Messenger\Stamp\UserStamp;
 use Psr\Log\LoggerInterface;
+use Ergonode\BatchAction\Domain\Command\ProcessBatchActionCommand;
 
 class BatchActionTransport implements TransportInterface
 {
@@ -86,7 +86,7 @@ class BatchActionTransport implements TransportInterface
                 $this->repository->markEntry($message->getId(), $message->getResourceId(), $stamp->getResult());
             }
 
-            if ($message instanceof BatchActionEndedEvent) {
+            if ($message instanceof ProcessBatchActionCommand) {
                 $this->repository->endBatchAction($message->getId());
             }
 
@@ -146,7 +146,7 @@ class BatchActionTransport implements TransportInterface
             ->fetchAssociative();
 
         if (!empty($record)) {
-            $envelope = new Envelope(new BatchActionEndedEvent(new BatchActionId($record['id'])));
+            $envelope = new Envelope(new ProcessBatchActionCommand(new BatchActionId($record['id'])));
             if (!empty($record['created_by'])) {
                 $envelope = $this->addUSerStamp($envelope, new UserId($record['created_by']));
             }

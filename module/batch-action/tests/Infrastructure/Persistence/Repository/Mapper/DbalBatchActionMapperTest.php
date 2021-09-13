@@ -14,6 +14,7 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class DbalBatchActionMapperTest extends TestCase
 {
@@ -22,12 +23,14 @@ class DbalBatchActionMapperTest extends TestCase
         $id =  BatchActionId::generate();
         $type = new BatchActionType('test batch type');
         $payload = new \stdClass();
+        $status = new BatchActionStatus();
 
         $batchAction = $this->createMock(BatchAction::class);
         $batchAction->method('getId')->willReturn($id);
         $batchAction->method('getType')->willReturn($type);
         $batchAction->method('getPayload')->willReturn($payload);
         $batchAction->method('isAutoEndOnErrors')->willReturn(true);
+        $batchAction->method('getStatus')->willReturn($status);
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->map($batchAction);
@@ -37,13 +40,17 @@ class DbalBatchActionMapperTest extends TestCase
         self::assertEquals($id->getValue(), $result['id']);
         self::assertEquals($type->getValue(), $result['type']);
         self::assertEquals(serialize($payload), $result['payload']);
+        self::assertEquals($status->getValue(), $result['status']);
         self::assertTrue($result['auto_end_on_errors']);
     }
 
     public function testCreation(): void
     {
+        $status = new BatchActionStatus();
+
         $record['id'] = Uuid::uuid4()->toString();
         $record['type'] = 'test type';
+        $record['status'] = $status->getValue();
         $record['payload'] = serialize(new \stdClass());
         $record['auto_end_on_errors'] = true;
 
@@ -54,5 +61,6 @@ class DbalBatchActionMapperTest extends TestCase
         self::assertEquals($record['type'], $result->getType()->getValue());
         self::assertEquals($record['payload'], serialize($result->getPayload()));
         self::assertEquals($record['auto_end_on_errors'], $result->isAutoEndOnErrors());
+        self::assertEquals($record['status'], $status->getValue());
     }
 }
