@@ -63,16 +63,18 @@ class Scheduler
 
     public function setUp(
         bool $active,
-        \DateTime $start,
-        int $hour,
-        int $minute
+        ?\DateTime $start,
+        ?int $hour,
+        ?int $minute
     ): void {
-        Assert::greaterThanEq($hour, 0);
-        Assert::greaterThanEq($minute, 0);
-        Assert::lessThanEq($hour, self::HOURS);
-        Assert::lessThanEq($minute, self::MINUTES);
-        if (0 === $hour) {
-            Assert::greaterThan($minute, 0);
+        if ($active) {
+            Assert::greaterThanEq($hour, 0);
+            Assert::greaterThanEq($minute, 0);
+            Assert::lessThanEq($hour, self::HOURS);
+            Assert::lessThanEq($minute, self::MINUTES);
+            if (0 === $hour) {
+                Assert::greaterThan($minute, 0);
+            }
         }
 
         $this->active = $active;

@@ -23,18 +23,18 @@ class SchedulerModel
     public bool $active = false;
 
     /**
-     * @Assert\NotBlank(message="Start date is required")
+     * @Assert\NotBlank(message="Start date is required", groups={"Active"})
      */
     public ?\DateTime $start = null;
 
     /**
-     * @Assert\NotBlank(message="Hour is required")
+     * @Assert\NotBlank(message="Hour is required", groups={"Active"})
      * @Assert\Range(min=0, max=2147483647)
      */
     public ?int $hour = null;
 
     /**
-     * @Assert\NotBlank(message="Minute is required")
+     * @Assert\NotBlank(message="Minute is required", groups={"Active"})
      * @Assert\Range(min=0, max=59)
      */
     public ?int $minute = null;
