@@ -15,7 +15,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\Core\Application\Messenger\DomainEventBus;
-use Ergonode\BatchAction\Domain\Event\BatchActionStoppedEvent;
+use Ergonode\BatchAction\Domain\Event\BatchActionWaitingForDecisionEvent;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class ProcessBatchActionCommandHandler
@@ -47,7 +47,7 @@ class ProcessBatchActionCommandHandler
             $status = new BatchActionStatus(BatchActionStatus::ENDED);
             if (!$batchAction->isAutoEndOnErrors() && $this->query->hasErrors($batchAction->getId())) {
                 $status = new BatchActionStatus(BatchActionStatus::WAITING_FOR_DECISION);
-                $event = new BatchActionStoppedEvent($batchAction->getId());
+                $event = new BatchActionWaitingForDecisionEvent($batchAction->getId());
             }
 
             $batchAction->setStatus($status);

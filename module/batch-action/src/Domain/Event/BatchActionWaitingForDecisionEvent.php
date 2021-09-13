@@ -12,7 +12,7 @@ namespace Ergonode\BatchAction\Domain\Event;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\DomainEventInterface;
 
-class BatchActionStoppedEvent implements DomainEventInterface
+class BatchActionWaitingForDecisionEvent implements DomainEventInterface
 {
     private BatchActionId $id;
 
