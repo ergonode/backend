@@ -53,6 +53,16 @@ class BatchAction
         $this->status = $status;
     }
 
+    public function setPayload($payload = null): void
+    {
+        $this->payload = $payload;
+    }
+
+    public function setAutoEndOnErrors(bool $autoEndOnErrors): void
+    {
+        $this->autoEndOnErrors = $autoEndOnErrors;
+    }
+
     public function getType(): BatchActionType
     {
         return $this->type;
