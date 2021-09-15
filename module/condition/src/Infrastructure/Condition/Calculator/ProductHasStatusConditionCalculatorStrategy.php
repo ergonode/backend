@@ -49,7 +49,7 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
 
         $result = [];
         foreach ($configuration->getLanguage() as $language) {
-            if (array_key_exists($language->getCode(), $productStatuses)) {
+            if (isset($productStatuses[$language->getCode()])) {
                 $statusId = new StatusId($productStatuses[$language->getCode()]);
                 foreach ($configuration->getValue() as $searchedStatusId) {
                     $result[] = $statusId->isEqual($searchedStatusId);

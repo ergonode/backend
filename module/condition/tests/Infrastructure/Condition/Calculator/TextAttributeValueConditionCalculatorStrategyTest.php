@@ -103,6 +103,12 @@ class TextAttributeValueConditionCalculatorStrategyTest extends TestCase
                 'result' => true,
             ],
             [
+                'option' => '~',
+                'expected' => 'cd',
+                'value' => new  TranslatableStringValue(new TranslatableString(['pl_PL' => null])),
+                'result' => false,
+            ],
+            [
                 'option' => '=',
                 'expected' => '1234',
                 'value' => new  TranslatableStringValue(new TranslatableString(['pl_PL' => 'abcd'])),
