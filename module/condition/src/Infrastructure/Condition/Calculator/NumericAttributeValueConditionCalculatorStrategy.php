@@ -57,6 +57,9 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
         if ($product->hasAttribute($attribute->getCode())) {
             $values = $product->getAttribute($attribute->getCode());
             foreach ($values->getValue() as $value) {
+                if (null === $value) {
+                    continue;
+                }
                 if ($this->calculateValue($option, (float) $expected, (float) $value)) {
                     return true;
                 }

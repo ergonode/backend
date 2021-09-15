@@ -75,7 +75,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
         foreach ($value as $translation) {
-            if (false !== mb_strpos($translation, $expected)) {
+            if (null !== $translation && false !== mb_strpos($translation, $expected)) {
                 return true;
             }
         }
