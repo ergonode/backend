@@ -169,6 +169,39 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         );
     }
 
+    public function reprocess(BatchAction $batchAction): void
+    {
+        $bachActionArray = $this->mapper->map($batchAction);
+        $bachActionArray['processed_at'] = null;
+
+        $this->connection->update(
+            self::TABLE,
+            $bachActionArray,
+            [
+                'id' => $batchAction->getId()->getValue(),
+            ],
+            [
+                'auto_end_on_errors' => \PDO::PARAM_BOOL,
+            ]
+        );
+
+        $this->connection->update(
+            self::TABLE_ENTRY,
+            [
+                'success' => null,
+                'fail_reason' => null,
+                'processed_at' => null,
+            ],
+            [
+                'batch_action_id' => $batchAction->getId()->getValue(),
+                'success' => false,
+            ],
+            [
+                'success' => \PDO::PARAM_BOOL,
+            ]
+        );
+    }
+
     /**
      * @throws DBALException
      */
@@ -205,39 +238,6 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
                 'auto_end_on_errors' => \PDO::PARAM_BOOL,
             ],
         );
-    }
-
-    public function reprocess(BatchAction $batchAction): void
-    {
-        $bachActionArray = $this->mapper->map($batchAction);
-        $bachActionArray['processed_at'] = null;
-
-        $this->connection->update(
-            self::TABLE,
-            $bachActionArray,
-            [
-                'id' => $batchAction->getId()->getValue(),
-            ],
-            [
-                'auto_end_on_errors' => \PDO::PARAM_BOOL,
-            ]
-        );
-
-         $this->connection->update(
-             self::TABLE_ENTRY,
-             [
-                 'success' => null,
-                 'fail_reason' => null,
-                 'processed_at' => null,
-             ],
-             [
-                 'batch_action_id' => $batchAction->getId()->getValue(),
-                 'success' => false,
-             ],
-             [
-                 'success' => \PDO::PARAM_BOOL
-             ]
-         );
     }
 
     private function getQuery(): QueryBuilder

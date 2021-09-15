@@ -15,24 +15,18 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
-use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
-use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
-use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
 use Ergonode\BatchAction\Domain\Command\ReprocessBatchActionCommand;
+use Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionReprocessFormModel;
 
 /**
  * @Route(
  *     name="ergonode_batch_action_reprocess",
  *     path="/batch-action/{action}/reprocess",
- *     methods={"PUT"},
+ *     methods={"PATCH"},
  *     requirements={"action" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
@@ -40,13 +34,13 @@ class ReprocessBatchAction
 {
     private FormFactoryInterface $formFactory;
 
-    private BatchActionFormProvider $formProvider;
+    private BatchActionReprocessingFormProvider $formProvider;
 
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
-        BatchActionFormProvider $formProvider,
+        BatchActionReprocessingFormProvider $formProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
@@ -80,15 +74,19 @@ class ReprocessBatchAction
     {
         $type = $action->getType()->getValue();
         try {
-            $form = $this->formFactory->create($this->formProvider->provide($type));
+            $form = $this->formFactory->create(
+                $this->formProvider->provide($type),
+                null,
+                ['method' => Request::METHOD_PATCH]
+            );
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var BatchActionFormModel $data */
+                /** @var BatchActionReprocessFormModel $data */
                 $data = $form->getData();
 
                 $command = new ReprocessBatchActionCommand(
-                    BatchActionId::generate(),
+                    $action->getId(),
                     $data->payload ?: null,
                     $data->autoEndOnErrors
                 );

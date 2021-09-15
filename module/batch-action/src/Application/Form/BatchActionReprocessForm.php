@@ -11,7 +11,7 @@ namespace Ergonode\BatchAction\Application\Form;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BatchActionForm extends AbstractBatchActionForm
+class BatchActionReprocessForm extends AbstractBatchActionReprocessForm
 {
     public function supported(string $type): bool
     {

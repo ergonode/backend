@@ -53,6 +53,9 @@ class BatchAction
         $this->status = $status;
     }
 
+    /**
+     * @param mixed|null $payload
+     */
     public function setPayload($payload = null): void
     {
         $this->payload = $payload;

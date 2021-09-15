@@ -24,6 +24,13 @@ services:
            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\ReprocessBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@form.factory'
+            - '@Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
@@ -39,6 +46,10 @@ services:
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
             $forms: !tagged_iterator 'ergonode.batch_action.form_provider'
+
+    Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider:
+        arguments:
+            $forms: !tagged_iterator 'ergonode.batch_action.reprocessing_form_provider'
 
     Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
         tags: ['controller.service_arguments']
@@ -120,6 +131,11 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
+
+    Ergonode\BatchAction\Infrastructure\Handler\ReprocessBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
 
     Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
         tags: ['messenger.message_handler']

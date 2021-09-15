@@ -35,3 +35,9 @@ services:
         arguments:
             - '@messenger.transport.batch_action'
             - '@messenger.bus.sync'
+
+    Ergonode\BatchAction\Test\Infrastructure\Handler\TestReprocessBatchActionCommandHandler:
+        tags: [ { name: 'messenger.message_handler', priority: -10 } ]
+        arguments:
+            - '@messenger.transport.batch_action'
+            - '@messenger.bus.sync'

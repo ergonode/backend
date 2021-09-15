@@ -9,7 +9,7 @@ Feature: Batch action manipulation
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
       """
       {
-        "action": "<action>",
+        "type": "<type>",
         "filter": {
           "ids": {
             "list": <ids>,
@@ -25,11 +25,10 @@ Feature: Batch action manipulation
       |                                   | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type            |
       | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type            |
       | type                              | ["not uuid"]                             | filter.ids.list |
-      | type                              | []                                       | list |
+      | type                              | []                                       | list            |
 
   Scenario: End batch action - not exists
     And I send a "PUT" request to "/api/v1/en_GB/batch-action/@@random_uuid@@/end"
-    And print last response
     Then the response status code should be 404
 
   Scenario: Get not exists batch action

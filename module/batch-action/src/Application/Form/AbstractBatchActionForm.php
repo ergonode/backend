@@ -6,30 +6,20 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Form\Product\BatchAction;
+namespace Ergonode\BatchAction\Application\Form;
 
-use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
 use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
-use Ergonode\Product\Application\Form\Product\Attribute\Update\UpdateAttributeValueForm;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class ProductEditForm extends AbstractType implements BatchActionFormInterface
+abstract class AbstractBatchActionForm extends AbstractType implements BatchActionFormInterface
 {
-    public function supported(string $type): bool
-    {
-        return $type === 'product_edit';
-    }
-
-    /**
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -53,17 +43,27 @@ class ProductEditForm extends AbstractType implements BatchActionFormInterface
                 }
             })
             ->add(
-                'payload',
-                CollectionType::class,
+                'filter',
+                BatchActionFilterType::class,
                 [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => UpdateAttributeValueForm::class,
                     'required' => false,
                 ]
-            );
-    }
+            )
+            ->add(
+                'autoEndOnErrors',
+                CheckboxType::class,
+                [
+                    'required' => false,
+                ]
+            )->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
 
+                if (!array_key_exists('autoEndOnErrors', $data)) {
+                    $data['autoEndOnErrors'] = true;
+                    $event->setData($data);
+                }
+            });
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
