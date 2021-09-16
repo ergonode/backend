@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Provider;
 
-use Ergonode\BatchAction\Application\Form\BatchActionForm;
 use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Webmozart\Assert\Assert;
 
@@ -38,6 +37,6 @@ class BatchActionFormProvider
             }
         }
 
-        return BatchActionForm::class;
+        throw new \RuntimeException(sprintf('Can\' find Batch action form for %s type', $type));
     }
 }

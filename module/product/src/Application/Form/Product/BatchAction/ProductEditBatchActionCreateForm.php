@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Ergonode\BatchAction\Application\Form\AbstractBatchActionForm;
 
-class ProductEditBatchActionForm extends AbstractBatchActionForm
+class ProductEditBatchActionCreateForm extends AbstractBatchActionForm
 {
     public function supported(string $type): bool
     {

@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\BatchAction\Domain\Command\ReprocessBatchActionCommand;
 use Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionReprocessFormModel;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 /**
  * @Route(
@@ -64,8 +65,8 @@ class ReprocessBatchAction
      *     description="Batch action id",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns batch information",
+     *     response=204,
+     *     description="Successful reprocessing submit",
      * )
      *
      * @ParamConverter(class="Ergonode\BatchAction\Domain\Entity\BatchAction", name="action")
@@ -73,6 +74,16 @@ class ReprocessBatchAction
     public function __invoke(BatchAction $action, Request $request): void
     {
         $type = $action->getType()->getValue();
+
+        if (!$action->getStatus()->isWaitingForDecision()) {
+            throw new BadRequestHttpException(
+                sprintf(
+                    'Only batch action in status %s can be reprocessed',
+                    [BatchActionStatus::WAITING_FOR_DECISION]
+                )
+            );
+        }
+
         try {
             $form = $this->formFactory->create(
                 $this->formProvider->provide($type),
@@ -87,8 +98,8 @@ class ReprocessBatchAction
 
                 $command = new ReprocessBatchActionCommand(
                     $action->getId(),
-                    $data->payload ?: null,
-                    $data->autoEndOnErrors
+                    $data->autoEndOnErrors?: $action->isAutoEndOnErrors(),
+                    $data->payload ?: $action->getPayload(),
                 );
 
                 $this->commandBus->dispatch($command);

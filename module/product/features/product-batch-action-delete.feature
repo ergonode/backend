@@ -64,6 +64,27 @@ Feature: batch action product deletion
     """
     Then the response status code should be 400
 
+  Scenario Outline: Create batch action - validation error
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+      """
+      {
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": <ids>,
+            "included": true
+          }
+        }
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.<error_column>" should exist
+    Examples:
+      | ids          | error_column    |
+      | ["not uuid"] | filter.ids.list |
+      | []           | list            |
+
+
   Scenario: Create batch action for one products auto errors
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """

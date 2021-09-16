@@ -6,16 +6,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Application\Form;
+namespace Ergonode\Product\Application\Form\Product\BatchAction;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Ergonode\BatchAction\Application\Form\AbstractBatchActionReprocessForm;
 
-class BatchActionReprocessForm extends AbstractBatchActionReprocessForm
+class ProductDeleteBatchActionReprocessForm extends AbstractBatchActionReprocessForm
 {
     public function supported(string $type): bool
     {
-        return $type === 'default';
+        return $type === 'product_delete';
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

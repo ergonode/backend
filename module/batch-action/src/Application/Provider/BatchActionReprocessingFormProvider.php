@@ -10,7 +10,6 @@ namespace Ergonode\BatchAction\Application\Provider;
 
 use Webmozart\Assert\Assert;
 use Ergonode\BatchAction\Application\Form\BatchActionReprocessingFormInterface;
-use Ergonode\BatchAction\Application\Form\BatchActionReprocessForm;
 
 class BatchActionReprocessingFormProvider
 {
@@ -38,6 +37,6 @@ class BatchActionReprocessingFormProvider
             }
         }
 
-        return BatchActionReprocessForm::class;
+        throw new \RuntimeException(sprintf('Can\' find Batch action form for %s type', $type));
     }
 }

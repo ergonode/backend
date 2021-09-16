@@ -22,8 +22,8 @@ class ReprocessBatchActionCommand extends AbstractPayloadCommand implements Doma
      */
     public function __construct(
         BatchActionId $id,
-        $payload = null,
-        bool $autoEndOnErrors = true
+        bool $autoEndOnErrors,
+        $payload = null
     ) {
         $this->id = $id;
         $this->autoEndOnErrors = $autoEndOnErrors;
