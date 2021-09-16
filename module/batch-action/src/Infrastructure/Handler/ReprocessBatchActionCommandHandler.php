@@ -28,7 +28,7 @@ class ReprocessBatchActionCommandHandler
         $batchAction = $this->repository->load($command->getId());
         Assert::isInstanceOf($batchAction, BatchAction::class);
         $batchAction->setPayload($command->getPayload());
-        $batchAction->setStatus(new BatchActionStatus(BatchActionStatus::PROCESSED));
+        $batchAction->setStatus(new BatchActionStatus(BatchActionStatus::PRECESSED));
         $batchAction->setAutoEndOnErrors($command->isAutoEndOnErrors());
 
         $this->repository->reprocess($batchAction);
