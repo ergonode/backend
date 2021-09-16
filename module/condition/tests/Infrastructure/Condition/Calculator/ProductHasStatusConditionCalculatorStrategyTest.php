@@ -45,7 +45,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
      */
     public function testCalculate(
         string $operator,
-        string $productStatusUuid,
+        ?string $productStatusUuid,
         array $searchedStatusIds,
         string $languages,
         bool $expectedResult
@@ -87,6 +87,13 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
                 '21657757-ab97-4f04-b930-e243d19dae82',
                 ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
                 'en_GB',
+                false,
+            ],
+            'HAS null false' => [
+                'HAS',
+                null,
+                ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
+                'en_EN',
                 false,
             ],
             'NOT_HAS false' => [
