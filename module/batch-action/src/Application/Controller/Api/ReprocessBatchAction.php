@@ -19,7 +19,7 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\BatchAction\Domain\Command\ReprocessBatchActionCommand;
-use Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider;
+use Ergonode\BatchAction\Application\Provider\BatchActionReprocessFormProvider;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionReprocessFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
@@ -35,13 +35,13 @@ class ReprocessBatchAction
 {
     private FormFactoryInterface $formFactory;
 
-    private BatchActionReprocessingFormProvider $formProvider;
+    private BatchActionReprocessFormProvider $formProvider;
 
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
-        BatchActionReprocessingFormProvider $formProvider,
+        BatchActionReprocessFormProvider $formProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;

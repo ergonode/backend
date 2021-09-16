@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Product\BatchAction;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Ergonode\BatchAction\Application\Form\AbstractBatchActionReprocessForm;
 
@@ -22,14 +21,5 @@ class ProductDeleteBatchActionReprocessForm extends AbstractBatchActionReprocess
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
-
-        $builder
-            ->add(
-                'payload',
-                TextType::class,
-                [
-                    'required' => false,
-                ]
-            );
     }
 }

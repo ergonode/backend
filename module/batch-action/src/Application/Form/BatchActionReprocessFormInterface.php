@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form;
 
-interface BatchActionReprocessingFormInterface
+interface BatchActionReprocessFormInterface
 {
     public function supported(string $type): bool;
 }

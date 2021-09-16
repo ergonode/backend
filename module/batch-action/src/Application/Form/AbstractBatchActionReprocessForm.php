@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionReprocessFormModel;
 
-abstract class AbstractBatchActionReprocessForm extends AbstractType implements BatchActionReprocessingFormInterface
+abstract class AbstractBatchActionReprocessForm extends AbstractType implements BatchActionReprocessFormInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

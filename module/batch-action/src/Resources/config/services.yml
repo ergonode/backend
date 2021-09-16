@@ -28,7 +28,7 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             - '@form.factory'
-            - '@Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider'
+            - '@Ergonode\BatchAction\Application\Provider\BatchActionReprocessFormProvider'
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
@@ -47,7 +47,7 @@ services:
         arguments:
             $forms: !tagged_iterator 'ergonode.batch_action.form_provider'
 
-    Ergonode\BatchAction\Application\Provider\BatchActionReprocessingFormProvider:
+    Ergonode\BatchAction\Application\Provider\BatchActionReprocessFormProvider:
         arguments:
             $forms: !tagged_iterator 'ergonode.batch_action.reprocessing_form_provider'
 
