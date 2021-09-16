@@ -120,6 +120,12 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
                 'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '1'])),
                 'result' => true,
             ],
+            [
+                'option' => '<>',
+                'expected' => 2.0,
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => null])),
+                'result' => false,
+            ],
         ];
     }
 }
