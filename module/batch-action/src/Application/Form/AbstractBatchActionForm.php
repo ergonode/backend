@@ -42,13 +42,6 @@ abstract class AbstractBatchActionForm extends AbstractType implements BatchActi
                     );
                 }
             })
-//            ->add(
-//                'filter',
-//                BatchActionFilterType::class,
-//                [
-//                    'required' => false,
-//                ]
-//            )
             ->add(
                 'autoEndOnErrors',
                 CheckboxType::class,
