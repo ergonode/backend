@@ -83,7 +83,14 @@ class CreateBatchAction
      */
     public function __invoke(Request $request): BatchActionId
     {
-        $type = $request->request->get('type', 'default');
+        $type = $request->request->get('type');
+
+        if (null === $type
+            || !BatchActionType::isValid($type)
+            || !$this->processorProvider->supports(new BatchActionType($type))) {
+            throw new BadRequestHttpException("Unsupported type {$type}");
+        }
+
         try {
             $form = $this->formFactory->create($this->formProvider->provide($type));
             $form->handleRequest($request);
@@ -93,10 +100,6 @@ class CreateBatchAction
                 $data = $form->getData();
 
                 $actionType = new BatchActionType($data->type);
-
-                if (!$this->processorProvider->supports($actionType)) {
-                    throw new BadRequestHttpException("Unsupported type {$data->type}");
-                }
 
                 $filter = 'all' === $data->filter ?
                     new BatchActionFilterDisabled() :

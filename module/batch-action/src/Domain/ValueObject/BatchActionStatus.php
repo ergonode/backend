@@ -11,12 +11,12 @@ namespace Ergonode\BatchAction\Domain\ValueObject;
 
 class BatchActionStatus
 {
-    public const PROCESSED = 'PRECESSED';
+    public const PRECESSED = 'PRECESSED';
     public const WAITING_FOR_DECISION = 'WAITING_FOR_DECISION';
     public const ENDED = 'ENDED';
 
     public const AVAILABLE = [
-        self::PROCESSED,
+        self::PRECESSED,
         self::WAITING_FOR_DECISION,
         self::ENDED,
     ];
@@ -41,7 +41,7 @@ class BatchActionStatus
 
     public function isProcessed(): bool
     {
-        return self::PROCESSED === $this->value;
+        return self::PRECESSED === $this->value;
     }
 
     public function isEnded(): bool

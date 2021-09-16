@@ -64,6 +64,27 @@ Feature: batch action product deletion
     """
     Then the response status code should be 400
 
+  Scenario Outline: Create batch action - validation error
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+      """
+      {
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": <ids>,
+            "included": true
+          }
+        }
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.<error_column>" should exist
+    Examples:
+      | ids          | error_column    |
+      | ["not uuid"] | filter.ids.list |
+      | []           | list            |
+
+
   Scenario: Create batch action for one products auto errors
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
@@ -105,6 +126,20 @@ Feature: batch action product deletion
     """
     Then the response status code should be 201
     And store response param "id" as "batch_action_one_errors_id"
+
+  Scenario: Get second batch action status
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@"
+    Then the response status code should be 200
+    And the JSON node "status" should contain "WAITING_FOR_DECISION"
+
+  Scenario: Reprocess batch action for one products no auto errors
+    And I send a "PATCH" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@/reprocess" with body:
+    """
+      {
+         "autoEndOnErrors": false
+      }
+    """
+    Then the response status code should be 204
 
   Scenario: Get second batch action status
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_one_errors_id@"

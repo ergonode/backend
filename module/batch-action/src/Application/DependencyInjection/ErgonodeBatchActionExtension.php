@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
+use Ergonode\BatchAction\Application\Form\BatchActionReprocessFormInterface;
 
 class ErgonodeBatchActionExtension extends Extension implements PrependExtensionInterface
 {
@@ -40,6 +41,9 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(BatchActionFormInterface::class)
             ->addTag('ergonode.batch_action.form_provider');
+        $container
+            ->registerForAutoconfiguration(BatchActionReprocessFormInterface::class)
+            ->addTag('ergonode.batch_action.reprocessing_form_provider');
     }
 
     /**

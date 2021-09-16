@@ -35,7 +35,7 @@ class BatchAction
         $this->type = $type;
         $this->payload = $payload;
         $this->autoEndOnErrors = $autoEndOnErrors;
-        $this->status = new BatchActionStatus(BatchActionStatus::PROCESSED);
+        $this->status = new BatchActionStatus(BatchActionStatus::PRECESSED);
     }
 
     public function getId(): BatchActionId
@@ -51,6 +51,19 @@ class BatchAction
     public function setStatus(BatchActionStatus $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @param mixed|null $payload
+     */
+    public function setPayload($payload = null): void
+    {
+        $this->payload = $payload;
+    }
+
+    public function setAutoEndOnErrors(bool $autoEndOnErrors): void
+    {
+        $this->autoEndOnErrors = $autoEndOnErrors;
     }
 
     public function getType(): BatchActionType

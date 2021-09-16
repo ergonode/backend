@@ -169,18 +169,51 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         );
     }
 
-    /**
-     * @throws DBALException
-     */
-    private function update(BatchAction $bachAction): void
+    public function reprocess(BatchAction $batchAction): void
     {
-        $bachActionArray = $this->mapper->map($bachAction);
+        $bachActionArray = $this->mapper->map($batchAction);
+        $bachActionArray['processed_at'] = null;
 
         $this->connection->update(
             self::TABLE,
             $bachActionArray,
             [
-                'id' => $bachAction->getId()->getValue(),
+                'id' => $batchAction->getId()->getValue(),
+            ],
+            [
+                'auto_end_on_errors' => \PDO::PARAM_BOOL,
+            ]
+        );
+
+        $this->connection->update(
+            self::TABLE_ENTRY,
+            [
+                'success' => null,
+                'fail_reason' => null,
+                'processed_at' => null,
+            ],
+            [
+                'batch_action_id' => $batchAction->getId()->getValue(),
+                'success' => false,
+            ],
+            [
+                'success' => \PDO::PARAM_BOOL,
+            ]
+        );
+    }
+
+    /**
+     * @throws DBALException
+     */
+    private function update(BatchAction $batchAction): void
+    {
+        $bachActionArray = $this->mapper->map($batchAction);
+
+        $this->connection->update(
+            self::TABLE,
+            $bachActionArray,
+            [
+                'id' => $batchAction->getId()->getValue(),
             ],
             [
                 'auto_end_on_errors' => \PDO::PARAM_BOOL,
@@ -191,10 +224,9 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     /**
      * @throws DBALException
      */
-    private function insert(BatchAction $bachAction): void
+    private function insert(BatchAction $batchAction): void
     {
-
-        $bachActionArray = $this->mapper->map($bachAction);
+        $bachActionArray = $this->mapper->map($batchAction);
         $bachActionArray['created_at'] = new \DateTime();
         $bachActionArray['created_by'] = $this->getUserId() ? $this->getUserId()->getValue() : null;
 
