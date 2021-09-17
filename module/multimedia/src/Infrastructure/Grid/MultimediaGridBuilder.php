@@ -85,7 +85,6 @@ class MultimediaGridBuilder implements GridBuilderInterface
             ->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)))
             ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
             ->addColumn('size', $column)
-            ->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()))
             ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
             ->addColumn('_links', new LinkColumn('hal', $links));
 
