@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- bugfix [#1636](https://github.com/ergonode/backend/issues/1636) Multimedia gird is too slow  (wfajczyk)
 - bugfix [#1625](https://github.com/ergonode/backend/issues/1625) Allowed empty values for deactivated scheduler (piotrkreft)
 - refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk, wiewiurdp)
 - feature [#1573](https://github.com/ergonode/backend/issues/1573) Migration support for ContainerAwareInterface (wfajczyk)
