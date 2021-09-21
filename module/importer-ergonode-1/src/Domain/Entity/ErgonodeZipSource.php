@@ -24,6 +24,7 @@ class ErgonodeZipSource extends AbstractSource
     public const CATEGORIES = 'categories';
     public const TEMPLATES = 'templates';
     public const ATTRIBUTES = 'attributes';
+    public const MULTIMEDIA = 'multimedia';
     public const OPTIONS = 'options';
 
     public const STEPS = [
@@ -31,6 +32,7 @@ class ErgonodeZipSource extends AbstractSource
         self::CATEGORIES,
         self::TEMPLATES,
         self::ATTRIBUTES,
+        self::MULTIMEDIA,
         self::OPTIONS,
     ];
 

@@ -39,6 +39,7 @@ class ImporterErgonodeConfigurationForm extends AbstractType
                         'Options' => ErgonodeZipSource::OPTIONS,
                         'Products' => ErgonodeZipSource::PRODUCTS,
                         'Templates' => ErgonodeZipSource::TEMPLATES,
+                        'Multimedia' => ErgonodeZipSource::MULTIMEDIA,
                     ],
                     'multiple' => true,
                 ]
