@@ -22,6 +22,7 @@ use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 
 class MultimediaFromUrlImportAction
 {
@@ -35,18 +36,22 @@ class MultimediaFromUrlImportAction
 
     private MultimediaQueryInterface $multimediaQuery;
 
+    private MultimediaExtensionProvider $provider;
+
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
         HashCalculationServiceInterface $hashService,
         FilesystemInterface $multimediaStorage,
-        MultimediaQueryInterface $multimediaQuery
+        MultimediaQueryInterface $multimediaQuery,
+        MultimediaExtensionProvider $provider
     ) {
         $this->repository = $repository;
         $this->downloader = $downloader;
         $this->hashService = $hashService;
         $this->multimediaStorage = $multimediaStorage;
         $this->multimediaQuery = $multimediaQuery;
+        $this->provider = $provider;
     }
 
     /**
@@ -64,6 +69,10 @@ class MultimediaFromUrlImportAction
 
         if ($this->multimediaQuery->findIdByFilename($name)) {
             throw new ImportException('Multimedia with {name} already exists in the system', ['{name}' => $name]);
+        }
+
+        if (!in_array($extension, $this->provider->dictionary(), true)) {
+            throw new ImportException('Multimedia type {type} is not allowed ', ['{type}' => $extension]);
         }
 
         $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
