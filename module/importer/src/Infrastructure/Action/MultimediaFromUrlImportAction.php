@@ -21,6 +21,7 @@ use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class MultimediaFromUrlImportAction
 {
@@ -52,8 +53,12 @@ class MultimediaFromUrlImportAction
      * @throws FileExistsException
      * @throws FileNotFoundException
      */
-    public function action(ImportId $importId, string $url, string $filename): MultimediaId
-    {
+    public function action(
+        ImportId $importId,
+        string $url,
+        string $filename,
+        ?TranslatableString $alt = null
+    ): MultimediaId {
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $name = pathinfo($filename, PATHINFO_FILENAME);
 
@@ -82,6 +87,10 @@ class MultimediaFromUrlImportAction
             $hash,
             $mime,
         );
+
+        if ($alt) {
+            $multimedia->changeAlt($alt);
+        }
 
         $this->repository->save($multimedia);
         unlink($tmpFile);

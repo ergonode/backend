@@ -15,6 +15,7 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Ergonode\Multimedia\Infrastructure\Provider\UploadFileExtensionProvider;
 
 class AddMultimediaCommandHandler
 {
@@ -24,14 +25,18 @@ class AddMultimediaCommandHandler
 
     private FilesystemInterface $multimediaStorage;
 
+    private UploadFileExtensionProvider $provider;
+
     public function __construct(
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
-        FilesystemInterface $multimediaStorage
+        FilesystemInterface $multimediaStorage,
+        UploadFileExtensionProvider $provider
     ) {
         $this->hashService = $hashService;
         $this->repository = $repository;
         $this->multimediaStorage = $multimediaStorage;
+        $this->provider = $provider;
     }
 
     /**
@@ -45,10 +50,7 @@ class AddMultimediaCommandHandler
         $hash = $this->hashService->calculateHash($file);
         $originalName = $command->getName() ?? $file->getClientOriginalName();
 
-        $extension = $file->getClientOriginalExtension();
-        if (empty($extension) || '.' === $extension) {
-            $extension = $file->guessExtension();
-        }
+        $extension = $this->provider->getExtension($file);
 
         $filename = sprintf('%s.%s', $id, $extension);
 
