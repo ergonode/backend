@@ -38,7 +38,8 @@ class ImportMultimediaFromUrlCommandHandler
             $id = $this->action->action(
                 $command->getImportId(),
                 $command->getUrl(),
-                $command->getName()
+                $command->getName(),
+                $command->getLabel(),
             );
             $this->repository->markLineAsSuccess($command->getId(), $id);
         } catch (ImportException $exception) {

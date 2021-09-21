@@ -21,6 +21,8 @@ use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 
 class MultimediaFromUrlImportAction
 {
@@ -34,31 +36,43 @@ class MultimediaFromUrlImportAction
 
     private MultimediaQueryInterface $multimediaQuery;
 
+    private MultimediaExtensionProvider $provider;
+
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
         HashCalculationServiceInterface $hashService,
         FilesystemInterface $multimediaStorage,
-        MultimediaQueryInterface $multimediaQuery
+        MultimediaQueryInterface $multimediaQuery,
+        MultimediaExtensionProvider $provider
     ) {
         $this->repository = $repository;
         $this->downloader = $downloader;
         $this->hashService = $hashService;
         $this->multimediaStorage = $multimediaStorage;
         $this->multimediaQuery = $multimediaQuery;
+        $this->provider = $provider;
     }
 
     /**
      * @throws FileExistsException
      * @throws FileNotFoundException
      */
-    public function action(ImportId $importId, string $url, string $filename): MultimediaId
-    {
+    public function action(
+        ImportId $importId,
+        string $url,
+        string $filename,
+        ?TranslatableString $alt = null
+    ): MultimediaId {
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $name = pathinfo($filename, PATHINFO_FILENAME);
 
         if ($this->multimediaQuery->findIdByFilename($name)) {
             throw new ImportException('Multimedia with {name} already exists in the system', ['{name}' => $name]);
+        }
+
+        if (!in_array($extension, $this->provider->dictionary(), true)) {
+            throw new ImportException('Multimedia type {type} is not allowed ', ['{type}' => $extension]);
         }
 
         $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
@@ -82,6 +96,10 @@ class MultimediaFromUrlImportAction
             $hash,
             $mime,
         );
+
+        if ($alt) {
+            $multimedia->changeAlt($alt);
+        }
 
         $this->repository->save($multimedia);
         unlink($tmpFile);
