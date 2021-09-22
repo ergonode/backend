@@ -32,6 +32,9 @@ services:
     Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeOptionsProcessorStep:
         tags: [ { name: 'component.ergonode-importer.ergonode_processor_step', priority: -10 } ]
 
+    Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeMultimediaProcessorStep:
+        tags: [ { name: 'component.ergonode-importer.ergonode_processor_step', priority: -15 } ]
+
     Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeCategoriesProcessorStep:
         tags: [ { name: 'component.ergonode-importer.ergonode_processor_step', priority: -20 } ]
 

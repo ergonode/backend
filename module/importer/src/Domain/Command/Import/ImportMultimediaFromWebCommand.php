@@ -11,7 +11,6 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportMultimediaFromWebCommand implements ImporterCommandInterface
 {
@@ -23,20 +22,20 @@ class ImportMultimediaFromWebCommand implements ImporterCommandInterface
 
     private string $name;
 
-    private ?TranslatableString $label;
+    private array $alt;
 
     public function __construct(
         ImportLineId $id,
         ImportId $importId,
         string $url,
         string $name,
-        ?TranslatableString $label = null
+        array $alt = []
     ) {
         $this->id = $id;
         $this->importId = $importId;
         $this->url = $url;
         $this->name = $name;
-        $this->label = $label;
+        $this->alt = $alt;
     }
 
     public function getId(): ImportLineId
@@ -59,8 +58,8 @@ class ImportMultimediaFromWebCommand implements ImporterCommandInterface
         return $this->name;
     }
 
-    public function getLabel(): ?TranslatableString
+    public function getAlt(): array
     {
-        return $this->label;
+        return $this->alt;
     }
 }

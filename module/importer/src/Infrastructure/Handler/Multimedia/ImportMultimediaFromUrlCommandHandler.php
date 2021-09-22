@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultimediaFromUrlImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Psr\Log\LoggerInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportMultimediaFromUrlCommandHandler
 {
@@ -39,7 +40,7 @@ class ImportMultimediaFromUrlCommandHandler
                 $command->getImportId(),
                 $command->getUrl(),
                 $command->getName(),
-                $command->getLabel(),
+                new TranslatableString($command->getAlt()),
             );
             $this->repository->markLineAsSuccess($command->getId(), $id);
         } catch (ImportException $exception) {
