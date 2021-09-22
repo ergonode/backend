@@ -35,9 +35,9 @@ class ErgonodeMultimediaProcessorStep implements ErgonodeProcessorStepInterface
 
     public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
-//        if (!$source->import(ErgonodeZipSource::MULTIMEDIA)) {
-//            return;
-//        }
+        if (!$source->import(ErgonodeZipSource::MULTIMEDIA)) {
+            return;
+        }
 
         $reader = new ErgonodeMultimediaReader($directory, self::FILENAME);
 
