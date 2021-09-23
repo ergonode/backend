@@ -26,6 +26,8 @@ interface MultimediaQueryInterface
 
     public function findIdByFilename(string $filename): ?MultimediaId;
 
+    public function findTypeById(MultimediaId $multimediaId): ?string;
+
     /**
      * @return array
      */
