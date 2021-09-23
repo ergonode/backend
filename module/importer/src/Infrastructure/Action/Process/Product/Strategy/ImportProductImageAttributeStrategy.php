@@ -43,7 +43,7 @@ class ImportProductImageAttributeStrategy implements ImportProductAttributeStrat
                 }
 
                 $type = $this->multimediaQuery->findTypeById($multimediaId);
-                if($type !== 'image') {
+                if ($type !== 'image') {
                     throw new ImportException('Only image file can be set as image attribute value');
                 }
 
