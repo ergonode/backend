@@ -57,6 +57,21 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         return $result ? new MultimediaId($result) : null;
     }
 
+    public function findTypeById(MultimediaId $multimediaId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb
+            ->select('(left(mime, strpos(mime, \'/\')-1)) AS type')
+            ->from(self::TABLE)
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $multimediaId->getValue())
+            ->setMaxResults(1)
+            ->execute()
+            ->fetchOne();
+
+        return $result ?: null;
+    }
+
     public function findIdByFilename(string $name): ?MultimediaId
     {
         $query = $this->getQuery();
