@@ -49,7 +49,7 @@ class ImportProductGalleryAttributeStrategy implements ImportProductAttributeStr
                     throw new ImportException('Missing "{item}" multimedia.', ['{item}' => $item]);
                 }
                 $type = $this->multimediaQuery->findTypeById($multimediaId);
-                if ($type !== 'image') {
+                if ('image' !== $type) {
                     throw new ImportException('Only images file can be set as gallery attribute value');
                 }
                 $collection[] = $multimediaId->getValue();
