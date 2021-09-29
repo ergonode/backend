@@ -141,7 +141,7 @@ class ProductGridBuilder implements GridBuilderInterface
                 'parameters' => ['language' => $language->getCode(), 'product' => '{id}'],
                 'method' => Request::METHOD_DELETE,
             ],
-        ]))->orderBy('index', 'DESC');
+        ]))->orderBy('esa_index', 'DESC');
 
         return $grid;
     }
