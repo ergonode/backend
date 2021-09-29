@@ -127,8 +127,8 @@ Feature: Product edit feature
     When I send a GET request to "api/v1/en_GB/products?columns=id&filter=id=@product_1_id@,@product_2_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | collection[0].id | @product_1_id@ |
-      | collection[1].id | @product_2_id@ |
+      | collection[0].id | @product_2_id@ |
+      | collection[1].id | @product_1_id@ |
       | info.filtered    | 2              |
 
   Scenario: Request product grid filtered by product id
