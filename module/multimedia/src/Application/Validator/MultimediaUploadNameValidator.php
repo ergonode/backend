@@ -32,9 +32,9 @@ class MultimediaUploadNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, UploadedFile::class);
         }
 
-        if (128 < strlen($value->getClientOriginalName())) {
+        if ($constraint->max < strlen($value->getClientOriginalName())) {
             $this->context->buildViolation($constraint->messageMax)
-                ->setParameter('{{ limit }}', (string) 128)
+                ->setParameter('{{ limit }}', $constraint->max)
                 ->addViolation();
         } elseif (mb_strpos($value->getClientOriginalName(), '/') !== false) {
             $this->context->buildViolation($constraint->message)

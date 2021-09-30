@@ -29,9 +29,9 @@ class MultimediaNameValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        if (128 < strlen($value)) {
+        if ($constraint->max < strlen($value)) {
             $this->context->buildViolation($constraint->messageMax)
-                ->setParameter('{{ limit }}', (string) 128)
+                ->setParameter('{{ limit }}', (string) $constraint->max)
                 ->addViolation();
         } elseif (mb_strpos($value, '/') !== false) {
             $this->context->buildViolation($constraint->message)
