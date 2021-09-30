@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -52,7 +52,8 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
 
     private function updateProjection(string $id, string $name): void
     {
-        $this->connection->executeQuery('UPDATE multimedia SET name = :name WHERE id = :id',
+        $this->connection->executeQuery(
+            'UPDATE multimedia SET name = :name WHERE id = :id',
             [
                 'id' => $id,
                 'name' => $name,
@@ -107,12 +108,12 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
 
     private function fileExists(string $id, string $name): bool
     {
-        return (bool)$this->connection
+        return (bool) $this->connection
             ->executeQuery(
                 'SELECT id FROM multimedia WHERE name = :name AND id <> :id',
                 [
                     'id' => $id,
-                    'name' => $name
+                    'name' => $name,
                 ]
             )
             ->fetchOne();
