@@ -20,6 +20,6 @@ abstract class AbstractErgonodeMigration extends AbstractMigration
      */
     public function down(Schema $schema): void
     {
-        $this->throwIrreversibleMigrationException();
+        //$this->throwIrreversibleMigrationException();
     }
 }

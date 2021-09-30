@@ -55,6 +55,10 @@ class AddMultimediaCommandHandler
             $extension = $file->guessExtension();
         }
 
+        if (mb_strpos($originalName, '/')) {
+            throw new \LogicException('Multimedia the name can\'t contains "/" character.');
+        }
+
         if (!in_array($extension, $this->provider->dictionary(), true)) {
             throw new \LogicException('Multimedia type {type} is not allowed ', ['{type}' => $extension]);
         }
