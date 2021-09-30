@@ -40,7 +40,7 @@ class MultimediaUploadNameValidatorTest extends ConstraintValidatorTestCase
 
         $assertion = $this
             ->buildViolation($constraint->messageMax)
-            ->setParameter('{{ limit }}', 128);
+            ->setParameter('{{ limit }}', '128');
         $assertion->assertRaised();
     }
 
