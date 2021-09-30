@@ -28,6 +28,10 @@ class UpdateMultimediaCommandHandler
      */
     public function __invoke(UpdateMultimediaCommand $command): void
     {
+        if (mb_strpos($command->getName(), '/')) {
+            throw new \LogicException('Multimedia the name can\'t contains "/" character.');
+        }
+
         /** @var Multimedia $multimedia */
         $multimedia = $this->repository->load($command->getId());
         $multimedia->changeAlt($command->getAlt());

@@ -57,6 +57,15 @@ Feature: Multimedia
       """
     Then the response status code should be 204
 
+  Scenario: Update multimedia information (invalid name character)
+    And I send a PUT request to "api/v1/en_EN/multimedia/@multimedia_id@" with body:
+       """
+      {
+        "name": "new/name.png"
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Get multimedia
     And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
     Then the response status code should be 200
