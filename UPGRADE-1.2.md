@@ -24,3 +24,6 @@ BatchAction:
 * Class `EndBatchActionCommandHandler` has been removed
 * Class `StartBatchActionCommandHandler` has been removed
 * Rabbit queue configuration MESSENGER_TRANSPORT_BATCH_ACTION_DSN is no longer required 
+
+Attribute:
+* Validation `AttributeCode` value can't be equal 'id'
