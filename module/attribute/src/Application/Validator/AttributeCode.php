@@ -16,7 +16,8 @@ use Ergonode\SharedKernel\Application\Validator\SystemCode;
  */
 class AttributeCode extends SystemCode
 {
-    public string $regexMessage = 'System name can have only letters, digits or underscore symbol';
+    public string $regexMessage =
+        'System name can have only letters, digits or underscore symbol and it can\'t be \'id\'';
 
     public int $min = ValueObject::MIN_LENGTH;
 
