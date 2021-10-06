@@ -34,6 +34,12 @@ class AttributeCodeTest extends TestCase
         $this->assertEquals($value, $attributeCode->getValue());
     }
 
+    public function testForbiddenCode(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new AttributeCode('id');
+    }
+
     public function validDataProvider(): \Generator
     {
         $collection = str_split('abcdefghijklmnopqrstuvwxyz1234567890_');

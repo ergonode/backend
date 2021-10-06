@@ -69,3 +69,15 @@ Feature: Attribute validation
       }
       """
     Then the response status code should be 400
+
+  Scenario: Create attribute with not valid code (not allowed code)
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+    {
+          "code": "id",
+          "type": "NUMERIC",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 400
