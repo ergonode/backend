@@ -124,14 +124,24 @@ class AbstractAttributeTest extends TestCase
         $this->assertEquals([], $attribute->getGroups());
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testThrowsExceptionOnEsaCodeNonSystemAttribute(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $this->getClass(new AttributeCode('esa_code'));
+    }
+
+    public function testThrowsExceptionOnNonEsaCodeSystemAttribute(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->getSystemClass(new AttributeCode('code'));
+    }
+
+    public function testCreateSystemAttribute(): void
+    {
+        $this->expectNotToPerformAssertions();
+        $this->getSystemClass(new AttributeCode('esa_code'));
     }
 
     private function getClass(AttributeCode $code = null): AbstractAttribute
@@ -148,6 +158,29 @@ class AbstractAttributeTest extends TestCase
             public function getType(): string
             {
                 return 'TYPE';
+            }
+        };
+    }
+
+    private function getSystemClass(AttributeCode $code = null): AbstractAttribute
+    {
+        return new class(
+            $this->id,
+            $code ?? $this->code,
+            $this->translation,
+            $this->translation,
+            $this->translation,
+            $this->scope,
+            $this->parameters,
+        ) extends AbstractAttribute {
+            public function getType(): string
+            {
+                return 'TYPE';
+            }
+
+            public function isSystem(): bool
+            {
+                return true;
             }
         };
     }
