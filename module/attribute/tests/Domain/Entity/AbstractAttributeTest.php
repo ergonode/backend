@@ -124,11 +124,21 @@ class AbstractAttributeTest extends TestCase
         $this->assertEquals([], $attribute->getGroups());
     }
 
-    private function getClass(): AbstractAttribute
+    /**
+     * @throws \Exception
+     */
+    public function testThrowsExceptionOnEsaCodeNonSystemAttribute(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->getClass(new AttributeCode('esa_code'));
+    }
+
+    private function getClass(AttributeCode $code = null): AbstractAttribute
     {
         return  new class(
             $this->id,
-            $this->code,
+            $code ?? $this->code,
             $this->translation,
             $this->translation,
             $this->translation,
