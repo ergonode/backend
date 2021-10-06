@@ -34,7 +34,7 @@ class AttributeCodeTest extends TestCase
         $this->assertEquals($value, $attributeCode->getValue());
     }
 
-    public function testInvalidString(): void
+    public function testForbiddenCode(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new AttributeCode('id');
