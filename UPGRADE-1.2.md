@@ -23,8 +23,7 @@ BatchAction:
 * Class `StartBatchActionCommand` has been removed
 * Class `EndBatchActionCommandHandler` has been removed
 * Class `StartBatchActionCommandHandler` has been removed
-* Rabbit queue configuration MESSENGER_TRANSPORT_BATCH_ACTION_DSN is no longer required 
-* Class `Ergonode\Grid\FilterGridConfiguration` become deprecated use `Ergonode\BatchAction\Infrastructure\Grid\BatchActionFilterGridConfiguration` instead
+* Rabbit queue configuration MESSENGER_TRANSPORT_BATCH_ACTION_DSN is no longer required
 
 Attribute:
 * Validation `AttributeCode` value cannot be 'id' or start with 'esa_' - *Before migration to new version you need to change all `AttributeCodes` which start with 'esa_' or equal 'id'. Otherwise, it can cause system to break.*
