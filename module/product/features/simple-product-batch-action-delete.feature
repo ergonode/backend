@@ -46,18 +46,12 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
-  Scenario: Create batch action with product 2 and product 3
+  Scenario: Create batch action product 3 by sku
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
         "type": "PRODUCT_DELETE",
         "filter": {
-          "ids": {
-            "list": [
-              "@product_id_2@"
-            ],
-            "included": true
-          },
             "query": "esa_sku=@product_sku_3@"
         }
       }
@@ -75,8 +69,14 @@ Feature: batch action product deletion
     Examples:
     |number|
     |1|
-    |2|
     |3|
+
+  Scenario Outline: Delete product <number> not deleted
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id_<number>@"
+    Then the response status code should be 204
+    Examples:
+      |number|
+      |2|
 
   Scenario: Create batch action with not exists product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
