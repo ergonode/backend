@@ -14,6 +14,7 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 class AttributeCode extends AbstractCode
 {
     public const PATTERN = '/^([a-zA-Z0-9_]+)$/';
+    public const FORBIDDEN = ['id'];
 
     public function __construct(string $value)
     {
@@ -25,6 +26,7 @@ class AttributeCode extends AbstractCode
         $value = strtolower($value);
 
         return parent::isValid($value)
-            && preg_match(self::PATTERN, $value);
+            && preg_match(self::PATTERN, $value)
+            && !in_array($value, self::FORBIDDEN);
     }
 }

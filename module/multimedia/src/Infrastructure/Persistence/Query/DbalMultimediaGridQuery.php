@@ -33,10 +33,6 @@ class DbalMultimediaGridQuery implements MultimediaGridQueryInterface
             ->addSelect('(left(m.mime, strpos(m.mime, \'/\')-1)) AS type')
             ->addSelect('(m.size / 1024.00)::NUMERIC(10,2) AS size')
             ->addSelect('m.id AS image')
-            ->addSelect('(SELECT COUNT(DISTINCT pv.product_id) FROM product_value pv
-                                    JOIN value_translation vt ON vt.value_id = pv.value_id
-                                    WHERE vt.value ILIKE CONCAT(\'%\', m.id::TEXT, \'%\')
-                                ) AS relations')
             ->from(self::TABLE, 'm');
     }
 }
