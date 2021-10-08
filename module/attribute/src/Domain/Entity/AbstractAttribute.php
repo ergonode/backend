@@ -63,6 +63,12 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         AttributeScope $scope,
         array $parameters = []
     ) {
+        if (!$this->isSystem() && str_starts_with($code->getValue(), 'esa_')) {
+            throw new \InvalidArgumentException('Non-system attribute code cannot start with `esa_`');
+        }
+        if ($this->isSystem() && !str_starts_with($code->getValue(), 'esa_')) {
+            throw new \InvalidArgumentException('System attribute code has to start with `esa_`');
+        }
         $this->apply(
             new AttributeCreatedEvent(
                 $id,

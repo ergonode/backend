@@ -51,7 +51,7 @@
         "symfony/messenger": "^4.4|^5.3",
         "symfony/monolog-bundle": "^3.5",
         "symfony/options-resolver": "^4.4|^5.3",
-        "symfony/polyfill-php80": "^1.0",
+        "symfony/polyfill-php80": "^1.22",
         "symfony/security": "^4.4|^5.3",
         "symfony/security-bundle": "^4.4.16|^5.3",
         "symfony/serializer": "^4.4|^5.3",
