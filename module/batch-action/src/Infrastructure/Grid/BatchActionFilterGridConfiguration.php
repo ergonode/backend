@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,16 +7,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Grid;
+namespace Ergonode\BatchAction\Infrastructure\Grid;
 
-use Ergonode\Grid\Request\FilterValue;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Grid\Request\RequestColumn;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
+use Ergonode\Grid\Request\FilterValue;
 
-/**
- * @deprecated
- */
-class FilterGridConfiguration implements GridConfigurationInterface
+class BatchActionFilterGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
     public const LIMIT = 2147483647;
@@ -27,18 +27,20 @@ class FilterGridConfiguration implements GridConfigurationInterface
      */
     private array $columns;
 
-    public function __construct(string $filters)
+    public function __construct(BatchActionFilterInterface $filter)
     {
-        @trigger_error(
-            'Ergonode\Grid\FilterGridConfiguration is deprecated and will be removed in 2.0.'
-            .' Use Ergonode\BatchAction\Infrastructure\Grid\BatchActionFilterGridConfiguration instead.',
-            \E_USER_DEPRECATED,
-        );
-
         $this->columns = [];
-        $this->filters = new FilterValueCollection($filters);
+        $this->filters = new FilterValueCollection($filter->getQuery());
+        $ids = $filter->getIds();
+
+        if ($ids) {
+            $operator = $ids->isIncluded() ? '=' : '!=';
+            $filer = new FilterValue('id', $operator, implode(',', $ids->getList()));
+            $this->filters->addFilter('id', $filer);
+        }
+
+        /** @var FilterValue[] $elements */
         foreach ($this->filters as $key => $elements) {
-            /** @var FilterValue $element */
             foreach ($elements as $element) {
                 $this->columns[$key] = new RequestColumn($element->getColumn(), $element->getLanguage(), false);
             }
@@ -65,9 +67,6 @@ class FilterGridConfiguration implements GridConfigurationInterface
         return self::ASC;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getColumns(): array
     {
         return $this->columns;
