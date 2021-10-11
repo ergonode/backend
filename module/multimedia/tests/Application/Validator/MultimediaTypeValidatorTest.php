@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 class MultimediaTypeValidatorTest extends ConstraintValidatorTestCase
 {
-    private MultimediaRepositoryInterface $repository;
+    private MultimediaTypeQueryInterface $query;
 
     protected function setUp(): void
     {
