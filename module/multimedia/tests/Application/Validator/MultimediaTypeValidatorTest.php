@@ -12,7 +12,6 @@ namespace Ergonode\Multimedia\Tests\Application\Validator;
 use Ergonode\Multimedia\Application\Validator\MultimediaType;
 use Ergonode\Multimedia\Application\Validator\MultimediaTypeValidator;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Ergonode\Multimedia\Domain\Query\MultimediaTypeQueryInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
