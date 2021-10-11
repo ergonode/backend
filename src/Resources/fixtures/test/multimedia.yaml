@@ -3,4 +3,7 @@ Ergonode\Multimedia\Domain\Command\AddMultimediaCommand:
         __construct:
             - '<MultimediaId()>'
             - '<multimediaFile(src/Resources/image/product-1.jpg)>'
-
+    document_image:
+        __construct:
+            - '<MultimediaId()>'
+            - '<multimediaFile(src/Resources/image/document-1.txt)>'

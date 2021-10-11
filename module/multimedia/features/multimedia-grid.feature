@@ -14,7 +14,7 @@ Feature: Multimedia grid feature
     Then the response status code should be 200
 
   Scenario Outline: Request multimedia grid filtered by type <code> attribute
-    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>=<filter>"
+    When I send a GET request to "api/v1/en_GB/multimedia?columns=<code>&filter=<code>=<filter>"
     Then the response status code should be 200
     Examples:
       | code       | filter      |
