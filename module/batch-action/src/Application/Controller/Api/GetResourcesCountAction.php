@@ -11,8 +11,6 @@ namespace Ergonode\BatchAction\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
-use Ergonode\BatchAction\Application\Form\BatchActionForm;
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
 use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
@@ -22,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\BatchAction\Application\Form\BatchActionCountForm;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionCountFormModel;
 
 /**
  * @Route("/batch-action/count", methods={"POST"})
@@ -78,17 +78,23 @@ class GetResourcesCountAction
      */
     public function __invoke(Request $request): array
     {
+        $type = $request->request->get('type');
+
+        if (null === $type
+            || !BatchActionType::isValid($type)
+            || !$this->count->supports(new BatchActionType($type))) {
+            throw new BadRequestHttpException("Unsupported type {$type}");
+        }
+
         try {
-            $form = $this->formFactory->create(BatchActionForm::class);
+            $form = $this->formFactory->create(BatchActionCountForm::class);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var BatchActionFormModel $data */
+                /** @var BatchActionCountFormModel $data */
                 $data = $form->getData();
                 $type = new BatchActionType($data->type);
-                if (!$this->count->supports($type)) {
-                    throw new BadRequestHttpException("Unsupported type {$data->type}");
-                }
+
                 $filter = 'all' === $data->filter ?
                     new BatchActionFilterDisabled() :
                     $this->factory->create($data->filter);

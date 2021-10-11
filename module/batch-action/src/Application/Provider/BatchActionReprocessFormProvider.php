@@ -8,22 +8,22 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Provider;
 
-use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\BatchAction\Application\Form\BatchActionReprocessFormInterface;
 
-class BatchActionFormProvider
+class BatchActionReprocessFormProvider
 {
     /**
-     * @var BatchActionFormInterface[]
+     * @var BatchActionReprocessFormInterface[]
      */
     private iterable $forms;
 
     /**
-     * @param BatchActionFormInterface[] $forms
+     * @param BatchActionReprocessFormInterface[] $forms
      */
     public function __construct(iterable $forms)
     {
-        Assert::allIsInstanceOf($forms, BatchActionFormInterface::class);
+        Assert::allIsInstanceOf($forms, BatchActionReprocessFormInterface::class);
 
         $this->forms = $forms;
     }

@@ -11,7 +11,7 @@ namespace Ergonode\BatchAction\Application\Form\Model;
 use Ergonode\BatchAction\Application\Validator\AllFilterDisabled;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class BatchActionFormModel
+class BatchActionCountFormModel
 {
     /**
      * @Assert\NotBlank(message="Batch action type is required")
@@ -23,11 +23,6 @@ class BatchActionFormModel
     public ?string $type = null;
 
     /**
-     * @Assert\Type("boolean")
-     */
-    public bool $autoEndOnErrors = true;
-
-    /**
      * @Assert\Valid()
      * @Assert\NotBlank()
      * @AllFilterDisabled()
@@ -35,11 +30,4 @@ class BatchActionFormModel
      * @var string|BatchActionFilterFormModel $filter
      */
     public $filter = null;
-
-    /**
-     * @Assert\Valid()
-     *
-     * @var mixed
-     */
-    public $payload = null;
 }

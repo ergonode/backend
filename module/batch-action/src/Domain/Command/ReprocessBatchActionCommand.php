@@ -9,17 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Domain\Command;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
-class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainCommandInterface
+class ReprocessBatchActionCommand extends AbstractPayloadCommand implements DomainCommandInterface
 {
     private BatchActionId $id;
-
-    private BatchActionType $type;
-
-    private BatchActionFilterInterface $filter;
 
     private bool $autoEndOnErrors;
 
@@ -28,14 +22,10 @@ class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainC
      */
     public function __construct(
         BatchActionId $id,
-        BatchActionType $type,
-        BatchActionFilterInterface $filter,
-        $payload = null,
-        bool $autoEndOnErrors = true
+        bool $autoEndOnErrors,
+        $payload = null
     ) {
         $this->id = $id;
-        $this->type = $type;
-        $this->filter = $filter;
         $this->autoEndOnErrors = $autoEndOnErrors;
         parent::__construct($payload);
     }
@@ -43,16 +33,6 @@ class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainC
     public function getId(): BatchActionId
     {
         return $this->id;
-    }
-
-    public function getType(): BatchActionType
-    {
-        return $this->type;
-    }
-
-    public function getFilter(): BatchActionFilterInterface
-    {
-        return $this->filter;
     }
 
     public function isAutoEndOnErrors(): bool

@@ -4,3 +4,4 @@ framework:
             batch_action: "batch-action://"
         routing:
             Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand: 'batch_action'
+            Ergonode\BatchAction\Domain\Command\ProcessBatchActionCommand: 'batch_action'

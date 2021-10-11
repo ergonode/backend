@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
 use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,17 +15,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionCountFormModel;
 
-class BatchActionForm extends AbstractType implements BatchActionFormInterface
+class BatchActionCountForm extends AbstractType
 {
-    public function supported(string $type): bool
-    {
-        return $type === 'default';
-    }
-
-    /**
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -55,13 +47,6 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
                 [
                     'required' => false,
                 ]
-            )
-            ->add(
-                'payload',
-                TextType::class,
-                [
-                    'required' => false,
-                ]
             );
     }
 
@@ -69,7 +54,7 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
     {
         $resolver->setDefaults(
             [
-                'data_class' => BatchActionFormModel::class,
+                'data_class' => BatchActionCountFormModel::class,
                 'translation_domain' => 'batch-action',
             ]
         );
