@@ -16,7 +16,9 @@ class MultimediaStorageCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $definition = $container->findDefinition('multimedia.storage');
-        $definition->setPublic(true);
+        if ($container->has('multimedia.storage')) {
+            $definition = $container->findDefinition('multimedia.storage');
+            $definition->setPublic(true);
+        }
     }
 }
