@@ -46,7 +46,7 @@ Feature: Image attribute manipulation
       """
     Then the response status code should be 204
 
-  Scenario: Validate image attribute value (exists image)
+  Scenario: Validate image attribute value (valid image)
     When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
       """
       {
@@ -65,7 +65,7 @@ Feature: Image attribute manipulation
     Then the response status code should be 400
     And the JSON node "errors.value[0]" should contain "Multimedia not id not exists."
 
-  Scenario: Validate image attribute value (not exists image)
+  Scenario: Validate image attribute value (not image)
     When I send a POST request to "api/v1/en_GB/attribute/@attribute_id@/validate" with body:
       """
       {
