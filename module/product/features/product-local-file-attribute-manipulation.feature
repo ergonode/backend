@@ -157,7 +157,7 @@ Feature: Product edit and inheritance value for product product with file attrib
         }
       """
     Then the response status code should be 400
-    And the JSON node "errors.value" should contain "One or more of the given values is invalid."
+    And the JSON node "errors.value" should contain "Multimedia test not exists."
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"

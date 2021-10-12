@@ -24,5 +24,18 @@ class BatchActionTest extends TestCase
 
         self::assertEquals($id, $entity->getId());
         self::assertEquals($type, $entity->getType());
+        self::assertTrue($entity->isAutoEndOnErrors());
+    }
+
+    public function testEntityCreationWithAutoOnErrorsFlag(): void
+    {
+        $id = $this->createMock(BatchActionId::class);
+        $type = $this->createMock(BatchActionType::class);
+
+        $entity = new BatchAction($id, $type, null, false);
+
+        self::assertEquals($id, $entity->getId());
+        self::assertEquals($type, $entity->getType());
+        self::assertFalse($entity->isAutoEndOnErrors());
     }
 }

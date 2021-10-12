@@ -132,8 +132,8 @@ Feature: Product edit and inheritance value for product product with image attri
           ]
         }
       """
-    Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "is not a valid UUID."
+    Then the response status code should be 400
+    And the JSON node "errors.data.element-0.payload.element-0.values.element-0.value[0]" should contain "Multimedia test not exists."
 
   Scenario: Edit product image value in "en_GB" language (batch endpoint) (value not string)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -158,7 +158,7 @@ Feature: Product edit and inheritance value for product product with image attri
         }
       """
     Then the response status code should be 500
-    And the JSON node "exception.current.message" should contain "Expected a string. Got: array"
+    And the JSON node "exception.current.message" should contain 'Expected argument of type "string", "array" given'
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"

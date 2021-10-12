@@ -10,8 +10,8 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
-use Ergonode\Multimedia\Infrastructure\Service\Migration\FileMigrationService;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -24,16 +24,20 @@ final class Version20210811100500 extends AbstractErgonodeMigration implements C
 
     public function up(Schema $schema): void
     {
-        /** @var FileMigrationService $fileService */
-        $fileService = $this->container
-            ->get(FileMigrationService::class);
+        /** @var FilesystemInterface $multimediaStorage */
+        $multimediaStorage = $this->container
+            ->get('multimedia.storage');
 
         $data = $this->getHash();
 
-
         foreach ($data as $row) {
             try {
-                $fileService->migrateFile(new MultimediaId($row['id']), new Hash($row['hash']), $row['extension']);
+                $this->migrateFile(
+                    $multimediaStorage,
+                    new MultimediaId($row['id']),
+                    new Hash($row['hash']),
+                    $row['extension'],
+                );
             } catch (\Exception $exception) {
                 $this->write($exception->getMessage());
             }
@@ -49,5 +53,21 @@ final class Version20210811100500 extends AbstractErgonodeMigration implements C
                 ORDER BY m.created_at ASC'
             )
             ->fetchAllAssociative();
+    }
+
+    private function migrateFile(
+        FilesystemInterface $multimediaStorage,
+        MultimediaId $multimediaId,
+        Hash $hash,
+        string $extension
+    ): void {
+        $oldFilename = sprintf('%s.%s', $hash->getValue(), $extension);
+        $newFilename = sprintf('%s.%s', $multimediaId->getValue(), $extension);
+
+        if (!$multimediaStorage->has($oldFilename)) {
+            return;
+        }
+
+        $multimediaStorage->rename($oldFilename, $newFilename);
     }
 }

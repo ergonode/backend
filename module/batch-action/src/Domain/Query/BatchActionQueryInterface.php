@@ -17,4 +17,8 @@ interface BatchActionQueryInterface
     public function getInformation(BatchActionId $id, Language $language): BatchActionInformationModel;
 
     public function getProfileInfo(): array;
+
+    public function hasErrors(BatchActionId $id): bool;
+
+    public function hasEntriesToProcess(BatchActionId $id): bool;
 }

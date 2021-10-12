@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia;
 
+use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaStorageCompilerPass;
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaRelationCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,5 +23,6 @@ class ErgonodeMultimediaBundle extends AbstractModule
 
         $container->addCompilerPass(new MetadataReaderCompilerPass());
         $container->addCompilerPass(new MultimediaRelationCompilerPass());
+        $container->addCompilerPass(new MultimediaStorageCompilerPass());
     }
 }

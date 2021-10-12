@@ -31,7 +31,7 @@ class CreateBatchActionCommandHandler
     {
         $type = $command->getType();
         $id = $command->getId();
-        $batchAction = new BatchAction($id, $type, $command->getPayload());
+        $batchAction = new BatchAction($id, $type, $command->getPayload(), $command->isAutoEndOnErrors());
         $this->repository->save($batchAction);
 
         $ids = $this->filterProvider->provide($type)->filter($command->getFilter());

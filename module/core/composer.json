@@ -26,7 +26,7 @@
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/form": "^4.4.11|^5.3",
         "symfony/messenger": "^4.4|^5.3",
-        "symfony/polyfill-php80": "^1.0",
+        "symfony/polyfill-php80": "^1.22",
         "symfony/serializer": "^4.4|^5.3",
         "symfony/translation": "^4.4|^5.3"
     },
