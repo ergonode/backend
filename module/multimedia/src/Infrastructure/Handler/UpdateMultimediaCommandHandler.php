@@ -34,12 +34,12 @@ class UpdateMultimediaCommandHandler
      */
     public function __invoke(UpdateMultimediaCommand $command): void
     {
-        if ($this->query->findIdByFilename($command->getName())) {
-            throw new UnexpectedValueException(sprintf('Multimedia name %s already exists.', $command->getName()));
-        }
         /** @var Multimedia $multimedia */
         $multimedia = $this->repository->load($command->getId());
         $multimedia->changeAlt($command->getAlt());
+        if ($multimedia->getName() !== $command->getName() && $this->query->findIdByFilename($command->getName())) {
+            throw new UnexpectedValueException(sprintf('Multimedia name %s already exists.', $command->getName()));
+        }
         $multimedia->changeName($command->getName());
         $this->repository->save($multimedia);
     }

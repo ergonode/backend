@@ -17,4 +17,12 @@ use Symfony\Component\Validator\Constraint;
 class MultimediaNameExists extends Constraint
 {
     public string $message = 'Name already exists.';
+
+    /**
+     * @return array|string
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }
