@@ -12,6 +12,9 @@ use Ergonode\Grid\Request\FilterValue;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Grid\Request\RequestColumn;
 
+/**
+ * @deprecated
+ */
 class FilterGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
@@ -26,6 +29,12 @@ class FilterGridConfiguration implements GridConfigurationInterface
 
     public function __construct(string $filters)
     {
+        @trigger_error(
+            'Ergonode\Grid\FilterGridConfiguration is deprecated and will be removed in 2.0.'
+            .' Use Ergonode\BatchAction\Infrastructure\Grid\BatchActionFilterGridConfiguration instead.',
+            \E_USER_DEPRECATED,
+        );
+
         $this->columns = [];
         $this->filters = new FilterValueCollection($filters);
         foreach ($this->filters as $key => $elements) {

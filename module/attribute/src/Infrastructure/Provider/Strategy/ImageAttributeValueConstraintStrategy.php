@@ -14,24 +14,23 @@ use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyI
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
+use Ergonode\Multimedia\Application\Validator\MultimediaExists;
+use Ergonode\Multimedia\Application\Validator\MultimediaType;
 
 class ImageAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof ImageAttribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
-            'value' => [],
+            'value' => [
+                new MultimediaExists(),
+                new MultimediaType('image'),
+            ],
         ]);
     }
 }

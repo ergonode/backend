@@ -21,6 +21,8 @@ class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainC
 
     private BatchActionFilterInterface $filter;
 
+    private bool $autoEndOnErrors;
+
     /**
      * @param mixed $payload
      */
@@ -28,11 +30,13 @@ class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainC
         BatchActionId $id,
         BatchActionType $type,
         BatchActionFilterInterface $filter,
-        $payload = null
+        $payload = null,
+        bool $autoEndOnErrors = true
     ) {
         $this->id = $id;
         $this->type = $type;
         $this->filter = $filter;
+        $this->autoEndOnErrors = $autoEndOnErrors;
         parent::__construct($payload);
     }
 
@@ -49,5 +53,10 @@ class CreateBatchActionCommand extends AbstractPayloadCommand implements DomainC
     public function getFilter(): BatchActionFilterInterface
     {
         return $this->filter;
+    }
+
+    public function isAutoEndOnErrors(): bool
+    {
+        return $this->autoEndOnErrors;
     }
 }

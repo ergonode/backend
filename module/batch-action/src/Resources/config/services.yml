@@ -24,6 +24,13 @@ services:
            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\ReprocessBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@form.factory'
+            - '@Ergonode\BatchAction\Application\Provider\BatchActionReprocessFormProvider'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
@@ -40,10 +47,19 @@ services:
         arguments:
             $forms: !tagged_iterator 'ergonode.batch_action.form_provider'
 
+    Ergonode\BatchAction\Application\Provider\BatchActionReprocessFormProvider:
+        arguments:
+            $forms: !tagged_iterator 'ergonode.batch_action.reprocessing_form_provider'
+
     Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
         tags: ['controller.service_arguments']
         arguments:
             - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
+
+    Ergonode\BatchAction\Application\Controller\Api\EndBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Application\Validator\AllFilterDisabledValidator:
         tags: ['validator.constraint_validator']
@@ -116,6 +132,17 @@ services:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
 
+    Ergonode\BatchAction\Infrastructure\Handler\ReprocessBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
+            - '@Ergonode\Core\Application\Messenger\DomainEventBus'
+
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider:
         arguments:
             $strategies: !tagged_iterator 'batch_action.filter_provider.interface'
@@ -125,6 +152,13 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
+            - '@Ergonode\SharedKernel\Domain\Bus\DomainEventBusInterface'
 
     Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]

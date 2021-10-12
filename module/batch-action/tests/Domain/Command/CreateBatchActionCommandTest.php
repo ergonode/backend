@@ -40,5 +40,6 @@ class CreateBatchActionCommandTest extends TestCase
         self::assertEquals($this->type, $command->getType());
         self::assertEquals($this->filter, $command->getFilter());
         self::assertEquals($payload, $command->getPayload());
+        self::assertTrue($command->isAutoEndOnErrors());
     }
 }

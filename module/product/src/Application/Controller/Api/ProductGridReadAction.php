@@ -23,7 +23,7 @@ class ProductGridReadAction extends ProductGridAction
 {
     /**
      * @IsGranted("ERGONODE_ROLE_PRODUCT_GET_GRID")
-     * @SWG\Get(description="This endpoint is depricated, use `GET /api/v1/{language}/products/grid` instead")
+     * @SWG\Get(description="This endpoint is deprecated, use `GET /api/v1/{language}/products/grid` instead")
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="limit",

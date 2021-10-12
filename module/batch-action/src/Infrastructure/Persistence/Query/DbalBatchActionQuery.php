@@ -17,6 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\BatchAction\Domain\Model\BatchActionEntryModel;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionStatus;
 
 class DbalBatchActionQuery implements BatchActionQueryInterface
 {
@@ -39,7 +40,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         $record = $qb
-            ->select('id, created_at, type, payload')
+            ->select('id, created_at, type, payload, status')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id) AS all')
             ->addSelect('(SELECT count(*) FROM batch_action_entry WHERE batch_action_id = id 
             AND success IS NOT NULL) AS processed')
@@ -54,6 +55,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         $model = new BatchActionInformationModel(
             new BatchActionId($record['id']),
             new BatchActionType($record['type']),
+            new BatchActionStatus($record['status']),
             $record['all'],
             $record['processed'],
             new \DateTime($record['created_at']),
@@ -75,13 +77,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('id')
-            ->addSelect('(select (case
-                                            when (select count(*)
-                                                  from batch_action_entry
-                                                  where batch_action_id = ba.id 
-                                                    and success is null ) = 0 then \'ENDED\'
-                                            else \'PRECESSED\' end) as status)')
+        return $qb->select('id, status')
             ->addSelect('created_at as started_at')
             ->addSelect('(select (case
                                 when (select count(*)
@@ -114,6 +110,37 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             ->setMaxResults(self::PROFILE_RESULT)
             ->execute()
             ->fetchAll();
+    }
+
+    public function hasErrors(BatchActionId $id): bool
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('batch_action_id')
+            ->from('batch_action_entry')
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
+            ->andWhere($qb->expr()->eq('success', ':success'))
+            ->setParameter(':id', $id->getValue())
+            ->setParameter('success', false, \PDO::PARAM_BOOL)
+            ->setMaxResults(1)
+            ->execute()
+            ->rowCount();
+
+        return (bool) $result;
+    }
+
+    public function hasEntriesToProcess(BatchActionId $id): bool
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('batch_action_id')
+            ->from('batch_action_entry')
+            ->where($qb->expr()->eq('batch_action_id', ':id'))
+            ->andWhere($qb->expr()->isNull('processed_at'))
+            ->setParameter(':id', $id->getValue())
+            ->setMaxResults(1)
+            ->execute()
+            ->rowCount();
+
+        return (bool) $result;
     }
 
     private function getEntries(BatchActionId $id, Language $language): array

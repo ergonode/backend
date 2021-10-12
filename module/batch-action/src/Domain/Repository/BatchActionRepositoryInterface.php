@@ -19,6 +19,8 @@ interface BatchActionRepositoryInterface
 
     public function save(BatchAction $batchAction): void;
 
+    public function reprocess(BatchAction $batchAction): void;
+
     public function addEntry(BatchActionId $id, AggregateId $resourceId): void;
 
     /**
