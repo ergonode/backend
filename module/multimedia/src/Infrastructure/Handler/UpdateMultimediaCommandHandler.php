@@ -13,7 +13,6 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Domain\Command\UpdateMultimediaCommand;
-use http\Exception\UnexpectedValueException;
 
 class UpdateMultimediaCommandHandler
 {
@@ -38,7 +37,7 @@ class UpdateMultimediaCommandHandler
         $multimedia = $this->repository->load($command->getId());
         $multimedia->changeAlt($command->getAlt());
         if ($multimedia->getName() !== $command->getName() && $this->query->findIdByFilename($command->getName())) {
-            throw new UnexpectedValueException(sprintf('Multimedia name %s already exists.', $command->getName()));
+            throw new \UnexpectedValueException(sprintf('Multimedia name %s already exists.', $command->getName()));
         }
         $multimedia->changeName($command->getName());
         $this->repository->save($multimedia);
