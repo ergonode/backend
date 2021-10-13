@@ -39,7 +39,7 @@ class MultimediaNameExistsValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, MultimediaModel::class);
         }
 
-        if (null === $value->name || null === $value->multimedia) {
+        if (null === $value->name) {
             return;
         }
 
