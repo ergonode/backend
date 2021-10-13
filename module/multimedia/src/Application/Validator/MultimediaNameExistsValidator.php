@@ -15,6 +15,7 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class MultimediaNameExistsValidator extends ConstraintValidator
 {
@@ -39,7 +40,7 @@ class MultimediaNameExistsValidator extends ConstraintValidator
         }
 
         if (!$value instanceof MultimediaModel) {
-            throw new \Symfony\Component\Validator\Exception\UnexpectedTypeException($value, MultimediaModel::class);
+            throw new UnexpectedValueException($value, MultimediaModel::class);
         }
 
         if (null === $value->name || null === $value->multimediaId) {

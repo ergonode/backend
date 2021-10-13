@@ -18,11 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MultimediaModel
 {
-    /**
-     * @Assert\NotBlank(),
-     * @Assert\Uuid (),
-     */
-    public ?MultimediaId $multimediaId = null;
+    public MultimediaId $multimediaId;
 
     /**
      * @Assert\NotBlank(),
