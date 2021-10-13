@@ -55,7 +55,7 @@ nelmio_api_doc:
                         required: true
                         example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
                     visible:
-                        type: bool
+                        type: boolean
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true
@@ -63,7 +63,7 @@ nelmio_api_doc:
                 type: object
                 properties:
                     visible:
-                        type: bool
+                        type: boolean
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true

@@ -70,7 +70,7 @@ nelmio_api_doc:
                         example:
                             - 9b0ceb29-26ac-4852-a602-6e5680a3a029
                     multilingual:
-                        type: bool
+                        type: boolean
                         required: true
                         example: true
                     parameters:

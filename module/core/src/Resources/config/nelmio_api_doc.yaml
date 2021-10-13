@@ -33,7 +33,7 @@ nelmio_api_doc:
                         description: Language name
                         example: English
                     active:
-                        type: bool
+                        type: boolean
                         required: true
                         description: Show if language is enabled in the system
                         example: true
