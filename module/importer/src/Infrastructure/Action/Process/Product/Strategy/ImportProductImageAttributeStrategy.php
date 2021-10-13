@@ -17,14 +17,18 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Multimedia\Domain\Query\MultimediaTypeQueryInterface;
 
 class ImportProductImageAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     private MultimediaQueryInterface $multimediaQuery;
 
-    public function __construct(MultimediaQueryInterface $multimediaQuery)
+    private MultimediaTypeQueryInterface $typeQuery;
+
+    public function __construct(MultimediaQueryInterface $multimediaQuery, MultimediaTypeQueryInterface $typeQuery)
     {
         $this->multimediaQuery = $multimediaQuery;
+        $this->typeQuery = $typeQuery;
     }
 
     public function supported(AttributeType $type): bool
@@ -42,8 +46,7 @@ class ImportProductImageAttributeStrategy implements ImportProductAttributeStrat
                     throw new ImportException('Missing {version} multimedia.', ['{version}' => $version]);
                 }
 
-                $type = $this->multimediaQuery->findTypeById($multimediaId);
-                if ('image' !== $type) {
+                if ('image' !== $this->typeQuery->findMultimediaType($multimediaId)) {
                     throw new ImportException('Only image file can be set as image attribute value');
                 }
 
