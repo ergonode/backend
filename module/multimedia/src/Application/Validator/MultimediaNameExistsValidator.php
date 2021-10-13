@@ -11,7 +11,6 @@ namespace Ergonode\Multimedia\Application\Validator;
 
 use Ergonode\Multimedia\Application\Model\MultimediaModel;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -20,14 +19,11 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class MultimediaNameExistsValidator extends ConstraintValidator
 {
     private MultimediaQueryInterface $multimediaQuery;
-    private MultimediaRepositoryInterface $multimediaRepository;
 
     public function __construct(
-        MultimediaQueryInterface $multimediaQuery,
-        MultimediaRepositoryInterface $multimediaRepository
+        MultimediaQueryInterface $multimediaQuery
     ) {
         $this->multimediaQuery = $multimediaQuery;
-        $this->multimediaRepository = $multimediaRepository;
     }
 
     /**
@@ -43,13 +39,11 @@ class MultimediaNameExistsValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, MultimediaModel::class);
         }
 
-        if (null === $value->name || null === $value->multimediaId) {
+        if (null === $value->name || null === $value->multimedia) {
             return;
         }
 
-        $multimedia = $this->multimediaRepository->load($value->multimediaId);
-
-        if (!isset($multimedia) || $multimedia->getName() === $value->name) {
+        if ($value->multimedia->getName() === $value->name) {
             return;
         }
 

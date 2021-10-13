@@ -14,19 +14,16 @@ use Ergonode\Multimedia\Application\Validator\MultimediaNameExists;
 use Ergonode\Multimedia\Application\Validator\MultimediaNameExistsValidator;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
 {
     private MultimediaQueryInterface $multimediaQuery;
-    private MultimediaRepositoryInterface $multimediaRepository;
 
     protected function setUp(): void
     {
         $this->multimediaQuery = $this->createMock(MultimediaQueryInterface::class);
-        $this->multimediaRepository = $this->createMock(MultimediaRepositoryInterface::class);
         parent::setUp();
     }
 
@@ -42,9 +39,8 @@ class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $multimedia = $this->createMock(Multimedia::class);
         $multimedia->expects($this->once())->method('getName')->willReturn('test');
-        $this->multimediaRepository->expects($this->once())->method('load')->willReturn($multimedia);
         $model = $this->createMock(MultimediaModel::class);
-        $model->multimediaId = $this->createMock(MultimediaId::class);
+        $model->multimedia = $multimedia;
         $model->name = 'test';
         $this->validator->validate($model, new MultimediaNameExists());
 
@@ -55,10 +51,9 @@ class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $multimedia = $this->createMock(Multimedia::class);
         $multimedia->expects($this->once())->method('getName')->willReturn('test');
-        $this->multimediaRepository->expects($this->once())->method('load')->willReturn($multimedia);
         $this->multimediaQuery->expects($this->once())->method('findIdByFilename')->willReturn(null);
         $model = $this->createMock(MultimediaModel::class);
-        $model->multimediaId = $this->createMock(MultimediaId::class);
+        $model->multimedia = $multimedia;
         $model->name = 'test_1';
         $this->multimediaQuery->expects($this->once())->method('findIdByFilename')->willReturn(null);
 
@@ -72,10 +67,9 @@ class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
         $this->multimediaQuery->method('findIdByFilename')->willReturn($this->createMock(MultimediaId::class));
         $multimedia = $this->createMock(Multimedia::class);
         $multimedia->expects($this->once())->method('getName')->willReturn('test');
-        $this->multimediaRepository->expects($this->once())->method('load')->willReturn($multimedia);
         $this->multimediaQuery->expects($this->once())->method('findIdByFilename')->willReturn(null);
         $model = $this->createMock(MultimediaModel::class);
-        $model->multimediaId = $this->createMock(MultimediaId::class);
+        $model->multimedia = $multimedia;
         $model->name = 'test_1';
         $constraint = new MultimediaNameExists();
         $this->validator->validate($model, $constraint);
@@ -86,6 +80,6 @@ class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
 
     protected function createValidator(): MultimediaNameExistsValidator
     {
-        return new MultimediaNameExistsValidator($this->multimediaQuery, $this->multimediaRepository);
+        return new MultimediaNameExistsValidator($this->multimediaQuery);
     }
 }
