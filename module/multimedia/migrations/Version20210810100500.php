@@ -65,7 +65,7 @@ final class Version20210810100500 extends AbstractErgonodeMigration
 
     private function generateName(string $id, string $name): string
     {
-        $newName = $name = str_replace('/', '_', $name);
+        $newName = $name;
         $i = 0;
         while ($this->fileExists($id, $newName)) {
             $newName = $this->generateSuffix($name, $i++);
