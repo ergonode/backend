@@ -61,11 +61,10 @@ class MultimediaFromUrlImportAction
     public function action(
         ImportId $importId,
         string $url,
-        string $filename,
+        string $name,
         ?TranslatableString $alt = null
     ): MultimediaId {
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $name = pathinfo($filename, PATHINFO_FILENAME);
+        $extension = pathinfo($name, PATHINFO_EXTENSION);
 
         if ($this->multimediaQuery->findIdByFilename($name)) {
             throw new ImportException('Multimedia with {name} already exists in the system', ['{name}' => $name]);
