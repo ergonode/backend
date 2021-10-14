@@ -17,14 +17,18 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
+use Ergonode\Multimedia\Domain\Query\MultimediaTypeQueryInterface;
 
 class ImportProductGalleryAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     private MultimediaQueryInterface $multimediaQuery;
 
-    public function __construct(MultimediaQueryInterface $multimediaQuery)
+    private MultimediaTypeQueryInterface $typeQuery;
+
+    public function __construct(MultimediaQueryInterface $multimediaQuery, MultimediaTypeQueryInterface $typeQuery)
     {
         $this->multimediaQuery = $multimediaQuery;
+        $this->typeQuery = $typeQuery;
     }
 
     public function supported(AttributeType $type): bool
@@ -48,15 +52,17 @@ class ImportProductGalleryAttributeStrategy implements ImportProductAttributeStr
                 if (null === $multimediaId) {
                     throw new ImportException('Missing "{item}" multimedia.', ['{item}' => $item]);
                 }
-                $type = $this->multimediaQuery->findTypeById($multimediaId);
-                if ('image' !== $type) {
+
+                if ('image' !== $this->typeQuery->findMultimediaType($multimediaId)) {
                     throw new ImportException('Only images file can be set as gallery attribute value');
                 }
                 $collection[] = $multimediaId->getValue();
             }
+
             if (!$collection) {
                 continue;
             }
+
             $result[$language] = implode(',', $collection);
         }
 

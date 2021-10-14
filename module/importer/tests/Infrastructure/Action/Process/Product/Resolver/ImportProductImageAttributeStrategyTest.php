@@ -17,20 +17,23 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Multimedia\Domain\Query\MultimediaTypeQueryInterface;
 
 class ImportProductImageAttributeStrategyTest extends TestCase
 {
     private MultimediaQueryInterface $query;
 
+    private MultimediaTypeQueryInterface $typeQuery;
+
     protected function setUp(): void
     {
         $this->query = $this->createMock(MultimediaQueryInterface::class);
+        $this->typeQuery = $this->createMock(MultimediaTypeQueryInterface::class);
     }
-
 
     public function testIsSupported(): void
     {
-        $strategy = new ImportProductImageAttributeStrategy($this->query);
+        $strategy = new ImportProductImageAttributeStrategy($this->query, $this->typeQuery);
 
         self::assertTrue($strategy->supported(new AttributeType(ImageAttribute::TYPE)));
         self::assertFalse($strategy->supported(new AttributeType('any other type')));
@@ -42,7 +45,7 @@ class ImportProductImageAttributeStrategyTest extends TestCase
         $code = $this->createMock(AttributeCode::class);
         $value = new TranslatableString();
 
-        $strategy = new ImportProductImageAttributeStrategy($this->query);
+        $strategy = new ImportProductImageAttributeStrategy($this->query, $this->typeQuery);
         $result = $strategy->build($id, $code, $value);
 
         self::assertEmpty($result->getValue());
@@ -55,7 +58,7 @@ class ImportProductImageAttributeStrategyTest extends TestCase
         $code = $this->createMock(AttributeCode::class);
         $value = new TranslatableString(['pl_PL' => 'value']);
 
-        $strategy = new ImportProductImageAttributeStrategy($this->query);
+        $strategy = new ImportProductImageAttributeStrategy($this->query, $this->typeQuery);
         $strategy->build($id, $code, $value);
     }
 }
