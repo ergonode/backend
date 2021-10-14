@@ -28,17 +28,11 @@ class MultimediaFromUrlImportAction
 
     private MultimediaFileFactory $factory;
 
-    /**
-     * @param MultimediaRepositoryInterface $repository
-     * @param MultimediaQueryInterface      $multimediaQuery
-     * @param MultimediaExtensionProvider   $provider
-     * @param MultimediaFileFactory         $factory
-     */
     public function __construct(
         MultimediaRepositoryInterface $repository,
-        MultimediaQueryInterface      $multimediaQuery,
-        MultimediaExtensionProvider   $provider,
-        MultimediaFileFactory         $factory
+        MultimediaQueryInterface $multimediaQuery,
+        MultimediaExtensionProvider $provider,
+        MultimediaFileFactory $factory
     ) {
         $this->repository = $repository;
         $this->multimediaQuery = $multimediaQuery;
@@ -63,7 +57,7 @@ class MultimediaFromUrlImportAction
         if ($multimediaId) {
             $multimedia = $this->repository->load($multimediaId);
         } else {
-            $multimedia = $this->factory->create($filename, $url);
+            $multimedia = $this->factory->create($name, $url);
         }
 
         if ($alt) {

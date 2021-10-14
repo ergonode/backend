@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Factory;
 
@@ -26,9 +26,9 @@ class MultimediaFileFactory
     private DownloaderInterface $downloader;
 
     public function __construct(
-        FilesystemInterface             $multimediaStorage,
+        FilesystemInterface $multimediaStorage,
         HashCalculationServiceInterface $hashService,
-        DownloaderInterface             $downloader
+        DownloaderInterface $downloader
     ) {
         $this->multimediaStorage = $multimediaStorage;
         $this->hashService = $hashService;
