@@ -94,10 +94,12 @@ class MultimediaGridBuilder implements GridBuilderInterface
     private function getExtension(): array
     {
         $result = [];
-        foreach ($this->provider->dictionary() as $extension) {
+        $extensionDictionary = $this->provider->dictionary();
+        sort($extensionDictionary);
+
+        foreach ($extensionDictionary as $extension) {
             $result[] = new LabelFilterOption($extension, $extension);
         }
-        sort($result);
 
         return $result;
     }
