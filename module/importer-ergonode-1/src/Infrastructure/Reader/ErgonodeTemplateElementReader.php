@@ -23,6 +23,15 @@ class ErgonodeTemplateElementReader extends AbstractErgonodeReader
         '_height',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_name',
+        '_type',
+        '_x',
+        '_y',
+        '_width',
+        '_height',
+    ];
+
     public function read(): ?TemplateElementModel
     {
         $item = null;
@@ -58,6 +67,6 @@ class ErgonodeTemplateElementReader extends AbstractErgonodeReader
 
     protected function getRequiredHeaders(): array
     {
-        return self::KEYS;
+        return self::REQUIRED_KEYS;
     }
 }

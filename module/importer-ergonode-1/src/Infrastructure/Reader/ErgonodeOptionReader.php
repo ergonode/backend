@@ -19,6 +19,11 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
         '_language',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_code',
+        '_attribute',
+    ];
+
     public function read(): ?OptionModel
     {
         $item = null;
@@ -48,6 +53,6 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
 
     protected function getRequiredHeaders(): array
     {
-        return self::KEYS;
+        return self::REQUIRED_KEYS;
     }
 }

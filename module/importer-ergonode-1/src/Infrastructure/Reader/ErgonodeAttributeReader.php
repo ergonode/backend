@@ -21,6 +21,12 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
         '_placeholder',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_code',
+        '_type',
+        '_scope',
+    ];
+
     public function read(): ?AttributeModel
     {
         $item = null;
@@ -62,6 +68,6 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
 
     protected function getRequiredHeaders(): array
     {
-        return self::KEYS;
+        return self::REQUIRED_KEYS;
     }
 }

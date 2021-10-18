@@ -17,6 +17,10 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
         '_name',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_code',
+    ];
+
     public function read(): ?CategoryModel
     {
         $item = null;
@@ -47,6 +51,6 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
 
     protected function getRequiredHeaders(): array
     {
-        return self::KEYS;
+        return self::REQUIRED_KEYS;
     }
 }

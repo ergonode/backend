@@ -20,6 +20,13 @@ class ErgonodeProductReader extends AbstractErgonodeReader
         '_categories',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_sku',
+        '_type',
+        '_template',
+        '_language',
+    ];
+
     public function read(): ?ProductModel
     {
         $item = null;
@@ -64,7 +71,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
 
     protected function getRequiredHeaders(): array
     {
-        return self::KEYS;
+        return self::REQUIRED_KEYS;
     }
 
     private function prepareAttributes(): array
