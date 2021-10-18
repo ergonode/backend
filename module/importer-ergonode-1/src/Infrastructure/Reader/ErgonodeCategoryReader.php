@@ -33,7 +33,7 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
             } elseif ($item->getCode() !== $record['_code']) {
                 break;
             }
-            if (!empty($record['_name'])) {
+            if (!empty($record['_name'] ?? null)) {
                 $item->addTranslation($record['_language'], $record['_name']);
             }
 

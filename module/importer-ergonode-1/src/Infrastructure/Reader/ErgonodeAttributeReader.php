@@ -44,13 +44,13 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
                 break;
             }
 
-            if (!empty($record['_name'] ?? '')) {
+            if (!empty($record['_name'] ?? null)) {
                 $item->addName($record['_language'], $record['_name']);
             }
-            if (!empty($record['_hint'] ?? '')) {
+            if (!empty($record['_hint'] ?? null)) {
                 $item->addHint($record['_language'], $record['_hint']);
             }
-            if (!empty($record['_placeholder'] ?? '')) {
+            if (!empty($record['_placeholder'] ?? null)) {
                 $item->addPlaceholder($record['_language'], $record['_placeholder']);
             }
 

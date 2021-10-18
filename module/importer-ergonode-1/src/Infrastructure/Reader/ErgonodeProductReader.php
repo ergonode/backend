@@ -44,7 +44,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
                 break;
             }
 
-            if (!empty($record['_categories'] ?? '')) {
+            if (!empty($record['_categories'] ?? null)) {
                 $categoryCodes = explode(',', $record['_categories']);
                 foreach ($categoryCodes as $code) {
                     $item->addCategory($code);

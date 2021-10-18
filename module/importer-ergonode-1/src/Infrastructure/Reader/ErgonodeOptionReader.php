@@ -35,7 +35,7 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
             } elseif ($item->getCode() !== $record['_code'] || $item->getAttribute() !== $record['_attribute']) {
                 break;
             }
-            if (!empty($record['_label'])) {
+            if (!empty($record['_label'] ?? null)) {
                 $item->addTranslation($record['_language'], $record['_label']);
             }
 
