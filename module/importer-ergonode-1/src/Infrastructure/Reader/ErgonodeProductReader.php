@@ -62,6 +62,11 @@ class ErgonodeProductReader extends AbstractErgonodeReader
         return $item;
     }
 
+    protected function getRequiredHeaders(): array
+    {
+        return self::KEYS;
+    }
+
     private function prepareAttributes(): array
     {
         return array_filter($this->headers, static function ($item) {

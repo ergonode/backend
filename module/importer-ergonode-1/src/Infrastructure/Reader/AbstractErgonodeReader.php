@@ -35,5 +35,20 @@ abstract class AbstractErgonodeReader
         } catch (\Exception $exception) {
             throw new ReaderFileProcessException($filepath, $file);
         }
+
+        $missingHeaders = array_intersect($this->headers, $this->getRequiredHeaders());
+        if ($missingHeaders) {
+            throw new ReaderFileProcessException($filepath, $file, null, ' Missing headers: ' . implode(', ', $missingHeaders));
+        }
+    }
+
+    protected function getRequiredHeaders(): array
+    {
+        @trigger_error(
+            'Not implemeting getRequiredHeaders in AbstractErgonodeReader implementation will not be supported in 2.0.',
+            \E_USER_DEPRECATED,
+        );
+
+        return [];
     }
 }

@@ -45,4 +45,9 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
 
         return $item;
     }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::KEYS;
+    }
 }

@@ -55,4 +55,9 @@ class ErgonodeTemplateElementReader extends AbstractErgonodeReader
     {
         $this->records->rewind();
     }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::KEYS;
+    }
 }
