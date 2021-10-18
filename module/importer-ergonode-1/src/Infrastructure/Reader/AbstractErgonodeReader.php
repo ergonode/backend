@@ -38,7 +38,12 @@ abstract class AbstractErgonodeReader
 
         $missingHeaders = array_intersect($this->headers, $this->getRequiredHeaders());
         if ($missingHeaders) {
-            throw new ReaderFileProcessException($filepath, $file, null, ' Missing headers: ' . implode(', ', $missingHeaders));
+            throw new ReaderFileProcessException(
+                $filepath,
+                $file,
+                null,
+                sprintf(' Missing headers: %s', implode(', ', $missingHeaders)),
+            );
         }
     }
 

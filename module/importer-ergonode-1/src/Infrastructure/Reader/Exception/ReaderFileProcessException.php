@@ -16,14 +16,18 @@ class ReaderFileProcessException extends Exception
     private string $filename;
     private string $filepath;
 
-    public function __construct(string $filepath, string $filename = null, ?Throwable $previous = null, ?string $message = null)
-    {
+    public function __construct(
+        string $filepath,
+        string $filename = null,
+        ?Throwable $previous = null,
+        ?string $detailsMessage = null
+    ) {
         if ($filename) {
             $this->filename = $filename;
         }
         $this->filepath = $filepath;
         $filename = $filename ?? $filepath;
-        parent::__construct("Can't process \"$filename\" file.$message", 1, $previous);
+        parent::__construct("Can't process \"$filename\" file.$detailsMessage", 1, $previous);
     }
 
     public function getFilename(): string
