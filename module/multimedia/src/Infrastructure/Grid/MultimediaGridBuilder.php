@@ -97,6 +97,7 @@ class MultimediaGridBuilder implements GridBuilderInterface
         foreach ($this->provider->dictionary() as $extension) {
             $result[] = new LabelFilterOption($extension, $extension);
         }
+        sort($result);
 
         return $result;
     }
