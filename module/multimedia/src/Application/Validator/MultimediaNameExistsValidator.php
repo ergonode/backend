@@ -50,6 +50,7 @@ class MultimediaNameExistsValidator extends ConstraintValidator
         if ($this->multimediaQuery->findIdByFilename($value->name)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value->name)
+                ->atPath('name')
                 ->addViolation();
         }
     }

@@ -74,7 +74,10 @@ class MultimediaNameExistsValidatorTest extends ConstraintValidatorTestCase
         $constraint = new MultimediaNameExists();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $model->name);
+        $assertion = $this
+            ->buildViolation($constraint->message)
+            ->setParameter('{{ value }}', $model->name)
+            ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
