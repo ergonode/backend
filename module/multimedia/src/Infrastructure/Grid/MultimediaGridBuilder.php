@@ -75,16 +75,19 @@ class MultimediaGridBuilder implements GridBuilderInterface
 
         $grid = new Grid();
 
-        $column = new NumericColumn('size', 'Size', new NumericFilter());
-        $column->setSuffix('KB');
+        $typeColumn = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
+        $typeColumn->setVisible(false);
+
+        $sizeColumn = new NumericColumn('size', 'Size', new NumericFilter());
+        $sizeColumn->setSuffix('KB');
 
         $grid
             ->addColumn('id', new IdColumn('id'))
             ->addColumn('image', new ImageColumn('image', 'Preview'))
             ->addColumn('name', new TextColumn('name', 'File name', new TextFilter()))
             ->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)))
-            ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
-            ->addColumn('size', $column)
+            ->addColumn('type', $typeColumn)
+            ->addColumn('size', $sizeColumn)
             ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
             ->addColumn('_links', new LinkColumn('hal', $links));
 
