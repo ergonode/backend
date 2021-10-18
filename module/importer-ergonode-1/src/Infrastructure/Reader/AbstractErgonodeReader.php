@@ -36,7 +36,7 @@ abstract class AbstractErgonodeReader
             throw new ReaderFileProcessException($filepath, $file);
         }
 
-        $missingHeaders = array_intersect($this->headers, $this->getRequiredHeaders());
+        $missingHeaders = array_diff($this->getRequiredHeaders(), $this->headers);
         if ($missingHeaders) {
             throw new ReaderFileProcessException(
                 $filepath,
