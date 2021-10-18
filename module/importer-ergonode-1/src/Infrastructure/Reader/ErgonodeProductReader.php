@@ -24,7 +24,6 @@ class ErgonodeProductReader extends AbstractErgonodeReader
         '_sku',
         '_type',
         '_template',
-        '_language',
     ];
 
     public function read(): ?ProductModel
@@ -45,7 +44,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
                 break;
             }
 
-            if (!empty($record['_categories'])) {
+            if (!empty($record['_categories'] ?? '')) {
                 $categoryCodes = explode(',', $record['_categories']);
                 foreach ($categoryCodes as $code) {
                     $item->addCategory($code);
