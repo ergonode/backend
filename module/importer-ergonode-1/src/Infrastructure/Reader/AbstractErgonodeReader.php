@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Reader;
 
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\MissingFileHeadersException;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ReaderFileProcessException;
 use Iterator;
 use League\Csv\Reader;
@@ -38,19 +39,14 @@ abstract class AbstractErgonodeReader
 
         $missingHeaders = array_diff($this->getRequiredHeaders(), $this->headers);
         if ($missingHeaders) {
-            throw new ReaderFileProcessException(
-                $filepath,
-                $file,
-                null,
-                sprintf(' Missing headers: %s', implode(', ', $missingHeaders)),
-            );
+            throw new MissingFileHeadersException($missingHeaders, $filepath, $file);
         }
     }
 
     protected function getRequiredHeaders(): array
     {
         @trigger_error(
-            'Not implemeting getRequiredHeaders in AbstractErgonodeReader implementation will not be supported in 2.0.',
+            'Method getRequiredHeaders in AbstractErgonodeReader implementation will be required in 2.0.',
             \E_USER_DEPRECATED,
         );
 
