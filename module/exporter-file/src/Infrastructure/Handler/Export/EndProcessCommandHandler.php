@@ -58,8 +58,8 @@ class EndProcessCommandHandler
         $compressedFile = sprintf('%s/%s', $destinationDirectory, $destinationFile);
         $handler = fopen($compressedFile, 'rb');
         $this->exportStorage->writeStream($destinationFile, $handler);
-//        $this->storage->clean($fileName);
-//        $this->storage->clean($destinationFile);
+        $this->storage->clean($fileName);
+        $this->storage->clean($destinationFile);
 
         $export->end();
         $this->repository->save($export);
