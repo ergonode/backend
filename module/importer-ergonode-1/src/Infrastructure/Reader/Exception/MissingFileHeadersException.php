@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -22,7 +22,7 @@ class MissingFileHeadersException extends ReaderFileProcessException
         parent::__construct($filepath, $filename, $previous);
         $this->missingHeaders = $missingHeaders;
         $headers = implode(', ', $missingHeaders);
-        $this->message = "$headers missing in {$this->getFilename()}";
+        $this->message = "$headers headers missing in {$this->getFilename()}";
     }
 
     public function getMissingHeaders(): array
