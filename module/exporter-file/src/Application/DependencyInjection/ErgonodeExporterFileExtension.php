@@ -23,6 +23,7 @@ use Ergonode\ExporterFile\Infrastructure\Builder\ExportAttributeBuilderInterface
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilderInterface;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilderInterface;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilderInterface;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportMultimediaBuilderInterface;
 
 class ErgonodeExporterFileExtension extends Extension implements PrependExtensionInterface
 {
@@ -65,6 +66,10 @@ class ErgonodeExporterFileExtension extends Extension implements PrependExtensio
         $container
             ->registerForAutoconfiguration(ExportOptionBuilderInterface::class)
             ->addTag('export-file.option_builder');
+
+        $container
+            ->registerForAutoconfiguration(ExportMultimediaBuilderInterface::class)
+            ->addTag('export-file.multimedia_builder');
 
         $container
             ->registerForAutoconfiguration(ExportHeaderBuilderInterface::class)
