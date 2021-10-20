@@ -10,5 +10,5 @@ namespace Ergonode\Core\Infrastructure\Service;
 
 interface DownloaderInterface
 {
-    public function download(string $url): ?string;
+    public function download(string $url, array $headers = []): ?string;
 }

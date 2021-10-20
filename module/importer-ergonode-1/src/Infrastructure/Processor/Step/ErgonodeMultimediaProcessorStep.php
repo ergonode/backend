@@ -49,7 +49,8 @@ class ErgonodeMultimediaProcessorStep implements ErgonodeProcessorStepInterface
                 $import->getId(),
                 $media->getUrl(),
                 $media->getName(),
-                $media->getAlt()
+                $media->getAlt(),
+                $source->getHeaders()
             );
             $this->importRepository->addLine($id, $import->getId(), 'MULTIMEDIA');
             $this->commandBus->dispatch($command, true);

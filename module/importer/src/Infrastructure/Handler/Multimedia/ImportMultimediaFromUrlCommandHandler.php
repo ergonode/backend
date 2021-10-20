@@ -41,6 +41,7 @@ class ImportMultimediaFromUrlCommandHandler
                 $command->getUrl(),
                 $command->getName(),
                 new TranslatableString($command->getAlt()),
+                $command->getHeaders()
             );
             $this->repository->markLineAsSuccess($command->getId(), $id);
         } catch (ImportException $exception) {

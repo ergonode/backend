@@ -11,6 +11,7 @@ namespace Ergonode\ImporterErgonode1\Domain\Entity;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Service\Header;
 
 class ErgonodeZipSource extends AbstractSource
 {
@@ -38,18 +39,25 @@ class ErgonodeZipSource extends AbstractSource
 
     private array $import;
 
+    /**
+     * @var Header[]
+     */
+    private array $headers;
+
+    /**
+     * @param string[] $imports
+     * @param Header[] $headers
+     */
     public function __construct(
         SourceId $id,
         string $name,
-        array $imports = []
+        array $imports = [],
+        array $headers = []
     ) {
         parent::__construct($id, $name);
-        Assert::allString($imports);
 
-        $this->import = [];
-        foreach ($imports as $import) {
-            $this->import[] = $import;
-        }
+        $this->setImport($imports);
+        $this->setHeaders($headers);
     }
 
     public function getType(): string
@@ -77,9 +85,24 @@ class ErgonodeZipSource extends AbstractSource
         $this->name = $name;
     }
 
+    /**
+     * @param string[] $import
+     */
     public function setImport(array $import): void
     {
+        Assert::allString($import);
+        Assert::allOneOf($import, self::STEPS);
+
         $this->import = $import;
+    }
+
+    /**
+     * @param Header[] $headers
+     */
+    public function setHeaders(array $headers): void
+    {
+        Assert::allIsInstanceOf($headers, Header::class);
+        $this->headers = $headers;
     }
 
     public function import(string $step): bool
@@ -89,5 +112,13 @@ class ErgonodeZipSource extends AbstractSource
         }
 
         return false;
+    }
+
+    /**
+     * @return Header[]
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
     }
 }
