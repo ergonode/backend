@@ -20,6 +20,12 @@ class ErgonodeProductReader extends AbstractErgonodeReader
         '_categories',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_sku',
+        '_type',
+        '_template',
+    ];
+
     public function read(): ?ProductModel
     {
         $item = null;
@@ -38,7 +44,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
                 break;
             }
 
-            if (!empty($record['_categories'])) {
+            if (!empty($record['_categories'] ?? null)) {
                 $categoryCodes = explode(',', $record['_categories']);
                 foreach ($categoryCodes as $code) {
                     $item->addCategory($code);
@@ -60,6 +66,11 @@ class ErgonodeProductReader extends AbstractErgonodeReader
         }
 
         return $item;
+    }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::REQUIRED_KEYS;
     }
 
     private function prepareAttributes(): array

@@ -19,6 +19,11 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
         '_language',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_code',
+        '_attribute',
+    ];
+
     public function read(): ?OptionModel
     {
         $item = null;
@@ -30,7 +35,7 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
             } elseif ($item->getCode() !== $record['_code'] || $item->getAttribute() !== $record['_attribute']) {
                 break;
             }
-            if (!empty($record['_label'])) {
+            if (!empty($record['_label'] ?? null)) {
                 $item->addTranslation($record['_language'], $record['_label']);
             }
 
@@ -44,5 +49,10 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
         }
 
         return $item;
+    }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::REQUIRED_KEYS;
     }
 }

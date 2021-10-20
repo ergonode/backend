@@ -67,6 +67,7 @@ class UpdateMultimediaAction
     {
         try {
             $model = new MultimediaModel();
+            $model->multimedia = $multimedia;
             $form = $this->formFactory->create(MultimediaForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 

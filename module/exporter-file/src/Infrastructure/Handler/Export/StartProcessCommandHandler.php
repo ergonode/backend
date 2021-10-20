@@ -45,7 +45,6 @@ class StartProcessCommandHandler
         $export->start();
         $this->repository->save($export);
 
-
         foreach ($this->builders as $builder) {
             $this->storage->create(sprintf('%s/%s.csv', $command->getExportId()->getValue(), $builder->filename()));
             $this->storage->append([implode(',', $builder->header()).PHP_EOL]);

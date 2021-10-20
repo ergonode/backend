@@ -25,7 +25,7 @@ nelmio_api_doc:
                                         items:
                                             type: string
                                     included:
-                                        type: bool
+                                        type: boolean
                                         required: true
                             query:
                                 type: string

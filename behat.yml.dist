@@ -14,28 +14,15 @@ default:
                 - module/condition/features
                 - module/core/features
                 - module/designer/features
-                - module/event-sourcing/features
-                - module/exporter/features
                 - module/exporter-file/features
-                - module/exporter-magento-2/features
-                - module/exporter-shopware-6/features
-                - module/fixture/features
-                - module/generator/features
                 - module/grid/features
                 - module/importer/features
                 - module/importer-ergonode-1/features
-                - module/importer-magento-1/features
-                - module/migration/features
                 - module/multimedia/features
                 - module/notification/features
                 - module/product/features
                 - module/product-collection/features
-                - module/product-simple/features
-                - module/reader/features
                 - module/segment/features
-                - module/transformer/features
-                - module/translation-deepl/features
-                - module/value/features
                 - module/workflow/features
 
             contexts:

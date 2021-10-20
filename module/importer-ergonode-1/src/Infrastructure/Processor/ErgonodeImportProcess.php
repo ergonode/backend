@@ -72,7 +72,7 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
             }
         } catch (ReaderFileProcessException $exception) {
             $this->logger->warning($exception);
-            throw new ImportException(sprintf('Can\'t process file %s', $exception->getFilename()));
+            throw new ImportException($exception->getMessage());
         } finally {
             $this->extractor->cleanup($import);
         }
