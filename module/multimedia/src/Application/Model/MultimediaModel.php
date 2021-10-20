@@ -9,11 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Model;
 
+use Ergonode\Multimedia\Application\Validator\MultimediaNameExists;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Multimedia\Application\Validator\MultimediaName;
 
+/**
+ * @MultimediaNameExists()
+ */
 class MultimediaModel
 {
+    public Multimedia $multimedia;
+
     /**
      * @Assert\NotBlank(),
      * @Assert\Length(

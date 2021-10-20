@@ -18,6 +18,10 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
         '_language',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_name',
+    ];
+
     public function read(): ?TemplateModel
     {
         $item = null;
@@ -40,5 +44,10 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
         }
 
         return $item;
+    }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::REQUIRED_KEYS;
     }
 }

@@ -31,3 +31,6 @@ Attribute:
 Importer:
 * The signature of constructor `ImportProductImageAttributeStrategy` has changed
 * The signature of constructor `MultimediaFromUrlImportAction` has changed  
+
+Multimedia:
+* The signature of constructor `UpdateMultimediaCommandHandler` has changed  

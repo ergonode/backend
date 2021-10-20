@@ -64,6 +64,10 @@ services:
         arguments:
             $builders: !tagged_iterator 'export-file.attribute_builder'
 
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportMultimediaBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.multimedia_builder'
+
     Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilder:
         arguments:
             $builders: !tagged_iterator 'export-file.option_builder'

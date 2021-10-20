@@ -17,6 +17,10 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
         '_name',
     ];
 
+    private const REQUIRED_KEYS = [
+        '_code',
+    ];
+
     public function read(): ?CategoryModel
     {
         $item = null;
@@ -29,7 +33,7 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
             } elseif ($item->getCode() !== $record['_code']) {
                 break;
             }
-            if (!empty($record['_name'])) {
+            if (!empty($record['_name'] ?? null)) {
                 $item->addTranslation($record['_language'], $record['_name']);
             }
 
@@ -43,5 +47,10 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
         }
 
         return $item;
+    }
+
+    protected function getRequiredHeaders(): array
+    {
+        return self::REQUIRED_KEYS;
     }
 }
