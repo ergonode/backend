@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Application\Model;
 use Ergonode\Multimedia\Application\Validator\MultimediaNameExists;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Multimedia\Application\Validator\MultimediaName;
 
 /**
  * @MultimediaNameExists()
@@ -26,6 +27,7 @@ class MultimediaModel
      *   max=128,
      *   maxMessage="Multimedia name is too long. It should contain {{ limit }} characters or less."
      * )
+     * @MultimediaName()
      */
     public ?string $name = null;
 

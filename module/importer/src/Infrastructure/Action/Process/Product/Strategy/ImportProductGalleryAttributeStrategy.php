@@ -13,13 +13,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Multimedia\Domain\Query\MultimediaTypeQueryInterface;
 
-class ImportProductImageAttributeStrategy implements ImportProductAttributeStrategyInterface
+class ImportProductGalleryAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     private MultimediaQueryInterface $multimediaQuery;
 
@@ -33,27 +33,39 @@ class ImportProductImageAttributeStrategy implements ImportProductAttributeStrat
 
     public function supported(AttributeType $type): bool
     {
-        return ImageAttribute::TYPE === $type->getValue();
+        return FileAttribute::TYPE === $type->getValue();
     }
 
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
     {
         $result = [];
         foreach ($value->getTranslations() as $language => $version) {
-            if ($version) {
-                $multimediaId = $this->multimediaQuery->findIdByFilename($version);
+            $collection = [];
+            foreach (explode(',', $version) as $item) {
+                if (!$item) {
+                    continue;
+                }
+
+                $item = trim($item);
+
+                $multimediaId = $this->multimediaQuery->findIdByFilename($item);
                 if (null === $multimediaId) {
-                    throw new ImportException('Missing {version} multimedia.', ['{version}' => $version]);
+                    throw new ImportException('Missing "{item}" multimedia.', ['{item}' => $item]);
                 }
 
                 if ('image' !== $this->typeQuery->findMultimediaType($multimediaId)) {
-                    throw new ImportException('Only image file can be set as image attribute value');
+                    throw new ImportException('Only images file can be set as gallery attribute value');
                 }
-
-                $result[$language] = $multimediaId->getValue();
+                $collection[] = $multimediaId->getValue();
             }
+
+            if (!$collection) {
+                continue;
+            }
+
+            $result[$language] = implode(',', $collection);
         }
 
-        return new TranslatableStringValue(new TranslatableString($result));
+        return new StringCollectionValue($result);
     }
 }

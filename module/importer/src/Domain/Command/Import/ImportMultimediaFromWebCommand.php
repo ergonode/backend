@@ -22,12 +22,20 @@ class ImportMultimediaFromWebCommand implements ImporterCommandInterface
 
     private string $name;
 
-    public function __construct(ImportLineId $id, ImportId $importId, string $url, string $name)
-    {
+    private array $alt;
+
+    public function __construct(
+        ImportLineId $id,
+        ImportId $importId,
+        string $url,
+        string $name,
+        array $alt = []
+    ) {
         $this->id = $id;
         $this->importId = $importId;
         $this->url = $url;
         $this->name = $name;
+        $this->alt = $alt;
     }
 
     public function getId(): ImportLineId
@@ -48,5 +56,10 @@ class ImportMultimediaFromWebCommand implements ImporterCommandInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getAlt(): array
+    {
+        return $this->alt;
     }
 }

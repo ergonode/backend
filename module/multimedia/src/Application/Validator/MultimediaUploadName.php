@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class MultimediaName extends Constraint
+class MultimediaUploadName extends Constraint
 {
     public int $max = 128;
 
