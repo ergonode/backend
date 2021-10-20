@@ -210,6 +210,7 @@ ruleset:
     - EventSourcing
     - Product
     - SharedKernel
+    - Multimedia
   Grid:
     - Api
     - Attribute # @todo incorrect relation need fix
