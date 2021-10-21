@@ -30,6 +30,7 @@ class UpdateErgonodeZipSourceCommandHandler
         $source = $this->repository->load($command->getId());
         $source->setName($command->getName());
         $source->setImport($command->getImport());
+        $source->setHeaders($command->getHeaders());
 
         $this->repository->save($source);
     }

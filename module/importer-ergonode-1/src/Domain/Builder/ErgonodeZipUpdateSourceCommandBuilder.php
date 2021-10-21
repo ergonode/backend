@@ -15,6 +15,7 @@ use Ergonode\ImporterErgonode1\Domain\Command\UpdateErgonodeZipSourceCommand;
 use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\Core\Infrastructure\Service\Header;
 
 class ErgonodeZipUpdateSourceCommandBuilder implements UpdateSourceCommandBuilderInterface
 {
@@ -28,8 +29,12 @@ class ErgonodeZipUpdateSourceCommandBuilder implements UpdateSourceCommandBuilde
         /** @var ImporterErgonodeConfigurationModel $data */
         $data = $form->getData();
         $name = $data->name;
-        $import = (array) $data->import;
+        $import =  $data->import;
+        $headers = [];
+        foreach ($data->headers as $header) {
+            $headers[] = new Header($header->key, $header->value);
+        }
 
-        return new UpdateErgonodeZipSourceCommand($id, $name, $import);
+        return new UpdateErgonodeZipSourceCommand($id, $name, $import, $headers);
     }
 }

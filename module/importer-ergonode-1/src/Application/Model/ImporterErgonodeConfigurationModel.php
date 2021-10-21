@@ -20,6 +20,13 @@ class ImporterErgonodeConfigurationModel
     public ?string $name = null;
     public array $import = [];
 
+    /**
+     * @var DownloadHeaderModel[]
+     *
+     * @Assert\Valid()
+     */
+    public array $headers = [];
+
     public function __construct(?ErgonodeZipSource $source = null)
     {
         if ($source) {
@@ -29,6 +36,10 @@ class ImporterErgonodeConfigurationModel
                 if ($source->import($step)) {
                     $this->import[] = $step;
                 }
+            }
+
+            foreach ($source->getHeaders() as $value) {
+                $this->headers[] = new DownloadHeaderModel($value->getKey(), $value->getValue());
             }
         }
     }

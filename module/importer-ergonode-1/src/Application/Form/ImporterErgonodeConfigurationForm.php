@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ImporterErgonodeConfigurationForm extends AbstractType
 {
@@ -27,6 +28,21 @@ class ImporterErgonodeConfigurationForm extends AbstractType
                 [
                     'label' => 'name',
                 ]
+            )
+            ->add(
+                'headers',
+                CollectionType::class,
+                [
+                    'label' => 'Headers',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => DownloadHeaderType::class,
+                    'liform' => [
+                        'format' => 'table',
+                        'widget' => 'dictionary',
+                    ],
+                    'required' => false,
+                ],
             )
             ->add(
                 'import',

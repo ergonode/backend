@@ -23,15 +23,17 @@ class CacheDownloaderDecorator implements DownloaderInterface
         $this->directory = sprintf('%s/var/downloader', $appKernel->getProjectDir());
     }
 
-    public function download(string $url): ?string
+    public function download(string $url, array $headers = []): ?string
     {
         $data = parse_url($url);
 
         $filename = sprintf('%s/%s%s', $this->directory, $data['host'], $data['path']);
 
         if (!file_exists($filename)) {
-            $content = $this->downloader->download($url);
-            $this->saveFile($filename, $content);
+            $content = $this->downloader->download($url, $headers);
+            if ($content) {
+                $this->saveFile($filename, $content);
+            }
 
             return $content;
         }

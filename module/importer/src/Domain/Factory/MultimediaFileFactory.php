@@ -16,6 +16,8 @@ use League\Flysystem\FilesystemInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
+use Ergonode\Core\Infrastructure\Service\Header;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 class MultimediaFileFactory
 {
@@ -35,13 +37,21 @@ class MultimediaFileFactory
         $this->downloader = $downloader;
     }
 
-    public function create(string $name, string $url): AbstractMultimedia
+    /**
+     * @param Header[] $headers
+     */
+    public function create(string $name, string $url, array $headers = []): AbstractMultimedia
     {
         $extension = pathinfo($name, PATHINFO_EXTENSION);
 
         $tmpFile = tempnam(sys_get_temp_dir(), Uuid::uuid4()->toString());
 
-        $content = $this->downloader->download($url);
+        $content = $this->downloader->download($url, $headers);
+
+        if (null === $content) {
+            throw new ImportException('Can\'t download media from url {url}', ['{url}' => $url]);
+        }
+
         file_put_contents($tmpFile, $content);
 
         $file = new File($tmpFile);

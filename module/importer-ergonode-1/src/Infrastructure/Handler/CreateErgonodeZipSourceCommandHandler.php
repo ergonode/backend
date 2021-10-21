@@ -29,7 +29,8 @@ class CreateErgonodeZipSourceCommandHandler
         $source = new ErgonodeZipSource(
             $command->getId(),
             $command->getName(),
-            $command->getImport()
+            $command->getImport(),
+            $command->getHeaders()
         );
 
         $this->repository->save($source);

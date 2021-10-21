@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Ergonode\Importer\Domain\Factory\MultimediaFileFactory;
+use Ergonode\Core\Infrastructure\Service\Header;
 
 class MultimediaFromUrlImportAction
 {
@@ -40,11 +41,17 @@ class MultimediaFromUrlImportAction
         $this->factory = $factory;
     }
 
+    /**
+     * @param Header[]                $headers
+     *
+     * @throws ImportException
+     */
     public function action(
         ImportId $importId,
         string $url,
         string $name,
-        ?TranslatableString $alt = null
+        ?TranslatableString $alt = null,
+        array $headers = []
     ): MultimediaId {
         $extension = pathinfo($name, PATHINFO_EXTENSION);
 
@@ -57,7 +64,7 @@ class MultimediaFromUrlImportAction
         if ($multimediaId) {
             $multimedia = $this->repository->load($multimediaId);
         } else {
-            $multimedia = $this->factory->create($name, $url);
+            $multimedia = $this->factory->create($name, $url, $headers);
         }
 
         if ($alt) {
