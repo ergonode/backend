@@ -42,13 +42,8 @@ class MultimediaFromUrlImportAction
     }
 
     /**
-     * @param ImportId                $importId
-     * @param string                  $url
-     * @param string                  $name
-     * @param TranslatableString|null $alt
      * @param Header[]                $headers
      *
-     * @return MultimediaId
      * @throws ImportException
      */
     public function action(

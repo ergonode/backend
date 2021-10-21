@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Service;
 
-use Ergonode\Core\Infrastructure\Service\Header;
 use Symfony\Component\HttpFoundation\Response;
 
 class CurlDownloader implements DownloaderInterface

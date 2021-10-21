@@ -48,7 +48,7 @@ class MultimediaFileFactory
 
         $content = $this->downloader->download($url, $headers);
 
-        if(null === $content) {
+        if (null === $content) {
             throw new ImportException('Can\'t download media from url {url}', ['{url}' => $url]);
         }
 
