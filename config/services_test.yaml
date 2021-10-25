@@ -41,3 +41,10 @@ services:
         arguments:
             - '@messenger.transport.batch_action'
             - '@messenger.bus.sync'
+
+    Ergonode\Core\Test\TestDownloaderDecorator:
+        decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
+        decoration_priority: -100
+        arguments:
+            $kernel: '@kernel'
+            $downloader: '@Ergonode\Core\Test\TestDownloaderDecorator.inner'
