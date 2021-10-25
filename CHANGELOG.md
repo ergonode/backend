@@ -39,6 +39,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.6
+- feature [#1675](https://github.com/ergonode/backend/pull/1675) Add more currencies to application (rprzedzik)
 - bugfix [#1630](https://github.com/ergonode/backend/issues/1630) Fixed handling `null` attribute value in conditions (piotrkreft)
 - bugfix [#1617](https://github.com/ergonode/backend/issues/1617) Fixed option attribute value condition (piotrkreft)
 - bugfix [#1613](https://github.com/ergonode/backend/issues/1613) Fixed ProductUpdatedEvent handling for segments (piotrkreft)
