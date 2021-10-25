@@ -34,6 +34,7 @@ class DbalCurrencyQuery implements CurrencyQueryInterface
     public function getDictionary(): array
     {
         return $this->getQuery()
+            ->orderBy('name')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
