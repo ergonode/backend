@@ -57,7 +57,6 @@ class ExceptionListenerTest extends TestCase
             $this->createMock(Request::class),
             HttpKernelInterface::MASTER_REQUEST,
             $this->authenticationCredentialNotFoundException
-
         );
 
         $listener = new ExceptionListener($this->exceptionMapper);

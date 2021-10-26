@@ -13,17 +13,17 @@ use Ergonode\Api\Application\EventListener\RequestBodyListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestBodyListenerTest extends TestCase
 {
-    private GetResponseEvent $event;
+    private RequestEvent $event;
 
     private Request $request;
 
     protected function setUp(): void
     {
-        $this->event = $this->createMock(GetResponseEvent::class);
+        $this->event = $this->createMock(RequestEvent::class);
         $this->request = $this->createMock(Request::class);
     }
 
