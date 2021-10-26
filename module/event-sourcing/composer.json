@@ -20,7 +20,7 @@
         "symfony/config": "^4.4|^5.3",
         "symfony/dependency-injection": "^4.4|^5.3",
         "symfony/http-kernel": "^4.4|^5.3",
-        "symfony/security": "^4.4|^5.3",
+        "symfony/security-core": "^4.4|^5.3",
         "symfony/yaml": "^4.4|^5.3"
     },
     "require-dev": {

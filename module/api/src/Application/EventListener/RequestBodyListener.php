@@ -11,7 +11,7 @@ namespace Ergonode\Api\Application\EventListener;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class RequestBodyListener
 {
@@ -24,7 +24,7 @@ class RequestBodyListener
 
     private const CONTENT_TYPES = ['json'];
 
-    public function __invoke(GetResponseEvent $event): void
+    public function __invoke(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
