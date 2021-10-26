@@ -5,7 +5,7 @@ services:
 
     Ergonode\Migration\Provider\MigrationDirectoryProvider:
         arguments:
-            - '%kernel.root_dir%/../'
+            - '%kernel.project_dir%/../'
             - '@kernel'
 
     Ergonode\Migration\Provider\MigrationDirectoryProviderInterface: '@Ergonode\Migration\Provider\MigrationDirectoryProvider'
