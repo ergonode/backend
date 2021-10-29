@@ -32,9 +32,10 @@ Feature: Ergonode import module
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | id     | @import_id@ |
-      | errors | 0           |
-      | status | Ended       |
+      | id      | @import_id@ |
+      | errors  | 0           |
+      | status  | Ended       |
+      | records | 4           |
 
   Scenario: Get source error import
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@/errors?view=list"
@@ -52,8 +53,27 @@ Feature: Ergonode import module
     And the JSON node "collection[0].name" should contain "test-new.jpg"
     And store response param "collection[0].id" as "multimedia_2_id"
 
-  Scenario: Get imported products with 1 multimedia
+  Scenario: Get imported multimedia
+    When I send a GET request to "/api/v1/en_GB/multimedia?filter=name=test.pdf&view=list"
+    Then the response status code should be 200
+    And the JSON node "collection[0].name" should contain "test.pdf"
+    And store response param "collection[0].id" as "multimedia_3_id"
+
+  Scenario: Get imported products with image attribute multimedia
     When I send a GET request to "/api/v1/en_GB/products?view=list&filter=esa_sku=SKU_multimedia&columns=image_attribute_local:en_GB,image_attribute_local:pl_PL"
     Then the response status code should be 200
-    And store response param "collection[0].image_attribute_local:en_GB" as "@multimedia_1_id"
-    And store response param "collection[0].image_attribute_local:pl_PL" as "@multimedia_2_id"
+    And the JSON node "collection[0].image_attribute_local:en_GB" should contain "@multimedia_1_id@"
+    And the JSON node "collection[0].image_attribute_local:pl_PL" should contain "@multimedia_2_id@"
+
+  Scenario: Get imported products with file gallery multimedia
+    When I send a GET request to "/api/v1/en_GB/products?view=list&filter=esa_sku=SKU_multimedia&columns=gallery_attribute_local:en_GB,gallery_attribute_local:pl_PL"
+    Then the response status code should be 200
+    And the JSON node "collection[0].gallery_attribute_local:en_GB[0]" should contain "@multimedia_1_id@"
+    And the JSON node "collection[0].gallery_attribute_local:pl_PL[0]" should contain "@multimedia_1_id@"
+    And the JSON node "collection[0].gallery_attribute_local:pl_PL[1]" should contain "@multimedia_2_id@"
+
+  Scenario: Get imported products with file attribute multimedia
+    When I send a GET request to "/api/v1/en_GB/products?view=list&filter=esa_sku=SKU_multimedia&columns=file_attribute_local:en_GB,file_attribute_local:pl_PL"
+    Then the response status code should be 200
+    And the JSON node "collection[0].file_attribute_local:en_GB[0]" should contain "@multimedia_3_id@"
+    And the JSON node "collection[0].file_attribute_local:pl_PL[0]" should contain "@multimedia_3_id@"
