@@ -18,7 +18,6 @@ final class Version20211129110000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('UPDATE importer.source 
-            SET configuration =  configuration::jsonb || \'{"headers" : []}\'::jsonb WHERE type = \'ergonode-zip\'', );
-
+            SET configuration =  configuration::jsonb || \'{"headers" : []}\'::jsonb WHERE type = \'ergonode-zip\'');
     }
 }
