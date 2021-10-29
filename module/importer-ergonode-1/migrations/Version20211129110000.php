@@ -22,5 +22,3 @@ final class Version20211129110000 extends AbstractErgonodeMigration
 
     }
 }
-
-// SET payload = jsonb_insert(payload,\'{element, label}\', payload->\'element\'->\'properties\'->\'label\')
