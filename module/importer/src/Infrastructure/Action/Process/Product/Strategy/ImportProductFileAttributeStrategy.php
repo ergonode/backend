@@ -15,8 +15,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
 class ImportProductFileAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
@@ -29,7 +29,7 @@ class ImportProductFileAttributeStrategy implements ImportProductAttributeStrate
 
     public function supported(AttributeType $type): bool
     {
-        return GalleryAttribute::TYPE === $type->getValue();
+        return FileAttribute::TYPE === $type->getValue();
     }
 
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
