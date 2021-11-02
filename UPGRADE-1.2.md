@@ -34,3 +34,6 @@ Importer:
 
 Multimedia:
 * The signature of constructor `UpdateMultimediaCommandHandler` has changed  
+
+Segment:
+* The signature of constructor `SegmentProductService` has changed

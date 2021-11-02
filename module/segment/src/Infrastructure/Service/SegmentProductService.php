@@ -71,6 +71,19 @@ class SegmentProductService
         );
     }
 
+    // The method does not verify whether product is currently calculated
+    public function wasAvailable(SegmentId $segmentId, ProductId $productId): bool
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('available')
+            ->from(self::TABLE)
+            ->where($qb->expr()->eq('product_id', ':productId'))
+            ->andWhere($qb->expr()->eq('segment_id', ':segmentId'))
+            ->execute()
+            ->fetchOne();
+    }
+
     /**
      * @throws DBALException
      */
