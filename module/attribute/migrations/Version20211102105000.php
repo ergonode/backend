@@ -48,7 +48,8 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 ADD CONSTRAINT attribute_options_option_id_fk
                     FOREIGN KEY (option_id) REFERENCES attribute_option ON UPDATE CASCADE ON DELETE RESTRICT');
 
-        $attributes = $this->connection->executeQuery('SELECT DISTINCT attribute_id FROM attribute_option ')->fetchFirstColumn();
+        $attributes = $this->connection->executeQuery('SELECT DISTINCT attribute_id FROM attribute_option ')
+            ->fetchFirstColumn();
 
         foreach ($attributes as $attribute) {
             $options = $this->connection->executeQuery(
