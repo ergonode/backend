@@ -56,7 +56,6 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     public function removeOption(AbstractOption $option): self
     {
         if ($this->hasOption($option->getId())) {
-            $index = $this->getIndex($option->getId());
             $this->apply(new AttributeOptionRemovedEvent($this->id, $option->getId()));
         }
 
