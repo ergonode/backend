@@ -1,6 +1,7 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
-- feature  [#1637](https://github.com/ergonode/backend/pull/1637) Add posibility to import multimedia (rprzedzik) 
+- bugfix [#1695](https://github.com/ergonode/backend/issues/1695) Bugfix option name validation (wiewiurdp)
+- feature [#1637](https://github.com/ergonode/backend/pull/1637) Add posibility to import multimedia (rprzedzik) 
 - feature [#1667](https://github.com/ergonode/backend/pull/1667) Add multimedia support to ergonode csv export (rprzedzik)
 - feature [#1663](https://github.com/ergonode/backend/pull/1663) Validation of import files for required columns (piotrkreft)
 - feature [#1645](https://github.com/ergonode/backend/pull/1645) Add attribute code validation (wiewiurdp)
