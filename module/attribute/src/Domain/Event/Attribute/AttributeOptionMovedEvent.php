@@ -19,13 +19,13 @@ class AttributeOptionMovedEvent implements AggregateEventInterface
 
     private AggregateId $optionId;
 
-    private int $position;
+    private int $index;
 
-    public function __construct(AttributeId $id, AggregateId $optionId, int $position)
+    public function __construct(AttributeId $id, AggregateId $optionId, int $index)
     {
         $this->id = $id;
         $this->optionId = $optionId;
-        $this->position = $position;
+        $this->index = $index;
     }
 
     public function getAggregateId(): AttributeId
@@ -38,8 +38,8 @@ class AttributeOptionMovedEvent implements AggregateEventInterface
         return $this->optionId;
     }
 
-    public function getPosition(): int
+    public function getIndex(): int
     {
-        return $this->position;
+        return $this->index;
     }
 }

@@ -22,11 +22,11 @@ class AttributeOptionAddedEventTest extends TestCase
         $optionId = $this->createMock(AggregateId::class);
         /** @var AttributeId $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
-        $position = 1;
+        $index = 0;
 
-        $event = new AttributeOptionAddedEvent($attributeId, $optionId, $position);
+        $event = new AttributeOptionAddedEvent($attributeId, $optionId, $index);
         $this->assertEquals($attributeId, $event->getAggregateId());
         $this->assertEquals($optionId, $event->getOptionId());
-        $this->assertEquals($position, $event->getPosition());
+        $this->assertEquals($index, $event->getIndex());
     }
 }

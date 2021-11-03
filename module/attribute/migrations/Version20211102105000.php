@@ -32,13 +32,13 @@ final class Version20211102105000 extends AbstractErgonodeMigration
             CREATE TABLE attribute_options (   
                 attribute_id UUID NOT NULL, 
                 option_id UUID NOT NULL,        
-                position integer NOT NULL,                                         
+                index integer NOT NULL,                                         
                 PRIMARY KEY(attribute_id, option_id)
             )
         ');
 
-        $this->addSql('CREATE UNIQUE INDEX attribute_option_position_key 
-            ON attribute_options USING btree (attribute_id, option_id, position)');
+        $this->addSql('CREATE UNIQUE INDEX attribute_option_index_key 
+            ON attribute_options USING btree (attribute_id, option_id, index)');
 
         $this->addSql('
             ALTER TABLE attribute_options 
@@ -67,11 +67,11 @@ final class Version20211102105000 extends AbstractErgonodeMigration
 
             $i = 0;
             foreach ($options as $option) {
-                $i++;
                 $this->addSql(
-                    'INSERT INTO attribute_options (attribute_id, option_id, position) VALUES (?,?,?)',
+                    'INSERT INTO attribute_options (attribute_id, option_id, index) VALUES (?,?,?)',
                     [$attribute, $option, $i]
                 );
+                $i++;
             }
         }
 
