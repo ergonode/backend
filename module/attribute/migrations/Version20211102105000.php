@@ -11,10 +11,18 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Attribute\Domain\Event\Option\OptionMovedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionAddedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionMovedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionRemovedEvent;
 
 final class Version20211102105000 extends AbstractErgonodeMigration
 {
+    private const EVENTS = [
+        AttributeOptionAddedEvent::class => 'Attribute option added',
+        AttributeOptionRemovedEvent::class => 'Attribute option removed',
+        AttributeOptionMovedEvent::class => 'Attribute option moved',
+    ];
+
     /**
      * @throws \Exception
      */
@@ -67,9 +75,11 @@ final class Version20211102105000 extends AbstractErgonodeMigration
             }
         }
 
-        $this->addSql(
-            'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
-            [Uuid::uuid4()->toString(), OptionMovedEvent::class, 'Attribute option moved']
-        );
+        foreach (self::EVENTS as $class => $translation) {
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
+        }
     }
 }
