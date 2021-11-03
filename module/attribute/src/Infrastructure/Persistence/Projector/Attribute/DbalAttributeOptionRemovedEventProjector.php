@@ -25,8 +25,6 @@ class DbalAttributeOptionRemovedEventProjector extends AbstractDbalAttributeOpti
             ]
         );
 
-        $position--;
-
         $this->mergePosition($event->getAggregateId(), $position);
     }
 }
