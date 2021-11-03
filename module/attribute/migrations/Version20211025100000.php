@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Migration;
 
@@ -45,10 +45,15 @@ final class Version20211025100000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         foreach (self::CURRENCIES as $iso => $name) {
-            $this->addSql(
-                'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
-                [Uuid::uuid4()->toString(), $iso, $name]
-            );
+
+            $currency = $this->connection->executeQuery('SELECT id FROM currency WHERE iso = :id', ['id' => $iso])
+                ->fetchOne();
+            if (!$currency) {
+                $this->addSql(
+                    'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)',
+                    [Uuid::uuid4()->toString(), $iso, $name]
+                );
+            }
         }
 
         $this->addSql(
