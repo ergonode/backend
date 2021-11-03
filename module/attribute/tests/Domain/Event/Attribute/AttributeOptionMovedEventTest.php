@@ -7,14 +7,14 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Tests\Domain\Event\Option;
+namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Event\Option\OptionMovedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionMovedEvent;
 
-class OptionMovedEventTest extends TestCase
+class AttributeOptionMovedEventTest extends TestCase
 {
     public function testEventCreation(): void
     {
@@ -22,10 +22,11 @@ class OptionMovedEventTest extends TestCase
         $optionId = $this->createMock(AggregateId::class);
         /** @var AttributeId $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
+        $position = 1;
 
-        $event = new OptionMovedEvent($attributeId, $optionId);
+        $event = new AttributeOptionMovedEvent($attributeId, $optionId, $position);
         $this->assertEquals($attributeId, $event->getAggregateId());
         $this->assertEquals($optionId, $event->getOptionId());
-        $this->assertTrue($event->isAfter());
+        $this->assertEquals($position, $event->getPosition());
     }
 }

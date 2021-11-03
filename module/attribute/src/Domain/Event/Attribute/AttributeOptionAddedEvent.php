@@ -7,25 +7,25 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Domain\Event\Option;
+namespace Ergonode\Attribute\Domain\Event\Attribute;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-class OptionMovedEvent implements AggregateEventInterface
+class AttributeOptionAddedEvent implements AggregateEventInterface
 {
     private AttributeId $id;
 
     private AggregateId $optionId;
 
-    private bool $after;
+    private int $position;
 
-    public function __construct(AttributeId $id, AggregateId $optionId, bool $after = true)
+    public function __construct(AttributeId $id, AggregateId $optionId, int $position)
     {
         $this->id = $id;
         $this->optionId = $optionId;
-        $this->after = $after;
+        $this->position = $position;
     }
 
     public function getAggregateId(): AttributeId
@@ -38,8 +38,8 @@ class OptionMovedEvent implements AggregateEventInterface
         return $this->optionId;
     }
 
-    public function isAfter(): bool
+    public function getPosition(): int
     {
-        return $this->after;
+        return $this->position;
     }
 }
