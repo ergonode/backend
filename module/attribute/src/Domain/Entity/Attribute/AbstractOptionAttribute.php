@@ -27,7 +27,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     {
         if (!$this->hasOption($option->getId())) {
             if ($position) {
-                $index = $after ? $this->getIndex($position->getId()) + 1:$this->getIndex($position->getId());
+                $index = $after ? $this->getOptionIndex($position->getId()) + 1:$this->getOptionIndex($position->getId());
             } else {
                 $index = $after ? count($this->options) : 0;
             }
@@ -42,7 +42,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     {
         if ($this->hasOption($option->getId())) {
             if ($position) {
-                $index = $after ? $this->getIndex($position->getId())+1:$this->getIndex($position->getId())-1;
+                $index = $after ? $this->getOptionIndex($position->getId())+1:$this->getOptionIndex($position->getId())-1;
             } else {
                 $index = $after ? count($this->options) : 0;
             }
@@ -78,7 +78,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
         return $this->options;
     }
 
-    public function getIndex(AggregateId $aggregateId): int
+    public function getOptionIndex(AggregateId $aggregateId): int
     {
         foreach ($this->options as $key => $option) {
             if ($aggregateId->isEqual($option)) {
@@ -96,13 +96,13 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
 
     protected function applyAttributeOptionMovedEvent(AttributeOptionMovedEvent $event): void
     {
-        $this->removeOptionFromArray($this->getIndex($event->getOptionId()));
+        $this->removeOptionFromArray($this->getOptionIndex($event->getOptionId()));
         $this->insertOptionToArray($event->getIndex(), $event->getOptionId());
     }
 
     protected function applyAttributeOptionRemovedEvent(AttributeOptionRemovedEvent $event): void
     {
-        $this->removeOptionFromArray($this->getIndex($event->getOptionId()));
+        $this->removeOptionFromArray($this->getOptionIndex($event->getOptionId()));
     }
 
     private function insertOptionToArray(int $index, AggregateId $id): void
