@@ -27,7 +27,8 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     {
         if (!$this->hasOption($option->getId())) {
             if ($position) {
-                $index = $after ? $this->getOptionIndex($position->getId()) + 1:$this->getOptionIndex($position->getId());
+                $index = $after ? $this
+                        ->getOptionIndex($position->getId()) + 1:$this->getOptionIndex($position->getId());
             } else {
                 $index = $after ? count($this->options) : 0;
             }
@@ -42,7 +43,8 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     {
         if ($this->hasOption($option->getId())) {
             if ($position) {
-                $index = $after ? $this->getOptionIndex($position->getId())+1:$this->getOptionIndex($position->getId())-1;
+                $index = $after ? $this
+                        ->getOptionIndex($position->getId())+1:$this->getOptionIndex($position->getId())-1;
             } else {
                 $index = $after ? count($this->options) : 0;
             }
