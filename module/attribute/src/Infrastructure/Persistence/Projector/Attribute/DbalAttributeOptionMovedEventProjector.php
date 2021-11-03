@@ -16,20 +16,20 @@ class DbalAttributeOptionMovedEventProjector extends AbstractDbalAttributeOption
     public function __invoke(AttributeOptionAddedEvent $event): void
     {
         $option = $this->getPosition($event->getAggregateId(), $event->getOptionId());
-        $position = $event->getPosition();
+        $index = $event->getIndex();
 
-        $this->shiftPosition($event->getAggregateId(), $position);
+        $this->shiftPosition($event->getAggregateId(), $index);
         $this->mergePosition($event->getAggregateId(), $option);
 
         $this->connection->update(
             self::TABLE,
             [
-                'position' => $position,
+                'index' => $index,
             ],
             [
                 'attribute_id' => $event->getAggregateId()->getValue(),
                 'option_id' => $event->getOptionId()->getValue(),
-                'position' => $option,
+                'index' => $option,
             ]
         );
     }

@@ -15,16 +15,16 @@ class DbalAttributeOptionAddedEventProjector extends AbstractDbalAttributeOption
 {
     public function __invoke(AttributeOptionAddedEvent $event): void
     {
-        $position = $event->getPosition();
+        $index = $event->getIndex();
 
-        $this->shiftPosition($event->getAggregateId(), $position);
+        $this->shiftPosition($event->getAggregateId(), $index);
 
         $this->connection->insert(
             self::TABLE,
             [
                 'attribute_id' => $event->getAggregateId()->getValue(),
                 'option_id' => $event->getOptionId()->getValue(),
-                'position' => $position,
+                'index' => $index,
             ]
         );
     }

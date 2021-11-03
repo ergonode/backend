@@ -22,11 +22,11 @@ class AttributeOptionMovedEventTest extends TestCase
         $optionId = $this->createMock(AggregateId::class);
         /** @var AttributeId $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
-        $position = 1;
+        $index = 1;
 
-        $event = new AttributeOptionMovedEvent($attributeId, $optionId, $position);
+        $event = new AttributeOptionMovedEvent($attributeId, $optionId, $index);
         $this->assertEquals($attributeId, $event->getAggregateId());
         $this->assertEquals($optionId, $event->getOptionId());
-        $this->assertEquals($position, $event->getPosition());
+        $this->assertEquals($index, $event->getIndex());
     }
 }
