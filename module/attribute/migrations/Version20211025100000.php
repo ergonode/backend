@@ -46,7 +46,7 @@ final class Version20211025100000 extends AbstractErgonodeMigration
     {
         foreach (self::CURRENCIES as $iso => $name) {
             $currency = $this->connection->executeQuery('SELECT id FROM currency WHERE iso = :id', ['id' => $iso])
-                ->fetchOne();
+                ->fetch(\PDO::FETCH_COLUMN);
             if (!$currency) {
                 $this->addSql(
                     'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)',
