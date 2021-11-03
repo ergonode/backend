@@ -5,6 +5,7 @@
 - feature [#1667](https://github.com/ergonode/backend/pull/1667) Add multimedia support to ergonode csv export (rprzedzik)
 - feature [#1663](https://github.com/ergonode/backend/pull/1663) Validation of import files for required columns (piotrkreft)
 - feature [#1645](https://github.com/ergonode/backend/pull/1645) Add attribute code validation (wiewiurdp)
+- feature [#1687](https://github.com/ergonode/backend/issues/1687) Product availability in segment events (piotrkreft)
 - bugfix [#1636](https://github.com/ergonode/backend/issues/1636) Multimedia gird is too slow  (wfajczyk)
 - bugfix [#1625](https://github.com/ergonode/backend/issues/1625) Allowed empty values for deactivated scheduler (piotrkreft)
 - refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk, wiewiurdp)
