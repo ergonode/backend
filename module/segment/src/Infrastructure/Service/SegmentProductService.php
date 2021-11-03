@@ -80,6 +80,8 @@ class SegmentProductService
             ->from(self::TABLE)
             ->where($qb->expr()->eq('product_id', ':productId'))
             ->andWhere($qb->expr()->eq('segment_id', ':segmentId'))
+            ->setParameter(':segmentId', $segmentId)
+            ->setParameter(':productId', $productId)
             ->execute()
             ->fetchOne();
     }
