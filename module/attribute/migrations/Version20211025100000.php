@@ -15,11 +15,9 @@ use Ramsey\Uuid\Uuid;
 final class Version20211025100000 extends AbstractErgonodeMigration
 {
     private const CURRENCIES = [
-        'AUD' => 'Australian Dollar',
         'BHD' => 'Dinar',
         'BRL' => 'Real',
-        'CNY' => 'Chinese Yuan',
-        'HRK' => 'Croatian Kuna',
+        'HRK' => 'Croatian kuna',
         'CZK' => 'Czech koruna',
         'DKK' => 'Danish krone',
         'JPY' => 'Japanese yen',
@@ -28,16 +26,14 @@ final class Version20211025100000 extends AbstractErgonodeMigration
         'QAR' => 'Rial',
         'KZT' => 'Tenge',
         'KES' => 'Shilling',
-        'CHF' => 'Swiss Franc',
         'MKD' => 'Denar',
         'MXN' => 'Pesos',
         'NOK' => 'Norwegian krone',
         'NZD' => 'New Zealand dollar',
-        'RUB' => 'Russian ruble',
-        'RON' => 'Romanian Leu',
+        'RON' => 'Romanian leu',
         'SEK' => 'Swedish krona',
-        'TRY' => 'Turkish Lira',
-        'HUF' => 'Hungarian Forint',
+        'TRY' => 'Turkish lira',
+        'HUF' => 'Hungarian forint',
         'AED' => 'Dirham',
         'UAH' => 'Ukrainian hryvnia',
         'KRW' => 'Won',
@@ -49,10 +45,30 @@ final class Version20211025100000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         foreach (self::CURRENCIES as $iso => $name) {
-            $this->addSql(
-                'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
-                [Uuid::uuid4()->toString(), $iso, $name]
-            );
+            $currency = $this->connection->executeQuery('SELECT id FROM currency WHERE iso = :id', ['id' => $iso])
+                ->fetchOne();
+            if (!$currency) {
+                $this->addSql(
+                    'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)',
+                    [Uuid::uuid4()->toString(), $iso, $name]
+                );
+            }
         }
+
+        $this->addSql(
+            'UPDATE currency SET name = \'Chinese yuan\' WHERE name = \'Chinese Yuan Renminbi\' AND iso = \'CNY\''
+        );
+
+        $this->addSql(
+            'UPDATE currency SET name = \'Pound sterling\' WHERE name = \'Pound Sterling\' AND iso = \'GBP\''
+        );
+
+        $this->addSql(
+            'UPDATE currency SET name = \'US dollar\' WHERE name = \'US Dollar\' AND iso = \'USD\''
+        );
+
+        $this->addSql(
+            'UPDATE currency SET name = \'Russian ruble\' WHERE name = \'Russian Ruble\' AND iso = \'RUB\''
+        );
     }
 }
