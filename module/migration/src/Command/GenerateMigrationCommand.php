@@ -39,6 +39,8 @@ class GenerateMigrationCommand extends AbstractCommand
         $path = $this->generateMigration($configuration, $version, $template);
 
         $output->writeln(\sprintf('Generated migration class:"<info>%s</info>"', $path));
+
+        return 0;
     }
 
     protected function generateMigration(Configuration $configuration, string $version, string $template): string
