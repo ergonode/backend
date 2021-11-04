@@ -303,9 +303,9 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @return array|mixed|mixed[]
+     * @return ProductId[]
      */
-    public function findProductIdByOptionId(AggregateId $id)
+    public function findProductIdByOptionId(AggregateId $id): array
     {
         $qb = $this->connection->createQueryBuilder()
             ->select('pv.product_id')
@@ -313,8 +313,8 @@ class DbalProductQuery implements ProductQueryInterface
 
         $result = $qb
             ->join('pv', self::VALUE_TRANSLATION_TABLE, 'vt', 'vt.id = pv.value_id')
-            ->andWhere($qb->expr()->eq('vt.value', ':optionId'))
-            ->setParameter('optionId', $id->getValue())
+            ->andWhere('vt.value ILIKE :optionId')
+            ->setParameter(':optionId', '%'.$id->getValue().'%')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
