@@ -1,6 +1,7 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
 - bugfix [#1699](https://github.com/ergonode/backend/issues/1699) Multimedia stays on storage (wfajczyk)
+- bugfix [#1695](https://github.com/ergonode/backend/issues/1695) Bugfix option name validation (wiewiurdp)
 - feature [#1687](https://github.com/ergonode/backend/issues/1687) Product availability in segment events (piotrkreft)
 - feature  [#1637](https://github.com/ergonode/backend/issues/1637) Add posibility to import multimedia (rprzedzik) 
 - feature [#1667](https://github.com/ergonode/backend/issues/1667) Add multimedia support to ergonode csv export (rprzedzik)
