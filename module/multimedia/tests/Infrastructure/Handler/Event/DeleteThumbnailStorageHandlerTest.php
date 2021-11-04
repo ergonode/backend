@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -22,7 +22,8 @@ class DeleteThumbnailStorageHandlerTest extends TestCase
         $event->method('getAggregateId')->willReturn(MultimediaId::generate());
 
         $thumbnailStorage = $this->createMock(FilesystemInterface::class);
-        $thumbnailStorage->expects(self::once())->method('has')->willReturn(false);
+        $thumbnailStorage->expects(self::once())->method('has')->willReturn(true);
+        $thumbnailStorage->expects(self::once())->method('delete')->willReturn(true);
 
         $handler = new DeleteThumbnailStorageHandler($thumbnailStorage);
         $handler->__invoke($event);
