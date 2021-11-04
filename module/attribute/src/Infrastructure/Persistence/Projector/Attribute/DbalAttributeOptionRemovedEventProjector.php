@@ -15,7 +15,7 @@ class DbalAttributeOptionRemovedEventProjector extends AbstractDbalAttributeOpti
 {
     public function __invoke(AttributeOptionRemovedEvent $event): void
     {
-        $position = $this->getPosition($event->getAggregateId(), $event->getOptionId());
+        $index = $this->getPosition($event->getAggregateId(), $event->getOptionId());
 
         $this->connection->delete(
             self::TABLE,
@@ -25,6 +25,6 @@ class DbalAttributeOptionRemovedEventProjector extends AbstractDbalAttributeOpti
             ]
         );
 
-        $this->mergePosition($event->getAggregateId(), $position);
+        $this->mergePosition($event->getAggregateId(), $index);
     }
 }

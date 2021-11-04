@@ -15,6 +15,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 class SimpleOptionForm extends AbstractType
 {
@@ -31,7 +34,22 @@ class SimpleOptionForm extends AbstractType
             ->add(
                 'label',
                 TranslationType::class
-            );
+            )
+            ->add(
+                'positionId',
+                TextType::class,
+            )
+            ->add(
+                'after',
+                CheckboxType::class
+            )->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
+
+                if (!array_key_exists('after', $data)) {
+                    $data['after'] = true;
+                    $event->setData($data);
+                }
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

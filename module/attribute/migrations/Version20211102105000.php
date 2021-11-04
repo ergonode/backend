@@ -37,24 +37,27 @@ final class Version20211102105000 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('CREATE UNIQUE INDEX attribute_option_index_key 
-            ON attribute_options USING btree (attribute_id, option_id, index)');
+        $this->addSql('CREATE UNIQUE INDEX options_attribute_option_key 
+            ON attribute_options USING btree (attribute_id, option_id)');
 
-        $this->addSql('
-            ALTER TABLE attribute_options 
-                ADD CONSTRAINT attribute_options_attribute_id_fk 
-                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE RESTRICT');
+        $this->addSql('CREATE UNIQUE INDEX options_option_index_key 
+            ON attribute_options USING btree (option_id, index)');
 
         $this->addSql(' ALTER TABLE attribute_option DROP CONSTRAINT attribute_option_pkey ');
         $this->addSql(' ALTER TABLE attribute_option ADD CONSTRAINT attribute_option_pkey PRIMARY KEY (id)');
 
-        //@todo uncomment after changes in projections
-        //$this->addSql('ALTER TABLE  attribute_option DROP COLUMN attribute_id');
+        $this->addSql('
+            ALTER TABLE attribute_options 
+                ADD CONSTRAINT attribute_options_attribute_id_fk 
+                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
             ALTER TABLE attribute_options
                 ADD CONSTRAINT attribute_options_option_id_fk
                     FOREIGN KEY (option_id) REFERENCES attribute_option ON UPDATE CASCADE ON DELETE RESTRICT');
+
+        //@todo uncomment after changes in projections
+        //$this->addSql('ALTER TABLE  attribute_option DROP COLUMN attribute_id');
 
         $attributes = $this->connection->executeQuery('SELECT DISTINCT attribute_id FROM attribute_option ')
             ->fetchFirstColumn();

@@ -21,7 +21,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     /**
      * @var AggregateId[]
      */
-    private array $options = [];
+    protected array $options = [];
 
     public function addOption(AbstractOption $option, bool $after = true, ?AbstractOption $position = null): self
     {

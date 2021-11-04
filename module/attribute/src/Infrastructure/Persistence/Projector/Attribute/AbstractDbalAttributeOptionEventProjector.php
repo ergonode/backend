@@ -27,7 +27,7 @@ abstract class AbstractDbalAttributeOptionEventProjector
     protected function getPosition(AttributeId $attributeId, ?AggregateId $positionId = null): int
     {
         $qb = $this->connection->createQueryBuilder();
-        $qb->select('max(position)')
+        $qb->select('max(index)')
             ->from(self::TABLE)
             ->where($qb->expr()->eq('attribute_id', ':attributeId'))
             ->setParameter(':attributeId', $attributeId->getValue());
@@ -40,25 +40,27 @@ abstract class AbstractDbalAttributeOptionEventProjector
         return (int) $qb->execute()->fetchOne();
     }
 
-    protected function shiftPosition(AttributeId $attributeId, int $position): void
+    protected function shiftPosition(AttributeId $attributeId, int $index): void
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->update(self::TABLE)
-            ->set('position', 'position + 1')
-            ->where($qb->expr()->eq('attribute_id', 'attributeId'))
-            ->andWhere($qb->expr()->gt('position', ':position'))
-            ->setParameter('attributeId', $attributeId)
-            ->setParameter('position', $position);
+            ->set('index', 'index + 1')
+            ->where($qb->expr()->eq('attribute_id', ':attributeId'))
+            ->andWhere($qb->expr()->gte('index', ':index'))
+            ->setParameter(':attributeId', $attributeId->getValue())
+            ->setParameter(':index', $index)
+            ->execute();
     }
 
-    protected function mergePosition(AttributeId $attributeId, int $position): void
+    protected function mergePosition(AttributeId $attributeId, int $index): void
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->update(self::TABLE)
-            ->set('position', 'position - 1')
-            ->where($qb->expr()->eq('attribute_id', 'attributeId'))
-            ->andWhere($qb->expr()->gt('position', ':position'))
-            ->setParameter('attributeId', $attributeId)
-            ->setParameter('position', $position);
+            ->set('index', 'index - 1')
+            ->where($qb->expr()->eq('attribute_id', ':attributeId'))
+            ->andWhere($qb->expr()->gte('index', ':index'))
+            ->setParameter(':attributeId', $attributeId->getValue())
+            ->setParameter(':index', $index)
+            ->execute();
     }
 }

@@ -100,7 +100,9 @@ class OptionCreateAction
                 $command = new CreateOptionCommand(
                     $attribute->getId(),
                     new OptionKey($data->code),
-                    new TranslatableString($data->label)
+                    new TranslatableString($data->label),
+                    $data->after,
+                    $data->positionId ? new AggregateId($data->positionId) : null,
                 );
 
                 $this->commandBus->dispatch($command);

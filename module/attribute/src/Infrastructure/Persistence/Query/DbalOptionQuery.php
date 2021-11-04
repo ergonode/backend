@@ -22,6 +22,7 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 class DbalOptionQuery implements OptionQueryInterface
 {
     private const TABLE_OPTIONS = 'attribute_option';
+    private const TABLE_ATTRIBUTE_OPTIONS = 'attribute_options';
     private const TABLE_VALUES = 'value_translation';
 
     private Connection $connection;
@@ -79,14 +80,16 @@ class DbalOptionQuery implements OptionQueryInterface
     {
         $qb = $this->getQuery();
 
-        $qb->select('o.id, o.key as code, value_id');
+        $qb->select('o.id, o.key as code, value_id')
+            ->join('o', self::TABLE_ATTRIBUTE_OPTIONS, 'ao', 'ao.option_id = o.id');
         if ($attributeId) {
             $qb
-                ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
+
+                ->andWhere($qb->expr()->eq('ao.attribute_id', ':id'))
                 ->setParameter(':id', $attributeId->getValue());
         }
         $records = $qb
-            ->orderBy('o.attribute_id, o.key')
+            ->orderBy('o.attribute_id, ao.index')
             ->execute()
             ->fetchAll();
 
