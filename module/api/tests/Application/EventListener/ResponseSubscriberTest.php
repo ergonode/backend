@@ -46,6 +46,7 @@ class ResponseSubscriberTest extends TestCase
 
         $this->assertEquals($expectedResponse->getContent(), $event->getResponse()->getContent());
         $this->assertEquals($expectedResponse->getStatusCode(), $event->getResponse()->getStatusCode());
+        $this->assertEquals('application/json', $event->getResponse()->headers->get('Content-Type'));
     }
 
     public function eventProvider(): array
