@@ -12,6 +12,7 @@ namespace Ergonode\Api\Application\EventListener;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AbstractId;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -34,9 +35,11 @@ final class ResponseSubscriber implements EventSubscriberInterface
 
         $body = $this->serializer->serialize($result);
 
-        $response = new Response(
+        $response = new JsonResponse(
             $body,
             $this->resolveCode($event),
+            [],
+            true,
         );
 
         $event->setResponse($response);

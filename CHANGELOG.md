@@ -1,4 +1,7 @@
 ## CHANGELOG FOR 1.1.x
+#### 1.1.4
+- bugfix [#1704](https://github.com/ergonode/backend/issues/1704) Fixed API returned `Content-Type` header (piotrkreft)
+
 #### 1.1.1
 - bugfix [#1519](https://github.com/ergonode/backend/issues/1519) Fixed caught exception in DTOInputValueResolver (piotrkreft)
 

@@ -15,7 +15,7 @@ use Ergonode\Api\Application\Response\ExceptionResponse;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
@@ -150,7 +150,7 @@ class ExceptionListenerTest extends TestCase
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response): void {
-                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(JsonResponse::class, get_class($response));
                 $this->assertEquals(500, $response->getStatusCode());
             });
 
@@ -171,7 +171,7 @@ class ExceptionListenerTest extends TestCase
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response): void {
-                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(JsonResponse::class, get_class($response));
                 $this->assertEquals(500, $response->getStatusCode());
             });
 
@@ -201,7 +201,7 @@ class ExceptionListenerTest extends TestCase
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response): void {
-                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(JsonResponse::class, get_class($response));
                 $this->assertEquals(403, $response->getStatusCode());
             });
 
@@ -228,7 +228,7 @@ class ExceptionListenerTest extends TestCase
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response): void {
-                $this->assertEquals(Response::class, get_class($response));
+                $this->assertEquals(JsonResponse::class, get_class($response));
                 $this->assertEquals(403, $response->getStatusCode());
             });
 
