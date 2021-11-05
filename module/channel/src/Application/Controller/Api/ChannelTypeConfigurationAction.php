@@ -11,6 +11,7 @@ namespace Ergonode\Channel\Application\Controller\Api;
 use Limenius\Liform\Liform;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
@@ -78,6 +79,6 @@ class ChannelTypeConfigurationAction
 
         $result = json_encode($this->liForm->transform($form), JSON_THROW_ON_ERROR, 512);
 
-        return new Response($result);
+        return new JsonResponse($result, Response::HTTP_OK, [], true);
     }
 }

@@ -13,6 +13,7 @@ use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Limenius\Liform\Liform;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Infrastructure\Provider\SourceTypeProvider;
@@ -80,6 +81,6 @@ class SourceTypeConfigurationAction
         $form = $this->factoryProvider->provide($type)->create();
         $result = json_encode($this->liform->transform($form), JSON_THROW_ON_ERROR, 512);
 
-        return new Response($result);
+        return new JsonResponse($result, Response::HTTP_OK, [], true);
     }
 }

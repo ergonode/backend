@@ -161,6 +161,7 @@ class ExceptionListenerTest extends TestCase
 
         self::assertEquals(500, $event->getResponse()->getStatusCode());
         self::assertInstanceOf(Response::class, $event->getResponse());
+        self::assertEquals('application/json', $event->getResponse()->headers->get('Content-Type'));
     }
 
     public function testInvokeWithoutMappingWithHandlerFailedException(): void
@@ -184,6 +185,7 @@ class ExceptionListenerTest extends TestCase
 
         self::assertEquals(500, $event->getResponse()->getStatusCode());
         self::assertInstanceOf(Response::class, $event->getResponse());
+        self::assertEquals('application/json', $event->getResponse()->headers->get('Content-Type'));
     }
 
     public function testInvokeWithMappingWithHandlerFailedException(): void
@@ -216,6 +218,7 @@ class ExceptionListenerTest extends TestCase
 
         self::assertEquals(403, $event->getResponse()->getStatusCode());
         self::assertInstanceOf(Response::class, $event->getResponse());
+        self::assertEquals('application/json', $event->getResponse()->headers->get('Content-Type'));
     }
 
     public function testInvokeWithMapping(): void
@@ -243,5 +246,6 @@ class ExceptionListenerTest extends TestCase
 
         self::assertEquals(403, $event->getResponse()->getStatusCode());
         self::assertInstanceOf(Response::class, $event->getResponse());
+        self::assertEquals('application/json', $event->getResponse()->headers->get('Content-Type'));
     }
 }
