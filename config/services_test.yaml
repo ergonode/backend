@@ -54,7 +54,7 @@ services:
             $transport: '@messenger.transport.segment'
             $commandBus: '@messenger.bus.sync'
         tags:
-            - { name: 'messenger.message_handler', method: 'onSegmentCreatedEvent', priority: -10 }
+            - { name: 'messenger.message_handler', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onSegmentConditionSetChangedEvent', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onProductCreatedEvent', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onProductDeletedEvent', priority: -10 }
