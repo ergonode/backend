@@ -28,6 +28,8 @@ BatchAction:
 Attribute:
 * Validation `AttributeCode` value cannot be 'id' or start with 'esa_' - *Before migration to new version you need to change all `AttributeCodes` which start with 'esa_' or equal 'id'. Otherwise, it can cause system to break.*
 * Database Column `attribute_id` from table `attribute_option` was removed, relation between options and attributes was moved to `attribute_options` table
+* The signature of constructor `CreateOptionCommandHandler` has changed
+* The signature of constructor `DeleteOptionCommandHandler` has changed
 
 Importer:
 * The signature of constructor `ImportProductImageAttributeStrategy` has changed

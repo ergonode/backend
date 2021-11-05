@@ -23,6 +23,10 @@ class SimpleOptionModel
 
     public ?AggregateId $optionId;
 
+    public bool $after = true;
+
+    public ?string $positionId;
+
     /**
      * @Assert\NotBlank(message="Option code is required")
      * @Assert\Length(max=128, maxMessage="Option code is too long. It should contain {{ limit }} characters or less.")
@@ -48,5 +52,7 @@ class SimpleOptionModel
         $this->optionId = $optionId;
         $this->code = null;
         $this->label = [];
+        $this->after = true;
+        $this->positionId = null;
     }
 }

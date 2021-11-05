@@ -25,15 +25,26 @@ class CreateOptionCommand implements AttributeCommandInterface
 
     private TranslatableString $label;
 
+    private bool $after;
+
+    private ?AggregateId $positionId;
+
     /**
      * @throws \Exception
      */
-    public function __construct(AttributeId $attributeId, OptionKey $code, TranslatableString $label)
-    {
+    public function __construct(
+        AttributeId $attributeId,
+        OptionKey $code,
+        TranslatableString $label,
+        bool $after = true,
+        ?AggregateId $positionId = null
+    ) {
         $this->id = AggregateId::generate();
         $this->attributeId = $attributeId;
         $this->code = $code;
         $this->label = $label;
+        $this->after = $after;
+        $this->positionId = $positionId;
     }
 
     public function getId(): AggregateId
@@ -54,5 +65,15 @@ class CreateOptionCommand implements AttributeCommandInterface
     public function getLabel(): TranslatableString
     {
         return $this->label;
+    }
+
+    public function isAfter(): bool
+    {
+        return $this->after;
+    }
+
+    public function getPositionId(): ?AggregateId
+    {
+        return $this->positionId;
     }
 }
