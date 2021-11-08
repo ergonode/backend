@@ -11,5 +11,5 @@ namespace Ergonode\Multimedia\Application\Service;
 
 interface SuffixGeneratingServiceInterface
 {
-    public function generateSuffix(string $name, int $iterationIndex): string;
+    public function generateSuffix(string $filename, string $extension, int $iterationIndex): string;
 }
