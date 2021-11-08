@@ -12,6 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
+use Ergonode\SharedKernel\Domain\AbstractId;
 
 abstract class AbstractDbalAttributeOptionEventProjector
 {
@@ -38,6 +39,39 @@ abstract class AbstractDbalAttributeOptionEventProjector
         }
 
         return (int) $qb->execute()->fetchOne();
+    }
+
+    protected function insertOption(AttributeId $attributeId, AbstractId $optionId, int $index): void
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb->update(self::TABLE)
+            ->set('index', 'index + 1')
+            ->where($qb->expr()->eq('attribute_id', ':attributeId'))
+            ->andWhere($qb->expr()->gte('index', ':index'))
+            ->setParameter(':attributeId', $attributeId->getValue())
+            ->setParameter(':index', $index)
+            ->execute();
+    }
+
+    protected function deleteOption(AttributeId $attributeId, AbstractId $optionId, int $index): void
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'attribute_id' => $attributeId->getValue(),
+                'option_id' => $optionId->getValue(),
+                'index' => $index,
+            ]
+        );
+
+        $qb->update(self::TABLE)
+            ->set('index', 'index - 1')
+            ->where($qb->expr()->eq('attribute_id', ':attributeId'))
+            ->andWhere($qb->expr()->gte('index', ':index'))
+            ->setParameter(':attributeId', $attributeId->getValue())
+            ->setParameter(':index', $index)
+            ->execute();
     }
 
     protected function shiftPosition(AttributeId $attributeId, int $index): void

@@ -12,6 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Option;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
 class UpdateOptionCommandHandler
 {
@@ -28,7 +29,7 @@ class UpdateOptionCommandHandler
     public function __invoke(UpdateOptionCommand $command): void
     {
         $option = $this->repository->load($command->getId());
-        Assert::notNull($option);
+        Assert::isInstanceOf($option, AbstractOption::class);
         $option->changeLabel($command->getLabel());
         $option->changeCode($command->getCode());
 

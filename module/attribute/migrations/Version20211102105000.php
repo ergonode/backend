@@ -33,15 +33,15 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 attribute_id UUID NOT NULL, 
                 option_id UUID NOT NULL,        
                 index integer NOT NULL,                                         
-                PRIMARY KEY(attribute_id, option_id)
+                PRIMARY KEY(attribute_id, option_id, index)
             )
         ');
 
-        $this->addSql('CREATE UNIQUE INDEX options_attribute_option_key 
-            ON attribute_options USING btree (attribute_id, option_id)');
-
-        $this->addSql('CREATE UNIQUE INDEX options_option_index_key 
-            ON attribute_options USING btree (option_id, index)');
+//        $this->addSql('CREATE UNIQUE INDEX options_attribute_option_key
+//            ON attribute_options USING btree (attribute_id, option_id)');
+//
+//        $this->addSql('CREATE UNIQUE INDEX options_attribute_index_key
+//            ON attribute_options USING btree (attribute_id, index)');
 
         $this->addSql(' ALTER TABLE attribute_option DROP CONSTRAINT attribute_option_pkey ');
         $this->addSql(' ALTER TABLE attribute_option ADD CONSTRAINT attribute_option_pkey PRIMARY KEY (id)');

@@ -140,7 +140,7 @@ Feature: Multi multi select attribute manipulation
     And the JSON node "label.en_GB" should contain "Option en 1 updated"
     And the JSON node "code" should contain "option_1_updated"
 
-  Scenario: Get attribute options
+  Scenario: Scenario: Check attribute options sort after adding all
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
     Then the response status code should be 200
     And the JSON node "[0].id" should contain "@option_5_id@"
@@ -148,6 +148,53 @@ Feature: Multi multi select attribute manipulation
     And the JSON node "[2].id" should contain "@option_4_id@"
     And the JSON node "[3].id" should contain "@option_3_id@"
     And the JSON node "[4].id" should contain "@option_2_id@"
+
+  Scenario: Move option 5 after option 3
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_5_id@/move" with body:
+      """
+      {
+        "positionId": "@option_3_id@"
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Move option 3 to beginning
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_3_id@/move" with body:
+      """
+      {
+        "after": false
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Move option 1 to the end
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_1_id@/move" with body:
+      """
+      {
+        "after": true
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Move option 2 before option 5
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_2_id@/move" with body:
+      """
+      {
+        "after": false,
+        "positionId": "@option_5_id@"
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Check attribute options sort after moving
+    And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
+    Then the response status code should be 200
+    And the JSON node "[0].id" should contain "@option_3_id@"
+    And the JSON node "[1].id" should contain "@option_4_id@"
+    And the JSON node "[2].id" should contain "@option_2_id@"
+    And the JSON node "[3].id" should contain "@option_5_id@"
+    And the JSON node "[4].id" should contain "@option_1_id@"
+
 
   Scenario: Get attributes filter by attribute empty groups
     And I send a "GET" request to "/api/v1/en_GB/attributes?limit=25&offset=0&filter=code%3D@attribute_code@;groups="
@@ -172,9 +219,9 @@ Feature: Multi multi select attribute manipulation
   Scenario: Get attribute options
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
     Then the response status code should be 200
-    And the JSON node "[0].id" should contain "@option_1_id@"
-    And the JSON node "[1].id" should contain "@option_3_id@"
-    And the JSON node "[2].id" should contain "@option_2_id@"
+    And the JSON node "[0].id" should contain "@option_3_id@"
+    And the JSON node "[1].id" should contain "@option_2_id@"
+    And the JSON node "[2].id" should contain "@option_1_id@"
 
   Scenario: Delete select attribute
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"
