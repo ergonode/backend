@@ -18,7 +18,11 @@ class DuplicateFilenameSuffixGeneratingService implements SuffixGeneratingServic
         $name = substr($filename, 0, -(strlen($extension) + 1));
         $suffix = '('.$iterationIndex.')';
         if (mb_strlen($filename) > (self::MAX_LENGTH - mb_strlen($suffix))) {
-            return mb_substr($name, 0, self::MAX_LENGTH - mb_strlen($suffix)-mb_strlen($extension)-1).$suffix.'.'.$extension;
+            return mb_substr(
+                $name,
+                0,
+                self::MAX_LENGTH - mb_strlen($suffix) - mb_strlen($extension) - 1
+            ).$suffix.'.'.$extension;
         }
 
         return $name.$suffix.'.'.$extension;
