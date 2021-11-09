@@ -44,6 +44,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.7
+- bugfix [#1713](https://github.com/ergonode/backend/issues/1713) Fixed handling invalid json request content (piotrkreft)
+
 #### 1.0.6
 - feature [#1675](https://github.com/ergonode/backend/pull/1675) Add more currencies to application (rprzedzik)
 - bugfix [#1630](https://github.com/ergonode/backend/issues/1630) Fixed handling `null` attribute value in conditions (piotrkreft)
