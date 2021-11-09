@@ -51,6 +51,42 @@ class AbstractOptionAttributeTest extends TestCase
         self::assertSame($attribute->getOptions()[1], $option2->getId());
     }
 
+    public function testMoveOptionAfterSelf(): void
+    {
+        $this->expectException(\DomainException::class);
+        $attribute = $this->getClass();
+
+        $option1 = $this->getOption();
+
+        $attribute->addOption($option1);
+        $attribute->moveOption($option1, true, $option1);
+    }
+
+    public function testAddOptionAfterNotExistsOption(): void
+    {
+        $this->expectException(\DomainException::class);
+        $attribute = $this->getClass();
+
+        $option1 = $this->getOption();
+        $option2 = $this->getOption();
+        $option3 = $this->getOption();
+
+        $attribute->addOption($option1);
+        $attribute->addOption($option2, true, $option3);
+    }
+
+    public function testMoveOptionAfterNotExistsOption(): void
+    {
+        $this->expectException(\DomainException::class);
+        $attribute = $this->getClass();
+
+        $option1 = $this->getOption();
+        $option2 = $this->getOption();
+
+        $attribute->addOption($option1);
+        $attribute->moveOption($option1, true, $option2);
+    }
+
     public function testAddOptionAtTheBeginning(): void
     {
         $attribute = $this->getClass();

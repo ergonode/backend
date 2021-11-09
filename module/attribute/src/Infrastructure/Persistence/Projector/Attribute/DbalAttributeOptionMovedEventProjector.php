@@ -9,28 +9,58 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionAddedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeOptionMovedEvent;
 
 class DbalAttributeOptionMovedEventProjector extends AbstractDbalAttributeOptionEventProjector
 {
-    public function __invoke(AttributeOptionAddedEvent $event): void
+    public function __invoke(AttributeOptionMovedEvent $event): void
     {
-        $option = $this->getPosition($event->getAggregateId(), $event->getOptionId());
-        $index = $event->getIndex();
+        $from = $this->getPosition($event->getAggregateId(), $event->getOptionId());
+        $to = $event->getIndex();
 
-        $this->shiftPosition($event->getAggregateId(), $index);
-        $this->mergePosition($event->getAggregateId(), $option);
+        if ($from > $to) {
+            $this->connection->delete(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $from,
+                ]
+            );
 
-        $this->connection->update(
-            self::TABLE,
-            [
-                'index' => $index,
-            ],
-            [
-                'attribute_id' => $event->getAggregateId()->getValue(),
-                'option_id' => $event->getOptionId()->getValue(),
-                'index' => $option,
-            ]
-        );
+            $this->mergePosition($event->getAggregateId(), $from);
+            $this->shiftPosition($event->getAggregateId(), $to);
+
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $to,
+                ]
+            );
+        } else {
+            $this->shiftPosition($event->getAggregateId(), $to);
+
+            $this->connection->delete(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $from,
+                ]
+            );
+
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $to,
+                ]
+            );
+
+            $this->mergePosition($event->getAggregateId(), $from);
+        }
     }
 }
