@@ -45,7 +45,7 @@
 
 ## CHANGELOG FOR 1.0.x
 #### 1.0.7
-- bugfix [#1713](https://github.com/ergonode/backend/issues/1713) Omitting not an encoded array request content (piotrkreft)
+- bugfix [#1713](https://github.com/ergonode/backend/issues/1713) Fixed handling invalid json request content (piotrkreft)
 
 #### 1.0.6
 - feature [#1675](https://github.com/ergonode/backend/pull/1675) Add more currencies to application (rprzedzik)
