@@ -15,94 +15,52 @@ class DbalAttributeOptionMovedEventProjector extends AbstractDbalAttributeOption
 {
     public function __invoke(AttributeOptionMovedEvent $event): void
     {
-        try {
-            $from = $this->getPosition($event->getAggregateId(), $event->getOptionId());
-            $to = $event->getIndex();
+        $from = $this->getPosition($event->getAggregateId(), $event->getOptionId());
+        $to = $event->getIndex();
 
-            var_dump('from '.$from);
-            var_dump('to '.$to);
+        if ($from > $to) {
+            $this->connection->delete(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $from,
+                ]
+            );
 
-            $this->print($event);
+            $this->mergePosition($event->getAggregateId(), $from);
+            $this->shiftPosition($event->getAggregateId(), $to);
 
-            if ($from > $to) {
-                $this->connection->delete(
-                    self::TABLE,
-                    [
-                        'attribute_id' => $event->getAggregateId()->getValue(),
-                        'option_id' => $event->getOptionId()->getValue(),
-                        'index' => $from,
-                    ]
-                );
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $to,
+                ]
+            );
+        } else {
+            $this->shiftPosition($event->getAggregateId(), $to);
 
-                $this->mergePosition($event->getAggregateId(), $from);
-                $this->shiftPosition($event->getAggregateId(), $to);
+            $this->connection->delete(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $from,
+                ]
+            );
 
-                $this->connection->insert(
-                    self::TABLE,
-                    [
-                        'attribute_id' => $event->getAggregateId()->getValue(),
-                        'option_id' => $event->getOptionId()->getValue(),
-                        'index' => $to,
-                    ]
-                );
-            } else {
-                var_dump($to);
-                $this->shiftPosition($event->getAggregateId(), $to);
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'attribute_id' => $event->getAggregateId()->getValue(),
+                    'option_id' => $event->getOptionId()->getValue(),
+                    'index' => $to,
+                ]
+            );
 
-                $this->print($event);
-
-                $this->connection->delete(
-                    self::TABLE,
-                    [
-                        'attribute_id' => $event->getAggregateId()->getValue(),
-                        'option_id' => $event->getOptionId()->getValue(),
-                        'index' => $from,
-                    ]
-                );
-
-                $this->connection->insert(
-                    self::TABLE,
-                    [
-                        'attribute_id' => $event->getAggregateId()->getValue(),
-                        'option_id' => $event->getOptionId()->getValue(),
-                        'index' => $to,
-                    ]
-                );
-
-
-
-                $this->mergePosition($event->getAggregateId(), $from);
-
-                //  $this->print($event);
-            }
-        } catch (\Exception $exception) {
-            var_dump($exception->getMessage());
-
-
-
-
-
-            die('wewefwe');
+            $this->mergePosition($event->getAggregateId(), $from);
         }
-
-      //throw new \Exception('brake');
-    }
-
-    private function print(AttributeOptionMovedEvent $event): void
-    {
-        $qb = $this->connection->createQueryBuilder();
-        $result = $qb->select('index, option_id')
-            ->from(self::TABLE)
-            ->where($qb->expr()->eq('attribute_id', ':id'))
-            ->setParameter(':id', $event->getAggregateId()->getValue())
-            ->orderBy('index')
-            ->execute()
-            ->fetchAllAssociative();
-
-        foreach ($result as $line) {
-            echo $line['index'].' : '.$line['option_id'].PHP_EOL;
-        }
-
-        var_dump('------------------------');
     }
 }

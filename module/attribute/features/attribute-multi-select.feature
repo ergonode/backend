@@ -140,7 +140,7 @@ Feature: Multi multi select attribute manipulation
     And the JSON node "label.en_GB" should contain "Option en 1 updated"
     And the JSON node "code" should contain "option_1_updated"
 
-  Scenario: Scenario: Check attribute options sort after adding all
+  Scenario: Check attribute options sort after adding all
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
     Then the response status code should be 200
     And the JSON node "[0].id" should contain "@option_5_id@"
