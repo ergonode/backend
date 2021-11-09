@@ -44,16 +44,22 @@ class DbalOptionQuery implements OptionQueryInterface
         //TODO it's not the solution we've been waiting for, but the one we've had time for.
         return $qb->select('o.id')
             ->addSelect('COALESCE(vt.value, CONCAT(\'#\', o.key)) AS value')
+            ->join(
+                'o',
+                self::TABLE_ATTRIBUTE_OPTIONS,
+                'ao',
+                'ao.option_id = o.id',
+            )
             ->leftJoin(
                 'o',
                 self::TABLE_VALUES,
                 'vt',
                 'vt.value_id = o.value_id AND vt.language = :language',
             )
-            ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
+            ->andWhere($qb->expr()->eq('ao.attribute_id', ':id'))
             ->setParameter(':id', $attributeId->getValue())
             ->setParameter(':language', $language->getCode())
-            ->orderBy('vt.language')
+            ->orderBy('ao.index')
             ->execute()
             ->fetchAllKeyValue();
     }
@@ -67,10 +73,17 @@ class DbalOptionQuery implements OptionQueryInterface
 
         return $qb->select('id')
             ->from(self::TABLE_OPTIONS, 'o')
-            ->where($qb->expr()->eq('attribute_id', ':attribute'))
+            ->join(
+                'o',
+                self::TABLE_ATTRIBUTE_OPTIONS,
+                'ao',
+                'ao.option_id = o.id',
+            )
+            ->where($qb->expr()->eq('ao.attribute_id', ':attribute'))
             ->setParameter(':attribute', $attributeId->getValue())
+            ->orderBy('ao.index')
             ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
+            ->fetchFirstColumn();
     }
 
     /**
@@ -84,7 +97,6 @@ class DbalOptionQuery implements OptionQueryInterface
             ->join('o', self::TABLE_ATTRIBUTE_OPTIONS, 'ao', 'ao.option_id = o.id');
         if ($attributeId) {
             $qb
-
                 ->andWhere($qb->expr()->eq('ao.attribute_id', ':id'))
                 ->setParameter(':id', $attributeId->getValue());
         }
@@ -112,12 +124,19 @@ class DbalOptionQuery implements OptionQueryInterface
 
         $result = $qb
             ->select('o.id')
-            ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
+            ->join(
+                'o',
+                self::TABLE_ATTRIBUTE_OPTIONS,
+                'ao',
+                'ao.option_id = o.id',
+            )
+            ->andWhere($qb->expr()->eq('ao.attribute_id', ':id'))
             ->andWhere($qb->expr()->eq('o.key', ':code'))
             ->setParameter(':id', $id->getValue())
             ->setParameter(':code', $code->getValue())
+            ->orderBy('ao.index')
             ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
+            ->fetchOne();
 
         if ($result) {
             return new AggregateId($result);
@@ -135,7 +154,7 @@ class DbalOptionQuery implements OptionQueryInterface
             ->where($qb->expr()->eq('o.id', ':id'))
             ->setParameter('id', $id->getValue())
             ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
+            ->fetchOne();
 
         return $key ?
             new OptionKey($key) :
@@ -145,8 +164,14 @@ class DbalOptionQuery implements OptionQueryInterface
     public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->select('o.id, o.key AS code, o.attribute_id');
-        $qb->where($qb->expr()->eq('attribute_id', '\''.$attributeId->getValue()).'\'');
+        $qb->select('o.id, o.key AS code, ao.attribute_id');
+        $qb ->join(
+            'o',
+            self::TABLE_ATTRIBUTE_OPTIONS,
+            'ao',
+            'ao.option_id = o.id',
+        );
+        $qb->where($qb->expr()->eq('ao.attribute_id', '\''.$attributeId->getValue()).'\'');
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -168,7 +193,7 @@ class DbalOptionQuery implements OptionQueryInterface
             ->setParameter(':id', $valueId)
             ->orderBy('language')
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAllKeyValue();
     }
 
     private function getQuery(): QueryBuilder
