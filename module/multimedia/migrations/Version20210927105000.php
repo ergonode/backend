@@ -39,16 +39,9 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
             ]
         )->fetchOne();
 
-        foreach ($this->getIds() as $id => $data) {
-            $oldFilename = $data['name'];
-            $extension = $data['extension'];
+        $this->updateMultimediaWithSlash($nameEventId, $createEventId);
 
-            $newName = $this->generateName($id, $oldFilename, $extension);
-            $this->updateProjection($id, $newName);
-            $this->updateEvent($id, $nameEventId, $oldFilename, $newName);
-            $this->updateEvent($id, $createEventId, $oldFilename, $newName);
-            $this->clearSnapshot($id);
-        }
+        $this->updateMultimediaWithDuplicatedNames($nameEventId, $createEventId);
     }
 
     private function updateProjection(string $id, string $name): void
@@ -89,14 +82,31 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
     /**
      * @return string[][]
      */
-    private function getIds(): array
+    private function getIdsWithSlash(): array
     {
         return $this->connection
             ->executeQuery("SELECT m.id, m.name, m.extension FROM multimedia m WHERE m.name ILIKE '%/%'")
             ->fetchAllAssociativeIndexed();
     }
 
-    private function generateName(string $id, string $filename, string $extension): string
+    private function getIdsWithDuplicatedNames(): array
+    {
+        return $this->connection
+            ->executeQuery(
+                '
+                SELECT m.id, m.name FROM multimedia m
+                WHERE
+                      m."name" IN(
+                          SELECT m2."name" FROM multimedia m2
+                          GROUP BY m2."name"
+                          HAVING count(m2.id) >1 
+                      ) 
+                ORDER BY m.created_at ASC'
+            )
+            ->fetchAllAssociativeIndexed();
+    }
+
+    private function generateNameWithoutSlash(string $id, string $filename, string $extension): string
     {
         $newName = $filename = str_replace('/', '_', $filename);
         $i = 0;
@@ -107,9 +117,20 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         return $newName;
     }
 
+    private function generateNameWithoutDuplicates(string $id, string $name, string $extension): string
+    {
+        $newName = $name;
+        $i = 1;
+        while ($this->fileExists($id, $newName)) {
+            $newName = $this->generateSuffix($name, $extension, $i++);
+        }
+
+        return $newName;
+    }
+
     private function fileExists(string $id, string $name): bool
     {
-        return (bool) $this->connection
+        return (bool)$this->connection
             ->executeQuery(
                 'SELECT id FROM multimedia WHERE name = :name AND id <> :id',
                 [
@@ -125,18 +146,50 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         $name = $filename;
         $extensionToAppend = null;
         if (!empty($extension) && str_ends_with($filename, $extension)) {
-            $extensionToAppend = '.'.$extension;
+            $extensionToAppend = '.' . $extension;
             $name = substr($filename, 0, -(strlen($extension) + 1));
         }
-        $suffix = '('.$iterationIndex.')';
+        $suffix = '(' . $iterationIndex . ')';
         if (mb_strlen($filename) > (self::MAX_LENGTH - mb_strlen($suffix))) {
             return mb_substr(
-                $name,
-                0,
-                self::MAX_LENGTH - mb_strlen($suffix)
-            ).$suffix.$extensionToAppend;
+                    $name,
+                    0,
+                    self::MAX_LENGTH - mb_strlen($suffix)
+                ) . $suffix . $extensionToAppend;
         }
 
-        return $name.$suffix.$extensionToAppend;
+        return $name . $suffix . $extensionToAppend;
+    }
+
+    private function updateMultimediaWithSlash($nameEventId, $createEventId): void
+    {
+        foreach ($this->getIdsWithSlash() as $id => $data) {
+            $oldName = $data['name'];
+            $extension = $data['extension'];
+
+            $newName = $this->generateNameWithoutSlash($id, $oldName, $extension);
+            $this->updateProjection($id, $newName);
+            $this->updateEvent($id, $nameEventId, $oldName, $newName);
+            $this->updateEvent($id, $createEventId, $oldName, $newName);
+            $this->clearSnapshot($id);
+        }
+    }
+
+    /**
+     * @param $nameEventId
+     * @param $createEventId
+     */
+    private function updateMultimediaWithDuplicatedNames($nameEventId, $createEventId): void
+    {
+        foreach ($this->getIdsWithDuplicatedNames() as $id => $data) {
+            $oldName = $data['name'];
+            $extension = $data['extension'];
+
+            $newName = $this->generateNameWithoutDuplicates($id, $oldName, $extension);
+            $this->updateProjection($id, $newName);
+            $this->updateEvent($id, $nameEventId, $oldName, $newName);
+            $this->updateEvent($id, $createEventId, $oldName, $newName);
+            $this->clearSnapshot($id);
+        }
     }
 }
