@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -25,6 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Application\Form\Model\Option\OptionMoveModel;
 use Ergonode\Attribute\Application\Form\OptionMoveForm;
 use Ergonode\Attribute\Domain\Command\Option\MoveOptionCommand;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route(
@@ -96,9 +97,13 @@ class OptionMoveAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, AbstractOption $option, Request $request): AggregateId
+    public function __invoke(AbstractOptionAttribute $attribute, AbstractOption $option, Request $request): AggregateId
     {
         try {
+            if (!$attribute->hasOption($option->getId())) {
+                throw new NotFoundHttpException();
+            }
+
             $model = new OptionMoveModel($attribute->getId(), $option->getId());
             $form = $this->formFactory->create(OptionMoveForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);

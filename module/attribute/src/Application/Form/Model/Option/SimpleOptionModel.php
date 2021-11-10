@@ -15,22 +15,12 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @Assert\GroupSequence({"SimpleOptionModel", "class_constraint"})
  * @AttributeAssert\OptionCodeExists()
+ * @AttributeAssert\AttributeHasOption(groups={"class_constraint"})
  */
-class SimpleOptionModel
+class SimpleOptionModel extends OptionMoveModel
 {
-    public ?AttributeId $attributeId;
-
-    public ?AggregateId $optionId;
-
-    public bool $after = true;
-
-    /**
-     * @Assert\Uuid(strict=true)
-     * @AttributeAssert\OptionExists()
-     */
-    public ?string $positionId;
-
     /**
      * @Assert\NotBlank(message="Option code is required")
      * @Assert\Length(max=128, maxMessage="Option code is too long. It should contain {{ limit }} characters or less.")
@@ -50,13 +40,10 @@ class SimpleOptionModel
      */
     public array $label;
 
-    public function __construct(AttributeId $attributeId = null, AggregateId $optionId = null)
+    public function __construct(AttributeId $attributeId, AggregateId $optionId = null)
     {
-        $this->attributeId = $attributeId;
-        $this->optionId = $optionId;
+        parent::__construct($attributeId, $optionId);
         $this->code = null;
         $this->label = [];
-        $this->after = true;
-        $this->positionId = null;
     }
 }

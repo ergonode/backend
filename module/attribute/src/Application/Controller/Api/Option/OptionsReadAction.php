@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route("/attributes/{attribute}/options", methods={"GET"})
@@ -54,7 +54,7 @@ class OptionsReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractAttribute $attribute): array
+    public function __invoke(AbstractOptionAttribute $attribute): array
     {
         return $this->query->getAll($attribute->getId());
     }

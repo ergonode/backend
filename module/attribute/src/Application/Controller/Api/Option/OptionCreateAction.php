@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 use Ergonode\Attribute\Application\Form\SimpleOptionForm;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -25,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route(
@@ -86,7 +86,7 @@ class OptionCreateAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, Request $request): AggregateId
+    public function __invoke(AbstractOptionAttribute $attribute, Request $request): AggregateId
     {
         try {
             $model = new SimpleOptionModel($attribute->getId());

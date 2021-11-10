@@ -23,6 +23,31 @@ Feature: Multi multi select attribute manipulation
     Then the response status code should be 200
     And store response param "code" as "attribute_code"
 
+  Scenario: Create second attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "SELECT@@random_code@@",
+          "type": "MULTI_SELECT",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_2_id"
+
+  Scenario: Create text attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "scope": "local"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_text_id"
+
   Scenario Outline: Create option <code> for attribute
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
       """
@@ -72,7 +97,7 @@ Feature: Multi multi select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "option_4_id"
 
-  Scenario: Create option option_5 att begining
+  Scenario: Create option option_5 att beginning
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
       """
       {
@@ -86,6 +111,37 @@ Feature: Multi multi select attribute manipulation
       """
     Then the response status code should be 201
     And store response param "id" as "option_5_id"
+
+  Scenario: Create option option for second attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_2_id@/options" with body:
+      """
+      {
+        "code": "option_second",
+        "label":  {
+          "pl_PL": "Option pl second",
+          "en_GB": "Option en second"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_second_id"
+
+  Scenario: Create option after position from other attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "positionId": "@option_second_id@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create option for text attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_text_id@/options" with body:
+      """
+      {
+      }
+      """
+    Then the response status code should be 404
 
   Scenario: Create option for attribute (option already exists)
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
@@ -222,6 +278,23 @@ Feature: Multi multi select attribute manipulation
       }
       """
     Then the response status code should be 200
+
+  Scenario: Move option after position from other attribute
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_1_id@/move" with body:
+      """
+      {
+        "positionId": "@option_second_id@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Move option from other attribute
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_second_id@/move" with body:
+      """
+      {
+      }
+      """
+    Then the response status code should be 404
 
   Scenario: Check attribute options sort after moving
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
