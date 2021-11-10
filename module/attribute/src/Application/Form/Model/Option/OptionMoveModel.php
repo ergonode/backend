@@ -28,7 +28,6 @@ class OptionMoveModel
 
     /**
      * @Assert\Uuid(strict=true)
-     * @AttributeAssert\OptionExists()
      */
     public ?string $positionId;
 

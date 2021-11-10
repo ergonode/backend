@@ -15,7 +15,9 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @Assert\GroupSequence({"SimpleOptionModel", "class_constraint"})
  * @AttributeAssert\OptionCodeExists()
+ * @AttributeAssert\AttributeHasOption(groups={"class_constraint"})
  */
 class SimpleOptionModel extends OptionMoveModel
 {
