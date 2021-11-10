@@ -12,6 +12,7 @@ namespace Ergonode\Api\Application\EventListener;
 use Ergonode\Api\Application\Mapper\ExceptionMapperInterface;
 use Ergonode\Api\Application\Response\ExceptionResponse;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -71,10 +72,11 @@ class ExceptionListener
             $headers = $exception->getHeaders();
         }
 
-        return new Response(
+        return new JsonResponse(
             $this->serializer->serialize($exception),
             $statusCode,
             $headers,
+            true,
         );
     }
 }

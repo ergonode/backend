@@ -170,6 +170,33 @@ Feature: Multi multi select attribute manipulation
       """
     Then the response status code should be 400
 
+  Scenario: Create option for attribute (too long code)
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "OvGOLYsGtKBSWaQP2fPv89VB9xEZUxjijC6MPN9d8F0tQkTK3rZy21lPB5HotzsaeNgbOJ37GzPnlksHU48KaN4eLKP33bFXey4vf1w0sN6lkxtxGX4zaDqdDjvTWs5kh",
+        "label":  {
+          "pl_PL": "Option pl 1",
+          "en_GB": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create option for attribute (too long label)
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "option_3",
+        "label":  {
+          "pl_PL": "Dnr4QU6hM8IaVekNuXXBGKP6rnv93VYgwWFFGGyU9vBe0M9zdHFPkq0nvb3gFyogoXL6msz2L3Mv0iWBSmZkQU4JrseToJ5aebpq895CKYE1oL0kpmslMJJryeMlbHs2QpGdDn4ygkXQPYIO0AvpzYG5oCtR0kMWkroYiT7Z1vxNlZyCkRBn5F6lrn5IktBNXoH8apk3zyUJWfl8rZnyfaoc3N0zW0NYCJWeXXYQDZBZQfExHWkF2ALo5wXnVPi5",
+          "en_GB": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create second option for attribute
   Scenario: Create option with not exists position id
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
       """
