@@ -11,6 +11,8 @@ namespace Ergonode\Attribute\Application\Form\Model\Option;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class OptionMoveModel
 {
@@ -20,6 +22,10 @@ class OptionMoveModel
 
     public bool $after = true;
 
+    /**
+     * @Assert\Uuid(strict=true)
+     * @AttributeAssert\OptionExists()
+     */
     public ?string $positionId;
 
     public function __construct(AttributeId $attributeId = null, AggregateId $optionId = null)

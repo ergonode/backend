@@ -25,6 +25,10 @@ class SimpleOptionModel
 
     public bool $after = true;
 
+    /**
+     * @Assert\Uuid(strict=true)
+     * @AttributeAssert\OptionExists()
+     */
     public ?string $positionId;
 
     /**
