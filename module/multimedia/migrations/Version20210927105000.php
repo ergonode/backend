@@ -40,12 +40,13 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         )->fetchOne();
 
         foreach ($this->getIds() as $id => $data) {
-            $oldName = $data['name'];
+            $oldFilename = $data['name'];
+            $extension = $data['extension'];
 
-            $newName = $this->generateName($id, $oldName);
+            $newName = $this->generateName($id, $oldFilename, $extension);
             $this->updateProjection($id, $newName);
-            $this->updateEvent($id, $nameEventId, $oldName, $newName);
-            $this->updateEvent($id, $createEventId, $oldName, $newName);
+            $this->updateEvent($id, $nameEventId, $oldFilename, $newName);
+            $this->updateEvent($id, $createEventId, $oldFilename, $newName);
             $this->clearSnapshot($id);
         }
     }
@@ -91,16 +92,16 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
     private function getIds(): array
     {
         return $this->connection
-            ->executeQuery("SELECT m.id, m.name FROM multimedia m WHERE m.name ILIKE '%/%'")
+            ->executeQuery("SELECT m.id, m.name, m.extension FROM multimedia m WHERE m.name ILIKE '%/%'")
             ->fetchAllAssociativeIndexed();
     }
 
-    private function generateName(string $id, string $name): string
+    private function generateName(string $id, string $filename, string $extension): string
     {
-        $newName = $name = str_replace('/', '_', $name);
+        $newName = $filename = str_replace('/', '_', $filename);
         $i = 0;
         while ($this->fileExists($id, $newName)) {
-            $newName = $this->generateSuffix($name, $i++);
+            $newName = $this->generateSuffix($filename, $extension, $i++);
         }
 
         return $newName;
@@ -119,13 +120,23 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
             ->fetchOne();
     }
 
-    private function generateSuffix(string $name, int $iterationIndex): string
+    private function generateSuffix(string $filename, string $extension, int $iterationIndex): string
     {
+        $name = $filename;
+        $extensionToAppend = null;
+        if (!empty($extension) && str_ends_with($filename, $extension)) {
+            $extensionToAppend = '.'.$extension;
+            $name = substr($filename, 0, -(strlen($extension) + 1));
+        }
         $suffix = '('.$iterationIndex.')';
-        if (mb_strlen($name) > (self::MAX_LENGTH - mb_strlen($suffix))) {
-            return mb_substr($name, 0, self::MAX_LENGTH - mb_strlen($suffix)).$suffix;
+        if (mb_strlen($filename) > (self::MAX_LENGTH - mb_strlen($suffix))) {
+            return mb_substr(
+                $name,
+                0,
+                self::MAX_LENGTH - mb_strlen($suffix)
+            ).$suffix.$extensionToAppend;
         }
 
-        return $name.$suffix;
+        return $name.$suffix.$extensionToAppend;
     }
 }
