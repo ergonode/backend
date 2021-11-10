@@ -17,6 +17,7 @@ use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
@@ -66,12 +67,20 @@ class DbalProductChildrenAvailableGridQuery implements ProductChildrenAvailableG
             ->addSelect(sprintf('(SELECT EXISTS(%s) as attached)', $this->getSubQuery()->getSQL()))
             ->from(self::PRODUCT_TABLE, 'p')
             ->join('p', self::PRODUCT_VALUE_TABLE, 'pv', 'p.id = pv.product_id')
-            ->where('p.type = :type')
+            ->where($qb->expr()->in('p.type', ':type'))
             ->groupBy('p.id, p.sku, p.template_id')
             ->having($qb->expr()->gt('count(*)', ':count'))
             ->setParameter(':id', $product->getId()->getValue())
             ->setParameter(':type', SimpleProduct::TYPE)
             ->setParameter(':count', 0);
+
+        if ($product instanceof GroupingProduct) {
+            $qb->setParameter(
+                ':type',
+                [SimpleProduct::TYPE, VariableProduct::TYPE],
+                Connection::PARAM_INT_ARRAY
+            );
+        }
 
         $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $this->defaultImageQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);

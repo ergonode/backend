@@ -12,6 +12,7 @@ namespace Ergonode\Api\Application\EventListener;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RequestBodyListener
 {
@@ -39,6 +40,14 @@ class RequestBodyListener
         }
 
         $data = json_decode($content, true);
+
+        if (!is_array($data)) {
+            if ('json' === $request->getContentType()) {
+                throw new BadRequestHttpException('Request body is not a valid json.');
+            }
+
+            return;
+        }
 
         $request->request = new ParameterBag($data);
     }

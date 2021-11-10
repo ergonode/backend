@@ -58,7 +58,7 @@ class MultiselectFilterBuilder extends AbstractFilterBuilder implements FilterBu
                 foreach ($values as $value) {
                     $fields[] =
                         sprintf(
-                            'NOT jsonb_exists_any(to_json("%s")::jsonb, %s::text[])',
+                            'jsonb_exists_any(to_json("%s")::jsonb, %s::text[]) IS NOT TRUE',
                             $field,
                             $query->createNamedParameter(sprintf('{%s}', $value))
                         );
