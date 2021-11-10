@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
@@ -19,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route(
@@ -85,8 +86,12 @@ class OptionDeleteAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      */
-    public function __invoke(AbstractAttribute $attribute, AbstractOption $option): void
+    public function __invoke(AbstractOptionAttribute $attribute, AbstractOption $option): void
     {
+        if (!$attribute->hasOption($option->getId())) {
+            throw new NotFoundHttpException();
+        }
+
         $relations = $this->relationshipsResolver->resolve($option->getId());
         if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));

@@ -14,9 +14,13 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Application\Validator as AttributeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @Assert\GroupSequence({"OptionMoveModel", "class_constraint"})
+ * @AttributeAssert\AttributeHasOption(groups={"class_constraint"})
+ */
 class OptionMoveModel
 {
-    public ?AttributeId $attributeId;
+    public AttributeId $attributeId;
 
     public ?AggregateId $optionId;
 
@@ -28,7 +32,7 @@ class OptionMoveModel
      */
     public ?string $positionId;
 
-    public function __construct(AttributeId $attributeId = null, AggregateId $optionId = null)
+    public function __construct(AttributeId $attributeId, AggregateId $optionId = null)
     {
         $this->attributeId = $attributeId;
         $this->optionId = $optionId;

@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route(
@@ -55,7 +55,7 @@ class OptionReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractAttribute $attribute, AbstractOption $option): AbstractOption
+    public function __invoke(AbstractOptionAttribute $attribute, AbstractOption $option): AbstractOption
     {
         return $option;
     }

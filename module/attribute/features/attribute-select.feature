@@ -18,6 +18,19 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create second select attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "SELECT@@random_code@@",
+          "type": "SELECT",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_2_id"
+
   Scenario: Get created attribute
     When I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@"
     Then the response status code should be 200
@@ -114,6 +127,28 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "option_5_id"
 
+  Scenario: Create option option for second attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_2_id@/options" with body:
+      """
+      {
+        "code": "option_second",
+        "label":  {
+          "pl_PL": "Option pl second",
+          "en_GB": "Option en second"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_second_id"
+
+  Scenario: Create option after position from other attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "positionId": "@option_second_id@"
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Create option for attribute (option already exists)
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
@@ -182,6 +217,15 @@ Feature: Select attribute manipulation
       """
       {
         "positionId": "@@random_uuid@@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Move option after position from other attribute
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_1_id@/move" with body:
+      """
+      {
+        "positionId": "@option_second_id@"
       }
       """
     Then the response status code should be 400
