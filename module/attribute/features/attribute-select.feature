@@ -36,6 +36,20 @@ Feature: Select attribute manipulation
       """
     Then the response status code should be 400
 
+  Scenario: Create option with not exists position id
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "valid-code",
+        "label":  {
+          "pl_PL": "Option pl 1",
+          "en_GB": "Option en 1"
+        },
+        "positionId": "@@random_uuid@@"
+      }
+      """
+    Then the response status code should be 400
+
   Scenario Outline: Create option <code> for attribute
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
       """
@@ -85,7 +99,7 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "option_4_id"
 
-  Scenario: Create option option_5 att begining
+  Scenario: Create option option_5 att beginning
     And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
       """
       {
@@ -162,6 +176,15 @@ Feature: Select attribute manipulation
     And the JSON node "[2].id" should contain "@option_4_id@"
     And the JSON node "[3].id" should contain "@option_3_id@"
     And the JSON node "[4].id" should contain "@option_2_id@"
+
+  Scenario: Move option with not exists position id
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_5_id@/move" with body:
+      """
+      {
+        "positionId": "@@random_uuid@@"
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Move option 5 after option 3
     And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_5_id@/move" with body:
