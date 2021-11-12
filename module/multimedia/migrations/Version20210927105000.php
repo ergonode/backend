@@ -94,7 +94,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         return $this->connection
             ->executeQuery(
                 '
-                SELECT m.id, m.name FROM multimedia m
+                SELECT m.id, m.name, m.extension FROM multimedia m
                 WHERE
                       m."name" IN(
                           SELECT m2."name" FROM multimedia m2
