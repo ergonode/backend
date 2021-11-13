@@ -144,7 +144,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
     private function generateSuffix(string $filename, string $extension, int $iterationIndex): string
     {
         $name = $filename;
-        $extensionToAppend = null;
+        $extensionToAppend = '';
         if (!empty($extension) && str_ends_with($filename, $extension)) {
             $extensionToAppend = '.' . $extension;
             $name = substr($filename, 0, -(strlen($extension) + 1));
@@ -154,7 +154,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
             return mb_substr(
                     $name,
                     0,
-                    self::MAX_LENGTH - mb_strlen($suffix)
+                    self::MAX_LENGTH - mb_strlen($suffix)-mb_strlen($extensionToAppend)
                 ) . $suffix . $extensionToAppend;
         }
 

@@ -59,13 +59,13 @@ class DuplicateFilenameSuffixGeneratingServiceTest extends TestCase
                 'name' => str_repeat('c', 130).'.jpg',
                 'extension' => 'jpg',
                 'iterationIndex' => 2,
-                'expected' => str_repeat('c', 125).'(2).jpg',
+                'expected' => str_repeat('c', 121).'(2).jpg',
             ],
             [
                 'name' => str_repeat('d', 130).'.jpg',
                 'extension' => 'jpg',
                 'iterationIndex' => 123,
-                'expected' => str_repeat('d', 123).'(123).jpg',
+                'expected' => str_repeat('d', 119).'(123).jpg',
             ],
             [
                 'name' => str_repeat('d', 130),
@@ -83,7 +83,7 @@ class DuplicateFilenameSuffixGeneratingServiceTest extends TestCase
                 'name' => str_repeat('©', 130).'.jpg',
                 'extension' => 'jpg',
                 'iterationIndex' => 123,
-                'expected' => str_repeat('©', 123).'(123).jpg',
+                'expected' => str_repeat('©', 119).'(123).jpg',
             ],
         ];
     }
