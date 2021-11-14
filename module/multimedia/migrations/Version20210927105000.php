@@ -130,7 +130,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
 
     private function fileExists(string $id, string $name): bool
     {
-        return (bool)$this->connection
+        return (bool) $this->connection
             ->executeQuery(
                 'SELECT id FROM multimedia WHERE name = :name AND id <> :id',
                 [
@@ -146,19 +146,19 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         $name = $filename;
         $extensionToAppend = '';
         if (!empty($extension) && str_ends_with($filename, $extension)) {
-            $extensionToAppend = '.' . $extension;
+            $extensionToAppend = '.'.$extension;
             $name = substr($filename, 0, -(strlen($extension) + 1));
         }
-        $suffix = '(' . $iterationIndex . ')';
+        $suffix = '('.$iterationIndex.')';
         if (mb_strlen($filename) > (self::MAX_LENGTH - mb_strlen($suffix))) {
             return mb_substr(
-                    $name,
-                    0,
-                    self::MAX_LENGTH - mb_strlen($suffix)-mb_strlen($extensionToAppend)
-                ) . $suffix . $extensionToAppend;
+                $name,
+                0,
+                self::MAX_LENGTH - mb_strlen($suffix)-mb_strlen($extensionToAppend)
+            ).$suffix.$extensionToAppend;
         }
 
-        return $name . $suffix . $extensionToAppend;
+        return $name.$suffix.$extensionToAppend;
     }
 
     private function updateMultimediaWithSlash($nameEventId, $createEventId): void
