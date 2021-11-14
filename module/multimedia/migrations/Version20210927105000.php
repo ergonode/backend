@@ -161,7 +161,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         return $name.$suffix.$extensionToAppend;
     }
 
-    private function updateMultimediaWithSlash($nameEventId, $createEventId): void
+    private function updateMultimediaWithSlash(string $nameEventId, string $createEventId): void
     {
         foreach ($this->getIdsWithSlash() as $id => $data) {
             $oldName = $data['name'];
@@ -175,11 +175,7 @@ final class Version20210927105000 extends AbstractErgonodeMigration implements C
         }
     }
 
-    /**
-     * @param $nameEventId
-     * @param $createEventId
-     */
-    private function updateMultimediaWithDuplicatedNames($nameEventId, $createEventId): void
+    private function updateMultimediaWithDuplicatedNames(string $nameEventId, string $createEventId): void
     {
         foreach ($this->getIdsWithDuplicatedNames() as $id => $data) {
             $oldName = $data['name'];
