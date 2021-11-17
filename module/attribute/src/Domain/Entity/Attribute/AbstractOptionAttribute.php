@@ -37,7 +37,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     {
         if ($this->hasOption($option->getId())) {
             $index = $this->calculateIndex($option, $after, $position);
-            if($index !== $this->getOptionIndex($option->getId())) {
+            if ($index !== $this->getOptionIndex($option->getId())) {
                 $this->apply(new AttributeOptionMovedEvent($this->id, $option->getId(), $index));
             }
         }
