@@ -11,6 +11,8 @@ namespace Ergonode\Core\Tests\Application\Serializer\Normalizer;
 
 use Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -36,12 +38,34 @@ class AggregateRootNormalizerTest extends TestCase
 
     public function testShouldNormalize(): void
     {
-        $root = $this->createMock(AbstractAggregateRoot::class);
-        $this->mockNormalizer->method('normalize')->willReturn([
-            'property' => 'val',
-            'sequence' => 3,
-            'events' => [],
-        ]);
+        $root = new class() extends AbstractAggregateRoot {
+            public function __construct()
+            {
+                $this->events = [
+                    new class() implements AggregateEventInterface {
+                        public function getAggregateId(): AggregateId
+                        {
+                            return AggregateId::generate();
+                        }
+                    },
+                ];
+            }
+            public function getId(): AggregateId
+            {
+                return AggregateId::generate();
+            }
+        };
+        $this->mockNormalizer->method('normalize')
+            ->with(
+                $this->callback(fn ($input) => 0 === count($input->popEvents()) && $root !== $input),
+                null,
+                [],
+            )
+            ->willReturn([
+                'property' => 'val',
+                'sequence' => 3,
+                'events' => [],
+            ]);
 
         $this->assertTrue($this->normalizer->supportsNormalization($root));
 
