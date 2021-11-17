@@ -43,6 +43,7 @@ class DownloadHeaderType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'import',
+            'empty_data' => new DownloadHeaderModel(),
             'data_class' => DownloadHeaderModel::class,
         ]);
     }
