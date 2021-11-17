@@ -34,10 +34,12 @@ class AbstractAggregateRootTest extends TestCase
         $event = $this->createMock(AggregateEventInterface::class);
         $aggregate = $this->getClass();
         $aggregate->apply($event);
+        $this->assertTrue($aggregate->isDirty());
         $events = $aggregate->popEvents();
         $result = reset($events);
         $this->assertSame($event, $result[0]->getEvent());
         $this->assertSame(1, $aggregate->getSequence());
+        $this->assertFalse($aggregate->isDirty());
     }
 
     /**
@@ -52,6 +54,7 @@ class AbstractAggregateRootTest extends TestCase
         $aggregate = $this->getClass();
         $aggregate->initialize($stream);
         $this->assertSame(1, $aggregate->getSequence());
+        $this->assertFalse($aggregate->isDirty());
     }
 
     private function getClass(): AbstractAggregateRoot

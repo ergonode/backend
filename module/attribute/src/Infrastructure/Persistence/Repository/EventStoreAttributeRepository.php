@@ -53,8 +53,14 @@ class EventStoreAttributeRepository implements AttributeRepositoryInterface
      */
     public function save(AbstractAttribute $aggregateRoot): void
     {
+        $isDirty = $aggregateRoot->isDirty();
         $isNew = $aggregateRoot->isNew();
         $this->manager->save($aggregateRoot);
+
+        if (!$isDirty) {
+            return;
+        }
+
         if ($isNew) {
             $this->eventBus->dispatch(new AttributeCreatedEvent($aggregateRoot));
         } else {
