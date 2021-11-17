@@ -91,7 +91,7 @@ class ErgonodeZipSource extends AbstractSource
     public function setImport(array $import): void
     {
         Assert::allString($import);
-        Assert::allOneOf($import, self::STEPS);
+        Assert::allOneOf($import, static::STEPS);
 
         $this->import = $import;
     }
@@ -120,5 +120,10 @@ class ErgonodeZipSource extends AbstractSource
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    public function getSteps(): array
+    {
+        return static::STEPS;
     }
 }
