@@ -54,8 +54,14 @@ class EventStoreTemplateRepository implements TemplateRepositoryInterface
      */
     public function save(Template $template): void
     {
+        $isDirty = $template->isDirty();
         $isNew = $template->isNew();
         $this->manager->save($template);
+
+        if (!$isDirty) {
+            return;
+        }
+
         if ($isNew) {
             $this->eventBus->dispatch(new TemplateCreatedEvent($template));
         } else {
