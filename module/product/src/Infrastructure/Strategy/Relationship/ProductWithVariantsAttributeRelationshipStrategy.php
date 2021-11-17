@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\Query\ProductWithVariantsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
@@ -21,9 +21,9 @@ class ProductWithVariantsAttributeRelationshipStrategy implements RelationshipSt
     private const ONE_MESSAGE = 'This attribute is a binding attribute in product.';
     private const MULTIPLE_MESSAGE = 'This attribute is a binding attribute in %count% products.';
 
-    private ProductQueryInterface $query;
+    private ProductWithVariantsQueryInterface $query;
 
-    public function __construct(ProductQueryInterface $query)
+    public function __construct(ProductWithVariantsQueryInterface $query)
     {
         $this->query = $query;
     }

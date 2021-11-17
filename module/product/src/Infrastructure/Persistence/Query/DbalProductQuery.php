@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\Query\ProductWithVariantsQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
@@ -22,7 +23,7 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-class DbalProductQuery implements ProductQueryInterface
+class DbalProductQuery implements ProductQueryInterface, ProductWithVariantsQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
@@ -452,6 +453,7 @@ class DbalProductQuery implements ProductQueryInterface
 
         return $result;
     }
+
     public function findProductIdsWithBoundAttributeByAttributeId(AggregateId $id): array
     {
         $qb = $this->connection->createQueryBuilder();

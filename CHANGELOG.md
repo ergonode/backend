@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
+- bugfix [#1731](https://github.com/ergonode/backend/issues/1731) Relation strategy added for attributes added as bindings (wiewiurdp)
 - bugfix [#1699](https://github.com/ergonode/backend/issues/1699) Multimedia stays on storage (wfajczyk)
 - bugfix [#1695](https://github.com/ergonode/backend/issues/1695) Bugfix option name validation (wiewiurdp)
 - feature [#1687](https://github.com/ergonode/backend/issues/1687) Product availability in segment events (piotrkreft)
