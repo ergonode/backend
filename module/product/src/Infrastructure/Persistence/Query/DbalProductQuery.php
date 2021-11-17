@@ -452,7 +452,7 @@ class DbalProductQuery implements ProductQueryInterface
 
         return $result;
     }
-    public function findProductIdWithBoundAttributeByAttributeId(AggregateId $id): array
+    public function findProductIdsWithBoundAttributeByAttributeId(AggregateId $id): array
     {
         $qb = $this->connection->createQueryBuilder();
         $records = $qb->select('id')

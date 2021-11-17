@@ -121,5 +121,5 @@ interface ProductQueryInterface
     /**
      * @return array
      */
-    public function findProductIdWithBoundAttributeByAttributeId(AggregateId $id): array;
+    public function findProductIdsWithBoundAttributeByAttributeId(AggregateId $id): array;
 }

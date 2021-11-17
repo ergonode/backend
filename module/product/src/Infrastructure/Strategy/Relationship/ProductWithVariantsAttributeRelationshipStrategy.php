@@ -37,7 +37,7 @@ class ProductWithVariantsAttributeRelationshipStrategy implements RelationshipSt
     {
         Assert::isInstanceOf($id, AttributeId::class);
 
-        $relations = $this->query->findProductIdWithBoundAttributeByAttributeId($id);
+        $relations = $this->query->findProductIdsWithBoundAttributeByAttributeId($id);
         $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
 
         return new RelationshipGroup($message, $relations);
