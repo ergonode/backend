@@ -117,4 +117,9 @@ interface ProductQueryInterface
      * @return AttributeId[]
      */
     public function findAttributeIdsByProductId(ProductId $productId): array;
+
+    /**
+     * @return array
+     */
+    public function findProductIdWithBoundAttributeByAttributeId(AggregateId $id): array;
 }

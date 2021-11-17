@@ -452,7 +452,24 @@ class DbalProductQuery implements ProductQueryInterface
 
         return $result;
     }
+    public function findProductIdWithBoundAttributeByAttributeId(AggregateId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $records = $qb->select('id')
+            ->from(self::PRODUCT_TABLE, 'p')
+            ->join('p', 'public.product_binding', 'ppb', 'p.id = ppb.product_id')
+            ->where($qb->expr()->eq('attribute_id', ':attributeId'))
+            ->setParameter('attributeId', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
 
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new ProductId($record);
+        }
+
+        return $result;
+    }
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
