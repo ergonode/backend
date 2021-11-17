@@ -39,7 +39,13 @@ class EventStoreManagerCacheDecorator implements EventStoreManagerInterface
 
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
+        $isDirty = $aggregateRoot->isDirty();
         $this->manager->save($aggregateRoot);
+
+        if (!$isDirty) {
+            return;
+        }
+
         $this->adapter->deleteItem($aggregateRoot->getId()->getValue());
     }
 
