@@ -258,6 +258,28 @@ class AbstractOptionAttributeTest extends TestCase
         self::assertSame($attribute->getOptions()[3], $option4->getId());
     }
 
+    public function testMoveOptionToSamePosition(): void
+    {
+        $attribute = $this->getClass();
+
+        $option1 = $this->getOption();
+        $option2 = $this->getOption();
+        $option3 = $this->getOption();
+        $option4 = $this->getOption();
+
+        $attribute->addOption($option1);
+        $attribute->addOption($option2);
+        $attribute->addOption($option3);
+        $attribute->addOption($option4);
+
+        $attribute->moveOption($option3, true, $option2);
+
+        self::assertSame($attribute->getOptions()[0], $option1->getId());
+        self::assertSame($attribute->getOptions()[1], $option2->getId());
+        self::assertSame($attribute->getOptions()[2], $option3->getId());
+        self::assertSame($attribute->getOptions()[3], $option4->getId());
+    }
+
     private function getClass(): AbstractOptionAttribute
     {
         return new class(
