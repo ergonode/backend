@@ -32,7 +32,7 @@ class ImporterErgonodeConfigurationModel
         if ($source) {
             $this->name = $source->getName();
 
-            foreach (ErgonodeZipSource::STEPS as $step) {
+            foreach ($source->getSteps() as $step) {
                 if ($source->import($step)) {
                     $this->import[] = $step;
                 }

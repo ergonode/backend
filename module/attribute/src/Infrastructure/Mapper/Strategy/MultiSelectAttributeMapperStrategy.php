@@ -29,7 +29,7 @@ class MultiSelectAttributeMapperStrategy implements AttributeMapperStrategyInter
                 $value = explode(',', (string) $value);
             }
 
-            if (is_array($value)) {
+            if (is_array($value) && !empty($value)) {
                 Assert::allUuid($value);
                 $values[$language] = implode(',', $value);
             } else {

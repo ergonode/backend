@@ -44,9 +44,12 @@ class AggregateRootNormalizer implements
             ));
         }
         $clone = clone $object;
-        $events = new \ReflectionProperty($clone, 'events');
-        $events->setAccessible(true);
-        $events->setValue($clone, []);
+        $eventsAccessor = \Closure::bind(
+            fn (AbstractAggregateRoot $clone) => $clone->events = [],
+            null,
+            $clone,
+        );
+        $eventsAccessor($clone);
 
         $root = $this->normalizer->normalize($clone, $format, $context);
 

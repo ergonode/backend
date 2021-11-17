@@ -51,8 +51,14 @@ class EventStoreSegmentRepository implements SegmentRepositoryInterface
      */
     public function save(Segment $segment): void
     {
+        $isDirty = $segment->isDirty();
         $isNew = $segment->isNew();
         $this->manager->save($segment);
+
+        if (!$isDirty) {
+            return;
+        }
+
         if ($isNew) {
             $this->eventBus->dispatch(new SegmentCreateEvent($segment));
         } else {

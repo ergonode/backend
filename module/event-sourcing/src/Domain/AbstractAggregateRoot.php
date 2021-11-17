@@ -64,6 +64,14 @@ abstract class AbstractAggregateRoot
     }
 
     /**
+     * If true it means that aggregate has changed since load which has not yet been saved.
+     */
+    public function isDirty(): bool
+    {
+        return (bool) $this->events;
+    }
+
+    /**
      * @return AbstractEntity[]
      */
     protected function getEntities(): array
