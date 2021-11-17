@@ -46,11 +46,15 @@ class PayloadCommandNormalizer implements
         $payloadVal = unserialize($data['payload']);
         unset($data['payload']);
 
+        /** @var AbstractPayloadCommand $command */
         $command = $this->objectNormalizer->denormalize($data, $type, $format, $context);
 
-        $payload = new \ReflectionProperty($command, 'payload');
-        $payload->setAccessible(true);
-        $payload->setValue($command, $payloadVal);
+        $payloadAccessor = \Closure::bind(
+            fn (AbstractPayloadCommand $command, $payload) => $command->payload = $payload,
+            null,
+            $command,
+        );
+        $payloadAccessor($command, $payloadVal);
 
         return $command;
     }
@@ -75,9 +79,12 @@ class PayloadCommandNormalizer implements
             ));
         }
         $clone = clone $object;
-        $payload = new \ReflectionProperty($clone, 'payload');
-        $payload->setAccessible(true);
-        $payload->setValue($clone, null);
+        $payloadAccessor = \Closure::bind(
+            fn (AbstractPayloadCommand $command) => $command->payload = null,
+            null,
+            $object,
+        );
+        $payloadAccessor($clone);
 
         $command = $this->objectNormalizer->normalize($clone, $format, $context);
 
