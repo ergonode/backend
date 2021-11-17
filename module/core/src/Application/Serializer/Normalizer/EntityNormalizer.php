@@ -41,12 +41,12 @@ class EntityNormalizer implements
             ));
         }
         $clone = clone $object;
-        $payloadAccessor = \Closure::bind(
+        $aggregateRootAccessor = \Closure::bind(
             fn (AbstractEntity $clone) => $clone->aggregateRoot = null,
             null,
             $clone,
         );
-        $payloadAccessor($clone);
+        $aggregateRootAccessor($clone);
 
         $entity = $this->normalizer->normalize($clone, $format, $context);
         unset($entity['aggregateRoot']);

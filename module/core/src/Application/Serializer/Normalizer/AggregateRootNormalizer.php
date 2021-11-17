@@ -44,12 +44,12 @@ class AggregateRootNormalizer implements
             ));
         }
         $clone = clone $object;
-        $payloadAccessor = \Closure::bind(
+        $eventsAccessor = \Closure::bind(
             fn (AbstractAggregateRoot $clone) => $clone->events = [],
             null,
             $clone,
         );
-        $payloadAccessor($clone);
+        $eventsAccessor($clone);
 
         $root = $this->normalizer->normalize($clone, $format, $context);
 
