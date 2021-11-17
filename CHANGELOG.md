@@ -1,6 +1,6 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
-- performance [#1729](https://github.com/ergonode/backend/issues/1729) Serialization perfomance upgrade with Closure API (piotrkreft)
+- performance [#1729](https://github.com/ergonode/backend/issues/1729) Serialization performance upgrade with Closure API (piotrkreft)
 - feature [#1724](https://github.com/ergonode/backend/issues/1724) AbstractAggregate isDirty method allowing to check not saved state (piotrkreft)
 - bugfix [#1699](https://github.com/ergonode/backend/issues/1699) Multimedia stays on storage (wfajczyk)
 - bugfix [#1695](https://github.com/ergonode/backend/issues/1695) Bugfix option name validation (wiewiurdp)
