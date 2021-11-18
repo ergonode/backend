@@ -15,6 +15,8 @@ use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Webmozart\Assert\Assert;
 
 class DbalCategoryCreatedEventProjector
 {
@@ -27,12 +29,14 @@ class DbalCategoryCreatedEventProjector
 
     private SerializerInterface $serializer;
 
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    private AttributeQueryInterface $query;
+
+    public function __construct(Connection $connection, SerializerInterface $serializer, AttributeQueryInterface $query)
     {
         $this->connection = $connection;
         $this->serializer = $serializer;
+        $this->query = $query;
     }
-
 
     /**
      * {@inheritDoc}
@@ -53,7 +57,8 @@ class DbalCategoryCreatedEventProjector
             );
 
             foreach ($event->getAttributes() as $code => $value) {
-                $attributeId = AttributeId::fromKey((new AttributeCode($code))->getValue());
+                $attributeId = $this->query->findAttributeIdByCode(new AttributeCode($code));
+                Assert::isInstanceOf($attributeId, AttributeId::class);
                 $type = get_class($value);
                 $value = $this->serializer->serialize($value);
 

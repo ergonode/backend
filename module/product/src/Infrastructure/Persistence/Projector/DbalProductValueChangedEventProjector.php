@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 class DbalProductValueChangedEventProjector extends AbstractProductValueProjector
 {
@@ -21,10 +21,11 @@ class DbalProductValueChangedEventProjector extends AbstractProductValueProjecto
     public function __invoke(ProductValueChangedEvent $event): void
     {
         $productId = $event->getAggregateId()->getValue();
-        $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
+        $attributeId = $this->attributeQuery->findAttributeIdByCode($event->getAttributeCode());
+        Assert::notNull($attributeId);
 
-        $this->delete($productId, $attributeId);
-        $this->insertValue($productId, $attributeId, $event->getTo());
+        $this->delete($productId, $attributeId->getValue());
+        $this->insertValue($productId, $attributeId->getValue(), $event->getTo());
         $this->updateAudit($event->getAggregateId());
     }
 }

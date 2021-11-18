@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 class DbalProductValueRemovedEventProjector extends AbstractProductValueProjector
 {
@@ -21,9 +21,10 @@ class DbalProductValueRemovedEventProjector extends AbstractProductValueProjecto
     public function __invoke(ProductValueRemovedEvent $event): void
     {
         $productId = $event->getAggregateId()->getValue();
-        $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
+        $attributeId = $this->attributeQuery->findAttributeIdByCode($event->getAttributeCode());
+        Assert::notNull($attributeId);
 
-        $this->delete($productId, $attributeId);
+        $this->delete($productId, $attributeId->getValue());
         $this->updateAudit($event->getAggregateId());
     }
 }

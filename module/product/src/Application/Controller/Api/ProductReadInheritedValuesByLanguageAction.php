@@ -13,10 +13,12 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Webmozart\Assert\Assert;
 
 /**
  * @Route(
@@ -32,12 +34,16 @@ class ProductReadInheritedValuesByLanguageAction
 
     private AttributeRepositoryInterface $attributeRepository;
 
+    private AttributeQueryInterface $attributeQuery;
+
     public function __construct(
         TranslationInheritanceCalculator $calculator,
-        AttributeRepositoryInterface $attributeRepository
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeQueryInterface $attributeQuery
     ) {
         $this->calculator = $calculator;
         $this->attributeRepository = $attributeRepository;
+        $this->attributeQuery = $attributeQuery;
     }
 
     /**
@@ -82,12 +88,13 @@ class ProductReadInheritedValuesByLanguageAction
         $result = [
             'id' => $product->getId()->getValue(),
         ];
-        foreach ($product->getAttributes() as $key => $value) {
-            $attributeId = AttributeId::fromKey((string) $key);
+        foreach ($product->getAttributes() as $code => $value) {
+            $attributeId = $this->attributeQuery->findAttributeIdByCode(new AttributeCode($code));
+            Assert::notNull($attributeId);
             $attribute = $this->attributeRepository->load($attributeId);
             if ($attribute) {
                 $scope = $attribute->getScope();
-                $result['attributes'][$key] = $this->calculator->calculate($scope, $value, $productLanguage);
+                $result['attributes'][$code] = $this->calculator->calculate($scope, $value, $productLanguage);
             }
         }
 

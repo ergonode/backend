@@ -29,7 +29,7 @@ class EditedAtSystemAttribute extends AbstractDateAttribute
         TranslatableString $placeholder
     ) {
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code->getValue());
+        $id = AttributeId::generate();
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
         $scope = new AttributeScope(AttributeScope::GLOBAL);
 

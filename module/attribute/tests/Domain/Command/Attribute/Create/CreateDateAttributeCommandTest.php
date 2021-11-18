@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
 class CreateDateAttributeCommandTest extends TestCase
@@ -45,7 +44,6 @@ class CreateDateAttributeCommandTest extends TestCase
         );
 
         $this->assertSame($attributeCode, $command->getCode());
-        $this->assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());

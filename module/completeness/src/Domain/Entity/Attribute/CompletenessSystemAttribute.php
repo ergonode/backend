@@ -30,7 +30,7 @@ class CompletenessSystemAttribute extends AbstractNumericAttribute
         TranslatableString $placeholder
     ) {
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code->getValue());
+        $id = AttributeId::generate();
         $scope = new AttributeScope(AttributeScope::LOCAL);
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
