@@ -16,9 +16,9 @@
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.13",
-        "ergonode/attribute": "^1.1.0",
-        "ergonode/core": "^1.1.0",
-        "ergonode/shared-kernel": "^1.1.0",
+        "ergonode/attribute": "^1.2.0",
+        "ergonode/core": "^1.2.0",
+        "ergonode/shared-kernel": "^1.2.0",
         "symfony/http-foundation": "^4.4|^5.3"
     },
     "require-dev": {

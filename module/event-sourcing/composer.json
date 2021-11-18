@@ -14,8 +14,8 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.13",
-        "ergonode/core": "^1.1.0",
-        "ergonode/shared-kernel": "^1.1.0",
+        "ergonode/core": "^1.2.0",
+        "ergonode/shared-kernel": "^1.2.0",
         "symfony/cache": "^4.4|^5.3",
         "symfony/config": "^4.4|^5.3",
         "symfony/dependency-injection": "^4.4|^5.3",
