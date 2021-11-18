@@ -47,7 +47,7 @@ abstract class AbstractCreateAttributeCommand implements CreateAttributeCommandI
         array $groups = []
     ) {
         Assert::allIsInstanceOf($groups, AttributeGroupId::class);
-        $this->attributeId = AttributeId::fromKey($code->getValue());
+        $this->attributeId = AttributeId::generate();
         $this->code = $code;
         $this->label = $label;
         $this->hint = $hint;

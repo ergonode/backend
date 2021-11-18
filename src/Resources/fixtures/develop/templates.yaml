@@ -43,7 +43,7 @@ Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement:
         __construct:
             - '@position_<current()>'
             - '@size'
-            - '<AttributeId(code_<current()>)>'
+            - '@attribute_<current()>->id'
             
 Ergonode\Designer\Domain\Entity\Element\UiTemplateElement:
     template_element_8:

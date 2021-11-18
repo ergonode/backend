@@ -29,7 +29,7 @@ class ProductTypeSystemAttribute extends AbstractTextAttribute
     ) {
         $scope = new AttributeScope(AttributeScope::GLOBAL);
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code->getValue());
+        $id = AttributeId::generate();
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }

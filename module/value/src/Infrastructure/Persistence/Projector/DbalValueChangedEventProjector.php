@@ -11,9 +11,10 @@ namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Webmozart\Assert\Assert;
 
 class DbalValueChangedEventProjector
 {
@@ -25,10 +26,16 @@ class DbalValueChangedEventProjector
 
     private SerializerInterface $serializer;
 
-    public function __construct(Connection $connection, SerializerInterface $serializer)
-    {
+    private AttributeQueryInterface $attributeQuery;
+
+    public function __construct(
+        Connection $connection,
+        SerializerInterface $serializer,
+        AttributeQueryInterface $attributeQuery
+    ) {
         $this->connection = $connection;
         $this->serializer = $serializer;
+        $this->attributeQuery = $attributeQuery;
     }
 
     /**
@@ -37,7 +44,8 @@ class DbalValueChangedEventProjector
     public function __invoke(ValueChangedEvent $event): void
     {
         $this->connection->transactional(function () use ($event): void {
-            $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
+            $attributeId = $this->attributeQuery->findAttributeIdByCode($event->getAttributeCode());
+            Assert::notNull($attributeId);
             $type = get_class($event->getTo());
             $newValue = $this->serializer->serialize($event->getTo());
             $oldValue = $this->serializer->serialize($event->getTo());

@@ -12,7 +12,6 @@ use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeComman
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\TestCase;
 
@@ -45,7 +44,6 @@ class CreateUnitAttributeCommandTest extends TestCase
         );
 
         $this->assertSame($attributeCode, $command->getCode());
-        $this->assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());

@@ -21,7 +21,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Column\IntegerColumn;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 use Ergonode\Grid\Column\LinkColumn;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +29,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Grid\Column\IdColumn;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ProductGridBuilder implements GridBuilderInterface
 {
@@ -93,13 +93,14 @@ class ProductGridBuilder implements GridBuilderInterface
             if (in_array($code, $codes, true)
                 && $user->hasReadLanguagePrivilege($language)
                 && $this->languageQuery->getLanguageNodeInfo($language)) {
-                $id = AttributeId::fromKey($code);
-                $attribute = $this->repository->load($id);
+                $attributeId = $this->attributeQuery->findAttributeIdByCode(new AttributeCode($code));
+                Assert::notNull($attributeId, sprintf('Can\'t find attribute id for code "%s"', $code));
+                $attribute = $this->repository->load($attributeId);
                 Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 
                 $new = $this->provider->provide($attribute, $language);
                 $new->setAttribute($attribute);
-                $new->setExtension('element_id', $id->getValue());
+                $new->setExtension('element_id', $attributeId->getValue());
 
                 $new->setEditable($attribute->isEditable());
                 $new->setDeletable($attribute->isDeletable());
