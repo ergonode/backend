@@ -10,7 +10,6 @@ namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 
 abstract class AbstractProductProjector
 {
@@ -18,12 +17,9 @@ abstract class AbstractProductProjector
 
     protected Connection $connection;
 
-    protected AttributeQueryInterface $attributeQuery;
-
-    public function __construct(Connection $connection, AttributeQueryInterface $attributeQuery)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->attributeQuery = $attributeQuery;
     }
 
     protected function updateAudit(AggregateId $id): void

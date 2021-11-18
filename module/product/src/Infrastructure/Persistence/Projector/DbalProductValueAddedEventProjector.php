@@ -13,9 +13,20 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Doctrine\DBAL\Connection;
 
 class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
 {
+    private AttributeQueryInterface $attributeQuery;
+
+    public function __construct(Connection $connection, AttributeQueryInterface $attributeQuery)
+    {
+        parent::__construct($connection);
+
+        $this->attributeQuery = $attributeQuery;
+    }
+
     /**
      * @throws DBALException
      */
