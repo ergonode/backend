@@ -69,14 +69,14 @@ class IdUserProviderTest extends TestCase
 
         $this->expectExceptionMessage('Invalid credentials');
 
-        $this->provider->loadUserByUsername((string) Uuid::uuid4());
+        $this->provider->loadUserByIdentifier((string) Uuid::uuid4());
     }
 
     public function testThrowExceptionWhenInvalidEmailGiven(): void
     {
         $this->expectExceptionMessage('Invalid id format');
 
-        $this->provider->loadUserByUsername('plain string');
+        $this->provider->loadUserByIdentifier('plain string');
     }
 
     public function testThrowExceptionWhenNoStringGiven(): void
@@ -90,6 +90,6 @@ class IdUserProviderTest extends TestCase
     {
         $this->expectExceptionMessage('Empty username');
 
-        $this->provider->loadUserByUsername('');
+        $this->provider->loadUserByIdentifier('');
     }
 }

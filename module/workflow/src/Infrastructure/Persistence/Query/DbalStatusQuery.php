@@ -40,7 +40,7 @@ class DbalStatusQuery implements StatusQueryInterface
             ->select('id, code')
             ->orderBy('name', 'desc')
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAllAssociative();
     }
 
     /**

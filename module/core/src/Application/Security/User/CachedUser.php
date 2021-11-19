@@ -82,9 +82,14 @@ final class CachedUser implements UserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * TODO for removal after Symfony 6.x
      */
     public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
     {
         return $this->email->getValue();
     }

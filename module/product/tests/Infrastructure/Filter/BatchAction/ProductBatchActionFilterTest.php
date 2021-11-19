@@ -62,7 +62,7 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterEmptyResult(): void
     {
-        $this->statement->method('fetchAll')->willReturn([]);
+        $this->statement->method('fetchFirstColumn')->willReturn([]);
         $this->filteredQueryBuilder->method('build')->willReturn($this->queryBuilder);
 
         $batchActionFilter = $this->createMock(BatchActionFilter::class);
@@ -75,7 +75,7 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterNotEmptyResult(): void
     {
-        $this->statement->method('fetchAll')->willReturn([
+        $this->statement->method('fetchFirstColumn')->willReturn([
             'b732920e-ae16-4b3b-8b75-557afd501c5e',
             'a1d8faeb-023f-4cb7-aa60-c7abdd252ffc',
         ]);

@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\EventSourcing\Tests\Infrastructure\Manager;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Result;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Statement;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
@@ -83,8 +83,8 @@ class EventStoreManagerTest extends TestCase
 
     public function testShouldLoad(): void
     {
-        $stmt = $this->createMock(Statement::class);
-        $stmt->method('fetch')->willReturn(self::class);
+        $stmt = $this->createMock(Result::class);
+        $stmt->method('fetchOne')->willReturn(self::class);
         $queryBuilder = $this->createMock(QueryBuilder::class);
         $queryBuilder->method('select')->willReturn($queryBuilder);
         $queryBuilder->method('from')->willReturn($queryBuilder);
@@ -157,8 +157,8 @@ class EventStoreManagerTest extends TestCase
      */
     public function testShouldCheckIfClassExists($result, bool $expected): void
     {
-        $stmt = $this->createMock(Statement::class);
-        $stmt->method('fetch')->willReturn($result);
+        $stmt = $this->createMock(Result::class);
+        $stmt->method('fetchOne')->willReturn($result);
         $queryBuilder = $this->createMock(QueryBuilder::class);
         $queryBuilder->method('select')->willReturn($queryBuilder);
         $queryBuilder->method('from')->willReturn($queryBuilder);
