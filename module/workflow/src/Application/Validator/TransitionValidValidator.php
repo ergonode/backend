@@ -29,13 +29,13 @@ class TransitionValidValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, TransitionFormModel::class);
         }
 
-        if (null === $value->source || null === $value->destination) {
+        if (null === $value->from || null === $value->to) {
             return;
         }
 
-        if ($value->source === $value->destination) {
+        if ($value->from === $value->to) {
             $this->context->buildViolation($constraint->message)
-                ->atPath('source')
+                ->atPath('from')
                 ->addViolation();
         }
     }

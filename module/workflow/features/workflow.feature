@@ -79,8 +79,8 @@ Feature: Workflow
       "statuses": <statuses>,
       "transitions": [
       {
-        "source": <source>,
-        "destination": <destination>,
+        "from": <from>,
+        "to": <to>,
         "roles": <roles>,
         "condition_set": <condition_set>
       }
@@ -89,7 +89,7 @@ Feature: Workflow
     """
     Then the response status code should be 200
     Examples:
-      | statuses                                             | source                   | destination              | roles         | condition_set        |
+      | statuses                                             | from                     | to                       | roles         | condition_set        |
       | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | ["@role_id@"] | "@condition_set_id@" |
       | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | []            | "@condition_set_id@" |
       | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | ["@role_id@"] | null                 |
@@ -102,8 +102,8 @@ Feature: Workflow
       "statuses": <statuses>,
       "transitions": [
       {
-        "source": <source>,
-        "destination": <destination>,
+        "from": <from>,
+        "to": <to>,
         "roles": <roles>,
         "condition_set": <condition_set>
       }
@@ -112,7 +112,7 @@ Feature: Workflow
     """
     Then the response status code should be 400
     Examples:
-      | statuses                                             | source                   | destination              | roles               | condition_set        |
+      | statuses                                             | from                     | to                       | roles               | condition_set        |
       | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_1_id@" | ["@role_id@"]       | "@condition_set_id@" |
       | ["@@random_uuid@@"]                                  | "@workflow_status_1_id@" | "@workflow_status_1_id@" | ["@role_id@"]       | "@condition_set_id@" |
       | ["test"]                                             | "@workflow_status_1_id@" | "@workflow_status_1_id@" | ["@role_id@"]       | "@condition_set_id@" |

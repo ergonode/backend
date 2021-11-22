@@ -20,7 +20,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 /**
  * @Route(
  *     name="ergonode_workflow_transition_delete",
- *     path="/workflow/default/transitions/{source}/{destination}",
+ *     path="/workflow/default/transitions/{from}/{to}",
  *     methods={"DELETE"}
  * )
  */
@@ -38,18 +38,18 @@ class TransitionDeleteAction
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
-     *     name="source",
+     *     name="from",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Source status id",
+     *     description="From status id",
      * )
      * @SWG\Parameter(
-     *     name="destination",
+     *     name="to",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Destination status id",
+     *     description="To status id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -71,9 +71,9 @@ class TransitionDeleteAction
      *     description="Status not found"
      * )
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): void
+    public function __invoke(AbstractWorkflow $workflow, Status $from, Status $to): void
     {
-        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getId(), $destination->getId());
+        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $from->getId(), $to->getId());
         $this->commandBus->dispatch($command);
     }
 }

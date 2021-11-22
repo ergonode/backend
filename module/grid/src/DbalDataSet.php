@@ -42,7 +42,7 @@ class DbalDataSet extends AbstractDbalDataSet
         $queryBuilder->setMaxResults($limit);
         $queryBuilder->setFirstResult($offset);
         if ($field && isset($columns[$field])) {
-            $queryBuilder->orderBy($field, $order);
+            $queryBuilder->orderBy(sprintf('"%s"', $field), $order);
             if (isset($columns['id'])) {
                 $queryBuilder->addOrderBy('id', $order);
             } // Additional 'order By' added to avoid inconsistency with sorting equal values

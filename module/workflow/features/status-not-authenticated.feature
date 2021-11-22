@@ -4,7 +4,7 @@ Feature: Workflow
     When I send a POST request to "/api/v1/en/status"
     Then the response status code should be 401
 
-  Scenario: Update source status (not authenticated)
+  Scenario: Update status (not authenticated)
     When I send a PUT request to "/api/v1/en/status/@@random_uuid@@"
     Then the response status code should be 401
 

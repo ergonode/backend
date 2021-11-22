@@ -26,11 +26,11 @@ class TransitionCreateForm extends AbstractType
     {
         $builder
             ->add(
-                'source',
+                'from',
                 TextType::class
             )
             ->add(
-                'destination',
+                'to',
                 TextType::class
             )
             ->add(

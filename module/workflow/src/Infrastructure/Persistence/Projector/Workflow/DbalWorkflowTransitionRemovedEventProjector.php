@@ -32,8 +32,8 @@ class DbalWorkflowTransitionRemovedEventProjector
             self::TABLE,
             [
                 'workflow_id' => $event->getAggregateId()->getValue(),
-                'source_id' => $event->getSource()->getValue(),
-                'destination_id' => $event->getDestination()->getValue(),
+                'from_id' => $event->getFrom()->getValue(),
+                'to_id' => $event->getTo()->getValue(),
             ]
         );
     }

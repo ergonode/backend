@@ -49,8 +49,8 @@ class TransitionGridBuilder implements GridBuilderInterface
         $conditionColumn->setVisible(false);
 
         $grid
-            ->addColumn('source', new LabelColumn('source', 'From', new MultiSelectFilter($codes)))
-            ->addColumn('destination', new LabelColumn('destination', 'To', new MultiSelectFilter($codes)))
+            ->addColumn('from', new LabelColumn('from', 'From', new MultiSelectFilter($codes)))
+            ->addColumn('to', new LabelColumn('to', 'To', new MultiSelectFilter($codes)))
             ->addColumn('roles', new MultiSelectColumn('roles', 'Roles', new MultiSelectFilter($roles)))
             ->addColumn('condition_set_id', $conditionColumn)
             ->addColumn('_links', new LinkColumn('hal', [
@@ -58,8 +58,8 @@ class TransitionGridBuilder implements GridBuilderInterface
                     'route' => 'ergonode_workflow_transition_read',
                     'parameters' => [
                         'language' => $language->getCode(),
-                        'source' => '{source}',
-                        'destination' => '{destination}',
+                        'from' => '{from}',
+                        'to' => '{to}',
                     ],
                     'privilege' => 'ERGONODE_ROLE_WORKFLOW_GET_TRANSITION',
                 ],
@@ -67,8 +67,8 @@ class TransitionGridBuilder implements GridBuilderInterface
                     'route' => 'ergonode_workflow_transition_change',
                     'parameters' => [
                         'language' => $language->getCode(),
-                        'source' => '{source}',
-                        'destination' => '{destination}',
+                        'from' => '{from}',
+                        'to' => '{to}',
                     ],
                     'privilege' => 'ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION',
                     'method' => Request::METHOD_PUT,
@@ -77,8 +77,8 @@ class TransitionGridBuilder implements GridBuilderInterface
                     'route' => 'ergonode_workflow_transition_delete',
                     'parameters' => [
                         'language' => $language->getCode(),
-                        'source' => '{source}',
-                        'destination' => '{destination}',
+                        'from' => '{from}',
+                        'to' => '{to}',
                     ],
                     'privilege' => 'ERGONODE_ROLE_WORKFLOW_DELETE_TRANSITION',
                     'method' => Request::METHOD_DELETE,

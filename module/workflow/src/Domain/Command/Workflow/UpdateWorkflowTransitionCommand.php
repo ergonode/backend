@@ -19,9 +19,9 @@ class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface
 {
     private WorkflowId $workflowId;
 
-    private StatusId $source;
+    private StatusId $from;
 
-    private StatusId $destination;
+    private StatusId $to;
 
     /**
      * @var RoleId[]
@@ -35,14 +35,14 @@ class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface
      */
     public function __construct(
         WorkflowId $workflowId,
-        StatusId $source,
-        StatusId $destination,
+        StatusId $from,
+        StatusId $to,
         array $roleIds = [],
         ?ConditionSetId $conditionSetId = null
     ) {
         $this->workflowId = $workflowId;
-        $this->source = $source;
-        $this->destination = $destination;
+        $this->from = $from;
+        $this->to = $to;
         $this->roleIds = $roleIds;
         $this->conditionSetId = $conditionSetId;
     }
@@ -52,14 +52,46 @@ class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface
         return $this->workflowId;
     }
 
-    public function getSource(): StatusId
+    public function getFrom(): StatusId
     {
-        return $this->source;
+        return $this->from;
     }
 
+    public function getTo(): StatusId
+    {
+        return $this->to;
+    }
+
+    /**
+     * @deprecated
+     */
+    public function getSource(): StatusId
+    {
+        @trigger_error(
+            sprintf(
+                '%1$s::getSource is deprecated and will be removed in 2.0, use %1$s::getFrom instead',
+                self::class,
+            ),
+            \E_USER_DEPRECATED
+        );
+
+        return $this->getFrom();
+    }
+
+    /**
+     * @deprecated
+     */
     public function getDestination(): StatusId
     {
-        return $this->destination;
+        @trigger_error(
+            sprintf(
+                '%1$s::getDestination is deprecated and will be removed in 2.0, use %1$s::getTo instead',
+                self::class,
+            ),
+            \E_USER_DEPRECATED
+        );
+
+        return $this->getTo();
     }
 
     public function getConditionSetId(): ?ConditionSetId

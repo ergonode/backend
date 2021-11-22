@@ -34,8 +34,8 @@ class TransitionValidValidatorTest extends ConstraintValidatorTestCase
     public function testCorrectValidation(): void
     {
         $model = $this->createMock(TransitionFormModel::class);
-        $model->source = 'test1';
-        $model->destination = 'test2';
+        $model->from = 'test1';
+        $model->to = 'test2';
         $this->validator->validate($model, new TransitionValid());
         $this->assertNoViolation();
     }
@@ -43,14 +43,14 @@ class TransitionValidValidatorTest extends ConstraintValidatorTestCase
     public function testTransitionValidValidation(): void
     {
         $model = $this->createMock(TransitionFormModel::class);
-        $model->source = 'test';
-        $model->destination = 'test';
+        $model->from = 'test';
+        $model->to = 'test';
         $constraint = new TransitionValid();
 
         $this->validator->validate($model, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)
-            ->atPath('property.path.source');
+            ->atPath('property.path.from');
         $assertion->assertRaised();
     }
 

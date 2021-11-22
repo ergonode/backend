@@ -141,37 +141,37 @@ class AbstractWorkflowTest extends TestCase
     public function testAddingTransitionAlreadyExistException(): void
     {
         $this->expectException(\RuntimeException::class);
-        $source = StatusId::generate();
-        $destination = StatusId::generate();
+        $from = StatusId::generate();
+        $to = StatusId::generate();
 
-        $workflow = $this->getClass($this->id, $this->code, [$source, $destination]);
-        $workflow->addTransition($source, $destination);
-        $workflow->addTransition($source, $destination);
+        $workflow = $this->getClass($this->id, $this->code, [$from, $to]);
+        $workflow->addTransition($from, $to);
+        $workflow->addTransition($from, $to);
     }
 
     /**
      * @throws \Exception
      */
-    public function testAddingNoSourceException(): void
+    public function testAddingNoFromException(): void
     {
         $this->expectException(\RuntimeException::class);
-        $source = StatusId::generate();
-        $destination = StatusId::generate();
+        $from = StatusId::generate();
+        $to = StatusId::generate();
 
         $workflow = $this->getClass($this->id, $this->code, [$this->status]);
-        $workflow->addTransition($source, $destination);
+        $workflow->addTransition($from, $to);
     }
 
     /**
      * @throws \Exception
      */
-    public function testAddingNoDestinationException(): void
+    public function testAddingNoToException(): void
     {
         $this->expectException(\RuntimeException::class);
-        $source = StatusId::generate();
-        $destination = StatusId::generate();
-        $workflow = $this->getClass($this->id, $this->code, [$source]);
-        $workflow->addTransition($source, $destination);
+        $from = StatusId::generate();
+        $to = StatusId::generate();
+        $workflow = $this->getClass($this->id, $this->code, [$from]);
+        $workflow->addTransition($from, $to);
     }
 
     public function testShouldSortTransitionStatuses(): void
