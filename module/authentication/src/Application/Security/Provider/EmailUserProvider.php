@@ -30,19 +30,27 @@ final class EmailUserProvider implements UserProviderInterface
     }
 
     /**
+     * TODO for removal after Symfony 6.x
+     *
      * {@inheritdoc}
      */
     public function loadUserByUsername($username): User
     {
-        if (empty($username)) {
-            throw new UsernameNotFoundException('Empty username');
-        }
         if (!is_string($username)) {
             throw new UsernameNotFoundException('Username has to be a string');
         }
 
+        return $this->loadUserByIdentifier($username);
+    }
+
+    public function loadUserByIdentifier(string $identifier): User
+    {
+        if (empty($identifier)) {
+            throw new UsernameNotFoundException('Empty username');
+        }
+
         try {
-            $email = new Email($username);
+            $email = new Email($identifier);
         } catch (InvalidEmailException $exception) {
             throw new UsernameNotFoundException('Invalid email format');
         }
@@ -60,7 +68,7 @@ final class EmailUserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user): User
     {
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByIdentifier($user->getUsername());
     }
 
     /**
