@@ -23,7 +23,7 @@ class UpdateWorkflowTransitionCommand implements WorkflowCommandInterface
 
     private StatusId $to;
 
-    /**Destination
+    /**
      * @var RoleId[]
      */
     private array $roleIds;
