@@ -82,7 +82,7 @@ class EmailUserProviderTest extends TestCase
 
         $this->expectExceptionMessage('Invalid credentials');
 
-        $this->provider->loadUserByUsername('test@ergonode.com');
+        $this->provider->loadUserByIdentifier('test@ergonode.com');
     }
 
     public function testThrowExceptionWhenNoSuchUserName(): void
@@ -96,14 +96,14 @@ class EmailUserProviderTest extends TestCase
 
         $this->expectExceptionMessage('Invalid credentials');
 
-        $this->provider->loadUserByUsername('test@ergonode.com');
+        $this->provider->loadUserByIdentifier('test@ergonode.com');
     }
 
     public function testThrowExceptionWhenInvalidEmailGiven(): void
     {
         $this->expectExceptionMessage('Invalid email format');
 
-        $this->provider->loadUserByUsername('plain string');
+        $this->provider->loadUserByIdentifier('plain string');
     }
 
     public function testThrowExceptionWhenNoStringGiven(): void
@@ -117,6 +117,6 @@ class EmailUserProviderTest extends TestCase
     {
         $this->expectExceptionMessage('Empty username');
 
-        $this->provider->loadUserByUsername('');
+        $this->provider->loadUserByIdentifier('');
     }
 }
