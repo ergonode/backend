@@ -84,12 +84,6 @@ Feature: Product edit feature
     And store response param "collection[0].from" as "from_status_id"
     And store response param "collection[0].to" as "to_status_id"
 
-  Scenario: Get statuses
-    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions"
-    Then the response status code should be 200
-    And store response param "collection[0].from" as "from_status_id"
-    And store response param "collection[0].to" as "to_status_id"
-
   Scenario: Get esa_status id
     When I send a GET request to "/api/v1/en_GB/attributes/system?limit=50&offset=0&filter=code%3Desa_status"
     Then the response status code should be 200
