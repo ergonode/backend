@@ -36,8 +36,8 @@ class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterf
         }
         $transitions = [];
         foreach ($data->transitions as $key => $transitionModel) {
-            $transitions[$key]['source'] = new StatusId($transitionModel->source);
-            $transitions[$key]['destination'] = new StatusId($transitionModel->destination);
+            $transitions[$key]['from'] = new StatusId($transitionModel->from);
+            $transitions[$key]['to'] = new StatusId($transitionModel->to);
             foreach ($transitionModel->roles as $role) {
                 $transitions[$key]['roles'][] = new RoleId($role);
             }

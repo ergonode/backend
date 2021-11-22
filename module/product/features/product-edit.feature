@@ -81,8 +81,14 @@ Feature: Product edit feature
   Scenario: Get statuses
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions"
     Then the response status code should be 200
-    And store response param "collection[0].source" as "source_status_id"
-    And store response param "collection[0].destination" as "destination_status_id"
+    And store response param "collection[0].from" as "from_status_id"
+    And store response param "collection[0].to" as "to_status_id"
+
+  Scenario: Get statuses
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions"
+    Then the response status code should be 200
+    And store response param "collection[0].from" as "from_status_id"
+    And store response param "collection[0].to" as "to_status_id"
 
   Scenario: Get esa_status id
     When I send a GET request to "/api/v1/en_GB/attributes/system?limit=50&offset=0&filter=code%3Desa_status"
@@ -271,7 +277,7 @@ Feature: Product edit feature
                 "values" : [
                   {
                     "language": "pl_PL",
-                    "value": "@destination_status_id@"
+                    "value": "@to_status_id@"
                   }
                 ]
               }
@@ -295,7 +301,7 @@ Feature: Product edit feature
                 "values" : [
                   {
                     "language": "en_GB",
-                    "value": "@source_status_id@"
+                    "value": "@from_status_id@"
                   }
                 ]
               }
@@ -310,8 +316,8 @@ Feature: Product edit feature
     When I send a GET request to "api/v1/en_GB/products/@edit_product@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | attributes.esa_status.en_GB | @source_status_id@      |
-      | attributes.esa_status.pl_PL | @destination_status_id@ |
+      | attributes.esa_status.en_GB | @from_status_id@      |
+      | attributes.esa_status.pl_PL | @to_status_id@ |
 
   Scenario: Delete option (used in product)
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options/@select_option_1_id@"

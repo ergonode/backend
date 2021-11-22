@@ -76,14 +76,14 @@ class UpdateWorkflowCommandHandler
     /**
      * @return ConditionSetId[]
      */
-    private function updateTransitions(array $commandTranitions, AbstractWorkflow $workflow): array
+    private function updateTransitions(array $commandTransitions, AbstractWorkflow $workflow): array
     {
         $conditionSetIds = [];
         foreach ($workflow->getTransitions() as $transition) {
             $contains = false;
-            foreach ($commandTranitions as $commandTransition) {
-                if ($transition->getFrom()->getValue() === $commandTransition['source']->getValue() &&
-                    $transition->getTo()->getValue() === $commandTransition['destination']->getValue()) {
+            foreach ($commandTransitions as $commandTransition) {
+                if ($transition->getFrom()->getValue() === $commandTransition['from']->getValue() &&
+                    $transition->getTo()->getValue() === $commandTransition['to']->getValue()) {
                     $contains = true;
                 }
             }
@@ -95,20 +95,20 @@ class UpdateWorkflowCommandHandler
             }
         }
 
-        foreach ($commandTranitions as $transition) {
-            if (!$workflow->hasTransition($transition['source'], $transition['destination'])) {
-                $workflow->addTransition($transition['source'], $transition['destination']);
+        foreach ($commandTransitions as $transition) {
+            if (!$workflow->hasTransition($transition['from'], $transition['to'])) {
+                $workflow->addTransition($transition['from'], $transition['to']);
                 if (isset($transition['condition_set'])) {
                     $workflow->changeTransitionConditionSetId(
-                        $transition['source'],
-                        $transition['destination'],
+                        $transition['from'],
+                        $transition['to'],
                         $transition['condition_set']
                     );
                 }
                 if (isset($transition['roles'])) {
                     $workflow->changeTransitionRoleIds(
-                        $transition['source'],
-                        $transition['destination'],
+                        $transition['from'],
+                        $transition['to'],
                         $transition['roles']
                     );
                 }

@@ -24,14 +24,14 @@ class TransitionFormModel
      *
      * @WorkflowAssert\StatusExists()
      */
-    public ?string $source;
+    public ?string $from;
 
     /**
      * @Assert\NotBlank()
      *
      * @WorkflowAssert\StatusExists()
      */
-    public ?string $destination;
+    public ?string $to;
 
     /**
      * @Assert\Uuid(strict=true),
@@ -53,8 +53,8 @@ class TransitionFormModel
 
     public function __construct()
     {
-        $this->source = null;
-        $this->destination = null;
+        $this->from = null;
+        $this->to = null;
         $this->conditionSet = null;
         $this->roles = [];
     }

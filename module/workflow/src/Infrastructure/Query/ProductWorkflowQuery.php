@@ -69,13 +69,13 @@ class ProductWorkflowQuery
             $result['workflow'] = [];
             foreach ($transitions as $transition) {
                 if ($this->service->available($transition, $product)) {
-                    $destinationStatus = $this->statusRepository->load($transition->getTo());
-                    Assert::notNull($destinationStatus);
+                    $fromStatus = $this->statusRepository->load($transition->getTo());
+                    Assert::notNull($fromStatus);
                     $result['workflow'][] = [
-                        'id' => $destinationStatus->getId()->getValue(),
-                        'name' => $destinationStatus->getName()->get($language),
-                        'code' => $destinationStatus->getCode(),
-                        'color' => $destinationStatus->getColor(),
+                        'id' => $fromStatus->getId()->getValue(),
+                        'name' => $fromStatus->getName()->get($language),
+                        'code' => $fromStatus->getCode(),
+                        'color' => $fromStatus->getColor(),
                     ];
                 }
             }

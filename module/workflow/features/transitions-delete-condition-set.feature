@@ -10,37 +10,37 @@ Feature: Segment delete condition set
     Then the response status code should be 200
     And store response param "collection[0].id" as "attribute_text"
 
-  Scenario: Create source status
+  Scenario: Create from status
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
         "color": "#ff0000",
-        "code": "SOURCE@@random_md5@@"
+        "code": "FROM@@random_md5@@"
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "workflow_source_status"
+    And store response param "id" as "workflow_from_status"
 
-  Scenario: Create destination status
+  Scenario: Create to status
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
         "color": "#ff0000",
-        "code": "DESTINATION@@random_md5@@"
+        "code": "To@@random_md5@@"
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "workflow_destination_status"
+    And store response param "id" as "workflow_to_status"
 
-  Scenario: Get source status
-    When I send a GET request to "/api/v1/en_GB/status/@workflow_source_status@"
+  Scenario: Get from status
+    When I send a GET request to "/api/v1/en_GB/status/@workflow_from_status@"
     Then the response status code should be 200
-    And store response param "id" as "workflow_source_status_id"
+    And store response param "id" as "workflow_from_status_id"
 
-  Scenario: Get destination status
-    When I send a GET request to "/api/v1/en_GB/status/@workflow_destination_status@"
+  Scenario: Get to status
+    When I send a GET request to "/api/v1/en_GB/status/@workflow_to_status@"
     Then the response status code should be 200
-    And store response param "id" as "workflow_destination_status_id"
+    And store response param "id" as "workflow_to_status_id"
 
   Scenario: Create condition set
     Given I send a POST request to "/api/v1/en_GB/conditionsets" with body:
@@ -61,8 +61,8 @@ Feature: Segment delete condition set
     When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
-        "source": "@workflow_source_status_id@",
-        "destination": "@workflow_destination_status_id@",
+        "from": "@workflow_from_status_id@",
+        "to": "@workflow_to_status_id@",
         "roles": [],
         "condition_set" : "@workflow_conditionset@"
       }
@@ -70,5 +70,5 @@ Feature: Segment delete condition set
     Then the response status code should be 201
 
   Scenario: Delete transition in default workflow
-    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_id@/@workflow_destination_status_id@"
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_from_status_id@/@workflow_to_status_id@"
     Then the response status code should be 204

@@ -40,9 +40,9 @@ class DeleteWorkflowTransitionCommandHandler
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
-        $transition = $workflow->getTransition($command->getSource(), $command->getDestination());
+        $transition = $workflow->getTransition($command->getFrom(), $command->getTo());
 
-        $workflow->removeTransition($command->getSource(), $command->getDestination());
+        $workflow->removeTransition($command->getFrom(), $command->getTo());
 
         $this->repository->save($workflow);
 
