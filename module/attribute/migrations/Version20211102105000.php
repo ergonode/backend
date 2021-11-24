@@ -51,9 +51,6 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 ADD CONSTRAINT attribute_options_option_id_fk
                     FOREIGN KEY (option_id) REFERENCES attribute_option ON UPDATE CASCADE ON DELETE RESTRICT');
 
-        //@todo uncomment after changes in projections
-        //$this->addSql('ALTER TABLE  attribute_option DROP COLUMN attribute_id');
-
         $attributes = $this->connection->executeQuery('SELECT DISTINCT attribute_id FROM attribute_option ')
             ->fetchFirstColumn();
 
@@ -83,6 +80,10 @@ final class Version20211102105000 extends AbstractErgonodeMigration
         }
 
         $this->migrateEvents($ids[AttributeOptionAddedEvent::class], $this->getRows());
+        $this->dropPayloadAttributeId();
+
+        //@todo uncomment after changes in projections
+        //$this->addSql('ALTER TABLE  attribute_option DROP COLUMN attribute_id');
     }
 
     private function migrateEvents(string $eventId, array $data): void
@@ -165,5 +166,20 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 ]
             )
             ->fetchAllAssociative();
+    }
+
+    private function dropPayloadAttributeId(): void
+    {
+        $this->addSql(
+            '
+                UPDATE event_store
+                SET payload = payload - \'attribute_id\'
+                FROM event_store_event 
+                WHERE  event_store_event.id = event_store.event_id AND event_class = :class
+                ',
+            [
+                'class' => OptionCreatedEvent::class,
+            ]
+        );
     }
 }
