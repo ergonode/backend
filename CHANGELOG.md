@@ -1,10 +1,14 @@
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
-- feature  [#1637](https://github.com/ergonode/backend/pull/1637) Add possibility to import multimedia (rprzedzik) 
-- feature [#1667](https://github.com/ergonode/backend/pull/1667) Add multimedia support to ergonode csv export (rprzedzik)
-- feature [#1685](https://github.com/ergonode/backend/pull/1685) Attribute option sorting (rprzedzik)
-- feature [#1663](https://github.com/ergonode/backend/pull/1663) Validation of import files for required columns (piotrkreft)
-- feature [#1645](https://github.com/ergonode/backend/pull/1645) Add attribute code validation (wiewiurdp)
+- bugfix [#1724](https://github.com/ergonode/backend/issues/1724) AbstractAggregate isDirty method allowing to check not saved state (piotrkreft)
+- bugfix [#1699](https://github.com/ergonode/backend/issues/1699) Multimedia stays on storage (wfajczyk)
+- bugfix [#1695](https://github.com/ergonode/backend/issues/1695) Bugfix option name validation (wiewiurdp)
+- feature [#1687](https://github.com/ergonode/backend/issues/1687) Product availability in segment events (piotrkreft)
+- feature  [#1637](https://github.com/ergonode/backend/issues/1637) Add possibility to import multimedia (rprzedzik) 
+- feature [#1667](https://github.com/ergonode/backend/issues/1667) Add multimedia support to ergonode csv export (rprzedzik)
+- feature [#1685](https://github.com/ergonode/backend/issues/1685) Attribute option sorting (rprzedzik)
+- feature [#1663](https://github.com/ergonode/backend/issues/1663) Validation of import files for required columns (piotrkreft)
+- feature [#1645](https://github.com/ergonode/backend/issues/1644) Add attribute code validation (wiewiurdp)
 - bugfix [#1636](https://github.com/ergonode/backend/issues/1636) Multimedia gird is too slow  (wfajczyk)
 - bugfix [#1625](https://github.com/ergonode/backend/issues/1625) Allowed empty values for deactivated scheduler (piotrkreft)
 - refactor [#1571](https://github.com/ergonode/backend/issues/1571) Renaming media files (wfajczyk, wiewiurdp)
@@ -18,6 +22,9 @@
 - build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
 
 ## CHANGELOG FOR 1.1.x
+#### 1.1.4
+- bugfix [#1704](https://github.com/ergonode/backend/issues/1704) Fixed API returned `Content-Type` header (piotrkreft)
+
 #### 1.1.1
 - bugfix [#1519](https://github.com/ergonode/backend/issues/1519) Fixed caught exception in DTOInputValueResolver (piotrkreft)
 
@@ -39,6 +46,9 @@
 - feature [#1384](https://github.com/ergonode/backend/issues/1384) New attribute type - product relation (rprzedzik)
 
 ## CHANGELOG FOR 1.0.x
+#### 1.0.7
+- bugfix [#1713](https://github.com/ergonode/backend/issues/1713) Fixed handling invalid json request content (piotrkreft)
+
 #### 1.0.6
 - feature [#1675](https://github.com/ergonode/backend/pull/1675) Add more currencies to application (rprzedzik)
 - bugfix [#1630](https://github.com/ergonode/backend/issues/1630) Fixed handling `null` attribute value in conditions (piotrkreft)

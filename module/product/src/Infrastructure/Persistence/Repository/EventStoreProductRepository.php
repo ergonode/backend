@@ -52,9 +52,14 @@ class EventStoreProductRepository implements ProductRepositoryInterface
      */
     public function save(AbstractProduct $aggregateRoot): void
     {
+        $isDirty = $aggregateRoot->isDirty();
         $isNew = $aggregateRoot->isNew();
 
         $this->manager->save($aggregateRoot);
+
+        if (!$isDirty) {
+            return;
+        }
 
         if ($isNew) {
             $this->eventBus->dispatch(new ProductCreatedEvent($aggregateRoot));

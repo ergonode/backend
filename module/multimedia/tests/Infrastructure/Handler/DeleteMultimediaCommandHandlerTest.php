@@ -12,6 +12,7 @@ use Ergonode\Multimedia\Domain\Command\DeleteMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Handler\DeleteMultimediaCommandHandler;
+use League\Flysystem\FilesystemInterface;
 use PHPUnit\Framework\TestCase;
 
 class DeleteMultimediaCommandHandlerTest extends TestCase
@@ -25,7 +26,9 @@ class DeleteMultimediaCommandHandlerTest extends TestCase
         $repository->expects(self::once())->method('load');
         $repository->expects(self::once())->method('delete');
 
-        $handler = new DeleteMultimediaCommandHandler($repository);
+        $multimediaStorage = $this->createMock(FilesystemInterface::class);
+
+        $handler = new DeleteMultimediaCommandHandler($repository, $multimediaStorage);
         $handler->__invoke($command);
     }
 }

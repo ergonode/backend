@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3288fa1e46af60c1787da8f30da16309",
+    "content-hash": "b0aa3c574b7030f682862c6a8ac100f4",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1117,16 +1117,16 @@
         },
         {
             "name": "ergonode/exporter-shopware-6",
-            "version": "dev-main",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "76f83e196d559c035e939469452a142a467ea020"
+                "reference": "b3b6a79b44861e62d8c515212f038997e9df1591"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/76f83e196d559c035e939469452a142a467ea020",
-                "reference": "76f83e196d559c035e939469452a142a467ea020",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/b3b6a79b44861e62d8c515212f038997e9df1591",
+                "reference": "b3b6a79b44861e62d8c515212f038997e9df1591",
                 "shasum": ""
             },
             "require": {
@@ -1154,7 +1154,6 @@
                 "symfony/monolog-bundle": "^3.5",
                 "symfony/phpunit-bridge": "^4.4"
             },
-            "default-branch": true,
             "type": "ergonode-module",
             "autoload": {
                 "psr-4": {
@@ -1169,22 +1168,22 @@
             "homepage": "https://ergonode.com",
             "support": {
                 "issues": "https://github.com/ergonode/exporter-shopware-6-backend/issues",
-                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/main"
+                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/1.0.2"
             },
-            "time": "2021-09-09T10:36:49+00:00"
+            "time": "2021-11-15T14:01:41+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/importer-magento-1-backend.git",
-                "reference": "a77a1400f1609f50ee142287f63c32c5804955f1"
+                "reference": "efd82be553bae5541f0c05e6ebc893219cc77c35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/importer-magento-1-backend/zipball/a77a1400f1609f50ee142287f63c32c5804955f1",
-                "reference": "a77a1400f1609f50ee142287f63c32c5804955f1",
+                "url": "https://api.github.com/repos/ergonode/importer-magento-1-backend/zipball/efd82be553bae5541f0c05e6ebc893219cc77c35",
+                "reference": "efd82be553bae5541f0c05e6ebc893219cc77c35",
                 "shasum": ""
             },
             "require": {
@@ -1214,9 +1213,9 @@
             "homepage": "https://ergonode.com",
             "support": {
                 "issues": "https://github.com/ergonode/importer-magento-1-backend/issues",
-                "source": "https://github.com/ergonode/importer-magento-1-backend/tree/1.0.1"
+                "source": "https://github.com/ergonode/importer-magento-1-backend/tree/1.0.2"
             },
-            "time": "2021-09-09T10:23:29+00:00"
+            "time": "2021-11-15T12:59:20+00:00"
         },
         {
             "name": "exsyst/swagger",
@@ -13874,7 +13873,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ergonode/exporter-shopware-6": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

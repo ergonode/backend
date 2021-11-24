@@ -267,6 +267,16 @@ Feature: Select attribute manipulation
       """
     Then the response status code should be 200
 
+  Scenario: Move option 5 to same position
+    And I send a "PUT" request to "/api/v1/en_GB/attributes/@attribute_id@/options/@option_5_id@/move" with body:
+      """
+      {
+        "after": true,
+        "positionId": "@option_2_id@"
+      }
+      """
+    Then the response status code should be 200
+
   Scenario: Check attribute options sort after moving
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
     Then the response status code should be 200

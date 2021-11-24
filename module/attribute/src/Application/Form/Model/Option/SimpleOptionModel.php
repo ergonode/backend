@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Assert\GroupSequence({"SimpleOptionModel", "class_constraint"})
- * @AttributeAssert\OptionCodeExists()
+ * @AttributeAssert\OptionCodeExists(groups={"class_constraint"})
  * @AttributeAssert\AttributeHasOption(groups={"class_constraint"})
  */
 class SimpleOptionModel extends OptionMoveModel

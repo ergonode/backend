@@ -59,9 +59,14 @@ class EventStoreCategoryRepository implements CategoryRepositoryInterface
      */
     public function save(AbstractCategory $aggregateRoot): void
     {
+        $isDirty = $aggregateRoot->isDirty();
         $isNew = $aggregateRoot->isNew();
 
         $this->manager->save($aggregateRoot);
+
+        if (!$isDirty) {
+            return;
+        }
 
         if ($isNew) {
             $this->eventBus->dispatch(new CategoryCreateEvent($aggregateRoot));
