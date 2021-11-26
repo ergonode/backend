@@ -23,7 +23,7 @@
         "ergonode/exporter-shopware-6": "^1.0",
         "ergonode/importer-magento-1": "^1.0",
         "gesdinet/jwt-refresh-token-bundle": "^0.11.1|^0.12",
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^6.3",
         "league/csv": "^9.6",
         "league/flysystem": ">1.0.54",
         "league/flysystem-bundle": "^1.5",
