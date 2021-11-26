@@ -30,32 +30,9 @@ services:
         $username: 'test@ergonode.com'
         $password: 'abcd1234'
 
-    Ergonode\BatchAction\Test\Infrastructure\Handler\TestCreateBatchActionCommandHandler:
-        tags: [ { name: 'messenger.message_handler', priority: -10 } ]
-        arguments:
-            - '@messenger.transport.batch_action'
-            - '@messenger.bus.sync'
-
-    Ergonode\BatchAction\Test\Infrastructure\Handler\TestReprocessBatchActionCommandHandler:
-        tags: [ { name: 'messenger.message_handler', priority: -10 } ]
-        arguments:
-            - '@messenger.transport.batch_action'
-            - '@messenger.bus.sync'
-
     Ergonode\Core\Test\TestDownloaderDecorator:
         decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
         decoration_priority: -100
         arguments:
             $kernel: '@kernel'
             $downloader: '@Ergonode\Core\Test\TestDownloaderDecorator.inner'
-
-    Ergonode\Segment\Test\TestSegmentEventHandler:
-        arguments:
-            $transport: '@messenger.transport.segment'
-            $commandBus: '@messenger.bus.sync'
-        tags:
-            - { name: 'messenger.message_handler', priority: -10 }
-            - { name: 'messenger.message_handler', method: 'onSegmentConditionSetChangedEvent', priority: -10 }
-            - { name: 'messenger.message_handler', method: 'onProductCreatedEvent', priority: -10 }
-            - { name: 'messenger.message_handler', method: 'onProductDeletedEvent', priority: -10 }
-            - { name: 'messenger.message_handler', method: 'onProductUpdatedEvent', priority: -10 }

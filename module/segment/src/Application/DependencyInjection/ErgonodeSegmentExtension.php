@@ -39,6 +39,12 @@ class ErgonodeSegmentExtension extends Extension implements PrependExtensionInte
         $processedConfig = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter(self::CONDITION_PARAMETER_NAME, $processedConfig['conditions']);
+
+        if (!$processedConfig['test']) {
+            return;
+        }
+
+        $loader->load('test.yml');
     }
 
     /**
