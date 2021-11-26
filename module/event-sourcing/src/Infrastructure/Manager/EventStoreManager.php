@@ -131,7 +131,7 @@ class EventStoreManager implements EventStoreManagerInterface
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->setParameter(':aggregateId', $id->getValue())
             ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
+            ->fetchOne();
 
         if ($result) {
             return $result;

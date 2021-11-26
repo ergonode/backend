@@ -48,7 +48,7 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
     {
         $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
 
-        $result = $filteredQueryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        $result = $filteredQueryBuilder->execute()->fetchFirstColumn();
 
         return array_map(
             fn (string $item) => new ProductId($item),

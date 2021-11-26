@@ -15,7 +15,7 @@
     "php": "^7.4",
     "ext-pdo": "*",
     "ext-zip": "*",
-    "ergonode/importer": "^1.1.0",
+    "ergonode/importer": "^1.2.0",
     "ramsey/uuid": "^3.8",
     "league/csv": "^9.6",
     "symfony/form": "^4.4.11|^5.3",

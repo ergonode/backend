@@ -29,7 +29,7 @@ class TextAttributeImportAction extends AbstractAttributeImportAction
 
         if (!$attribute) {
             $attribute = new TextAttribute(
-                AttributeId::fromKey($command->getCode()),
+                AttributeId::generate(),
                 new AttributeCode($command->getCode()),
                 new TranslatableString($command->getLabel()),
                 new TranslatableString($command->getHint()),

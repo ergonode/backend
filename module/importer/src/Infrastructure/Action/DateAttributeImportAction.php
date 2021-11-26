@@ -32,7 +32,7 @@ class DateAttributeImportAction extends AbstractAttributeImportAction
         $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new DateAttribute(
-                AttributeId::fromKey($command->getCode()),
+                AttributeId::generate(),
                 new AttributeCode($command->getCode()),
                 new TranslatableString($command->getLabel()),
                 new TranslatableString($command->getHint()),

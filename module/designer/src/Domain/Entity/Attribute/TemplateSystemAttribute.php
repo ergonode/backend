@@ -28,7 +28,7 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
         TranslatableString $placeholder
     ) {
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code->getValue());
+        $id = AttributeId::generate();
         $scope = new AttributeScope(AttributeScope::GLOBAL);
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);

@@ -113,6 +113,10 @@ Feature: Variable product
     And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
     And the JSON node "id" should be equal to "@product_id@"
 
+  Scenario: Delete attribute used as a bound attribute
+    And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"
+    Then the response status code should be 409
+
   Scenario: Edit product select value in "en_GB" language
     When I send a PUT request to "/api/v1/en_GB/products/@simple_product_id@/attribute/@attribute_id@" with body:
       """

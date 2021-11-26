@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Core\Tests\Application\Serializer\Normalizer;
 
 use Ergonode\Core\Application\Serializer\Normalizer\EntityNormalizer;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -36,11 +38,33 @@ class EntityNormalizerTest extends TestCase
 
     public function testShouldNormalize(): void
     {
-        $entity = $this->createMock(AbstractEntity::class);
-        $this->mockNormalizer->method('normalize')->willReturn([
-            'property' => 'val',
-            'aggregateRoot' => 'root',
-        ]);
+        $entity = new class() extends AbstractEntity {
+            public function __construct()
+            {
+                $this->aggregateRoot = new class() extends AbstractAggregateRoot {
+                    public function getId(): AggregateId
+                    {
+                        return AggregateId::generate();
+                    }
+                };
+            }
+            public function getAggregateRoot(): ?AbstractAggregateRoot
+            {
+                return $this->aggregateRoot;
+            }
+        };
+        $this->mockNormalizer->method('normalize')
+            ->with(
+                $this->callback(
+                    fn (AbstractEntity $input) => null === $input->getAggregateRoot() && $entity !== $input
+                ),
+                null,
+                [],
+            )
+            ->willReturn([
+                'property' => 'val',
+                'aggregateRoot' => 'root',
+            ]);
 
         $this->assertTrue($this->normalizer->supportsNormalization($entity));
 

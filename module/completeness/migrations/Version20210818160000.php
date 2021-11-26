@@ -23,7 +23,9 @@ class Version20210818160000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $label = Uuid::uuid4()->toString();
-        $attributeId = AttributeId::fromKey(CompletenessSystemAttribute::CODE);
+        $uuid = Uuid::uuid5('eb5fa5eb-ecda-4ff6-ac91-9ac817062635', CompletenessSystemAttribute::CODE)->toString();
+        $attributeId = new AttributeId($uuid);
+
         $eventId = $this->connection->executeQuery(
             'SELECT id FROM event_store_event WHERE event_class = :class',
             [
