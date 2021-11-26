@@ -36,7 +36,7 @@ class TestSegmentEventHandler
         $this->calculate();
     }
 
-    public function onSegmentCreateEvent(SegmentCreatedEvent $event): void
+    public function onSegmentCreatedEvent(SegmentCreatedEvent $event): void
     {
         $this->calculate();
     }

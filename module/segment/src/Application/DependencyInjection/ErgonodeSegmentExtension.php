@@ -44,7 +44,7 @@ class ErgonodeSegmentExtension extends Extension implements PrependExtensionInte
             return;
         }
 
-        $loader->load('test.yml');
+        $loader->load('test.yaml');
     }
 
     /**

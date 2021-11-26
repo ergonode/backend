@@ -4,7 +4,7 @@ services:
             $transport: '@messenger.transport.segment'
             $commandBus: '@messenger.bus.sync'
         tags:
-            - { name: 'messenger.message_handler', method: 'onSegmentCreateEvent', handles: 'Ergonode\Segment\Domain\Event\SegmentCreatedEvent', priority: -1000 }
+            - { name: 'messenger.message_handler', method: 'onSegmentCreatedEvent', handles: 'Ergonode\Segment\Domain\Event\SegmentCreatedEvent', priority: -1000 }
             - { name: 'messenger.message_handler', method: 'onSegmentConditionSetChangedEvent', handles: 'Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent', priority: -1000 }
             - { name: 'messenger.message_handler', method: 'onProductCreatedEvent', handles: 'Ergonode\Product\Application\Event\ProductCreatedEvent', priority: -1000 }
             - { name: 'messenger.message_handler', method: 'onProductDeletedEvent', handles: 'Ergonode\Product\Application\Event\ProductDeletedEvent', priority: -1000 }

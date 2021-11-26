@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\DependencyInjection;
 
-use Ergonode\Account\Application\DependencyInjection\Configuration;
 use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Symfony\Component\Config\FileLocator;
@@ -52,7 +51,7 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
             return;
         }
 
-        $loader->load('test.yml');
+        $loader->load('test.yaml');
     }
 
     /**
