@@ -8,13 +8,6 @@ services:
             $authorizationHeader: '%authorization_header%'
         public: true
 
-    Ergonode\Core\Test\Fixtures\Messenger\Transport\TestTransportFactory:
-        arguments:
-            $messageBus: '@messenger.bus.sync'
-            $tokenStorage: '@security.token_storage'
-        tags:
-            - 'messenger.transport_factory'
-
     Ergonode\Core\Test\Behat\Context\UserContext:
         $userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
 

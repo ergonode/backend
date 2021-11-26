@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
             ->getRootNode()
                 ->children()
                     ->booleanNode('use_async_bus')->isRequired()->end()
+                    ->booleanNode('test')->defaultFalse()->end()
                 ->end()
             ->end();
 

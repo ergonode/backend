@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\DependencyInjection;
 
+use Ergonode\Account\Application\DependencyInjection\Configuration;
 use Ergonode\Core\Application\DependencyInjection\CompilerPass\RelationshipStrategyInterfaceCompilerPass;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
@@ -42,6 +43,14 @@ class ErgonodeCoreExtension extends Extension implements PrependExtensionInterfa
             ->addTag(RelationshipStrategyInterfaceCompilerPass::TAG);
 
         $loader->load('services.yml');
+
+        $configuration = $this->processConfiguration(new Configuration(), $configs);
+
+        if (!$configuration['test']) {
+            return;
+        }
+
+        $loader->load('test.yml');
     }
 
     /**
