@@ -8,18 +8,17 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Service;
 
-use Symfony\Component\HttpFoundation\Response;
 use Ergonode\Core\Infrastructure\Exception\DownloaderException;
 use Psr\Log\LoggerInterface;
+use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Response;
 use Ergonode\Core\Infrastructure\Exception\FileNotFoundDownloaderException;
 use Ergonode\Core\Infrastructure\Exception\AccessDeniedDownloaderException;
 use Ergonode\Core\Infrastructure\Exception\BadRequestDownloaderException;
+use GuzzleHttp\Exception\GuzzleException;
 
-class CurlDownloader implements DownloaderInterface
+class GuzzleDownloader implements DownloaderInterface
 {
-    private const AGENT = 'Mozilla/5.0 '
-    .'(Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36';
-
     private LoggerInterface $logger;
 
     public function __construct(LoggerInterface $logger)
@@ -34,18 +33,18 @@ class CurlDownloader implements DownloaderInterface
      */
     public function download(string $url, array $headers = []): string
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_VERBOSE, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, self::AGENT);
-        $content = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $client = new Client();
+        try {
+            $response = $client->request('GET', $url, ['headers' => $this->mapHeaders($headers)]);
+            $code = $response->getStatusCode();
+            $content = $response->getBody()->getContents();
+        } catch (GuzzleException $exception) {
+            $this->logger->error($exception);
+            throw new DownloaderException(sprintf('Can\'t download file from %s', $url));
+        }
 
         if (Response::HTTP_OK === $code && $content) {
-            return $content;
+            return $response->getBody()->getContents();
         }
 
         $this->logger->info(sprintf('Can\'t download file %s, code %s', $url, $code));
@@ -61,5 +60,20 @@ class CurlDownloader implements DownloaderInterface
             default:
                 throw new DownloaderException(sprintf('Can\'t download file from %s', $url));
         }
+    }
+
+    /**
+     * @param Header[] $headers
+     *
+     * @return array
+     */
+    private function mapHeaders(array $headers): array
+    {
+        $result = [];
+        foreach ($headers as $header) {
+            $result[$header->getKey()] = $header->getValue();
+        }
+
+        return $result;
     }
 }

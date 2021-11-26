@@ -57,7 +57,7 @@ services:
     messenger.transport.serializer:
         class: 'Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer'
 
-    Ergonode\Core\Infrastructure\Service\DownloaderInterface: '@Ergonode\Core\Infrastructure\Service\CurlDownloader'
+    Ergonode\Core\Infrastructure\Service\DownloaderInterface: '@Ergonode\Core\Infrastructure\Service\GuzzleDownloader'
     Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator:
         decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
         arguments:

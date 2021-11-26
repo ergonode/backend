@@ -8,7 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Service;
 
+use Ergonode\Core\Infrastructure\Exception\DownloaderException;
+
 interface DownloaderInterface
 {
-    public function download(string $url, array $headers = []): ?string;
+    /**
+     * @throws DownloaderException
+     */
+    public function download(string $url, array $headers = []): string;
 }
