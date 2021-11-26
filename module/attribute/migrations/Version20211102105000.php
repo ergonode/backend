@@ -80,9 +80,9 @@ final class Version20211102105000 extends AbstractErgonodeMigration
         }
 
         $this->migrateEvents($ids[AttributeOptionAddedEvent::class], $this->getRows());
-        $this->dropPayloadAttributeId();
 
         //@todo uncomment after changes in projections
+        //$this->dropPayloadAttributeId();
         //$this->addSql('ALTER TABLE  attribute_option DROP COLUMN attribute_id');
     }
 
