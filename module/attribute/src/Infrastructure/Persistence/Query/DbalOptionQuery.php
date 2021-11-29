@@ -18,6 +18,7 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 
 class DbalOptionQuery implements OptionQueryInterface
 {
@@ -29,10 +30,16 @@ class DbalOptionQuery implements OptionQueryInterface
 
     private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
-    {
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    public function __construct(
+        Connection $connection,
+        DbalDataSetFactory $dataSetFactory,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->connection = $connection;
         $this->dataSetFactory = $dataSetFactory;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -89,7 +96,7 @@ class DbalOptionQuery implements OptionQueryInterface
     /**
      * @return array
      */
-    public function getAll(?AttributeId $attributeId = null): array
+    public function getAll(?AttributeId $attributeId = null, bool $withRelations = false): array
     {
         $qb = $this->getQuery();
 
@@ -108,11 +115,18 @@ class DbalOptionQuery implements OptionQueryInterface
         $result = [];
         foreach ($records as $record) {
             $value = $this->getValue($record['value_id']);
-            $result[] = [
+
+            $item =  [
                 'id' => $record['id'],
                 'code' => $record['code'],
                 'label' => !empty($value) ? $value : [],
             ];
+
+            if ($withRelations) {
+                $item['relations'] = (bool) $this->relationshipsResolver->resolve(new AggregateId($item['id']));
+            }
+
+            $result[] = $item;
         }
 
         return $result;
@@ -165,7 +179,7 @@ class DbalOptionQuery implements OptionQueryInterface
     {
         $qb = $this->getQuery();
         $qb->select('o.id, o.key AS code, ao.attribute_id');
-        $qb ->join(
+        $qb->join(
             'o',
             self::TABLE_ATTRIBUTE_OPTIONS,
             'ao',
