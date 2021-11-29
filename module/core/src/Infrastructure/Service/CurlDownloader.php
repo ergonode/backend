@@ -28,12 +28,19 @@ class CurlDownloader implements DownloaderInterface
     }
 
     /**
+     * @deprecated
+     *
      * @param Header[] $headers
      *
      * @throws DownloaderException
      */
     public function download(string $url, array $headers = []): string
     {
+        @trigger_error(
+            'Ergonode\Core\Infrastructure\Service\CurlDownloader is deprecated and will be removed in 2.0.',
+            \E_USER_DEPRECATED,
+        );
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

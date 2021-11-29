@@ -21,8 +21,11 @@ class GuzzleDownloader implements DownloaderInterface
 {
     private LoggerInterface $logger;
 
-    public function __construct(LoggerInterface $logger)
+    private Client $client;
+
+    public function __construct(Client $client, LoggerInterface $logger)
     {
+        $this->client = $client;
         $this->logger = $logger;
     }
 
@@ -33,9 +36,8 @@ class GuzzleDownloader implements DownloaderInterface
      */
     public function download(string $url, array $headers = []): string
     {
-        $client = new Client();
         try {
-            $response = $client->request('GET', $url, ['headers' => $this->mapHeaders($headers)]);
+            $response = $this->client->get($url, ['headers' => $this->mapHeaders($headers)]);
             $code = $response->getStatusCode();
             $content = $response->getBody()->getContents();
         } catch (GuzzleException $exception) {
@@ -44,7 +46,7 @@ class GuzzleDownloader implements DownloaderInterface
         }
 
         if (Response::HTTP_OK === $code && $content) {
-            return $response->getBody()->getContents();
+            return $content;
         }
 
         $this->logger->info(sprintf('Can\'t download file %s, code %s', $url, $code));

@@ -57,6 +57,13 @@ services:
     messenger.transport.serializer:
         class: 'Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer'
 
+    DownloadClient:
+        class: GuzzleHttp\Client
+
+    Ergonode\Core\Infrastructure\Service\GuzzleDownloader:
+        arguments:
+            $client: '@DownloadClient'
+
     Ergonode\Core\Infrastructure\Service\DownloaderInterface: '@Ergonode\Core\Infrastructure\Service\GuzzleDownloader'
     Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator:
         decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
