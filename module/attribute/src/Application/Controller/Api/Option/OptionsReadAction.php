@@ -56,6 +56,6 @@ class OptionsReadAction
      */
     public function __invoke(AbstractOptionAttribute $attribute): array
     {
-        return $this->query->getAll($attribute->getId());
+        return $this->query->getAll($attribute->getId(), true);
     }
 }
