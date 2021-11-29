@@ -1,6 +1,8 @@
 ## CHANGELOG FOR 1.3.x
 #### 1.3.0
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
+- feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
+
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
 - performance [#1729](https://github.com/ergonode/backend/issues/1729) Serialization performance upgrade with Closure API (piotrkreft)

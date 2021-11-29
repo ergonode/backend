@@ -11,3 +11,6 @@ Attribute:
 * The signature of constructor `DbalProductValueChangedEventProjector` has changed
 * The signature of constructor `DbalProductValueRemovedEventProjector` has changed
 * The signature of constructor `ProductWorkflowQuery` has changed
+
+Core
+* Remove nullable from `DownloaderInterface` return type 
