@@ -23,6 +23,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('ergonode_segment');
         $rootNode = $treeBuilder->getRootNode();
         AddConditionsNodeSection::addSection($rootNode);
+        /** @phpstan-ignore-next-line */
+        $treeBuilder
+            ->getRootNode()
+                ->children()
+                    ->booleanNode('test')->defaultFalse()->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }
