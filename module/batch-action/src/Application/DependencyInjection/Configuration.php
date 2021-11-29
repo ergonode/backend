@@ -15,6 +15,15 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        return new TreeBuilder('ergonode_batch_action');
+        $treeBuilder = new TreeBuilder('ergonode_batch_action');
+        /** @phpstan-ignore-next-line */
+        $treeBuilder
+            ->getRootNode()
+                ->children()
+                    ->booleanNode('test')->defaultFalse()->end()
+                ->end()
+            ->end();
+
+        return $treeBuilder;
     }
 }

@@ -1,0 +1,12 @@
+services:
+    Ergonode\BatchAction\Test\Infrastructure\Handler\TestCreateBatchActionCommandHandler:
+        tags: [ { name: 'messenger.message_handler', priority: -1000 } ]
+        arguments:
+            - '@messenger.transport.batch_action'
+            - '@messenger.bus.sync'
+
+    Ergonode\BatchAction\Test\Infrastructure\Handler\TestReprocessBatchActionCommandHandler:
+        tags: [ { name: 'messenger.message_handler', priority: -1000 } ]
+        arguments:
+            - '@messenger.transport.batch_action'
+            - '@messenger.bus.sync'
