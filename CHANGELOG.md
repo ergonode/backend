@@ -1,6 +1,7 @@
 ## CHANGELOG FOR 1.3.x
 #### 1.3.0
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
+- feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
 - feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
 
 ## CHANGELOG FOR 1.2.x
