@@ -13,4 +13,4 @@ Attribute:
 * The signature of constructor `ProductWorkflowQuery` has changed
 
 Core
-* Remove nullable from `DownloaderInterface` return type 
+* `DownloaderInterface::download` throws exception rather than returning `null` value
