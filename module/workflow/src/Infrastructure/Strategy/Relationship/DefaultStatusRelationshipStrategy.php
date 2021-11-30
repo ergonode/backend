@@ -37,7 +37,7 @@ class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
     {
         Assert::isInstanceOf($id, StatusId::class);
 
-        $relations = $this->query->getWorkflowIdsWithDefaultStatus($id);
+        $relations = $this->query->findWorkflowIdByCode($id);
         $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
 
         return new RelationshipGroup($message, $relations);

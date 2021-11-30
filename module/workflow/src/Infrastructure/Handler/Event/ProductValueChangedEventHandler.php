@@ -65,10 +65,9 @@ class ProductValueChangedEventHandler
     {
         $attributeCode = $event->getAttributeCode();
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
-            $workflow = $this->workflowProvider->provide();
-
             $languages = $this->getLanguages($event->getFrom(), $event->getTo());
             foreach ($languages as $language) {
+                $workflow = $this->workflowProvider->provide($language);
                 $source = $workflow->getDefaultStatus();
                 if (isset($event->getFrom()->getValue()[$language->getCode()])) {
                     $from = $event->getFrom()->getValue()[$language->getCode()];

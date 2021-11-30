@@ -55,10 +55,12 @@ class AddStatusToProductFactoryDecorator implements ProductFactoryInterface
 
     protected function addStatusAttribute(array $attributes): array
     {
-        $workflow = $this->provider->provide();
+
         $result = [];
-        $status = $workflow->getDefaultStatus()->getValue();
+
         foreach ($this->query->getActive() as $language) {
+            $workflow = $this->provider->provide($language);
+            $status = $workflow->getDefaultStatus()->getValue();
             $result[$language->getCode()] = $status;
         }
         $attributes[StatusSystemAttribute::CODE] = new TranslatableStringValue(new TranslatableString($result));

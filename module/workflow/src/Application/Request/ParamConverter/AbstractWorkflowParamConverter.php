@@ -14,6 +14,7 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class AbstractWorkflowParamConverter implements ParamConverterInterface
 {
@@ -31,7 +32,7 @@ class AbstractWorkflowParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $entity = $this->provider->provide();
+        $entity = $this->provider->provide(new Language('pl_PL'));
 
         $request->attributes->set($configuration->getName(), $entity);
 

@@ -85,7 +85,7 @@ class ProductWorkflowAction
      */
     public function __invoke(AbstractProduct $product, Language $language, Language $productLanguage): array
     {
-        $workflow = $this->workflowProvider->provide();
+        $workflow = $this->workflowProvider->provide($language);
         $product = $this->statusProvider->getProduct($product, $workflow, $productLanguage);
 
         return $this->query->getQuery($product, $workflow, $language, $productLanguage);

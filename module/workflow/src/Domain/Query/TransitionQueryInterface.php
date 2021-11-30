@@ -15,4 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 interface TransitionQueryInterface
 {
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool;
+
+    public function findWorkflowsByStatus(StatusId $statusId): array;
 }

@@ -31,11 +31,6 @@ class WorkflowProviderTest extends TestCase
     private WorkflowQueryInterface $query;
 
     /**
-     * @var WorkflowFactory|MockObject
-     */
-    private $factory;
-
-    /**
      * @var AbstractWorkflow|MockObject
      */
     private $workflow;
@@ -48,7 +43,6 @@ class WorkflowProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->repository = $this->createMock(WorkflowRepositoryInterface::class);
-        $this->factory = $this->createMock(WorkflowFactory::class);
         $this->workflow = $this->createMock(AbstractWorkflow::class);
         $this->query = $this->createMock(WorkflowQueryInterface::class);
         $this->workflowId = $this->createMock(WorkflowId::class);
@@ -59,7 +53,7 @@ class WorkflowProviderTest extends TestCase
         $this->query->method('findWorkflowIdByCode')->willReturn($this->workflowId);
         $this->repository->method('load')->willReturn($this->workflow);
 
-        $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
+        $provider = new WorkflowProvider($this->repository, $this->query);
         $workflow = $provider->provide();
         $this->assertEquals($this->workflow, $workflow);
     }
@@ -71,7 +65,7 @@ class WorkflowProviderTest extends TestCase
         $this->factory->method('create')->willReturn($this->workflow);
         $this->repository->expects($this->once())->method('save');
 
-        $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
+        $provider = new WorkflowProvider($this->repository, $this->query);
         $workflow = $provider->provide();
         $this->assertEquals($this->workflow, $workflow);
     }
