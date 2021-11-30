@@ -41,7 +41,7 @@ class WorkflowProvider implements WorkflowProviderInterface
             $workflow = $this->repository->load($id);
         }
 
-        Assert::isInstanceOf($workflow, AbstractWorkflow::class);
+        Assert::isInstanceOf($workflow, AbstractWorkflow::class, 'Can\'t provide workflow');
 
         return $workflow;
     }
