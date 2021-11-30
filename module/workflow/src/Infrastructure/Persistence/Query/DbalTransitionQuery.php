@@ -61,7 +61,7 @@ class DbalTransitionQuery implements TransitionQueryInterface, TransitionConditi
         $query = $this->connection->createQueryBuilder();
         $query->select('workflow_id');
         $query->from(self::TABLE);
-        $query->andWhere(
+        $query->where(
             $query->expr()->or(
                 $query->expr()->eq('source_id', ':statusId'),
                 $query->expr()->eq('destination_id', ':statusId')

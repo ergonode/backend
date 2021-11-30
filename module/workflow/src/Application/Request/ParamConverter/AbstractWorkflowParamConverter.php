@@ -32,7 +32,7 @@ class AbstractWorkflowParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $entity = $this->provider->provide(new Language('pl_PL'));
+        $entity = $this->provider->provide();
 
         $request->attributes->set($configuration->getName(), $entity);
 

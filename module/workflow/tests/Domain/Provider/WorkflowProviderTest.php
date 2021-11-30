@@ -60,13 +60,10 @@ class WorkflowProviderTest extends TestCase
 
     public function testProvideNonExistsObject(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->query->method('findWorkflowIdByCode')->willReturn(null);
-        $this->repository->method('load')->willReturn(null);
-        $this->factory->method('create')->willReturn($this->workflow);
-        $this->repository->expects($this->once())->method('save');
 
         $provider = new WorkflowProvider($this->repository, $this->query);
-        $workflow = $provider->provide();
-        $this->assertEquals($this->workflow, $workflow);
+        $provider->provide();
     }
 }
