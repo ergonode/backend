@@ -42,6 +42,11 @@ class TranslatableStringValue implements ValueInterface
         return $this->value->get($language);
     }
 
+    public function hasTranslation(Language $language): bool
+    {
+        return $this->value->has($language);
+    }
+
     public function merge(ValueInterface $value): self
     {
         Assert::isInstanceOf($value, self::class);
@@ -49,9 +54,6 @@ class TranslatableStringValue implements ValueInterface
         return new self(new TranslatableString(array_merge($this->value->getTranslations(), $value->getValue())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __toString(): string
     {
         return implode(',', $this->value->getTranslations());
