@@ -14,7 +14,6 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Core\Domain\ValueObject\Language;
 
 class AbstractWorkflowParamConverter implements ParamConverterInterface
 {

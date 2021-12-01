@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Tests\Domain\Provider;
 
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;

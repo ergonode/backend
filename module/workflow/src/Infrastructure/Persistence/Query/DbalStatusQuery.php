@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Query;
 
@@ -93,8 +93,8 @@ class DbalStatusQuery implements StatusQueryInterface
         $stmt = $this->connection->executeQuery(
             $sql,
             [
-                'translationLanguage' => (string)$translationLanguage,
-                'workflowLanguage' => (string)$workflowLanguage,
+                'translationLanguage' => (string) $translationLanguage,
+                'workflowLanguage' => (string) $workflowLanguage,
             ],
         );
         $statuses = $stmt->fetchAll();

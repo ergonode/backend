@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Provider;
 
@@ -13,5 +13,5 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 interface WorkflowProviderInterface
 {
-    public function provide(Language $language): AbstractWorkflow;
+    public function provide(?Language $language = null): AbstractWorkflow;
 }

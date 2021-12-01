@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Provider;
 
@@ -23,7 +23,7 @@ class WorkflowProvider implements WorkflowProviderInterface
 
     public function __construct(
         WorkflowRepositoryInterface $repository,
-        WorkflowQueryInterface      $query
+        WorkflowQueryInterface $query
     ) {
         $this->repository = $repository;
         $this->query = $query;
