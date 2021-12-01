@@ -108,7 +108,7 @@ class DbalOptionQuery implements OptionQueryInterface
                 ->setParameter(':id', $attributeId->getValue());
         }
         $records = $qb
-            ->orderBy('o.attribute_id, ao.index')
+            ->orderBy('ao.attribute_id, ao.index')
             ->execute()
             ->fetchAll();
 
@@ -116,7 +116,7 @@ class DbalOptionQuery implements OptionQueryInterface
         foreach ($records as $record) {
             $value = $this->getValue($record['value_id']);
 
-            $item =  [
+            $item = [
                 'id' => $record['id'],
                 'code' => $record['code'],
                 'label' => !empty($value) ? $value : [],
@@ -192,6 +192,22 @@ class DbalOptionQuery implements OptionQueryInterface
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return $this->dataSetFactory->create($result);
+    }
+
+    public function getAttributeIdByOptionId(AggregateId $id): ?AttributeId
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('ao.attribute_id')
+            ->from(self::TABLE_ATTRIBUTE_OPTIONS, 'ao');
+
+        $res = $qb->where($qb->expr()->eq('ao.option_id', '\''.$id->getValue()).'\'')
+            ->execute()
+            ->fetchOne();
+        if ($res) {
+            return new AttributeId($res);
+        }
+
+        return null;
     }
 
     /**

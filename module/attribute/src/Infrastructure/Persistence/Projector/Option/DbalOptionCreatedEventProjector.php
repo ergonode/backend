@@ -41,7 +41,6 @@ class DbalOptionCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'key' => $event->getCode()->getValue(),
-                'attribute_id' => $event->getAttributeId()->getValue(),
                 'value_id' => $valueId,
             ]
         );

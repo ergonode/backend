@@ -8,13 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Entity;
 
-use PHPUnit\Framework\TestCase;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\MockObject\MockObject;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class AbstractOptionTest extends TestCase
 {
@@ -22,11 +21,6 @@ class AbstractOptionTest extends TestCase
      * @var AggregateId|MockObject
      */
     private AggregateId $id;
-
-    /**
-     * @var AttributeId|MockObject
-     */
-    private AttributeId $attributeId;
 
     /**
      * @var OptionKey|MockObject
@@ -42,7 +36,6 @@ class AbstractOptionTest extends TestCase
     public function setUp(): void
     {
         $this->id = $this->createMock(AggregateId::class);
-        $this->attributeId = $this->createMock(AttributeId::class);
         $this->code = $this->createMock(OptionKey::class);
         $this->label = $this->createMock(TranslatableString::class);
     }
@@ -55,7 +48,6 @@ class AbstractOptionTest extends TestCase
         $option = $this->getClass();
 
         $this->assertEquals($this->id, $option->getId());
-        $this->assertEquals($this->attributeId, $option->getAttributeId());
         $this->assertEquals($this->code, $option->getCode());
         $this->assertEquals($this->label, $option->getLabel());
     }
@@ -92,7 +84,6 @@ class AbstractOptionTest extends TestCase
     {
         return  new class(
             $this->id,
-            $this->attributeId,
             $this->code,
             $this->label,
         ) extends AbstractOption {

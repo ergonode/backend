@@ -42,7 +42,6 @@ class CreateOptionCommandHandler
 
         $option = new SimpleOption(
             $command->getId(),
-            $command->getAttributeId(),
             $command->getCode(),
             $command->getLabel()
         );

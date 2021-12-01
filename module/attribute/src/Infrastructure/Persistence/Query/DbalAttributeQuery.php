@@ -34,6 +34,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
     private const TABLE_PARAMETER = 'attribute_parameter';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
     private const TABLE_OPTIONS = 'attribute_option';
+    private const TABLE_ATTRIBUTE_OPTIONS = 'attribute_options';
     private const TABLE_ATTRIBUTE_GROUPS = 'attribute_group_attribute';
 
     private Connection $connection;
@@ -86,8 +87,9 @@ class DbalAttributeQuery implements AttributeQueryInterface
         $qb = $this->connection->createQueryBuilder();
         $qb->select('language, value')
             ->from(self::TABLE_VALUE_TRANSLATION, 'vt')
-            ->join('vt', self::TABLE_OPTIONS, 'ao', 'ao.value_id = vt.value_id')
-            ->andWhere($qb->expr()->eq('ao.key', ':key'))
+            ->join('vt', self::TABLE_OPTIONS, 'o', 'o.value_id = vt.value_id')
+            ->join('o', self::TABLE_ATTRIBUTE_OPTIONS, 'ao', 'ao.option_id = o.id')
+            ->andWhere($qb->expr()->eq('o.key', ':key'))
             ->andWhere($qb->expr()->eq('ao.attribute_id', ':id'))
             ->setParameter(':key', $key->getValue())
             ->setParameter(':id', $id->getValue());
@@ -462,7 +464,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         $qb = $this->getOptionsQuery();
 
         $records = $qb
-            ->where($qb->expr()->eq('attribute_id', ':id'))
+            ->where($qb->expr()->eq('ao.attribute_id', ':id'))
             ->setParameter(':id', $attributeId->getValue())
             ->execute()
             ->fetchAll();
@@ -506,10 +508,16 @@ class DbalAttributeQuery implements AttributeQueryInterface
     private function getOptionsQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('ao.value_id AS id, vt.language, vt.value, ao.key')
-            ->leftJoin('ao', 'value_translation', 'vt', 'vt.value_id = ao.value_id')
-            ->from(self::TABLE_OPTIONS, 'ao')
-            ->orderBy('ao.key');
+            ->select('o.value_id AS id, vt.language, vt.value, o.key')
+            ->leftJoin('o', 'value_translation', 'vt', 'vt.value_id = o.value_id')
+            ->from(self::TABLE_OPTIONS, 'o')
+            ->join(
+                'o',
+                self::TABLE_ATTRIBUTE_OPTIONS,
+                'ao',
+                'ao.option_id = o.id',
+            )
+            ->orderBy('ao.index');
     }
 
     private function getGroupQuery(): QueryBuilder

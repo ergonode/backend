@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Option;
 
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilderInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
@@ -20,9 +21,12 @@ class ExportOptionAttributeBuilder implements ExportOptionBuilderInterface
 {
     private AttributeQueryInterface $attributeQuery;
 
-    public function __construct(AttributeQueryInterface $attributeQuery)
+    private OptionQueryInterface $optionQuery;
+
+    public function __construct(AttributeQueryInterface $attributeQuery, OptionQueryInterface $optionQuery)
     {
         $this->attributeQuery = $attributeQuery;
+        $this->optionQuery = $optionQuery;
     }
 
     public function header(): array
@@ -37,7 +41,8 @@ class ExportOptionAttributeBuilder implements ExportOptionBuilderInterface
 
     private function getAttribute(AbstractOption $option): AttributeCode
     {
-        $attributeId = $option->getAttributeId();
+        $attributeId = $this->optionQuery->getAttributeIdByOptionId($option->getId());
+        Assert::notNull($attributeId, sprintf('Can\'t find attribute for the option "%s"', $option->getCode()));
         $code = $this->attributeQuery->findAttributeCodeById($attributeId);
         Assert::notNull($code, sprintf('Can\'t find code of attribute "%s"', $attributeId->getValue()));
 

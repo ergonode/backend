@@ -37,4 +37,6 @@ interface OptionQueryInterface
     public function findIdByAttributeIdAndCode(AttributeId $id, OptionKey $code): ?AggregateId;
 
     public function findKey(AggregateId $id): ?OptionKey;
+
+    public function getAttributeIdByOptionId(AggregateId $id): ?AttributeId;
 }
