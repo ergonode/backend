@@ -12,6 +12,12 @@ Attribute:
 * The signature of constructor `DbalProductValueRemovedEventProjector` has changed
 * The signature of constructor `ProductWorkflowQuery` has changed
 
+Core
+* `DownloaderInterface::download` throws exception rather than returning `null` value
+
+Value
+* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`
+
 Workflow:
 * Endpoint `[GET] api/v1/en_GB/workflow/default/transitions` grid column name `source` change to `from`, `destination` change to `to`
 * Endpoint `[POST] api/v1/en_GB/workflow/default/transitions` property `source` change to `from`, `destination` change to `to`

@@ -20,7 +20,14 @@ class TranslatableStringValueTest extends TestCase
 {
     public function testValueCreation(): void
     {
-        $array = ['en_GB' => 'english', 'pl_PL' => 'polish'];
+        $language1 = new Language('en_GB');
+        $language2 = new Language('pl_PL');
+
+        $value1 = 'english';
+        $value2 = 'polish';
+
+        $array = [$language1->getCode() => $value1, $language2->getCode() => $value2];
+
         $value = new TranslatableString($array);
 
         $valueObject1 = new TranslatableStringValue($value);
@@ -28,9 +35,25 @@ class TranslatableStringValueTest extends TestCase
 
         self::assertSame($array, $valueObject1->getValue());
         self::assertSame(TranslatableStringValue::TYPE, $valueObject1->getType());
-        self::assertSame('polish', $valueObject1->getTranslation(new Language('pl_PL')));
+        self::assertSame($value2, $valueObject1->getTranslation($language2));
         self::assertSame("english,polish", (string) $valueObject1);
+        self::assertSame($value1, $valueObject1->getTranslation($language1));
+        self::assertSame($value2, $valueObject1->getTranslation($language2));
+        self::assertTrue($valueObject1->hasTranslation($language1));
+        self::assertTrue($valueObject1->hasTranslation($language2));
+        self::assertSame("$value1,$value2", (string) $valueObject1);
         self::assertTrue($valueObject1->isEqual($valueObject2));
+    }
+
+    public function testNotExistValueException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $language = new Language('en_GB');
+
+        $value = new TranslatableStringValue(new TranslatableString());
+        self::assertFalse($value->hasTranslation($language));
+        $value->getTranslation($language);
     }
 
     public function testMergeInvalidValueObject(): void

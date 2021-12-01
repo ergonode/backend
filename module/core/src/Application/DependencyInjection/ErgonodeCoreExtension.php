@@ -42,6 +42,14 @@ class ErgonodeCoreExtension extends Extension implements PrependExtensionInterfa
             ->addTag(RelationshipStrategyInterfaceCompilerPass::TAG);
 
         $loader->load('services.yml');
+
+        $configuration = $this->processConfiguration(new Configuration(), $configs);
+
+        if (!$configuration['test']) {
+            return;
+        }
+
+        $loader->load('test.yaml');
     }
 
     /**

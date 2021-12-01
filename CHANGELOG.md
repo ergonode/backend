@@ -2,6 +2,10 @@
 #### 1.3.0
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
 - bugfix [#1740](https://github.com/ergonode/backend/issues/1740) Incorrect transition property naming (rprzedzik)
+- feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
+- feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
+- feature [#1756](https://github.com/ergonode/backend/issues/1756) Extension of ValueInterface and unification of implemented classes (rprzedzik)
+
 ## CHANGELOG FOR 1.2.x
 #### 1.2.0
 - performance [#1729](https://github.com/ergonode/backend/issues/1729) Serialization performance upgrade with Closure API (piotrkreft)
