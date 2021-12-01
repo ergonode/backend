@@ -196,15 +196,16 @@ class DbalOptionQuery implements OptionQueryInterface
 
     public function getAttributeIdByOptionId(AggregateId $id): ?AttributeId
     {
-        $qb = $this->connection->createQueryBuilder()
-            ->select('ao.attribute_id')
-            ->from(self::TABLE_ATTRIBUTE_OPTIONS, 'ao');
+        $qb = $this->connection->createQueryBuilder();
 
-        $res = $qb->where($qb->expr()->eq('ao.option_id', '\''.$id->getValue()).'\'')
+        $result = $qb->select('ao.attribute_id')
+            ->from(self::TABLE_ATTRIBUTE_OPTIONS, 'ao')
+            ->where($qb->expr()->eq('ao.option_id', '\''.$id->getValue()).'\'')
             ->execute()
             ->fetchOne();
-        if ($res) {
-            return new AttributeId($res);
+
+        if ($result) {
+            return new AttributeId($result);
         }
 
         return null;

@@ -57,14 +57,6 @@ abstract class AbstractOption extends AbstractAggregateRoot
         return $this->id;
     }
 
-    /**
-     * @deprecated
-     */
-    public function getAttributeId(): void
-    {
-        throw new \BadMethodCallException('Method getAttributeId is deprecated');
-    }
-
     public function getCode(): OptionKey
     {
         return $this->code;
