@@ -12,18 +12,22 @@ namespace Ergonode\Value\Tests\Domain\ValueObject;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class StringValueTest extends TestCase
 {
     public function testValueCreation(): void
     {
+        $language = $this->createMock(Language::class);
         $value = 'string';
 
         $valueObject1 = new StringValue($value);
         $valueObject2 = new StringValue($value);
 
         $this->assertSame($value, $valueObject1->getValue()[null]);
+        $this->assertSame($value, $valueObject1->getTranslation($language));
         $this->assertSame(StringValue::TYPE, $valueObject1->getType());
+        $this->assertTrue($valueObject1->hasTranslation($language));
         $this->assertSame($value, (string) $valueObject1);
         $this->assertTrue($valueObject1->isEqual($valueObject2));
     }

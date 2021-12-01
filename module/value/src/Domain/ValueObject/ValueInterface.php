@@ -22,6 +22,9 @@ interface ValueInterface
 
     public function getType(): string;
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function getTranslation(Language $language): ?string;
 
     public function hasTranslation(Language $language): bool;

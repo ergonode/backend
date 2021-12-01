@@ -19,17 +19,38 @@ class StringCollectionValueTest extends TestCase
 {
     public function testValueCreation(): void
     {
-        $value = ['pl_PL' => 'value1', 'en_GB' => 'value2'];
+        $language1 = new Language('pl_PL');
+        $language2 = new Language('en_GB');
+
+        $value1 = 'value1';
+        $value2 = 'value2';
+
+        $value = [$language1->getCode() => $value1, $language2->getCode() => $value2];
 
         $valueObject1 = new StringCollectionValue($value);
 
         $valueObject2 = new StringCollectionValue($value);
 
         self::assertSame($value, $valueObject1->getValue());
+        self::assertSame($value1, $valueObject1->getTranslation($language1));
         self::assertSame(StringCollectionValue::TYPE, $valueObject1->getType());
-        self::assertSame('value1', $valueObject1->getTranslation(new Language('pl_PL')));
-        self::assertSame("value1,value2", (string) $valueObject1);
+        self::assertSame($value1, $valueObject1->getTranslation($language1));
+        self::assertSame($value2, $valueObject1->getTranslation($language2));
+        self::assertTrue($valueObject1->hasTranslation($language1));
+        self::assertTrue($valueObject1->hasTranslation($language2));
+        self::assertSame("$value1,$value2", (string) $valueObject1);
         self::assertTrue($valueObject1->isEqual($valueObject2));
+    }
+
+    public function testNotExistValueException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $language = new Language('en_GB');
+
+        $value = new StringCollectionValue([]);
+        self::assertFalse($value->hasTranslation($language));
+        $value->getTranslation($language);
     }
 
     public function testMergeInvalidValueObject(): void

@@ -39,6 +39,12 @@ class TranslatableStringValue implements ValueInterface
 
     public function getTranslation(Language $language): ?string
     {
+        if (!$this->hasTranslation($language)) {
+            throw new \InvalidArgumentException(
+                sprintf('Value for language %s not exists', $language->getCode())
+            );
+        }
+
         return $this->value->get($language);
     }
 
