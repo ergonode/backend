@@ -48,6 +48,6 @@ class AttributeTranslationExistsConditionValidatorStrategy implements ConditionV
      */
     public function getValidatedClass(): string
     {
-        return LanguageAttributeExistsCondition::class;
+        return AttributeTranslationExistsCondition::class;
     }
 }
