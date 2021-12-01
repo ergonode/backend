@@ -19,19 +19,19 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 
 class AddStatusToProductFactoryDecorator implements ProductFactoryInterface
 {
     private ProductFactory $productFactory;
 
-    protected WorkflowProvider $provider;
+    protected WorkflowProviderInterface $provider;
 
     protected LanguageQueryInterface $query;
 
     public function __construct(
         ProductFactory $productFactory,
-        WorkflowProvider $provider,
+        WorkflowProviderInterface $provider,
         LanguageQueryInterface $query
     ) {
         $this->productFactory = $productFactory;

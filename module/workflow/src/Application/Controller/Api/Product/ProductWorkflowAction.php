@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Ergonode\Workflow\Domain\Provider\ProductStatusProvider;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 
 /**
  * @Route(
@@ -32,12 +32,12 @@ class ProductWorkflowAction
 
     private ProductStatusProvider $statusProvider;
 
-    private WorkflowProvider $workflowProvider;
+    private WorkflowProviderInterface $workflowProvider;
 
     public function __construct(
         ProductWorkflowQuery $query,
         ProductStatusProvider $statusProvider,
-        WorkflowProvider $workflowProvider
+        WorkflowProviderInterface $workflowProvider
     ) {
         $this->query = $query;
         $this->statusProvider = $statusProvider;

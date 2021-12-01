@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\MockObject\MockObject;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 
 class AbstractWorkflowParamConverterTest extends TestCase
 {
@@ -29,15 +29,15 @@ class AbstractWorkflowParamConverterTest extends TestCase
     private ParamConverter $configuration;
 
     /**
-     * @var WorkflowProvider|MockObject
+     * @var WorkflowProviderInterface|MockObject
      */
-    private WorkflowProvider $provider;
+    private WorkflowProviderInterface $provider;
 
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
-        $this->provider = $this->createMock(WorkflowProvider::class);
+        $this->provider = $this->createMock(WorkflowProviderInterface::class);
     }
 
     public function testSupportedClass(): void
