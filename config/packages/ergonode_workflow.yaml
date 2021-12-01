@@ -1,7 +1,7 @@
 ergonode_workflow:
   conditions:
     - Ergonode\Condition\Domain\Condition\AttributeExistsCondition
-    - Ergonode\Condition\Domain\Condition\LanguageAttributeExistsCondition
+    - Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition
     - Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition
     - Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition
     - Ergonode\Condition\Domain\Condition\TextAttributeValueCondition

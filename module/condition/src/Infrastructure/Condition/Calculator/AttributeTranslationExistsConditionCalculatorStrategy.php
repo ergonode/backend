@@ -14,10 +14,10 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
-use Ergonode\Condition\Domain\Condition\LanguageAttributeExistsCondition;
+use Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 
-class LanguageAttributeExistsConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
+class AttributeTranslationExistsConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     private AttributeRepositoryInterface $repository;
 
@@ -31,16 +31,16 @@ class LanguageAttributeExistsConditionCalculatorStrategy implements ConditionCal
 
     public function supports(string $type): bool
     {
-        return LanguageAttributeExistsCondition::TYPE === $type;
+        return AttributeTranslationExistsCondition::TYPE === $type;
     }
 
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        if (!$configuration instanceof LanguageAttributeExistsCondition) {
+        if (!$configuration instanceof AttributeTranslationExistsCondition) {
             throw new \LogicException(
                 sprintf(
                     'Expected an instance of %s. %s received.',
-                    LanguageAttributeExistsCondition::class,
+                    AttributeTranslationExistsCondition::class,
                     get_debug_type($configuration)
                 )
             );

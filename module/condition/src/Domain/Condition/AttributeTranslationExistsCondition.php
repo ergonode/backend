@@ -13,10 +13,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-class LanguageAttributeExistsCondition implements ConditionInterface
+class AttributeTranslationExistsCondition implements ConditionInterface
 {
-    public const TYPE = 'LANGUAGE_ATTRIBUTE_EXISTS_CONDITION';
-    public const PHRASE = 'LANGUAGE_ATTRIBUTE_EXISTS_CONDITION_PHRASE';
+    public const TYPE = 'ATTRIBUTE_TRANSLATION_EXISTS_CONDITION';
+    public const PHRASE = 'ATTRIBUTE_TRANSLATION_EXISTS_CONDITION_PHRASE';
 
     private AttributeId $attribute;
 

@@ -14,14 +14,14 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Ergonode\Condition\Domain\Condition\LanguageAttributeExistsCondition;
 use Ergonode\Core\Application\Validator\LanguageCodeActive;
+use Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition;
 
-class LanguageAttributeExistsConditionValidatorStrategy implements ConditionValidatorStrategyInterface
+class AttributeTranslationExistsConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     public function supports(string $type): bool
     {
-        return $type === LanguageAttributeExistsCondition::TYPE;
+        return $type === AttributeTranslationExistsCondition::TYPE;
     }
 
     /**

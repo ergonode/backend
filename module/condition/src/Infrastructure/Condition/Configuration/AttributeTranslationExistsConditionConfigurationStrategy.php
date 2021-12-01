@@ -13,10 +13,10 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Ergonode\Condition\Domain\Condition\LanguageAttributeExistsCondition;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
+use Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition;
 
-class LanguageAttributeExistsConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
+class AttributeTranslationExistsConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     private AttributeQueryInterface $query;
 
@@ -36,7 +36,7 @@ class LanguageAttributeExistsConditionConditionConfigurationStrategy implements 
 
     public function supports(string $type): bool
     {
-        return LanguageAttributeExistsCondition::TYPE === $type;
+        return AttributeTranslationExistsCondition::TYPE === $type;
     }
 
     /**
@@ -48,13 +48,13 @@ class LanguageAttributeExistsConditionConditionConfigurationStrategy implements 
         asort($codes);
 
         return [
-            'type' => LanguageAttributeExistsCondition::TYPE,
+            'type' => AttributeTranslationExistsCondition::TYPE,
             'name' => $this
                 ->translator
-                ->trans(LanguageAttributeExistsCondition::TYPE, [], 'condition', $language->getCode()),
+                ->trans(AttributeTranslationExistsCondition::TYPE, [], 'condition', $language->getCode()),
             'phrase' => $this
                 ->translator
-                ->trans(LanguageAttributeExistsCondition::PHRASE, [], 'condition', $language->getCode()),
+                ->trans(AttributeTranslationExistsCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

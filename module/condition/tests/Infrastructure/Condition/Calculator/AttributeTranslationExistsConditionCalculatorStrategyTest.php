@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
-use Ergonode\Condition\Infrastructure\Condition\Calculator\LanguageAttributeExistsConditionCalculatorStrategy;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
@@ -17,12 +16,12 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Condition\Domain\Condition\LanguageAttributeExistsCondition;
+use Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition;
+use Ergonode\Condition\Infrastructure\Condition\Calculator\AttributeTranslationExistsConditionCalculatorStrategy;
 
-class LanguageAttributeExistsConditionCalculatorStrategyTest extends TestCase
+class AttributeTranslationExistsConditionCalculatorStrategyTest extends TestCase
 {
     private AttributeRepositoryInterface $repository;
-
 
     private TranslationInheritanceCalculator $calculator;
 
@@ -34,8 +33,8 @@ class LanguageAttributeExistsConditionCalculatorStrategyTest extends TestCase
 
     public function testSupports(): void
     {
-        $strategy = new LanguageAttributeExistsConditionCalculatorStrategy($this->repository, $this->calculator);
-        self::assertTrue($strategy->supports('LANGUAGE_ATTRIBUTE_EXISTS_CONDITION'));
+        $strategy = new AttributeTranslationExistsConditionCalculatorStrategy($this->repository, $this->calculator);
+        self::assertTrue($strategy->supports('ATTRIBUTE_TRANSLATION_EXISTS_CONDITION'));
         self::assertFalse($strategy->supports('test'));
     }
 
@@ -45,7 +44,7 @@ class LanguageAttributeExistsConditionCalculatorStrategyTest extends TestCase
     public function testCalculate(bool $hasAttribute, Language $language, ?string $value, bool $result): void
     {
         $object = $this->createMock(AbstractProduct::class);
-        $configuration = $this->createMock(LanguageAttributeExistsCondition::class);
+        $configuration = $this->createMock(AttributeTranslationExistsCondition::class);
         $configuration
             ->expects(self::once())
             ->method('getAttribute')
@@ -64,7 +63,7 @@ class LanguageAttributeExistsConditionCalculatorStrategyTest extends TestCase
 
         $this->calculator->method('calculate')->willReturn($value);
 
-        $strategy = new LanguageAttributeExistsConditionCalculatorStrategy($this->repository, $this->calculator);
+        $strategy = new AttributeTranslationExistsConditionCalculatorStrategy($this->repository, $this->calculator);
         self::assertSame($result, $strategy->calculate($object, $configuration));
     }
 
