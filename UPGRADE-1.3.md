@@ -14,3 +14,6 @@ Attribute:
 
 Core
 * `DownloaderInterface::download` throws exception rather than returning `null` value
+
+Value
+* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`

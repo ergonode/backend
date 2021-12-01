@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Value\Domain\ValueObject;
 
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class StringValue implements ValueInterface
 {
@@ -39,6 +40,16 @@ class StringValue implements ValueInterface
         return [null => $this->value];
     }
 
+    public function getTranslation(Language $language): ?string
+    {
+        return $this->value;
+    }
+
+    public function hasTranslation(Language $language): bool
+    {
+        return true;
+    }
+
     public function merge(ValueInterface $value): self
     {
         Assert::isInstanceOf($value, self::class);
@@ -46,9 +57,6 @@ class StringValue implements ValueInterface
         return new self((string) $value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __toString(): string
     {
         return $this->value;
