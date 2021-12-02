@@ -63,8 +63,8 @@ class DbalTransitionQuery implements TransitionQueryInterface, TransitionConditi
         $query->from(self::TABLE);
         $query->where(
             $query->expr()->or(
-                $query->expr()->eq('source_id', ':statusId'),
-                $query->expr()->eq('destination_id', ':statusId')
+                $query->expr()->eq('from_id', ':statusId'),
+                $query->expr()->eq('to_id', ':statusId')
             )
         );
         $query->setParameter(':statusId', $statusId->getValue());
