@@ -28,7 +28,15 @@ class TestSegmentEventHandler
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @deprecated
+     */
     public function __invoke(SegmentCreatedEvent $event): void
+    {
+        $this->calculate();
+    }
+
+    public function onSegmentCreatedEvent(SegmentCreatedEvent $event): void
     {
         $this->calculate();
     }

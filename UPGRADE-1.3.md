@@ -11,3 +11,9 @@ Attribute:
 * The signature of constructor `DbalProductValueChangedEventProjector` has changed
 * The signature of constructor `DbalProductValueRemovedEventProjector` has changed
 * The signature of constructor `ProductWorkflowQuery` has changed
+
+Core
+* `DownloaderInterface::download` throws exception rather than returning `null` value
+
+Value
+* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`

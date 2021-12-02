@@ -44,6 +44,14 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(BatchActionReprocessFormInterface::class)
             ->addTag('ergonode.batch_action.reprocessing_form_provider');
+
+        $configuration = $this->processConfiguration(new Configuration(), $configs);
+
+        if (!$configuration['test']) {
+            return;
+        }
+
+        $loader->load('test.yaml');
     }
 
     /**
