@@ -96,7 +96,7 @@ class DbalOptionQuery implements OptionQueryInterface
     /**
      * @return array
      */
-    public function getAll(?AttributeId $attributeId = null, bool $withRelations = false): array
+    public function getAll(?AttributeId $attributeId = null, bool $hasRelations = false): array
     {
         $qb = $this->getQuery();
 
@@ -122,8 +122,8 @@ class DbalOptionQuery implements OptionQueryInterface
                 'label' => !empty($value) ? $value : [],
             ];
 
-            if ($withRelations) {
-                $item['relations'] = (bool) $this->relationshipsResolver->resolve(new AggregateId($item['id']));
+            if ($hasRelations) {
+                $item['hasRelations'] = (bool) $this->relationshipsResolver->resolve(new AggregateId($item['id']));
             }
 
             $result[] = $item;
@@ -200,7 +200,8 @@ class DbalOptionQuery implements OptionQueryInterface
 
         $result = $qb->select('ao.attribute_id')
             ->from(self::TABLE_ATTRIBUTE_OPTIONS, 'ao')
-            ->where($qb->expr()->eq('ao.option_id', '\''.$id->getValue()).'\'')
+            ->where($qb->expr()->eq('ao.option_id', ':id'))
+            ->setParameter('id', $id->getValue())
             ->execute()
             ->fetchOne();
 

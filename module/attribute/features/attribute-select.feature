@@ -316,9 +316,9 @@ Feature: Select attribute manipulation
   Scenario: Check attribute options relations
     And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@/options"
     Then the response status code should be 200
-    And the JSON node "[0].relations" should be false
-    And the JSON node "[1].relations" should be false
-    And the JSON node "[2].relations" should be false
+    And the JSON node "[0].hasRelations" should be false
+    And the JSON node "[1].hasRelations" should be false
+    And the JSON node "[2].hasRelations" should be false
 
   Scenario: Delete select attribute
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"

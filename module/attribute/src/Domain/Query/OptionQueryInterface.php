@@ -25,7 +25,7 @@ interface OptionQueryInterface
     /**
      * @return array
      */
-    public function getAll(?AttributeId $attributeId = null, bool $withRelations = false): array;
+    public function getAll(?AttributeId $attributeId = null, bool $hasRelations = false): array;
 
     /**
      * @return array
