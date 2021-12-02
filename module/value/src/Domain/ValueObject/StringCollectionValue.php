@@ -44,7 +44,18 @@ class StringCollectionValue implements ValueInterface
 
     public function getTranslation(Language $language): ?string
     {
+        if (!$this->hasTranslation($language)) {
+            throw new \InvalidArgumentException(
+                sprintf('Value for language %s not exists', $language->getCode())
+            );
+        }
+
         return $this->value[$language->getCode()] ?? null;
+    }
+
+    public function hasTranslation(Language $language): bool
+    {
+        return array_key_exists($language->getCode(), $this->value);
     }
 
     public function merge(ValueInterface $value): self
@@ -54,9 +65,6 @@ class StringCollectionValue implements ValueInterface
         return new self(array_merge($this->value, $value->getValue()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __toString(): string
     {
         return implode(',', $this->value);

@@ -19,3 +19,6 @@ Workflow
 * Signature of method `Ergonode\Workflow\Domain\Provider\WorkflowProvider` has changed 
 * Method `Ergonode\Workflow\Domain\Entity\AbstractWorkflow::getSortedTransitionStatuses` become deprecated
 * Instead of using `Ergonode\Workflow\Domain\Provider\WorkflowProvider`, services now use `Ergonode\Workflow\Domain\Provider\WorkflowProviderinterface`
+
+Value
+* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`
