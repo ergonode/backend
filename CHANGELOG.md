@@ -2,6 +2,7 @@
 #### 1.3.0
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
 - feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
+- refactor [#1752](https://github.com/ergonode/backend/issues/1752) Separation of workflow calculation mechanism from Segments (rprzedzik)
 - feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
 - feature [#1756](https://github.com/ergonode/backend/issues/1756) Extension of ValueInterface and unification of implemented classes (rprzedzik)
 

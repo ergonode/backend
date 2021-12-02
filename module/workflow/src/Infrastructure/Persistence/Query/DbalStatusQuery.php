@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 class DbalStatusQuery implements StatusQueryInterface
@@ -21,14 +20,9 @@ class DbalStatusQuery implements StatusQueryInterface
 
     private Connection $connection;
 
-    private WorkflowProvider $workflowProvider;
-
-    public function __construct(
-        Connection $connection,
-        WorkflowProvider $workflowProvider
-    ) {
+    public function __construct(Connection $connection)
+    {
         $this->connection = $connection;
-        $this->workflowProvider = $workflowProvider;
     }
 
     /**
@@ -112,7 +106,7 @@ class DbalStatusQuery implements StatusQueryInterface
                     $status;
         }
 
-        return $this->sortStatusesByWorkflowTransitions($result);
+        return array_values($result);
     }
 
     private function getQuery(Language $language): QueryBuilder
@@ -124,26 +118,5 @@ class DbalStatusQuery implements StatusQueryInterface
                 $language->getCode()
             ))
             ->from(self::STATUS_TABLE, 'a');
-    }
-
-    /**
-     * @param mixed[][] $statuses
-     *
-     * @return mixed[][]
-     */
-    private function sortStatusesByWorkflowTransitions(array $statuses): array
-    {
-        $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
-        $sorted = [];
-        foreach ($workflowSorted as $item) {
-            $sorted[] = $statuses[$item->getValue()];
-            unset($statuses[$item->getValue()]);
-        }
-        usort(
-            $statuses,
-            fn(array $a, array $b) => strcmp($a['code'], $b['code']),
-        );
-
-        return array_merge($sorted, array_values($statuses));
     }
 }

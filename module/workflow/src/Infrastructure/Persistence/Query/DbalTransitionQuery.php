@@ -53,6 +53,32 @@ class DbalTransitionQuery implements TransitionQueryInterface, TransitionConditi
         return false;
     }
 
+    /**
+     * @return WorkflowId[]
+     */
+    public function findWorkflowsByStatus(StatusId $statusId): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('workflow_id');
+        $query->from(self::TABLE);
+        $query->where(
+            $query->expr()->or(
+                $query->expr()->eq('source_id', ':statusId'),
+                $query->expr()->eq('destination_id', ':statusId')
+            )
+        );
+        $query->setParameter(':statusId', $statusId->getValue());
+
+        $result = [];
+        $records = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($records as $record) {
+            $result[] = new WorkflowId($record);
+        }
+
+        return $result;
+    }
+
     public function findIdByConditionSetId(ConditionSetId $conditionSetId): array
     {
         $query = $this->connection->createQueryBuilder();

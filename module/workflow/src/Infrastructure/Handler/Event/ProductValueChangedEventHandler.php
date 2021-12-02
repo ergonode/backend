@@ -25,14 +25,14 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
 use Webmozart\Assert\Assert;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class ProductValueChangedEventHandler
 {
     private ProductRepositoryInterface $productRepository;
 
-    private WorkflowProvider $workflowProvider;
+    private WorkflowProviderInterface $workflowProvider;
 
     private UserIdsProvider $userIdsProvider;
 
@@ -44,7 +44,7 @@ class ProductValueChangedEventHandler
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        WorkflowProvider $workflowProvider,
+        WorkflowProviderInterface $workflowProvider,
         UserIdsProvider $userIdsProvider,
         AuthenticatedUserProviderInterface $userProvider,
         StatusRepositoryInterface $statusRepository,
@@ -65,10 +65,9 @@ class ProductValueChangedEventHandler
     {
         $attributeCode = $event->getAttributeCode();
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
-            $workflow = $this->workflowProvider->provide();
-
             $languages = $this->getLanguages($event->getFrom(), $event->getTo());
             foreach ($languages as $language) {
+                $workflow = $this->workflowProvider->provide($language);
                 $source = $workflow->getDefaultStatus();
                 if (isset($event->getFrom()->getValue()[$language->getCode()])) {
                     $from = $event->getFrom()->getValue()[$language->getCode()];
