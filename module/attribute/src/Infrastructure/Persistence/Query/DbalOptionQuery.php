@@ -96,7 +96,7 @@ class DbalOptionQuery implements OptionQueryInterface
     /**
      * @return array
      */
-    public function getAll(?AttributeId $attributeId = null, bool $withRelations = false): array
+    public function getAll(?AttributeId $attributeId = null, bool $hasRelations = false): array
     {
         $qb = $this->getQuery();
 
@@ -108,7 +108,7 @@ class DbalOptionQuery implements OptionQueryInterface
                 ->setParameter(':id', $attributeId->getValue());
         }
         $records = $qb
-            ->orderBy('o.attribute_id, ao.index')
+            ->orderBy('ao.attribute_id, ao.index')
             ->execute()
             ->fetchAll();
 
@@ -116,14 +116,14 @@ class DbalOptionQuery implements OptionQueryInterface
         foreach ($records as $record) {
             $value = $this->getValue($record['value_id']);
 
-            $item =  [
+            $item = [
                 'id' => $record['id'],
                 'code' => $record['code'],
                 'label' => !empty($value) ? $value : [],
             ];
 
-            if ($withRelations) {
-                $item['relations'] = (bool) $this->relationshipsResolver->resolve(new AggregateId($item['id']));
+            if ($hasRelations) {
+                $item['hasRelations'] = (bool) $this->relationshipsResolver->resolve(new AggregateId($item['id']));
             }
 
             $result[] = $item;
@@ -192,6 +192,24 @@ class DbalOptionQuery implements OptionQueryInterface
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return $this->dataSetFactory->create($result);
+    }
+
+    public function getAttributeIdByOptionId(AggregateId $id): ?AttributeId
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('ao.attribute_id')
+            ->from(self::TABLE_ATTRIBUTE_OPTIONS, 'ao')
+            ->where($qb->expr()->eq('ao.option_id', ':id'))
+            ->setParameter('id', $id->getValue())
+            ->execute()
+            ->fetchOne();
+
+        if ($result) {
+            return new AttributeId($result);
+        }
+
+        return null;
     }
 
     /**

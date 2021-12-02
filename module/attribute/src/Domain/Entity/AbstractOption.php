@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Domain\Entity;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
@@ -21,8 +20,6 @@ abstract class AbstractOption extends AbstractAggregateRoot
 {
     private AggregateId $id;
 
-    private AttributeId $attributeId;
-
     private OptionKey $code;
 
     private TranslatableString $label;
@@ -30,9 +27,9 @@ abstract class AbstractOption extends AbstractAggregateRoot
     /**
      * @throws \Exception
      */
-    public function __construct(AggregateId $id, AttributeId $attributeId, OptionKey $code, TranslatableString $label)
+    public function __construct(AggregateId $id, OptionKey $code, TranslatableString $label)
     {
-        $this->apply(new OptionCreatedEvent($id, $attributeId, $code, $label));
+        $this->apply(new OptionCreatedEvent($id, $code, $label));
     }
 
     /**
@@ -60,11 +57,6 @@ abstract class AbstractOption extends AbstractAggregateRoot
         return $this->id;
     }
 
-    public function getAttributeId(): AttributeId
-    {
-        return $this->attributeId;
-    }
-
     public function getCode(): OptionKey
     {
         return $this->code;
@@ -78,7 +70,6 @@ abstract class AbstractOption extends AbstractAggregateRoot
     protected function applyOptionCreatedEvent(OptionCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
-        $this->attributeId = $event->getAttributeId();
         $this->code = $event->getCode();
         $this->label = $event->getLabel();
     }
