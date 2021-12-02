@@ -1,5 +1,7 @@
 ATTRIBUTE_EXISTS_CONDITION: 'Attribute exists'
 ATTRIBUTE_EXISTS_CONDITION_PHRASE: 'Attribute [attribute] exists'
+ATTRIBUTE_TRANSLATION_EXISTS_CONDITION: 'Attribute translation exists'
+ATTRIBUTE_TRANSLATION_EXISTS_CONDITION_PHRASE: 'Attribute [attribute] translation exists in language [language]'
 NUMERIC_ATTRIBUTE_VALUE_CONDITION: 'Numeric attribute has value'
 NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Attribute [attribute] is [operator] [value]'
 OPTION_ATTRIBUTE_VALUE_CONDITION: 'Option attribute has value'

@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Ergonode\Workflow\Domain\Provider\ProductStatusProvider;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 
 /**
  * @Route(
@@ -32,12 +32,12 @@ class ProductWorkflowAction
 
     private ProductStatusProvider $statusProvider;
 
-    private WorkflowProvider $workflowProvider;
+    private WorkflowProviderInterface $workflowProvider;
 
     public function __construct(
         ProductWorkflowQuery $query,
         ProductStatusProvider $statusProvider,
-        WorkflowProvider $workflowProvider
+        WorkflowProviderInterface $workflowProvider
     ) {
         $this->query = $query;
         $this->statusProvider = $statusProvider;
@@ -85,7 +85,7 @@ class ProductWorkflowAction
      */
     public function __invoke(AbstractProduct $product, Language $language, Language $productLanguage): array
     {
-        $workflow = $this->workflowProvider->provide();
+        $workflow = $this->workflowProvider->provide($language);
         $product = $this->statusProvider->getProduct($product, $workflow, $productLanguage);
 
         return $this->query->getQuery($product, $workflow, $language, $productLanguage);

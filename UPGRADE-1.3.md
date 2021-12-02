@@ -15,10 +15,10 @@ Attribute:
 Core
 * `DownloaderInterface::download` throws exception rather than returning `null` value
 
-Value
-* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`
-
-Workflow:
+Workflow 
+* Signature of method `Ergonode\Workflow\Domain\Provider\WorkflowProvider` has changed 
+* Method `Ergonode\Workflow\Domain\Entity\AbstractWorkflow::getSortedTransitionStatuses` become deprecated
+* Instead of using `Ergonode\Workflow\Domain\Provider\WorkflowProvider`, services now use `Ergonode\Workflow\Domain\Provider\WorkflowProviderinterface`
 * Endpoint `[GET] api/v1/en_GB/workflow/default/transitions` grid column name `source` change to `from`, `destination` change to `to`
 * Endpoint `[POST] api/v1/en_GB/workflow/default/transitions` property `source` change to `from`, `destination` change to `to`
 * Column `source_id` in table `workflow_transition` was change to `from_id`
@@ -27,3 +27,6 @@ Workflow:
 * method `getSource` and `getDestination` of class `DeleteWorkflowTransitionCommand` become deprecated
 * method `getSource` and `getDestination` of class `UpdateWorkflowTransitionCommand` become deprecated
 * method `getSource` and `getDestination` of class `WorkflowTransitionRemovedEvent` become deprecated
+
+Value
+* `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`

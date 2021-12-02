@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Tests\Domain\Provider;
 
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -31,11 +30,6 @@ class WorkflowProviderTest extends TestCase
     private WorkflowQueryInterface $query;
 
     /**
-     * @var WorkflowFactory|MockObject
-     */
-    private $factory;
-
-    /**
      * @var AbstractWorkflow|MockObject
      */
     private $workflow;
@@ -48,7 +42,6 @@ class WorkflowProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->repository = $this->createMock(WorkflowRepositoryInterface::class);
-        $this->factory = $this->createMock(WorkflowFactory::class);
         $this->workflow = $this->createMock(AbstractWorkflow::class);
         $this->query = $this->createMock(WorkflowQueryInterface::class);
         $this->workflowId = $this->createMock(WorkflowId::class);
@@ -59,20 +52,17 @@ class WorkflowProviderTest extends TestCase
         $this->query->method('findWorkflowIdByCode')->willReturn($this->workflowId);
         $this->repository->method('load')->willReturn($this->workflow);
 
-        $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
+        $provider = new WorkflowProvider($this->repository, $this->query);
         $workflow = $provider->provide();
         $this->assertEquals($this->workflow, $workflow);
     }
 
     public function testProvideNonExistsObject(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->query->method('findWorkflowIdByCode')->willReturn(null);
-        $this->repository->method('load')->willReturn(null);
-        $this->factory->method('create')->willReturn($this->workflow);
-        $this->repository->expects($this->once())->method('save');
 
-        $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
-        $workflow = $provider->provide();
-        $this->assertEquals($this->workflow, $workflow);
+        $provider = new WorkflowProvider($this->repository, $this->query);
+        $provider->provide();
     }
 }

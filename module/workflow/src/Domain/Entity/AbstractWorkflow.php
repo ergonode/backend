@@ -265,10 +265,17 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     }
 
     /**
+     * @deprecated
+     *
      * @return StatusId[]
      */
     public function getSortedTransitionStatuses(): array
     {
+        @trigger_error(
+            'Ergonode\Workflow\Domain\Entity\getSortedTransitionStatuses is deprecated and will be removed in 2.0',
+            \E_USER_DEPRECATED,
+        );
+
         $transitions = $this->transitions;
         $code = $this->getDefaultStatus();
         $sorted = [$code];
