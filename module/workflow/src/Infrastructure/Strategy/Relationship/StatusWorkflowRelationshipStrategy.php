@@ -13,7 +13,6 @@ use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
@@ -24,12 +23,9 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
 
     private TransitionQueryInterface $query;
 
-    private WorkflowProvider $provider;
-
-    public function __construct(TransitionQueryInterface $query, WorkflowProvider $provider)
+    public function __construct(TransitionQueryInterface $query)
     {
         $this->query = $query;
-        $this->provider = $provider;
     }
 
     public function supports(AggregateId $id): bool
@@ -41,13 +37,7 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     {
         Assert::isInstanceOf($id, StatusId::class);
 
-        $workflow = $this->provider->provide();
-        $workflowId = $workflow->getId();
-
-        $relations = [];
-        if ($this->query->hasStatus($workflowId, $id)) {
-            $relations[] = $workflowId;
-        }
+        $relations = $this->query->findWorkflowsByStatus($id);
 
         $message = count($relations) === 1 ? self::ONE_MESSAGE : self::MULTIPLE_MESSAGE;
 

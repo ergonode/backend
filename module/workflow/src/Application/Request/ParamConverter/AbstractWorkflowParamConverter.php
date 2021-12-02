@@ -10,16 +10,16 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class AbstractWorkflowParamConverter implements ParamConverterInterface
 {
-    private WorkflowProvider $provider;
+    private WorkflowProviderInterface $provider;
 
-    public function __construct(WorkflowProvider $provider)
+    public function __construct(WorkflowProviderInterface $provider)
     {
         $this->provider = $provider;
     }

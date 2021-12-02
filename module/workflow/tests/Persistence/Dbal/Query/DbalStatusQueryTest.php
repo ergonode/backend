@@ -12,38 +12,21 @@ namespace Ergonode\Workflow\Tests\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 class DbalStatusQueryTest extends TestCase
 {
-    /**
-     * @var Connection|MockObject
-     */
-    private $mockConnection;
-
-    /**
-     * @var WorkflowProvider|MockObject
-     */
-    private $mockWorkflowProvider;
-
+    private Connection $mockConnection;
 
     private DbalStatusQuery $query;
 
     protected function setUp(): void
     {
         $this->mockConnection = $this->createMock(Connection::class);
-        $this->mockWorkflowProvider = $this->createMock(WorkflowProvider::class);
 
-        $this->query = new DbalStatusQuery(
-            $this->mockConnection,
-            $this->mockWorkflowProvider,
-        );
+        $this->query = new DbalStatusQuery($this->mockConnection);
     }
 
     public function testShouldGetStatusCount(): void
@@ -85,16 +68,6 @@ class DbalStatusQueryTest extends TestCase
                     'label' => 'label2',
                     'value' => 0,
                 ],
-            ]);
-        $workflow = $this->createMock(Workflow::class);
-        $this->mockWorkflowProvider
-            ->method('provide')
-            ->willReturn($workflow);
-        $workflow
-            ->method('getSortedTransitionStatuses')
-            ->willReturn([
-                new StatusId($id3),
-                new StatusId($id1),
             ]);
 
         $result = $this->query->getStatusCount(Language::fromString('en_EN'), Language::fromString('pl_PL'));
