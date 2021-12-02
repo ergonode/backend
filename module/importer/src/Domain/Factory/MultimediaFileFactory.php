@@ -18,6 +18,10 @@ use Ramsey\Uuid\Uuid;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 use Ergonode\Core\Infrastructure\Service\Header;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Core\Infrastructure\Exception\DownloaderException;
+use Ergonode\Core\Infrastructure\Exception\FileNotFoundDownloaderException;
+use Ergonode\Core\Infrastructure\Exception\AccessDeniedDownloaderException;
+use Ergonode\Core\Infrastructure\Exception\BadRequestDownloaderException;
 
 class MultimediaFileFactory
 {
@@ -46,9 +50,15 @@ class MultimediaFileFactory
 
         $tmpFile = tempnam(sys_get_temp_dir(), Uuid::uuid4()->toString());
 
-        $content = $this->downloader->download($url, $headers);
-
-        if (null === $content) {
+        try {
+            $content = $this->downloader->download($url, $headers);
+        } catch (FileNotFoundDownloaderException $exception) {
+            throw new ImportException('Can\'t download media from url {url}, file not found', ['{url}' => $url]);
+        } catch (AccessDeniedDownloaderException $exception) {
+            throw new ImportException('Can\'t download media from url {url}, access denied', ['{url}' => $url]);
+        } catch (BadRequestDownloaderException $exception) {
+            throw new ImportException('Can\'t download media from url {url}, bad request', ['{url}' => $url]);
+        } catch (DownloaderException $exception) {
             throw new ImportException('Can\'t download media from url {url}', ['{url}' => $url]);
         }
 

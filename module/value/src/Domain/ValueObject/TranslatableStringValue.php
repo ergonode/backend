@@ -39,7 +39,18 @@ class TranslatableStringValue implements ValueInterface
 
     public function getTranslation(Language $language): ?string
     {
+        if (!$this->hasTranslation($language)) {
+            throw new \InvalidArgumentException(
+                sprintf('Value for language %s not exists', $language->getCode())
+            );
+        }
+
         return $this->value->get($language);
+    }
+
+    public function hasTranslation(Language $language): bool
+    {
+        return $this->value->has($language);
     }
 
     public function merge(ValueInterface $value): self
@@ -49,9 +60,6 @@ class TranslatableStringValue implements ValueInterface
         return new self(new TranslatableString(array_merge($this->value->getTranslations(), $value->getValue())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __toString(): string
     {
         return implode(',', $this->value->getTranslations());
