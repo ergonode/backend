@@ -3,6 +3,7 @@ Ergonode\Condition\Domain\ConditionInterface:
         type_property: 'type'
         mapping:
             ATTRIBUTE_EXISTS_CONDITION: Ergonode\Condition\Domain\Condition\AttributeExistsCondition
+            ATTRIBUTE_TRANSLATION_EXISTS_CONDITION: Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition
             LANGUAGE_COMPLETENESS_CONDITION: Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition
             NUMERIC_ATTRIBUTE_VALUE_CONDITION: Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition
             OPTION_ATTRIBUTE_VALUE_CONDITION: Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition
