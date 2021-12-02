@@ -9,7 +9,7 @@ Feature: Workflow transitions
     Then the response status code should be 401
 
   Scenario: Get transitions (not authenticated)
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=source"
+    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=from"
     Then the response status code should be 401
 
   Scenario: Delete transition in default workflow (not authenticated)

@@ -22,16 +22,18 @@ class DeleteWorkflowTransitionCommandTest extends TestCase
         /** @var WorkflowId| MockObject $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
 
-        /** @var StatusId | MockObject $source */
-        $source = $this->createMock(StatusId::class);
+        /** @var StatusId | MockObject $from */
+        $from = $this->createMock(StatusId::class);
 
-        /** @var StatusId | MockObject $destination */
-        $destination = $this->createMock(StatusId::class);
+        /** @var StatusId | MockObject $to */
+        $to = $this->createMock(StatusId::class);
 
-        $command = new DeleteWorkflowTransitionCommand($workflowId, $source, $destination);
+        $command = new DeleteWorkflowTransitionCommand($workflowId, $from, $to);
 
         $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($source, $command->getSource());
-        $this->assertSame($destination, $command->getDestination());
+        $this->assertSame($from, $command->getSource());
+        $this->assertSame($to, $command->getDestination());
+        $this->assertSame($from, $command->getFrom());
+        $this->assertSame($to, $command->getTo());
     }
 }

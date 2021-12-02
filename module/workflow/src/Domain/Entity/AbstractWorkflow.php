@@ -137,12 +137,12 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
 
         if (!$this->hasStatus($from)) {
-            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
+            throw  new \RuntimeException(sprintf('Transition from status "%s" not exists', $from->getValue()));
         }
 
         if (!$this->hasStatus($to)) {
             throw  new \RuntimeException(
-                sprintf('Transition destination status "%s" not exists', $to->getValue())
+                sprintf('Transition to status "%s" not exists', $to->getValue())
             );
         }
 
@@ -164,11 +164,11 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
 
         if (!$this->hasStatus($from)) {
-            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
+            throw  new \RuntimeException(sprintf('Transition from status "%s" not exists', $from->getValue()));
         }
 
         if (!$this->hasStatus($to)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
+            throw  new \RuntimeException(sprintf('Transition to status "%s" not exists', $to->getValue()));
         }
 
         $this->getTransition($from, $to)->changeConditionSetId($conditionSetId);
@@ -188,11 +188,11 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         }
 
         if (!$this->hasStatus($from)) {
-            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
+            throw  new \RuntimeException(sprintf('Transition from status "%s" not exists', $from->getValue()));
         }
 
         if (!$this->hasStatus($to)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
+            throw  new \RuntimeException(sprintf('Transition to status "%s" not exists', $to->getValue()));
         }
 
         $this->getTransition($from, $to)->changeRoleIds($roleIds);
@@ -346,8 +346,8 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     protected function applyWorkflowTransitionRemovedEvent(WorkflowTransitionRemovedEvent $event): void
     {
         foreach ($this->transitions as $key => $transition) {
-            if ($event->getSource()->isEqual($transition->getFrom()) &&
-                $event->getDestination()->isEqual($transition->getTo())
+            if ($event->getFrom()->isEqual($transition->getFrom()) &&
+                $event->getFrom()->isEqual($transition->getTo())
             ) {
                 unset($this->transitions[$key]);
             }

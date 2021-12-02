@@ -31,28 +31,22 @@ class UpdateWorkflowTransitionCommandHandler
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
-        $source = $command->getSource();
-        $destination = $command->getDestination();
+        $from = $command->getFrom();
+        $to = $command->getTo();
 
-        if (!$workflow->hasStatus($source)) {
-            $workflow->addStatus($source);
+        if (!$workflow->hasStatus($from)) {
+            $workflow->addStatus($from);
         }
 
-        if (!$workflow->hasStatus($destination)) {
-            $workflow->addStatus($destination);
+        if (!$workflow->hasStatus($to)) {
+            $workflow->addStatus($to);
         }
 
         if ($conditionSetId) {
-            $workflow->getTransition(
-                $command->getSource(),
-                $command->getDestination()
-            )->changeConditionSetId($conditionSetId);
+            $workflow->getTransition($from, $to)->changeConditionSetId($conditionSetId);
         }
 
-        $workflow->getTransition(
-            $command->getSource(),
-            $command->getDestination()
-        )->changeRoleIds($command->getRoleIds());
+        $workflow->getTransition($from, $to)->changeRoleIds($command->getRoleIds());
 
         $this->repository->save($workflow);
     }

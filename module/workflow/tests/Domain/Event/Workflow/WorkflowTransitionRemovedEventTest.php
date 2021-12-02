@@ -22,16 +22,18 @@ class WorkflowTransitionRemovedEventTest extends TestCase
         /** @var WorkflowId |MockObject $id */
         $id = $this->createMock(WorkflowId::class);
 
-        /** @var StatusId |MockObject $source */
-        $source = $this->createMock(StatusId::class);
+        /** @var StatusId |MockObject $from */
+        $from = $this->createMock(StatusId::class);
 
-        /** @var StatusId | MockObject $destination */
-        $destination = $this->createMock(StatusId::class);
+        /** @var StatusId | MockObject $to */
+        $to = $this->createMock(StatusId::class);
 
-        $event = new WorkflowTransitionRemovedEvent($id, $source, $destination);
+        $event = new WorkflowTransitionRemovedEvent($id, $from, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($source, $event->getSource());
-        $this->assertSame($destination, $event->getDestination());
+        $this->assertSame($from, $event->getSource());
+        $this->assertSame($to, $event->getDestination());
+        $this->assertSame($from, $event->getFrom());
+        $this->assertSame($to, $event->getTo());
     }
 }

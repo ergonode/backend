@@ -68,19 +68,17 @@ class ProductValueChangedEventHandler
             $languages = $this->getLanguages($event->getFrom(), $event->getTo());
             foreach ($languages as $language) {
                 $workflow = $this->workflowProvider->provide($language);
-                $source = $workflow->getDefaultStatus();
+                $from = $workflow->getDefaultStatus();
                 if (isset($event->getFrom()->getValue()[$language->getCode()])) {
-                    $from = $event->getFrom()->getValue()[$language->getCode()];
-                    $source = new StatusId($from);
+                    $from = new StatusId($event->getFrom()->getValue()[$language->getCode()]);
                 }
 
-                $to = $event->getTo()->getValue()[$language->getCode()];
-                $destination = new StatusId($to);
-                if ($workflow->hasTransition($source, $destination)) {
+                $to = new StatusId($event->getTo()->getValue()[$language->getCode()]);
+                if ($workflow->hasTransition($from, $to)) {
                     $this->sendNotificationCommand(
                         $workflow,
-                        $source,
-                        $destination,
+                        $from,
+                        $to,
                         $event->getAggregateId(),
                         $language
                     );
@@ -94,12 +92,12 @@ class ProductValueChangedEventHandler
      */
     private function sendNotificationCommand(
         AbstractWorkflow $workflow,
-        StatusId $source,
-        StatusId $destination,
+        StatusId $from,
+        StatusId $to,
         ProductId $productId,
         ?Language $language = null
     ): void {
-        $transition = $workflow->getTransition($source, $destination);
+        $transition = $workflow->getTransition($from, $to);
         if (!empty($transition->getRoleIds())) {
             $product = $this->productRepository->load($productId);
             Assert::notNull($product);

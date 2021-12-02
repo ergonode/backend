@@ -10,7 +10,7 @@ Feature: Workflow
       """
       {
         "color": "#ff0000",
-        "code": "SOURCE @@random_md5@@",
+        "code": "CODE @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
           "en_GB": "en_GB"
@@ -29,7 +29,7 @@ Feature: Workflow
       """
       {
         "color": "#ff0000",
-        "code": "DESTINATION @@random_md5@@",
+        "code": "STATUS @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
           "en_GB": "en_GB"
@@ -57,7 +57,7 @@ Feature: Workflow
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
-        "code": "SOURCE @@random_md5@@",
+        "code": "CODE @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
           "en_GB": "en_GB"
@@ -88,7 +88,7 @@ Feature: Workflow
     Then the response status code should be 400
 
   Scenario: Create status (without description and name)
-    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
+    Given remember param "duplicated_status_code" with value "CODE_1_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
@@ -108,8 +108,8 @@ Feature: Workflow
       """
     Then the response status code should be 400
 
-  Scenario: Update source status
-    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
+  Scenario: Update first status
+    Given remember param "duplicated_status_code" with value "CODE_1_@@random_code@@"
     When I send a PUT request to "/api/v1/en_GB/status/@workflow_first_status@" with body:
       """
       {
@@ -126,7 +126,7 @@ Feature: Workflow
       """
     Then the response status code should be 204
 
-  Scenario: Update source status (not found)
+  Scenario: Update status (not found)
     When I send a PUT request to "/api/v1/en_GB/status/@@random_code@@" with body:
       """
       {

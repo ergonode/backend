@@ -22,7 +22,7 @@ class WorkflowTransitionAddedEventTest extends TestCase
         /** @var WorkflowId |MockObject $id */
         $id = $this->createMock(WorkflowId::class);
 
-        /** @var Transition |MockObject $source */
+        /** @var Transition |MockObject $transition */
         $transition = $this->createMock(Transition::class);
 
 

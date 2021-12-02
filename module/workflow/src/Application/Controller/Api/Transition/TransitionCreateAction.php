@@ -74,8 +74,6 @@ class TransitionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     *
-     *
      * @throws \Exception
      */
     public function __invoke(AbstractWorkflow $workflow, Request $request): WorkflowId
@@ -96,8 +94,8 @@ class TransitionCreateAction
 
                 $command = new AddWorkflowTransitionCommand(
                     $workflow->getId(),
-                    new StatusId($data->source),
-                    new StatusId($data->destination),
+                    new StatusId($data->from),
+                    new StatusId($data->to),
                     $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );

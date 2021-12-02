@@ -20,7 +20,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 /**
  * @Route(
  *     name="ergonode_workflow_transition_read",
- *     path="/workflow/default/transitions/{source}/{destination}",
+ *     path="/workflow/default/transitions/{from}/{to}",
  *     methods={"GET"}
  * )
  */
@@ -31,18 +31,18 @@ class TransitionReadAction
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
-     *     name="source",
+     *     name="from",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Source status id",
+     *     description="From status id",
      * )
      * @SWG\Parameter(
-     *     name="destination",
+     *     name="to",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Destination status id",
+     *     description="To status id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -61,10 +61,10 @@ class TransitionReadAction
      *     description="Not found",
      * )
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Transition
+    public function __invoke(AbstractWorkflow $workflow, Status $from, Status $to): Transition
     {
-        if ($workflow->hasTransition($source->getId(), $destination->getId())) {
-            return $workflow->getTransition($source->getId(), $destination->getId());
+        if ($workflow->hasTransition($from->getId(), $to->getId())) {
+            return $workflow->getTransition($from->getId(), $to->getId());
         }
 
         throw new NotFoundHttpException();

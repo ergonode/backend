@@ -27,11 +27,11 @@ class AddWorkflowTransitionCommandTest extends TestCase
         /** @var WorkflowId $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
 
-        /** @var StatusId | MockObject $source */
-        $source = $this->createMock(StatusId::class);
+        /** @var StatusId | MockObject $from */
+        $from = $this->createMock(StatusId::class);
 
-        /** @var StatusId | MockObject $destination */
-        $destination = $this->createMock(StatusId::class);
+        /** @var StatusId | MockObject $to */
+        $to = $this->createMock(StatusId::class);
 
         /** @var RoleId[] | MockObject[] $roleIds */
         $roleIds = [$this->createMock(RoleId::class)];
@@ -41,15 +41,17 @@ class AddWorkflowTransitionCommandTest extends TestCase
 
         $command = new AddWorkflowTransitionCommand(
             $workflowId,
-            $source,
-            $destination,
+            $from,
+            $to,
             $roleIds,
             $conditionSetId
         );
 
         $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($source, $command->getSource());
-        $this->assertSame($destination, $command->getDestination());
+        $this->assertSame($from, $command->getFrom());
+        $this->assertSame($to, $command->getTo());
+        $this->assertSame($from, $command->getSource());
+        $this->assertSame($to, $command->getDestination());
         $this->assertSame($roleIds, $command->getRoleIds());
         $this->assertSame($conditionSetId, $command->getConditionSetId());
     }

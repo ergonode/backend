@@ -23,14 +23,14 @@ class TransitionCreateFormModel
      *
      * @WorkflowAssert\StatusExists()
      */
-    public ?string $source;
+    public ?string $from;
 
     /**
      * @Assert\NotBlank()
      *
      * @WorkflowAssert\StatusExists()
      */
-    public ?string $destination;
+    public ?string $to;
 
     /**
      * @var array
@@ -76,8 +76,8 @@ class TransitionCreateFormModel
 
     public function __construct(AbstractWorkflow $workflow)
     {
-        $this->source = null;
-        $this->destination = null;
+        $this->from = null;
+        $this->to = null;
         $this->name = [];
         $this->description = [];
         $this->conditionSet = null;
@@ -95,15 +95,15 @@ class TransitionCreateFormModel
         /** @var TransitionCreateFormModel $data */
         $data = $context->getValue();
 
-        if (!StatusId::isValid((string) $data->source)) {
-            $context->addViolation('Source not valid');
-        } elseif (!StatusId::isValid((string) $data->destination)) {
-            $context->addViolation('Destination not valid');
+        if (!StatusId::isValid((string) $data->from)) {
+            $context->addViolation('From not valid');
+        } elseif (!StatusId::isValid((string) $data->to)) {
+            $context->addViolation('To not valid');
         } else {
-            $source = new StatusId($data->source);
-            $destination = new StatusId($data->destination);
+            $from = new StatusId($data->from);
+            $to = new StatusId($data->to);
 
-            if ($data->getWorkflow()->hasTransition($source, $destination)) {
+            if ($data->getWorkflow()->hasTransition($from, $to)) {
                 $context->addViolation('Transition exists');
             }
         }

@@ -14,7 +14,7 @@ Feature: Workflow
       """
       {
         "color": "#ff0000",
-        "code": "SOURCE @@random_md5@@"
+        "code": "CODE @@random_md5@@"
       }
       """
     Then the response status code should be 201
