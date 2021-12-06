@@ -88,6 +88,7 @@ final class Version20211102105000 extends AbstractErgonodeMigration
     private function migrateEvents(string $eventId, array $data): void
     {
         $recordedAt = new \DateTime('now');
+        $seq = [];
 
         foreach ($data as $row) {
             $payload = json_encode(
@@ -99,8 +100,14 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 JSON_UNESCAPED_UNICODE
             );
 
-            $sequence = $this->getMaxSequence($row['aggregate_id']);
-            $this->insertEvent($row['aggregate_id'], $sequence + 1, $eventId, $payload, $recordedAt);
+            if (!isset($seq[$row['attribute_id']])) {
+                $seq[$row['attribute_id']] = $this->getMaxSequence($row['attribute_id']) + 1;
+            }
+
+            $sequence = $seq[$row['attribute_id']]++;
+            dump($sequence);
+            $this->insertEvent($row['attribute_id'], $sequence, $eventId, $payload, $recordedAt);
+            $this->clearSnapshot($row['attribute_id']);
             $this->clearSnapshot($row['aggregate_id']);
         }
     }
