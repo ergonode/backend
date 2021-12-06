@@ -105,7 +105,6 @@ final class Version20211102105000 extends AbstractErgonodeMigration
             }
 
             $sequence = $seq[$row['attribute_id']]++;
-            dump($sequence);
             $this->insertEvent($row['attribute_id'], $sequence, $eventId, $payload, $recordedAt);
             $this->clearSnapshot($row['attribute_id']);
             $this->clearSnapshot($row['aggregate_id']);
