@@ -347,7 +347,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         foreach ($this->transitions as $key => $transition) {
             if ($event->getFrom()->isEqual($transition->getFrom()) &&
-                $event->getFrom()->isEqual($transition->getTo())
+                $event->getTo()->isEqual($transition->getTo())
             ) {
                 unset($this->transitions[$key]);
             }

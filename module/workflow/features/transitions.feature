@@ -277,6 +277,20 @@ Feature: Workflow transitions
     When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_from_status_id@/@workflow_to_status_id@"
     Then the response status code should be 204
 
+  Scenario: Add same as deleted transition to workflow
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
+      """
+      {
+        "from": "@workflow_from_status_id@",
+        "to": "@workflow_to_status_id@"
+      }
+      """
+    Then the response status code should be 201
+
+  Scenario: Delete again added transition in default workflow
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_from_status_id@/@workflow_to_status_id@"
+    Then the response status code should be 204
+
   Scenario: Delete from status
     When I send a DELETE request to "/api/v1/en_GB/status/@workflow_from_status_id@"
     Then the response status code should be 204
