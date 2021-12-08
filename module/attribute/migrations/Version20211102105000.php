@@ -51,24 +51,6 @@ final class Version20211102105000 extends AbstractErgonodeMigration
                 ADD CONSTRAINT attribute_options_option_id_fk
                     FOREIGN KEY (option_id) REFERENCES attribute_option ON UPDATE CASCADE ON DELETE RESTRICT');
 
-        $attributes = $this->connection->executeQuery('SELECT DISTINCT attribute_id FROM attribute_option ')
-            ->fetchFirstColumn();
-
-        foreach ($attributes as $attribute) {
-            $options = $this->connection->executeQuery(
-                'SELECT id FROM attribute_option WHERE attribute_id = :id',
-                ['id' => $attribute]
-            )->fetchFirstColumn();
-
-            $i = 0;
-            foreach ($options as $option) {
-                $this->addSql(
-                    'INSERT INTO attribute_options (attribute_id, option_id, index) VALUES (?,?,?)',
-                    [$attribute, $option, $i]
-                );
-                $i++;
-            }
-        }
         $ids = [];
         foreach (self::EVENTS as $class => $translation) {
             $id = Uuid::uuid4()->toString();
@@ -89,6 +71,7 @@ final class Version20211102105000 extends AbstractErgonodeMigration
     {
         $recordedAt = new \DateTime('now');
         $seq = [];
+        $index = [];
 
         foreach ($data as $row) {
             $payload = json_encode(
@@ -108,6 +91,16 @@ final class Version20211102105000 extends AbstractErgonodeMigration
             $this->insertEvent($row['attribute_id'], $sequence, $eventId, $payload, $recordedAt);
             $this->clearSnapshot($row['attribute_id']);
             $this->clearSnapshot($row['aggregate_id']);
+
+            //projection
+            if (!isset($index[$row['attribute_id']])) {
+                $index[$row['attribute_id']] = 0;
+            }
+            $i = $index[$row['attribute_id']]++;
+            $this->addSql(
+                'INSERT INTO attribute_options (attribute_id, option_id, index) VALUES (?,?,?)',
+                [$row['attribute_id'], $row['aggregate_id'], $i]
+            );
         }
     }
 
