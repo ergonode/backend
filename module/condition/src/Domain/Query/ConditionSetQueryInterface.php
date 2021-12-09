@@ -12,6 +12,7 @@ namespace Ergonode\Condition\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 interface ConditionSetQueryInterface
@@ -27,4 +28,9 @@ interface ConditionSetQueryInterface
      * @return ConditionSetId[]
      */
     public function findLanguageConditionRelations(Language $language): array;
+
+    /**
+     * @return ConditionSetId[]
+     */
+    public function findCategoryIdConditionRelations(CategoryId $categoryId): array;
 }

@@ -16,6 +16,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 class DbalConditionSetQuery implements ConditionSetQueryInterface
@@ -65,7 +66,7 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
             ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
             ->setParameter(':attribute_id', $attributeId->getValue())
             ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
+            ->fetchFirstColumn();
 
         $result = [];
         foreach ($records as $record) {
@@ -88,7 +89,7 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
             ->andWhere('condition::jsonb->>\'language\' ILIKE :search')
             ->setParameter(':search', '%'.$language->getCode().'%')
             ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
+            ->fetchFirstColumn();
 
         $result = [];
         foreach ($records as $record) {
@@ -97,6 +98,30 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
 
         return $result;
     }
+
+    /**
+     * @return ConditionSetId[]
+     */
+    public function findCategoryIdConditionRelations(CategoryId $categoryId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $records = $qb->select('DISTINCT id')
+            ->from(self::TABLE)
+            ->from('jsonb_array_elements(conditions) AS condition')
+            ->where('condition::jsonb->>\'category\' ILIKE :search')
+            ->setParameter(':search', '%'.$categoryId->getValue().'%')
+            ->execute()
+            ->fetchFirstColumn();
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new ConditionSetId($record);
+        }
+
+        return $result;
+    }
+
 
     private function getQuery(): QueryBuilder
     {
