@@ -61,6 +61,7 @@ Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
     __construct:
       - '<workflowId()>'
       - 'default'
+      - '@status_new->id'
       -
         - '@status_new->id'
         - '@status_draft->id'

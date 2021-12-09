@@ -27,6 +27,8 @@ Workflow
 * method `getSource` and `getDestination` of class `DeleteWorkflowTransitionCommand` become deprecated
 * method `getSource` and `getDestination` of class `UpdateWorkflowTransitionCommand` become deprecated
 * method `getSource` and `getDestination` of class `WorkflowTransitionRemovedEvent` become deprecated
+* The signature of constructor `CreateWorkflowCommand` has changed
+* The signature of constructor `UpdateWorkflowCommand` has changed
 
 Value
 * `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`

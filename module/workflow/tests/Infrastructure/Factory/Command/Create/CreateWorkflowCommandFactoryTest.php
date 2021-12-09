@@ -15,6 +15,7 @@ use Ergonode\Workflow\Application\Form\Model\Workflow\WorkflowFormModel;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class CreateWorkflowCommandFactoryTest extends TestCase
 {
@@ -35,6 +36,7 @@ class CreateWorkflowCommandFactoryTest extends TestCase
 
         $data = $this->createMock(WorkflowFormModel::class);
         $data->code = $code;
+        $data->defaultId = StatusId::generate()->getValue();
         $data->statuses = [$status];
 
         $form = $this->createMock(FormInterface::class);
@@ -46,5 +48,6 @@ class CreateWorkflowCommandFactoryTest extends TestCase
         self::assertInstanceOf(CreateWorkflowCommand::class, $result);
         self::assertSame($code, $result->getCode());
         self::assertSame($status, $result->getStatuses()[0]->getValue());
+        self::assertSame($data->defaultId, $result->getDefaultStatus()->getValue());
     }
 }

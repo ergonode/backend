@@ -16,6 +16,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class UpdateWorkflowCommandFactoryTest extends TestCase
 {
@@ -37,6 +38,7 @@ class UpdateWorkflowCommandFactoryTest extends TestCase
 
         $data = $this->createMock(WorkflowFormModel::class);
         $data->code = $code;
+        $data->defaultId = StatusId::generate()->getValue();
         $data->statuses = [$status];
 
         $form = $this->createMock(FormInterface::class);
@@ -48,5 +50,6 @@ class UpdateWorkflowCommandFactoryTest extends TestCase
         self::assertInstanceOf(UpdateWorkflowCommand::class, $result);
         self::assertSame($workflowId, $result->getId());
         self::assertSame($status, $result->getStatuses()[0]->getValue());
+        self::assertSame($data->defaultId, $result->getDefaultStatus()->getValue());
     }
 }

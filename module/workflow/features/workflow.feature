@@ -49,7 +49,7 @@ Feature: Workflow
     """
       {
         "code": "WRK_@@random_code@@",
-        "type": "default",
+        "defaultId": "@workflow_status_1_id@",
         "statuses": ["@workflow_status_1_id@"]
       }
     """
@@ -61,8 +61,20 @@ Feature: Workflow
     """
     {
       "code": "WRK_@@random_code@@",
-      "type": "default",
+      "defaultId": "@workflow_status_1_id@",
       "statuses": ["test"],
+      "transitions": []
+    }
+    """
+    Then the response status code should be 400
+
+  Scenario: Create workflow (wrong default status)
+    And I send a "POST" request to "/api/v1/en_GB/workflow" with body:
+    """
+    {
+      "code": "WRK_@@random_code@@",
+      "defaultId": "default",
+      "statuses": ["@workflow_status_1_id@"],
       "transitions": []
     }
     """
@@ -77,6 +89,7 @@ Feature: Workflow
     """
     {
       "statuses": <statuses>,
+      "defaultId": "@workflow_status_1_id@",
       "transitions": [
       {
         "from": <from>,

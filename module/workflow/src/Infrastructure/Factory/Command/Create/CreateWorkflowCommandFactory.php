@@ -35,11 +35,13 @@ class CreateWorkflowCommandFactory implements CreateWorkflowCommandFactoryInterf
         foreach ($data->statuses as $status) {
             $statuses[] = new StatusId($status);
         }
+        $defaultStatus = new StatusId($data->defaultId);
 
         return new CreateWorkflowCommand(
             WorkflowId::generate(),
             $data->code,
-            $statuses
+            $defaultStatus,
+            $statuses,
         );
     }
 }
