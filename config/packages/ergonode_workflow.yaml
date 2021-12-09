@@ -1,14 +1,6 @@
 ergonode_workflow:
   conditions:
-    - Ergonode\Condition\Domain\Condition\AttributeExistsCondition
     - Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition
-    - Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition
-    - Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition
-    - Ergonode\Condition\Domain\Condition\TextAttributeValueCondition
     - Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition
-    - Ergonode\Condition\Domain\Condition\ProductCompletenessCondition
     - Ergonode\Condition\Domain\Condition\RoleExactlyCondition
     - Ergonode\Condition\Domain\Condition\UserExactlyCondition
-    - Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition
-    - Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition
-    - Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition
