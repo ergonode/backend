@@ -23,14 +23,27 @@ class WorkflowFactory
      *
      * @throws \Exception
      */
-    public function create(WorkflowId $id, string $code, array $statuses = []): AbstractWorkflow
-    {
+    public function create(
+        WorkflowId $id,
+        string $code,
+        array $statuses = [],
+        ?StatusId $defaultStatus = null
+    ): AbstractWorkflow {
         Assert::allIsInstanceOf($statuses, StatusId::class);
 
-        return new Workflow(
+        $workflow = new Workflow(
             $id,
             $code,
             $statuses
         );
+
+        if ($defaultStatus) {
+            if (!$workflow->hasStatus($defaultStatus)) {
+                $workflow->addStatus($defaultStatus);
+            }
+            $workflow->setDefaultStatus($defaultStatus);
+        }
+
+        return $workflow;
     }
 }

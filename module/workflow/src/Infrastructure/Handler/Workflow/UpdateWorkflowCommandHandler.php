@@ -47,7 +47,13 @@ class UpdateWorkflowCommandHandler
 
         $this->updateStatuses($command->getStatuses(), $workflow);
         $conditionSetIds = $this->updateTransitions($command->getTransitions(), $workflow);
-        $workflow->setDefaultStatus($command->getDefaultStatus());
+        $defaultStatus = $command->getDefaultStatus();
+
+        if (!$workflow->hasStatus($defaultStatus)) {
+            $workflow->addStatus($defaultStatus);
+        }
+
+        $workflow->setDefaultStatus($defaultStatus);
 
         $this->repository->save($workflow);
         $this->deleteConditionSet($conditionSetIds);
