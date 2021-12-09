@@ -46,8 +46,11 @@ class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterf
             }
         }
 
+        $defaultStatus = new StatusId($data->defaultId);
+
         return new UpdateWorkflowCommand(
             $id,
+            $defaultStatus,
             $statuses,
             $transitions
         );

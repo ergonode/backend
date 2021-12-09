@@ -24,14 +24,17 @@ class CreateWorkflowCommand implements CreateWorkflowCommandInterface
      */
     private array $statuses;
 
+    private StatusId $defaultStatus;
+
     /**
-     * @param array $statuses
+     * @param StatusId[] $statuses
      */
-    public function __construct(WorkflowId $id, string $code, array $statuses = [])
+    public function __construct(WorkflowId $id, string $code, StatusId $defaultStatus, array $statuses = [])
     {
         Assert::allIsInstanceOf($statuses, StatusId::class);
 
         $this->id = $id;
+        $this->defaultStatus = $defaultStatus;
         $this->code = $code;
         $this->statuses = $statuses;
     }
@@ -52,5 +55,10 @@ class CreateWorkflowCommand implements CreateWorkflowCommandInterface
     public function getStatuses(): array
     {
         return $this->statuses;
+    }
+
+    public function getDefaultStatus(): StatusId
+    {
+        return $this->defaultStatus;
     }
 }

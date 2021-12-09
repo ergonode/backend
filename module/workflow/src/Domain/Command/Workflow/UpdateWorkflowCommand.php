@@ -24,14 +24,17 @@ class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
 
     private array $transitions;
 
+    private StatusId $defaultStatus;
+
     /**
      * @param StatusId[] $statuses
      */
-    public function __construct(WorkflowId $id, array $statuses = [], array $transitions = [])
+    public function __construct(WorkflowId $id, StatusId $defaultStatus, array $statuses = [], array $transitions = [])
     {
         Assert::allIsInstanceOf($statuses, StatusId::class);
 
         $this->id = $id;
+        $this->defaultStatus = $defaultStatus;
         $this->statuses = $statuses;
         $this->transitions = $transitions;
     }
@@ -55,5 +58,10 @@ class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
     public function getTransitions(): array
     {
         return $this->transitions;
+    }
+
+    public function getDefaultStatus(): StatusId
+    {
+        return $this->defaultStatus;
     }
 }

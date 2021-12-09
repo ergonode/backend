@@ -30,11 +30,18 @@ class WorkflowFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *
      *     @WorkflowAssert\StatusExists(),
      * })
      */
     public array $statuses = [];
+
+
+    /**
+     *
+     * @Assert\NotBlank(groups={"Create"}),
+     * @WorkflowAssert\StatusExists(),
+     */
+    public ?string $defaultId = null;
 
     /**
      * @var TransitionFormModel[]

@@ -30,7 +30,12 @@ class CreateWorkflowCommandHandler
      */
     public function __invoke(CreateWorkflowCommand $command): void
     {
-        $workflow = $this->factory->create($command->getId(), $command->getCode(), $command->getStatuses());
+        $workflow = $this->factory->create(
+            $command->getId(),
+            $command->getCode(),
+            $command->getStatuses(),
+            $command->getDefaultStatus()
+        );
 
         $this->repository->save($workflow);
     }

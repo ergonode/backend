@@ -45,6 +45,10 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
                 ]
             )
             ->add(
+                'defaultId',
+                TextType::class
+            )
+            ->add(
                 'transitions',
                 CollectionType::class,
                 [
