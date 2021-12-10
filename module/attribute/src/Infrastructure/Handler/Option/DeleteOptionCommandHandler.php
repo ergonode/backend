@@ -15,18 +15,24 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class DeleteOptionCommandHandler
 {
-    private OptionRepositoryInterface $repository;
+    private OptionRepositoryInterface $optionRepository;
+
+    private AttributeRepositoryInterface $attributeRepository;
 
     private RelationshipsResolverInterface $relationshipsResolver;
 
     public function __construct(
-        OptionRepositoryInterface $repository,
+        OptionRepositoryInterface $optionRepository,
+        AttributeRepositoryInterface $attributeRepository,
         RelationshipsResolverInterface $relationshipsResolver
     ) {
-        $this->repository = $repository;
+        $this->optionRepository = $optionRepository;
+        $this->attributeRepository = $attributeRepository;
         $this->relationshipsResolver = $relationshipsResolver;
     }
 
@@ -35,7 +41,11 @@ class DeleteOptionCommandHandler
      */
     public function __invoke(DeleteOptionCommand $command): void
     {
-        $option = $this->repository->load($command->getId());
+        /** @var AbstractOptionAttribute $attribute */
+        $attribute = $this->attributeRepository->load($command->getAttributeId());
+        Assert::isInstanceOf($attribute, AbstractOptionAttribute::class);
+        $option = $this->optionRepository->load($command->getId());
+
         Assert::isInstanceOf(
             $option,
             AbstractOption::class,
@@ -46,7 +56,9 @@ class DeleteOptionCommandHandler
         if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
+        $attribute->removeOption($option);
 
-        $this->repository->delete($option);
+        $this->attributeRepository->save($attribute);
+        $this->optionRepository->delete($option);
     }
 }

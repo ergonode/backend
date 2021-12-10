@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 use Ergonode\Attribute\Application\Form\SimpleOptionForm;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -26,6 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route(
@@ -63,7 +64,7 @@ class OptionChangeAction
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add attribute",
+     *     description="Change attribute option",
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/option")
      * )
@@ -91,9 +92,12 @@ class OptionChangeAction
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, AbstractOption $option, Request $request): AggregateId
+    public function __invoke(AbstractOptionAttribute $attribute, AbstractOption $option, Request $request): AggregateId
     {
         try {
+            if (!$attribute->hasOption($option->getId())) {
+                throw new NotFoundHttpException();
+            }
             $model = new SimpleOptionModel($attribute->getId(), $option->getId());
             $form = $this->formFactory->create(SimpleOptionForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);

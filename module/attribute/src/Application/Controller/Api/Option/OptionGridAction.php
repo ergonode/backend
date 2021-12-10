@@ -17,8 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Grid\GridBuilderInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route("/attributes/{attribute}/options/grid", methods={"GET"})
@@ -106,7 +106,7 @@ class OptionGridAction
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration", name="configuration")
      */
     public function __invoke(
-        AbstractAttribute $attribute,
+        AbstractOptionAttribute $attribute,
         Language $language,
         RequestGridConfiguration $configuration
     ): array {

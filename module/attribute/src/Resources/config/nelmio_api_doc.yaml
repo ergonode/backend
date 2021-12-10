@@ -16,6 +16,18 @@ nelmio_api_doc:
                     label:
                         pl_PL: Option PL 1
                         en_GB: Option EN 1
+            option_move:
+                type: object
+                properties:
+                    after:
+                        type: boolean
+                        required: false
+                        description: move position
+                        example: true
+                    positionId:
+                        type: string
+                        required: false
+                        description: moved option id
             attribute_group:
                 type: object
                 properties:

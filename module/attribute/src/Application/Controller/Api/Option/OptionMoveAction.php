@@ -11,10 +11,7 @@ namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
-use Ergonode\Attribute\Application\Form\SimpleOptionForm;
-use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,47 +21,57 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Application\Form\Model\Option\OptionMoveModel;
+use Ergonode\Attribute\Application\Form\OptionMoveForm;
+use Ergonode\Attribute\Domain\Command\Option\MoveOptionCommand;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  * @Route(
- *     name="ergonode_option_create",
- *     path="/attributes/{attribute}/options",
- *     methods={"POST"},
+ *     name="ergonode_option_move",
+ *     path="/attributes/{attribute}/options/{option}/move",
+ *     methods={"PUT"},
  *     requirements={
- *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *        "option" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     }
  * )
  */
-class OptionCreateAction
+class OptionMoveAction
 {
-    private FormFactoryInterface $formFactory;
-
     private CommandBusInterface $commandBus;
 
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    private FormFactoryInterface $formFactory;
+
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
-        $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
+        $this->formFactory = $formFactory;
     }
 
     /**
-     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_POST_OPTION")
+     * @IsGranted("ERGONODE_ROLE_ATTRIBUTE_PUT_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="language",
+     *     name="attribute",
      *     in="path",
      *     type="string",
-     *     description="Language code",
-     *     default="en_GB"
+     *     description="Attribute id",
+     * )
+     * @SWG\Parameter(
+     *     name="option",
+     *     in="path",
+     *     type="string",
+     *     description="Option id",
      * )
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add attribute",
+     *     description="Move attribute option",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/option")
+     *     @SWG\Schema(ref="#/definitions/option_move")
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -76,31 +83,38 @@ class OptionCreateAction
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns attribute ID",
+     *     description="Returns option id",
      * )
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractOptionAttribute $attribute, Request $request): AggregateId
+    public function __invoke(AbstractOptionAttribute $attribute, AbstractOption $option, Request $request): AggregateId
     {
         try {
-            $model = new SimpleOptionModel($attribute->getId());
-            $form = $this->formFactory->create(SimpleOptionForm::class, $model);
+            if (!$attribute->hasOption($option->getId())) {
+                throw new NotFoundHttpException();
+            }
+
+            $model = new OptionMoveModel($attribute->getId(), $option->getId());
+            $form = $this->formFactory->create(OptionMoveForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var SimpleOptionModel $data */
                 $data = $form->getData();
 
-                $command = new CreateOptionCommand(
+                $command = new MoveOptionCommand(
+                    $option->getId(),
                     $attribute->getId(),
-                    new OptionKey($data->code),
-                    new TranslatableString($data->label),
                     $data->after,
                     $data->positionId ? new AggregateId($data->positionId) : null,
                 );

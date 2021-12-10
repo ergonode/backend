@@ -25,7 +25,7 @@ interface OptionQueryInterface
     /**
      * @return array
      */
-    public function getAll(?AttributeId $attributeId = null): array;
+    public function getAll(?AttributeId $attributeId = null, bool $hasRelations = false): array;
 
     /**
      * @return array
@@ -37,4 +37,6 @@ interface OptionQueryInterface
     public function findIdByAttributeIdAndCode(AttributeId $id, OptionKey $code): ?AggregateId;
 
     public function findKey(AggregateId $id): ?OptionKey;
+
+    public function getAttributeIdByOptionId(AggregateId $id): ?AttributeId;
 }

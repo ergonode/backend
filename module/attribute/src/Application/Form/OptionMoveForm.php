@@ -9,32 +9,20 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Ergonode\Attribute\Application\Form\Model\Option\OptionMoveModel;
 
-class SimpleOptionForm extends AbstractType
+class OptionMoveForm extends AbstractType
 {
-    /**
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'code',
-                TextType::class
-            )
-            ->add(
-                'label',
-                TranslationType::class
-            )
             ->add(
                 'positionId',
                 TextType::class,
@@ -55,7 +43,7 @@ class SimpleOptionForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => SimpleOptionModel::class,
+            'data_class' => OptionMoveModel::class,
             'translation_domain' => 'attribute',
             'allow_extra_fields' => false,
         ]);
