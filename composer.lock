@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e31fbd0a227bb926382c16c4a99fa45",
+    "content-hash": "b63b1ae335e7ce3a9f3a615f6bb6500b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1117,31 +1117,30 @@
         },
         {
             "name": "ergonode/exporter-shopware-6",
-            "version": "dev-feature/attribute-option-sorting",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "cc25d311fe14baac1e1613abae0ffe4d47f2d261"
+                "reference": "8949b744534f4fb46c4b121fbe6b686d89699ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/cc25d311fe14baac1e1613abae0ffe4d47f2d261",
-                "reference": "cc25d311fe14baac1e1613abae0ffe4d47f2d261",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/8949b744534f4fb46c4b121fbe6b686d89699ce1",
+                "reference": "8949b744534f4fb46c4b121fbe6b686d89699ce1",
                 "shasum": ""
             },
             "require": {
-                "ergonode/attribute": "dev-feature/attribute-option-sorting as 1.3.0-dev",
-                "ergonode/channel": "^1.2.0",
-                "ergonode/product-collection": "^1.2.0",
+                "ergonode/channel": "^1.0.0",
+                "ergonode/product-collection": "^1.0.0",
                 "guzzlehttp/guzzle": "^6.3",
                 "php": "^7.4"
             },
             "require-dev": {
                 "dama/doctrine-test-bundle": "^6.5",
                 "doctrine/doctrine-bundle": "^2.3",
-                "ergonode/authentication": "^1.2",
-                "ergonode/core": "^1.2",
-                "ergonode/fixture": "^1.2",
+                "ergonode/authentication": "^1.0",
+                "ergonode/core": "^1.0.1",
+                "ergonode/fixture": "dev-main as 1.1.0-dev",
                 "limenius/liform-bundle": "^0.17.0",
                 "malukenho/docheader": "^0.1.8",
                 "phpstan/phpstan": "^0.12.85",
@@ -1155,6 +1154,7 @@
                 "symfony/monolog-bundle": "^3.5",
                 "symfony/phpunit-bridge": "^4.4"
             },
+            "default-branch": true,
             "type": "ergonode-module",
             "autoload": {
                 "psr-4": {
@@ -1169,9 +1169,9 @@
             "homepage": "https://ergonode.com",
             "support": {
                 "issues": "https://github.com/ergonode/exporter-shopware-6-backend/issues",
-                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/feature/attribute-option-sorting"
+                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/main"
             },
-            "time": "2021-12-03T13:29:15+00:00"
+            "time": "2021-12-01T13:12:00+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
