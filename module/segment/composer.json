@@ -31,7 +31,7 @@
         "symfony/validator": "^4.4.11"
     },
     "require-dev": {
-        "ergonode/completeness": "^1.2.0",
+        "ergonode/completeness": "^1.1.0",
         "phpunit/phpunit": "^9"
     },
     "suggest": {
