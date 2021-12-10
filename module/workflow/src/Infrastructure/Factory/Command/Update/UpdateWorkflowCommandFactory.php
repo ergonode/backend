@@ -45,14 +45,16 @@ class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterf
                 $transitions[$key]['condition_set'] = new ConditionSetId($transitionModel->conditionSet);
             }
         }
-
-        $defaultStatus = new StatusId($data->defaultId);
+        $defaultStatus = null;
+        if ($data->defaultId) {
+            $defaultStatus = new StatusId($data->defaultId);
+        }
 
         return new UpdateWorkflowCommand(
             $id,
-            $defaultStatus,
             $statuses,
-            $transitions
+            $transitions,
+            $defaultStatus,
         );
     }
 }
