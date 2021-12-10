@@ -92,7 +92,7 @@ class TransitionGridBuilder implements GridBuilderInterface
     {
         $result = [];
         foreach ($this->statusQuery->getAllStatuses($language) as $code => $status) {
-            $result[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
+            $result[] = new StatusOption($code, $status['code'], new Color($status['color']), $status['name']);
         }
 
         return $result;
