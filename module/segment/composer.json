@@ -31,7 +31,11 @@
         "symfony/validator": "^4.4.11"
     },
     "require-dev": {
+        "ergonode/completeness": "^1.1.0",
         "phpunit/phpunit": "^9"
+    },
+    "suggest": {
+        "ergonode/completeness": "For using the module with completeness conditions"
     },
     "autoload": {
         "psr-4": {
