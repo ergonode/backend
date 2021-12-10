@@ -23,6 +23,9 @@
 - build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
 
 ## CHANGELOG FOR 1.1.x
+#### 1.1.6
+- bugfix [#1776](https://github.com/ergonode/backend/issues/1776) Fixed not recalculating segment for product on completeness update (piotrkreft)
+
 #### 1.1.4
 - bugfix [#1704](https://github.com/ergonode/backend/issues/1704) Fixed API returned `Content-Type` header (piotrkreft)
 

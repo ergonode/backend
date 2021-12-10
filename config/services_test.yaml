@@ -56,6 +56,7 @@ services:
         tags:
             - { name: 'messenger.message_handler', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onSegmentConditionSetChangedEvent', priority: -10 }
+            - { name: 'messenger.message_handler', method: 'onProductCompletenessCalculatedEvent', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onProductCreatedEvent', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onProductDeletedEvent', priority: -10 }
             - { name: 'messenger.message_handler', method: 'onProductUpdatedEvent', priority: -10 }
