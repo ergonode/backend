@@ -49,7 +49,7 @@ Feature: Workflow
     """
       {
         "code": "WRK_@@random_code@@",
-        "defaultId": "@workflow_status_1_id@",
+        "default_id": "@workflow_status_1_id@",
         "statuses": ["@workflow_status_1_id@"]
       }
     """
@@ -61,7 +61,7 @@ Feature: Workflow
     """
     {
       "code": "WRK_@@random_code@@",
-      "defaultId": "@workflow_status_1_id@",
+      "default_id": "@workflow_status_1_id@",
       "statuses": ["test"],
       "transitions": []
     }
@@ -73,7 +73,7 @@ Feature: Workflow
     """
     {
       "code": "WRK_@@random_code@@",
-      "defaultId": "default",
+      "default_id": "default",
       "statuses": ["@workflow_status_1_id@"],
       "transitions": []
     }
@@ -89,7 +89,7 @@ Feature: Workflow
     """
     {
       "statuses": <statuses>,
-      "defaultId": "@workflow_status_1_id@",
+      "default_id": "@workflow_status_1_id@",
       "transitions": [
       {
         "from": <from>,

@@ -27,7 +27,7 @@ class UpdateWorkflowCommandTest extends TestCase
         $status = $this->createMock(StatusId::class);
         $defaultStatus = $this->createMock(StatusId::class);
 
-        $command = new UpdateWorkflowCommand($id, $defaultStatus, [$status]);
+        $command = new UpdateWorkflowCommand($id, [$status], [], $defaultStatus);
         $this->assertSame([$status], $command->getStatuses());
         $this->assertSame($defaultStatus, $command->getDefaultStatus());
         $this->assertSame($id, $command->getId());
@@ -38,8 +38,7 @@ class UpdateWorkflowCommandTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         /** @var WorkflowId $id */
         $id = $this->createMock(WorkflowId::class);
-        $defaultStatus = $this->createMock(StatusId::class);
 
-        new UpdateWorkflowCommand($id, $defaultStatus, [new \stdClass()]);
+        new UpdateWorkflowCommand($id, [new \stdClass()]);
     }
 }
