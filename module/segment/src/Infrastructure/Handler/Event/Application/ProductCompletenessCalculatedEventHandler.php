@@ -23,6 +23,6 @@ class ProductCompletenessCalculatedEventHandler
 
     public function __invoke(ProductCompletenessCalculatedEvent $event): void
     {
-        $this->segmentService->addProduct($event->getProductId());
+        $this->segmentService->recalculateProduct($event->getProductId());
     }
 }
