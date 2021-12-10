@@ -4,10 +4,11 @@ Feature: Multimedia relations
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "multipart/form-data"
+    And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
   Scenario: Upload new multimedia file
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.png |

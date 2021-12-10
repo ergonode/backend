@@ -4,10 +4,11 @@ Feature: Multimedia
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "multipart/form-data"
+    And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
   Scenario: Upload new multimedia file
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.png |
@@ -16,22 +17,26 @@ Feature: Multimedia
     And store response param "id" as "multimedia_id_1"
 
   Scenario: Upload same multimedia file again
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.png |
     Then the response status code should be 400
 
   Scenario: Upload new multimedia file with unsupported extension
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.abc |
     Then the response status code should be 400
 
   Scenario: Upload new multimedia file without uploaded file
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload"
     Then the response status code should be 400
 
   Scenario: Upload new multimedia with empty file
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                            |
       | upload | @multimedia-test-empty-image.png |
@@ -75,6 +80,7 @@ Feature: Multimedia
       | mime      | image/png       |
 
   Scenario: Upload second multimedia file (same file different name)
+    And I add "Content-Type" header equal to "multipart/form-data"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
       | key    | value                      |
       | upload | @multimedia-test-image.png |
