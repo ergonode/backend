@@ -24,7 +24,7 @@ class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
 
     private array $transitions;
 
-    private StatusId $defaultStatus;
+    private ?StatusId $defaultStatus;
 
     /**
      * @param StatusId[] $statuses
@@ -33,7 +33,7 @@ class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
         WorkflowId $id,
         array $statuses = [],
         array $transitions = [],
-        StatusId $defaultStatus = null
+        ?StatusId $defaultStatus = null
     ) {
         Assert::allIsInstanceOf($statuses, StatusId::class);
 
