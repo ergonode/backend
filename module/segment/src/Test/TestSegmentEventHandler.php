@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Test;
 
+use Ergonode\Completeness\Application\Event\ProductCompletenessCalculatedEvent;
 use Ergonode\Product\Application\Event\ProductCreatedEvent;
 use Ergonode\Product\Application\Event\ProductDeletedEvent;
 use Ergonode\Product\Application\Event\ProductUpdatedEvent;
@@ -39,6 +40,11 @@ class TestSegmentEventHandler
     }
 
     public function onProductCreatedEvent(ProductCreatedEvent $event): void
+    {
+        $this->calculate();
+    }
+
+    public function onProductCompletenessCalculatedEvent(ProductCompletenessCalculatedEvent $event): void
     {
         $this->calculate();
     }

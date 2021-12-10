@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Handler\Command;
 
+use Ergonode\Completeness\Application\Event\ProductCompletenessCalculatedEvent;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
@@ -15,6 +16,7 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Completeness\Infrastructure\Persistence\Manager\CompletenessManager;
+use Ergonode\SharedKernel\Domain\Bus\ApplicationEventBusInterface;
 
 class ProductCompletenessCalculateCommandHandler
 {
@@ -28,18 +30,22 @@ class ProductCompletenessCalculateCommandHandler
 
     private CompletenessManager $manager;
 
+    private ApplicationEventBusInterface $applicationEventBus;
+
     public function __construct(
         CompletenessCalculator $calculator,
         LanguageQueryInterface $query,
         ProductRepositoryInterface $productRepository,
         TemplateRepositoryInterface $templateRepository,
-        CompletenessManager $manager
+        CompletenessManager $manager,
+        ApplicationEventBusInterface $applicationEventBus
     ) {
         $this->calculator = $calculator;
         $this->query = $query;
         $this->productRepository = $productRepository;
         $this->templateRepository = $templateRepository;
         $this->manager = $manager;
+        $this->applicationEventBus = $applicationEventBus;
     }
 
     /**
@@ -72,6 +78,8 @@ class ProductCompletenessCalculateCommandHandler
                 }
 
                 $this->manager->updateCompleteness($productId, $completeness);
+
+                $this->applicationEventBus->dispatch(new ProductCompletenessCalculatedEvent($productId));
             }
         }
     }
