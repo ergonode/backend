@@ -16,9 +16,12 @@ use Ergonode\Core\Infrastructure\Exception\FileNotFoundDownloaderException;
 use Ergonode\Core\Infrastructure\Exception\AccessDeniedDownloaderException;
 use Ergonode\Core\Infrastructure\Exception\BadRequestDownloaderException;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ConnectException;
 
 class GuzzleDownloader implements DownloaderInterface
 {
+    private const TIMEOUT = 1;
+
     private LoggerInterface $logger;
 
     private Client $client;
@@ -37,12 +40,22 @@ class GuzzleDownloader implements DownloaderInterface
     public function download(string $url, array $headers = []): string
     {
         try {
-            $response = $this->client->get($url, ['headers' => $this->mapHeaders($headers)]);
+            $response = $this->client->get(
+                $url,
+                [
+                    'timeout' => self::TIMEOUT,
+                    'headers' => $this->mapHeaders($headers),
+                ]
+            );
+
             $code = $response->getStatusCode();
             $content = $response->getBody()->getContents();
+        } catch (ConnectException $exception) {
+            $this->logger->error($exception);
+            throw new DownloaderException(sprintf('Can\'t connect to url: %s', $url));
         } catch (GuzzleException $exception) {
             $this->logger->error($exception);
-            throw new DownloaderException(sprintf('Can\'t download file from %s', $url));
+            throw new DownloaderException(sprintf('Can\'t download file from url: %s', $url));
         }
 
         if (Response::HTTP_OK === $code && $content) {
