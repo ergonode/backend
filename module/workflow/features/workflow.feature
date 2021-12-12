@@ -49,7 +49,7 @@ Feature: Workflow
     """
       {
         "code": "WRK_@@random_code@@",
-        "defaultId": "@workflow_status_1_id@",
+        "default_id": "@workflow_status_1_id@",
         "statuses": ["@workflow_status_1_id@"]
       }
     """
@@ -61,7 +61,7 @@ Feature: Workflow
     """
     {
       "code": "WRK_@@random_code@@",
-      "defaultId": "@workflow_status_1_id@",
+      "default_id": "@workflow_status_1_id@",
       "statuses": ["test"],
       "transitions": []
     }
@@ -73,7 +73,7 @@ Feature: Workflow
     """
     {
       "code": "WRK_@@random_code@@",
-      "defaultId": "default",
+      "default_id": "default",
       "statuses": ["@workflow_status_1_id@"],
       "transitions": []
     }
@@ -89,7 +89,29 @@ Feature: Workflow
     """
     {
       "statuses": <statuses>,
-      "defaultId": "@workflow_status_1_id@",
+      "default_id": "@workflow_status_1_id@",
+      "transitions": [
+      {
+        "from": <from>,
+        "to": <to>,
+        "roles": <roles>,
+        "condition_set": <condition_set>
+      }
+      ]
+    }
+    """
+    Then the response status code should be 200
+    Examples:
+      | statuses                                             | from                     | to                       | roles         | condition_set        |
+      | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | ["@role_id@"] | "@condition_set_id@" |
+      | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | []            | "@condition_set_id@" |
+      | ["@workflow_status_1_id@", "@workflow_status_2_id@"] | "@workflow_status_1_id@" | "@workflow_status_2_id@" | ["@role_id@"] | null                 |
+
+  Scenario Outline: Update workflow without default status
+    And I send a "PUT" request to "/api/v1/en_GB/workflow/default" with body:
+    """
+    {
+      "statuses": <statuses>,
       "transitions": [
       {
         "from": <from>,

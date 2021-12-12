@@ -77,6 +77,14 @@ final class Version20211208071117 extends AbstractErgonodeMigration
                 WHERE workflow_id IS NOT NULL
                 ',
         );
+
+        $this->addSql(
+            '
+                DELETE
+                FROM event_store_snapshot 
+                WHERE aggregate_id IN (SELECT id FROM workflow)
+                ',
+        );
     }
 
     private function getConditionSetIds(): array
