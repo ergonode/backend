@@ -1,0 +1,5 @@
+Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            ATTRIBUTE_EXISTS_WORKFLOW_CONDITION: Ergonode\Workflow\Domain\Condition\AttributeExistsWorkflowCondition
