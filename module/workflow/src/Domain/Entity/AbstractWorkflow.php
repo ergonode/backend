@@ -155,10 +155,12 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     }
 
     /**
-     * @param WorkflowConditionInterface $conditions
+     * @param WorkflowConditionInterface[] $conditions
      */
     public function changeTransitionConditions(StatusId $from, StatusId $to, array $conditions): void
     {
+        Assert::allIsInstanceOf($conditions, WorkflowConditionInterface::class);
+
         if (!$this->hasTransition($from, $to)) {
             throw  new \RuntimeException(
                 sprintf('Transition from "%s" to "%s" not exists', $from->getValue(), $to->getValue())
