@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 class Transition
 {
@@ -22,7 +23,15 @@ class Transition
 
     private StatusId $to;
 
+    /**
+     * @deprecated
+     */
     private ?ConditionSetId $conditionSetId;
+
+    /**
+     * @var WorkflowConditionInterface[]
+     */
+    private array $conditions;
 
     /**
      * @var RoleId[]
@@ -44,6 +53,7 @@ class Transition
         $this->to = $to;
         $this->conditionSetId = $conditionSetId;
         $this->roleIds = $roleIds;
+        $this->conditions = [];
     }
 
     public function getId(): TransitionId
@@ -69,6 +79,9 @@ class Transition
         return $this->roleIds;
     }
 
+    /**
+     * @deprecated
+     */
     public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
@@ -76,10 +89,27 @@ class Transition
 
     /**
      * @throws \Exception
+     *
+     * @deprecated
      */
     public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
     {
         $this->conditionSetId = $conditionSetId;
+    }
+
+    /**
+     * @return WorkflowConditionInterface[]
+     */
+    public function getConditions(): array
+    {
+        return $this->conditions;
+    }
+
+    public function changeConditions(array $conditions): void
+    {
+        Assert::allIsInstanceOf($conditions, WorkflowConditionInterface::class);
+
+        $this->conditions = $conditions;
     }
 
     /**

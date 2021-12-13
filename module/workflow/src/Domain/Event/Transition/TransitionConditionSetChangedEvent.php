@@ -14,6 +14,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
+/**
+ * @deprecated
+ */
 class TransitionConditionSetChangedEvent implements AggregateEventInterface
 {
     private WorkflowId $id;
