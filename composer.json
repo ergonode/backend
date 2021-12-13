@@ -169,7 +169,7 @@
     "replace": {
         "ergonode/account": "self.version",
         "ergonode/api": "self.version",
-        "ergonode/attribute": "self.version",
+        "ergonode/attribute": "dev-main as 1.3.0-dev",
         "ergonode/authentication": "self.version",
         "ergonode/batch-action": "self.version",
         "ergonode/category": "self.version",

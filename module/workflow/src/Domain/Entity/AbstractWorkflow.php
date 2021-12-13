@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
@@ -23,6 +22,8 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
+use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 
 abstract class AbstractWorkflow extends AbstractAggregateRoot implements WorkflowInterface
 {
@@ -171,7 +172,9 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
             throw  new \RuntimeException(sprintf('Transition to status "%s" not exists', $to->getValue()));
         }
 
-        $this->getTransition($from, $to)->changeConditionSetId($conditionSetId);
+        $transitionId = $this->getTransition($from, $to)->getId();
+
+        $this->apply(new TransitionConditionSetChangedEvent($this->getId(), $transitionId, $conditionSetId));
     }
 
     /**
@@ -195,7 +198,9 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
             throw  new \RuntimeException(sprintf('Transition to status "%s" not exists', $to->getValue()));
         }
 
-        $this->getTransition($from, $to)->changeRoleIds($roleIds);
+        $transitionId = $this->getTransition($from, $to)->getId();
+
+        $this->apply(new TransitionRoleIdsChangedEvent($this->getId(), $transitionId, $roleIds));
     }
 
     /**
@@ -211,6 +216,25 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         foreach ($this->transitions as $transition) {
             if ($from->isEqual($transition->getFrom()) && $to->isEqual($transition->getTo())) {
                 return $transition;
+            }
+        }
+
+        throw new \RuntimeException(sprintf(
+            'Transition from "%s" to "%s" not exists',
+            $from->getValue(),
+            $to->getValue()
+        ));
+    }
+
+    /**
+     *
+     * @return RoleId[]
+     */
+    public function getTransitionRoleIds(StatusId $from, StatusId $to): array
+    {
+        foreach ($this->transitions as $transition) {
+            if ($from->isEqual($transition->getFrom()) && $to->isEqual($transition->getTo())) {
+                return $transition->getRoleIds();
             }
         }
 
@@ -359,11 +383,13 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         $this->defaultId = $event->getStatusId();
     }
 
-    /**
-     * @return AbstractEntity[]
-     */
-    protected function getEntities(): array
+    protected function applyTransitionRoleIdsChangedEvent(TransitionRoleIdsChangedEvent $event): void
     {
-        return $this->transitions;
+            $this->transitions[$event->getTransitionId()->getValue()]->changeRoleIds($event->getRoleIds());
+    }
+
+    protected function applyTransitionConditionSetChangedEvent(TransitionConditionSetChangedEvent $event): void
+    {
+        $this->transitions[$event->getTransitionId()->getValue()]->changeConditionSetId($event->getConditionSetId());
     }
 }

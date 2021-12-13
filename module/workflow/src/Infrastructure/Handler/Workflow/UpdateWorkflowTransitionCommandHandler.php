@@ -43,10 +43,10 @@ class UpdateWorkflowTransitionCommandHandler
         }
 
         if ($conditionSetId) {
-            $workflow->getTransition($from, $to)->changeConditionSetId($conditionSetId);
+            $workflow->changeTransitionConditionSetId($from, $to, $conditionSetId);
         }
 
-        $workflow->getTransition($from, $to)->changeRoleIds($command->getRoleIds());
+        $workflow->changeTransitionRoleIds($from, $to, $command->getRoleIds());
 
         $this->repository->save($workflow);
     }
