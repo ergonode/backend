@@ -20,7 +20,7 @@
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
-        "ergonode/exporter-shopware-6": "dev-main",
+        "ergonode/exporter-shopware-6": "dev-main as 1.3.0-dev",
         "ergonode/importer-magento-1": "^1.0",
         "gesdinet/jwt-refresh-token-bundle": "^0.11.1|^0.12",
         "guzzlehttp/guzzle": "^6.3",
