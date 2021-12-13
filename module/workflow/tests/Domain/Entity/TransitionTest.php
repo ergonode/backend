@@ -33,8 +33,6 @@ class TransitionTest extends TestCase
      */
     private array $roleIds;
 
-    private AbstractAggregateRoot $aggregateRoot;
-
     protected function setUp(): void
     {
         $this->id = $this->createMock(TransitionId::class);
@@ -60,37 +58,33 @@ class TransitionTest extends TestCase
 
     public function testChangingConditionSetNull(): void
     {
-        $this->aggregateRoot->expects($this->once())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeConditionSetId();
+
+        self::assertNull($transition->getConditionSetId());
     }
 
     public function testChangingConditionSetForTheSame(): void
     {
-        $this->aggregateRoot->expects($this->never())->method('apply');
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
+        $transition = new Transition($this->id, $this->from, $this->to);
         $conditionSetId = $this->createMock(ConditionSetId::class);
-        $conditionSetId->method('isEqual')->willReturn(true);
         $transition->changeConditionSetId($conditionSetId);
+
+        self::assertEquals($conditionSetId, $transition->getConditionSetId());
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testChangingRoleIds(): void
     {
-        $this->aggregateRoot->expects($this->once())->method('apply');
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
+        $transition = new Transition($this->id, $this->from, $this->to);
         $transition->changeRoleIds($this->roleIds);
+
+        self::assertSame($this->roleIds, $transition->getRoleIds());
     }
 
     public function testChangingRoleIdsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
+        $transition = new Transition($this->id, $this->from, $this->to);
         $transition->changeRoleIds(['example', 'example2']);
     }
 }

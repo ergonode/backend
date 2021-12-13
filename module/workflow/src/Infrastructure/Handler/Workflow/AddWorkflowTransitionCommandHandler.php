@@ -45,11 +45,11 @@ class AddWorkflowTransitionCommandHandler
 
         $workflow->addTransition($command->getFrom(), $command->getTo());
         if ($conditionSetId) {
-            $workflow->getTransition($from, $to)->changeConditionSetId($conditionSetId);
+            $workflow->changeTransitionConditionSetId($from, $to, $conditionSetId);
         }
 
         if (!empty($roleIds)) {
-            $workflow->getTransition($from, $to)->changeRoleIds($roleIds);
+            $workflow->changeTransitionRoleIds($from, $to, $roleIds);
         }
 
         $this->repository->save($workflow);

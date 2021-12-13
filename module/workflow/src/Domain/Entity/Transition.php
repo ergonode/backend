@@ -10,14 +10,11 @@ namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
-use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
-use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-class Transition extends AbstractEntity
+class Transition
 {
     private TransitionId $id;
 
@@ -82,18 +79,7 @@ class Transition extends AbstractEntity
      */
     public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
     {
-        if (null === $conditionSetId && null === $this->conditionSetId) {
-            return;
-        }
-
-        if (null !== $conditionSetId &&
-            null !==  $this->conditionSetId &&
-            $conditionSetId->isEqual($this->conditionSetId)
-        ) {
-            return;
-        }
-
-        $this->apply(new TransitionConditionSetChangedEvent($this->aggregateRoot->getId(), $this->id, $conditionSetId));
+        $this->conditionSetId = $conditionSetId;
     }
 
     /**
@@ -105,20 +91,6 @@ class Transition extends AbstractEntity
     {
         Assert::allIsInstanceOf($roleIds, RoleId::class);
 
-        $this->apply(new TransitionRoleIdsChangedEvent($this->aggregateRoot->getId(), $this->id, $roleIds));
-    }
-
-    protected function applyTransitionConditionSetChangedEvent(TransitionConditionSetChangedEvent $event): void
-    {
-        if ($this->id->isEqual($event->getTransitionId())) {
-            $this->conditionSetId = $event->getConditionSetId();
-        }
-    }
-
-    protected function applyTransitionRoleIdsChangedEvent(TransitionRoleIdsChangedEvent $event): void
-    {
-        if ($this->id->isEqual($event->getTransitionId())) {
-            $this->roleIds = $event->getRoleIds();
-        }
+        $this->roleIds = $roleIds;
     }
 }
