@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 
 class AttributeCode extends AbstractCode
 {
-    public const PATTERN = '/^([a-zA-Z0-9_]+)$/';
+    public const PATTERN = '/^([a-z0-9_]+)$/';
     public const FORBIDDEN = ['id'];
 
     public function __construct(string $value)
