@@ -304,8 +304,7 @@ final class Version20211208081117 extends AbstractErgonodeMigration
                 'to' => $this->getStatus()['draft']['id'],
                 'from' => $this->getStatus()['new']['id'],
                 'role_ids' => [],
-                'aggregate_root' => null,
-                'condition_set_id' => null,
+                'conditions' => [],
             ],
         ];
 

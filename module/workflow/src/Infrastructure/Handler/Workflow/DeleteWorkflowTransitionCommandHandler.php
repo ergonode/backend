@@ -9,9 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
-use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
-use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -19,17 +16,10 @@ use Webmozart\Assert\Assert;
 class DeleteWorkflowTransitionCommandHandler
 {
     private WorkflowRepositoryInterface $repository;
-    private RelationshipsResolverInterface $relationshipsResolver;
-    private CommandBusInterface $commandBus;
 
-    public function __construct(
-        WorkflowRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver,
-        CommandBusInterface $commandBus
-    ) {
+    public function __construct(WorkflowRepositoryInterface $repository)
+    {
         $this->repository = $repository;
-        $this->relationshipsResolver = $relationshipsResolver;
-        $this->commandBus = $commandBus;
     }
 
     /**
@@ -40,20 +30,8 @@ class DeleteWorkflowTransitionCommandHandler
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
-        $transition = $workflow->getTransition($command->getFrom(), $command->getTo());
-
         $workflow->removeTransition($command->getFrom(), $command->getTo());
 
         $this->repository->save($workflow);
-
-        if ($transition->getConditionSetId() &&
-            null === $this->relationshipsResolver->resolve($transition->getConditionSetId())
-        ) {
-            $this->commandBus->dispatch(
-                new DeleteConditionSetCommand(
-                    $transition->getConditionSetId(),
-                ),
-            );
-        }
     }
 }

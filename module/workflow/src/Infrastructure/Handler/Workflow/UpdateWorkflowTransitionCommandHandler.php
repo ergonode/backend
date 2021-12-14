@@ -27,8 +27,8 @@ class UpdateWorkflowTransitionCommandHandler
      */
     public function __invoke(UpdateWorkflowTransitionCommand $command): void
     {
-        $conditionSetId = $command->getConditionSetId();
         $workflow = $this->repository->load($command->getWorkflowId());
+
         Assert::notNull($workflow);
 
         $from = $command->getFrom();
@@ -40,10 +40,6 @@ class UpdateWorkflowTransitionCommandHandler
 
         if (!$workflow->hasStatus($to)) {
             $workflow->addStatus($to);
-        }
-
-        if ($conditionSetId) {
-            $workflow->changeTransitionConditionSetId($from, $to, $conditionSetId);
         }
 
         $workflow->changeTransitionRoleIds($from, $to, $command->getRoleIds());
