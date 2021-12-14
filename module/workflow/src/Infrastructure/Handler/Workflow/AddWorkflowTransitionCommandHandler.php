@@ -28,7 +28,7 @@ class AddWorkflowTransitionCommandHandler
     public function __invoke(AddWorkflowTransitionCommand $command): void
     {
         $roleIds = $command->getRoleIds();
-        $conditionSetId = $command->getConditionSetId();
+
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
@@ -44,9 +44,6 @@ class AddWorkflowTransitionCommandHandler
         }
 
         $workflow->addTransition($command->getFrom(), $command->getTo());
-        if ($conditionSetId) {
-            $workflow->changeTransitionConditionSetId($from, $to, $conditionSetId);
-        }
 
         if (!empty($roleIds)) {
             $workflow->changeTransitionRoleIds($from, $to, $roleIds);

@@ -9,11 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
-use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
+use Webmozart\Assert\Assert;
 
 class Transition
 {
@@ -22,11 +21,6 @@ class Transition
     private StatusId $from;
 
     private StatusId $to;
-
-    /**
-     * @deprecated
-     */
-    private ?ConditionSetId $conditionSetId;
 
     /**
      * @var WorkflowConditionInterface[]
@@ -40,20 +34,23 @@ class Transition
 
     /**
      * @param RoleId[] $roleIds
+     * @param WorkflowConditionInterface[] $conditions
      */
     public function __construct(
         TransitionId $id,
         StatusId $from,
         StatusId $to,
         array $roleIds = [],
-        ?ConditionSetId $conditionSetId = null
+        array $conditions = []
     ) {
+        Assert::allIsInstanceOf($roleIds, RoleId::class);
+        Assert::allIsInstanceOf($conditions, WorkflowConditionInterface::class);
+
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;
-        $this->conditionSetId = $conditionSetId;
         $this->roleIds = $roleIds;
-        $this->conditions = [];
+        $this->conditions = $conditions;
     }
 
     public function getId(): TransitionId
@@ -80,47 +77,10 @@ class Transition
     }
 
     /**
-     * @deprecated
-     */
-    public function getConditionSetId(): ?ConditionSetId
-    {
-        return $this->conditionSetId;
-    }
-
-    /**
-     * @throws \Exception
-     *
-     * @deprecated
-     */
-    public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
-    {
-        $this->conditionSetId = $conditionSetId;
-    }
-
-    /**
      * @return WorkflowConditionInterface[]
      */
     public function getConditions(): array
     {
         return $this->conditions;
-    }
-
-    public function changeConditions(array $conditions): void
-    {
-        Assert::allIsInstanceOf($conditions, WorkflowConditionInterface::class);
-
-        $this->conditions = $conditions;
-    }
-
-    /**
-     * @param array $roleIds
-     *
-     * @throws \Exception
-     */
-    public function changeRoleIds(array $roleIds = []): void
-    {
-        Assert::allIsInstanceOf($roleIds, RoleId::class);
-
-        $this->roleIds = $roleIds;
     }
 }

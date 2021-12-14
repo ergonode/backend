@@ -9,33 +9,21 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Service;
 
-use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
-use Ergonode\Condition\Domain\Service\ConditionCalculator;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Workflow\Domain\Entity\Transition;
-use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\Calculator\WorkflowConditionCalculator;
 
 class StatusCalculationService
 {
-    private ConditionCalculator $service;
+    private WorkflowConditionCalculator $calculator;
 
-    private ConditionSetRepositoryInterface $repository;
-
-    public function __construct(ConditionCalculator $service, ConditionSetRepositoryInterface $repository)
+    public function __construct(WorkflowConditionCalculator $calculator)
     {
-        $this->service = $service;
-        $this->repository = $repository;
+        $this->calculator = $calculator;
     }
 
     public function available(Transition $transition, AbstractProduct $product): bool
     {
-        if (null === $transition->getConditionSetId()) {
-            return true;
-        }
-
-        $conditionSet = $this->repository->load($transition->getConditionSetId());
-        Assert::notNull($conditionSet);
-
-        return $this->service->calculate($conditionSet, $product);
+        return $this->calculator->calculate($transition, $product);
     }
 }
