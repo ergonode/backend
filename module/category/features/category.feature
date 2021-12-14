@@ -24,7 +24,7 @@ Feature: Category module
       | errors.code[0]       | {"en_EN":"label"}                             | "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" | System name is too long. It should contain 128 characters or less.  |
       | errors.name          | ""                                            | "Code"                                                                                                                                                | Translation is not valid                                            |
       | errors.name.en_EN[0] | {"en_EN":""}                                  | "Code"                                                                                                                                                | This value should not be blank.                                     |
-      | errors.name.en_EN[0] | {"en_EN":"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"} | "Code"                                                                                                                                                | Category name is too long. It should contain 32 characters or less. |
+      | errors.name.en_EN[0] | {"en_EN":"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"}                                           | "Code"      | Category name is too long. It should contain 128 characters or less.|
 
 
   Scenario: Create category
