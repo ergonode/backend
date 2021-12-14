@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b63b1ae335e7ce3a9f3a615f6bb6500b",
+    "content-hash": "ab549270d8b2097317b02fe51e8a47bd",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1121,26 +1121,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "8949b744534f4fb46c4b121fbe6b686d89699ce1"
+                "reference": "6ba450678e645792aebc43fe197bb20232a27848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/8949b744534f4fb46c4b121fbe6b686d89699ce1",
-                "reference": "8949b744534f4fb46c4b121fbe6b686d89699ce1",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/6ba450678e645792aebc43fe197bb20232a27848",
+                "reference": "6ba450678e645792aebc43fe197bb20232a27848",
                 "shasum": ""
             },
             "require": {
-                "ergonode/channel": "^1.0.0",
-                "ergonode/product-collection": "^1.0.0",
+                "ergonode/attribute": "dev-main as 1.3.0-dev",
+                "ergonode/channel": "^1.2.0",
+                "ergonode/product-collection": "^1.2.0",
                 "guzzlehttp/guzzle": "^6.3",
                 "php": "^7.4"
             },
             "require-dev": {
                 "dama/doctrine-test-bundle": "^6.5",
                 "doctrine/doctrine-bundle": "^2.3",
-                "ergonode/authentication": "^1.0",
-                "ergonode/core": "^1.0.1",
-                "ergonode/fixture": "dev-main as 1.1.0-dev",
+                "ergonode/authentication": "^1.2",
+                "ergonode/core": "^1.2",
+                "ergonode/fixture": "^1.2",
                 "limenius/liform-bundle": "^0.17.0",
                 "malukenho/docheader": "^0.1.8",
                 "phpstan/phpstan": "^0.12.85",
@@ -1171,7 +1172,7 @@
                 "issues": "https://github.com/ergonode/exporter-shopware-6-backend/issues",
                 "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/main"
             },
-            "time": "2021-12-01T13:12:00+00:00"
+            "time": "2021-12-13T07:13:57+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
@@ -13889,7 +13890,14 @@
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "ergonode/exporter-shopware-6",
+            "version": "dev-main",
+            "alias": "1.3.0-dev",
+            "alias_normalized": "1.3.0.0-dev"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "ergonode/exporter-shopware-6": 20,
