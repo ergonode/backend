@@ -5,7 +5,6 @@
  * See LICENSE.txt for license details.
  */
 
-
 declare(strict_types=1);
 
 namespace Ergonode\Migration;
@@ -21,7 +20,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20211206140000 extends AbstractErgonodeMigration
+final class Version20211208081117 extends AbstractErgonodeMigration
 {
     private array $status = [];
     private array $workflow = [];
