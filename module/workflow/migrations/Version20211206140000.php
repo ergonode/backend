@@ -21,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20211213071000 extends AbstractErgonodeMigration
+final class Version20211206140000 extends AbstractErgonodeMigration
 {
     private array $status = [];
     private array $workflow = [];
