@@ -31,7 +31,7 @@ class Transition
     /**
      * @var WorkflowConditionInterface[]
      */
-    private array $conditions;
+    private array $conditions = [];
 
     /**
      * @var RoleId[]
