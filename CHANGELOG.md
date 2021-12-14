@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.3.x
 #### 1.3.0
+- bugfix [#1785](https://github.com/ergonode/backend/issues/1785) Fixing incorrect attributeGroupCode and CategoryName Assertions (wiewiurdp)
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
 - bugfix [#1740](https://github.com/ergonode/backend/issues/1740) Incorrect transition property naming (rprzedzik)
 - feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
