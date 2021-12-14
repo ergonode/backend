@@ -19,8 +19,5 @@ final class Version20211214160000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE status ADD COLUMN index SERIAL');
-
-        $this->addSql('ALTER TABLE status ALTER COLUMN index DROP DEFAULT');
-
     }
 }
