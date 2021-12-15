@@ -3,3 +3,13 @@ Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
         type_property: 'type'
         mapping:
             ATTRIBUTE_EXISTS_WORKFLOW_CONDITION: Ergonode\Workflow\Domain\Condition\AttributeExistsWorkflowCondition
+
+
+Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            'SELECT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter
+            'MULTi_SELECT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\MultiSelectWorkflowConditionConfigurationParameter
+            'TEXT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter
+            'NUMERIC': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\NumericWorkflowConditionConfigurationParameter

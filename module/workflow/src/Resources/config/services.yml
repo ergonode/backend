@@ -59,3 +59,7 @@ services:
         arguments:
             - '@Ergonode\Workflow\Domain\Factory\AddStatusToProductFactoryDecorator.inner'
 
+
+    Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionConfigurationProvider:
+        arguments:
+            $strategies: !tagged_iterator 'workflow.workflow_condition_configuration_interface'
