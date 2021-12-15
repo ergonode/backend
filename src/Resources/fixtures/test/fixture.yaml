@@ -1,6 +1,5 @@
 include:
     - 'multimedia.yaml'
-    - 'workflow.yaml'
     - 'roles.yaml'
     - 'user.yaml'
     - 'attributes.yaml'
