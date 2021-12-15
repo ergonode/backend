@@ -33,5 +33,5 @@ interface StatusQueryInterface
      */
     public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array;
 
-    public function getMaxIndex(): int;
+    public function getMaxIndex(): ?int;
 }

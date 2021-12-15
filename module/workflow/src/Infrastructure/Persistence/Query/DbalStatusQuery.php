@@ -109,7 +109,7 @@ class DbalStatusQuery implements StatusQueryInterface
         return array_values($result);
     }
 
-    public function getMaxIndex(): int
+    public function getMaxIndex(): ?int
     {
         return $this->connection->createQueryBuilder()
             ->select('max(index)')
