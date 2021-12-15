@@ -32,6 +32,4 @@ interface StatusQueryInterface
      * @return mixed[][]
      */
     public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array;
-
-    public function getMaxIndex(): ?int;
 }
