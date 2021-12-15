@@ -19,6 +19,7 @@ use Ergonode\Workflow\Application\Form\Workflow\WorkflowFormInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
+use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionConfigurationInterface;
 
 class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {
@@ -55,6 +56,10 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(UpdateWorkflowCommandFactoryInterface::class)
             ->addTag(CompilerPass\UpdateWorkflowCommandFactoryProviderInterfaceCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(WorkflowConditionConfigurationInterface::class)
+            ->addTag('workflow.workflow_condition_configuration_interface');
 
         $configuration = new Configuration();
         $processedConfig = $this->processConfiguration($configuration, $configs);
