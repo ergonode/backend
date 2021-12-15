@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
+use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 class DbalStatusCreatedEventProjector
 {
@@ -21,10 +22,16 @@ class DbalStatusCreatedEventProjector
 
     private SerializerInterface $serializer;
 
-    public function __construct(Connection $connection, SerializerInterface $serializer)
-    {
+    private StatusQueryInterface $query;
+
+    public function __construct(
+        Connection $connection,
+        SerializerInterface $serializer,
+        StatusQueryInterface $query
+    ) {
         $this->connection = $connection;
         $this->serializer = $serializer;
+        $this->query = $query;
     }
 
     /**
@@ -32,6 +39,7 @@ class DbalStatusCreatedEventProjector
      */
     public function __invoke(StatusCreatedEvent $event): void
     {
+        $maxIndex = $this->query->getMaxIndex();
         $this->connection->insert(
             self::TABLE,
             [
@@ -40,6 +48,7 @@ class DbalStatusCreatedEventProjector
                 'name' => $this->serializer->serialize($event->getName()->getTranslations()),
                 'description' => $this->serializer->serialize($event->getDescription()->getTranslations()),
                 'color' => $event->getColor()->getValue(),
+                'index' => $maxIndex + 1,
             ]
         );
     }
