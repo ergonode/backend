@@ -21,6 +21,7 @@ class DbalStatusCreatedEventProjector
 
     private SerializerInterface $serializer;
 
+
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -32,6 +33,12 @@ class DbalStatusCreatedEventProjector
      */
     public function __invoke(StatusCreatedEvent $event): void
     {
+        $maxIndex = $this->connection->createQueryBuilder()
+            ->select('max(index)')
+            ->from(self::TABLE)
+            ->execute()
+            ->fetchOne();
+
         $this->connection->insert(
             self::TABLE,
             [
@@ -40,6 +47,7 @@ class DbalStatusCreatedEventProjector
                 'name' => $this->serializer->serialize($event->getName()->getTranslations()),
                 'description' => $this->serializer->serialize($event->getDescription()->getTranslations()),
                 'color' => $event->getColor()->getValue(),
+                'index' => $maxIndex + 1,
             ]
         );
     }
