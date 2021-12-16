@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Infrastructure\Condition\Configuration\Parameter;
 
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter;
+use Ergonode\Workflow\Domain\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter;
 use PHPUnit\Framework\TestCase;
 
 class TextWorkflowConditionConfigurationParameterTest extends TestCase

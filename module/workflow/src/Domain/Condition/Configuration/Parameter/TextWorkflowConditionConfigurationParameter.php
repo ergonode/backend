@@ -6,9 +6,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter;
+namespace Ergonode\Workflow\Domain\Condition\Configuration\Parameter;
 
-class NumericWorkflowConditionConfigurationParameter
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface;
+
+class TextWorkflowConditionConfigurationParameter implements WorkflowConditionConfigurationParameterInterface
 {
     private string $name;
 

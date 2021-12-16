@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Domain\Condition;
+namespace Ergonode\Workflow\Domain\Condition\Configuration;
 
-class AttributeExistsWorkflowCondition implements WorkflowConditionInterface
+interface WorkflowConditionConfigurationParameterInterface
 {
 
 }

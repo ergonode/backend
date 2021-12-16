@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Infrastructure\Condition;
+namespace Ergonode\Workflow\Domain\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfiguration;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 
 interface WorkflowConditionConfigurationInterface
 {
