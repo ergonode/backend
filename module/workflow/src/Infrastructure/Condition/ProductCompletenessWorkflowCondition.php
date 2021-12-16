@@ -13,8 +13,8 @@ use Webmozart\Assert\Assert;
 
 class ProductCompletenessWorkflowCondition implements WorkflowConditionInterface
 {
-    public const TYPE = 'ATTRIBUTE_EXISTS_CONDITION';
-    public const PHRASE = 'ATTRIBUTE_EXISTS_CONDITION_PHRASE';
+    public const TYPE = 'PRODUCT_COMPLETENESS_CONDITION';
+    public const PHRASE = 'PRODUCT_COMPLETENESS_CONDITION_PHRASE';
 
     public const COMPLETE = 'complete';
     public const NOT_COMPLETE = 'not complete';

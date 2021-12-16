@@ -15,6 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Workflow\Domain\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Condition\Domain\Condition\RoleExactlyCondition;
+use Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition;
 
 class RoleIsWorkflowConditionConfiguration implements WorkflowConditionConfigurationInterface
 {
@@ -30,7 +31,7 @@ class RoleIsWorkflowConditionConfiguration implements WorkflowConditionConfigura
 
     public function supports(string $type): bool
     {
-        return RoleExactlyCondition::TYPE === $type;
+        return RoleIsWorkflowCondition::TYPE === $type;
     }
 
     public function getConfiguration(Language $language): WorkflowConditionConfiguration
@@ -39,15 +40,15 @@ class RoleIsWorkflowConditionConfiguration implements WorkflowConditionConfigura
         $roles = $this->query->getDictionary();
 
 
-        $name = $this->translator->trans(RoleExactlyCondition::TYPE, [], 'workflow', $code);
-        $phrase = $this->translator->trans(RoleExactlyCondition::PHRASE, [], 'workflow', $code);
+        $name = $this->translator->trans(RoleIsWorkflowCondition::TYPE, [], 'workflow', $code);
+        $phrase = $this->translator->trans(RoleIsWorkflowCondition::PHRASE, [], 'workflow', $code);
 
         $parameters = [
             new SelectWorkflowConditionConfigurationParameter('role', $roles),
         ];
 
         return new WorkflowConditionConfiguration(
-            RoleExactlyCondition::TYPE,
+            RoleIsWorkflowCondition::TYPE,
             $name,
             $phrase,
             $parameters
