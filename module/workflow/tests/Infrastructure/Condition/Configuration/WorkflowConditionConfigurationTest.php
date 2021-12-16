@@ -16,12 +16,14 @@ class WorkflowConditionConfigurationTest extends TestCase
 {
     public function testCreation(): void
     {
+        $type = 'any type';
         $name = 'any name';
         $phrase = 'any phrase';
         $parameters = [$this->createMock(WorkflowConditionConfigurationParameterInterface::class)];
 
-        $configuration = new WorkflowConditionConfiguration($name, $phrase, $parameters);
+        $configuration = new WorkflowConditionConfiguration($type, $name, $phrase, $parameters);
 
+        self::assertSame($type, $configuration->getType());
         self::assertSame($name, $configuration->getName());
         self::assertSame($phrase, $configuration->getPhrase());
         self::assertSame($parameters, $configuration->getParameters());
@@ -31,10 +33,11 @@ class WorkflowConditionConfigurationTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        $type = 'any type';
         $name = 'any name';
         $phrase = 'any phrase';
         $parameters = [new \stdClass()];
 
-        new WorkflowConditionConfiguration($name, $phrase, $parameters);
+        new WorkflowConditionConfiguration($type, $name, $phrase, $parameters);
     }
 }

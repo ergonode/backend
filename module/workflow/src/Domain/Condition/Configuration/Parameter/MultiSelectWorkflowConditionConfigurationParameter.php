@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Condition\Configuration\Parameter;
 
-class MultiSelectWorkflowConditionConfigurationParameter
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface;
+
+class MultiSelectWorkflowConditionConfigurationParameter implements WorkflowConditionConfigurationParameterInterface
 {
     private string $name;
 

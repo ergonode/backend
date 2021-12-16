@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Condition\Calculator;
 
@@ -26,7 +26,7 @@ class UserIsWorkflowConditionCalculator implements WorkflowConditionCalculatorIn
     private AuthenticatedUserProviderInterface $authenticatedUserProvider;
 
     public function __construct(
-        UserRepositoryInterface            $userRepository,
+        UserRepositoryInterface $userRepository,
         AuthenticatedUserProviderInterface $authenticatedUserProvider
     ) {
         $this->userRepository = $userRepository;

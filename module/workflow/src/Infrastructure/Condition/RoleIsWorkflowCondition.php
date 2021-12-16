@@ -13,8 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
 class RoleIsWorkflowCondition implements WorkflowConditionInterface
 {
-    public const TYPE = 'roleId_EXACTLY_CONDITION';
-    public const PHRASE = 'roleId_EXACTLY_CONDITION_PHRASE';
+    public const TYPE = 'ROLE_IS_CONDITION';
+    public const PHRASE = 'ROLE_IS_CONDITION_PHRASE';
 
     private RoleId $roleId;
 

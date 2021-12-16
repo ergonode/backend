@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfiguration;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 use Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionConfigurationProvider;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

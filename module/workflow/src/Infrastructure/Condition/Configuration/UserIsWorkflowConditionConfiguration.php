@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Condition\Configuration;
 
@@ -52,5 +52,4 @@ class UserIsWorkflowConditionConfiguration implements WorkflowConditionConfigura
             $parameters
         );
     }
-
 }

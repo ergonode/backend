@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Condition\Configuration;
 
-class WorkflowConditionConfigurationParameterInterface
+interface WorkflowConditionConfigurationParameterInterface
 {
 
 }

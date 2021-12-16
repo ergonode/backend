@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Condition;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 use Webmozart\Assert\Assert;
 

@@ -13,8 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 class UserIsWorkflowCondition implements WorkflowConditionInterface
 {
-    public const TYPE = 'USER_EXACTLY_CONDITION';
-    public const PHRASE = 'USER_EXACTLY_CONDITION_PHRASE';
+    public const TYPE = 'USER_IS_CONDITION';
+    public const PHRASE = 'USER_IS_CONDITION_PHRASE';
 
     private UserId $userId;
 
