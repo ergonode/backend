@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Domain\Service;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Calculator\WorkflowConditionCalculator;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 class StatusCalculationService
 {
@@ -22,8 +23,8 @@ class StatusCalculationService
         $this->calculator = $calculator;
     }
 
-    public function available(Transition $transition, AbstractProduct $product): bool
+    public function available(Transition $transition, AbstractProduct $product, Language $language): bool
     {
-        return $this->calculator->calculate($transition, $product);
+        return $this->calculator->calculate($transition, $product, $language);
     }
 }
