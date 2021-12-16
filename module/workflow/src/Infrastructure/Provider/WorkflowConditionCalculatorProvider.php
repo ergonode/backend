@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
-use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionCalculatorInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionCalculatorInterface;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 class WorkflowConditionCalculatorProvider

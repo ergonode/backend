@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionConfigurationInterface;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfiguration;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionConfigurationInterface;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 
 class WorkflowConditionConfigurationProvider
 {

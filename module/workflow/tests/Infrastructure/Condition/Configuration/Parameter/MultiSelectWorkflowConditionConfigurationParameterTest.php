@@ -9,8 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Tests\Infrastructure\Condition\Configuration\Parameter;
 
 use PHPUnit\Framework\TestCase;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\
-MultiSelectWorkflowConditionConfigurationParameter;
+use Ergonode\Workflow\Domain\Condition\Configuration\Parameter\MultiSelectWorkflowConditionConfigurationParameter;
 
 class MultiSelectWorkflowConditionConfigurationParameterTest extends TestCase
 {

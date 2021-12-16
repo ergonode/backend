@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Infrastructure\Condition\Configuration;
+namespace Ergonode\Workflow\Domain\Condition\Configuration;
 
 use Webmozart\Assert\Assert;
 
@@ -16,18 +16,26 @@ class WorkflowConditionConfiguration
 
     private string $phrase;
 
+    private string $type;
+
     /**
      * @var WorkflowConditionConfigurationParameterInterface[]
      */
     private array $parameters;
 
-    public function __construct(string $name, string $phrase, array $parameters)
+    public function __construct(string $type, string $name, string $phrase, array $parameters)
     {
         Assert::allIsInstanceOf($parameters, WorkflowConditionConfigurationParameterInterface::class);
 
+        $this->type = $type;
         $this->name = $name;
         $this->phrase = $phrase;
         $this->parameters = $parameters;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public function getName(): string

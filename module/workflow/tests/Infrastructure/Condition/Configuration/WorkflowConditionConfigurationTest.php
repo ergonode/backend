@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Infrastructure\Condition\Configuration;
 
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfiguration;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfigurationParameterInterface;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface;
 
 class WorkflowConditionConfigurationTest extends TestCase
 {

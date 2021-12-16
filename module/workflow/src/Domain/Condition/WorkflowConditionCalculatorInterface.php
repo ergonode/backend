@@ -7,11 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Infrastructure\Condition;
+namespace Ergonode\Workflow\Domain\Condition;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 interface WorkflowConditionCalculatorInterface
 {
