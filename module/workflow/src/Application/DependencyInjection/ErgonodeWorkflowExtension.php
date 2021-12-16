@@ -25,6 +25,7 @@ use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionValidatorInterfa
 
 class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {
+    //todo delete const
     public const CONDITION_GROUP_NAME = 'workflow';
     public const CONDITION_PARAMETER_NAME = 'ergonode_workflow.conditions';
 

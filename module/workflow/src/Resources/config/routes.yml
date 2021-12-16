@@ -26,4 +26,4 @@ ergonode_product_workflow:
 ergonode_condition_workflow:
     resource: '../../Application/Controller/Api/Condition/*'
     type: 'annotation'
-    prefix: '/api/v1/{language}/workflow/condition'
+    prefix: '/api/v1/{language}/workflow'
