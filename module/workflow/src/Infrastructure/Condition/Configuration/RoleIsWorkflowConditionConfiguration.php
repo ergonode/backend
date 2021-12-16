@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Workflow\Domain\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Condition\Domain\Condition\RoleExactlyCondition;
 use Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition;
 
 class RoleIsWorkflowConditionConfiguration implements WorkflowConditionConfigurationInterface
