@@ -39,7 +39,7 @@ class WorkflowConditionValidatorBuilder
                     throw new \InvalidArgumentException('Type not found in condition');
                 }
 
-                $constraint = $this->provider->resolve($condition['type'])->build();
+                $constraint = $this->provider->provide($condition['type'])->build();
                 unset($condition['type']);
                 $violations = $context->getValidator()->validate($condition, $constraint);
                 if (0 !== $violations->count()) {

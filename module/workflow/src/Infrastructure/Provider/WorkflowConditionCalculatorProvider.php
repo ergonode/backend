@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Provider;
 
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionCalculatorInterface;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
+use Webmozart\Assert\Assert;
 
 class WorkflowConditionCalculatorProvider
 {
@@ -24,6 +25,8 @@ class WorkflowConditionCalculatorProvider
      */
     public function __construct(iterable $strategies)
     {
+        Assert::allIsInstanceOf($strategies, WorkflowConditionCalculatorInterface::class);
+
         $this->strategies = $strategies;
     }
 

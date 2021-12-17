@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Infrastructure\Provider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionConfigurationInterface;
 use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
+use Webmozart\Assert\Assert;
 
 class WorkflowConditionConfigurationProvider
 {
@@ -25,10 +26,12 @@ class WorkflowConditionConfigurationProvider
      */
     public function __construct(iterable $strategies)
     {
+        Assert::allIsInstanceOf($strategies, WorkflowConditionConfigurationInterface::class);
+
         $this->strategies = $strategies;
     }
 
-    public function getConfiguration(Language $language, string $type): WorkflowConditionConfiguration
+    public function provide(Language $language, string $type): WorkflowConditionConfiguration
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($type)) {
