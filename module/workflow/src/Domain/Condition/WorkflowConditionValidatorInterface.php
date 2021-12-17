@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Infrastructure\Condition;
+namespace Ergonode\Workflow\Domain\Condition;
 
 use Symfony\Component\Validator\Constraint;
 

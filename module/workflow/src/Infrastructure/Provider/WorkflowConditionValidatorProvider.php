@@ -8,7 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
-use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionValidatorInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionValidatorInterface;
+use Webmozart\Assert\Assert;
 
 class WorkflowConditionValidatorProvider
 {
@@ -19,13 +20,15 @@ class WorkflowConditionValidatorProvider
 
     public function __construct(iterable ...$strategies)
     {
+        Assert::allIsInstanceOf($strategies, WorkflowConditionValidatorInterface::class);
+
         $this->strategies = $strategies;
     }
 
     /**
      * @throws \OutOfBoundsException
      */
-    public function resolve(string $type): WorkflowConditionValidatorInterface
+    public function provide(string $type): WorkflowConditionValidatorInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($type)) {

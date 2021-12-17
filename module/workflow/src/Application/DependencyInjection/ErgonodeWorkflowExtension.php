@@ -21,7 +21,7 @@ use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactor
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionConfigurationInterface;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionCalculatorInterface;
-use Ergonode\Workflow\Infrastructure\Condition\WorkflowConditionValidatorInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionValidatorInterface;
 
 class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {

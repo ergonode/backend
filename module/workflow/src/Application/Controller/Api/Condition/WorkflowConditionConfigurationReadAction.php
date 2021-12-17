@@ -59,7 +59,7 @@ class WorkflowConditionConfigurationReadAction
     public function __invoke(Language $language, string $condition): WorkflowConditionConfiguration
     {
         try {
-            return $this->provider->getConfiguration($language, $condition);
+            return $this->provider->provide($language, $condition);
         } catch (\RuntimeException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }

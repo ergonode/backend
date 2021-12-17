@@ -11,11 +11,11 @@ namespace Ergonode\Workflow\Tests\Application\Controller\Api\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Application\Controller\Api\Condition\WorkflowConditionConfigurationReadAction;
-use Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfiguration;
 use Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionConfigurationProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 
 class WorkflowConditionConfigurationReadActionTest extends TestCase
 {
@@ -36,7 +36,7 @@ class WorkflowConditionConfigurationReadActionTest extends TestCase
     public function testAction(): void
     {
         $configuration = $this->createMock(WorkflowConditionConfiguration::class);
-        $this->mockProvider->expects(self::once())->method('getConfiguration')->willReturn($configuration);
+        $this->mockProvider->expects(self::once())->method('provide')->willReturn($configuration);
         $language = new Language('en_GB');
         $condition = 'TEST';
 
@@ -50,7 +50,7 @@ class WorkflowConditionConfigurationReadActionTest extends TestCase
     public function testNoConfig(): void
     {
         $this->expectException(NotFoundHttpException::class);
-        $this->mockProvider->expects(self::once())->method('getConfiguration')->will(
+        $this->mockProvider->expects(self::once())->method('provide')->will(
             $this->throwException(new \RuntimeException())
         );
         $language = new Language('en_GB');
