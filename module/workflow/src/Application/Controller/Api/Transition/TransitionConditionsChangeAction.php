@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
@@ -24,7 +24,7 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 
 /**
  * @Route(
- *     name="ergonode_workflow_transition_change",
+ *     name="ergonode_workflow_transition_condition_change",
  *     path="/workflow/default/transitions/{from}/{to}/conditions",
  *     methods={"PUT"},
  *     requirements={
@@ -44,9 +44,9 @@ class TransitionConditionsChangeAction
     private WorkflowConditionValidatorBuilder $builder;
 
     public function __construct(
-        ValidatorInterface                $validator,
-        NormalizerInterface               $normalizer,
-        CommandBusInterface               $commandBus,
+        ValidatorInterface $validator,
+        NormalizerInterface $normalizer,
+        CommandBusInterface $commandBus,
         WorkflowConditionValidatorBuilder $builder
     ) {
         $this->validator = $validator;
@@ -101,7 +101,10 @@ class TransitionConditionsChangeAction
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data));
+        $builder = $this->builder->build($data);
+
+        $violations = $this->validator->validate($data, $builder);
+
         if (0 === $violations->count()) {
             $data['id'] = $workflow->getId()->getValue();
             $data['from'] = $from->getId()->getValue();

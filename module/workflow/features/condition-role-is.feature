@@ -1,4 +1,4 @@
-Feature: Workflow Condition product completeness
+Feature: Workflow Condition role is
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -16,22 +16,6 @@ Feature: Workflow Condition product completeness
       """
     Then the response status code should be 201
     And store response param "id" as "role_id"
-
-  Scenario: Create user
-    When I send a POST request to "/api/v1/en_GB/accounts" with body:
-      """
-      {
-          "email": "@@random_uuid@@@ergonode.com",
-          "firstName": "Test",
-          "lastName": "Test",
-          "language": "en_GB",
-          "password": 12345678,
-          "passwordRepeat": 12345678,
-          "roleId": "@role_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "user_id"
 
   Scenario: Create from status
     When I send a POST request to "/api/v1/en_GB/status" with body:
@@ -71,13 +55,13 @@ Feature: Workflow Condition product completeness
       {
         "conditions": [
           {
-            "type": "USER_IS_CONDITION"
+            "type": "ROLE_IS_CONDITION"
           }
         ]
       }
       """
     Then the response status code should be 400
-    And the JSON node "errors.conditions.element-0.user[0]" should exist
+    And the JSON node "errors.conditions.element-0.role[0]" should exist
 
   Scenario: Update incorrect condition (user not uuid)
     When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions" with body:
@@ -85,14 +69,14 @@ Feature: Workflow Condition product completeness
       {
         "conditions": [
           {
-            "type": "USER_IS_CONDITION",
-            "user" :"nor uuid"
+            "type": "ROLE_IS_CONDITION",
+            "role" :"not uuid"
           }
         ]
       }
       """
     Then the response status code should be 400
-    And the JSON node "errors.conditions.element-0.user[0]" should exist
+    And the JSON node "errors.conditions.element-0.role[0]" should exist
 
   Scenario: Update incorrect condition (user not uuid)
     When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions" with body:
@@ -100,14 +84,14 @@ Feature: Workflow Condition product completeness
       {
         "conditions": [
           {
-            "type": "USER_IS_CONDITION",
-            "user" :"nor uuid"
+            "type": "ROLE_IS_CONDITION",
+            "role" :"@@random_uuid@@"
           }
         ]
       }
       """
     Then the response status code should be 400
-    And the JSON node "errors.conditions.element-0.user[0]" should exist
+    And the JSON node "errors.conditions.element-0.role[0]" should exist
 
   Scenario: Update empty transition conditions to workflow
     When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions" with body:
@@ -115,8 +99,8 @@ Feature: Workflow Condition product completeness
       {
         "conditions": [
           {
-            "type": "USER_IS_CONDITION",
-            "user": "@user_id@"
+            "type": "ROLE_IS_CONDITION",
+            "role": "@role_id@"
           }
         ]
       }
@@ -126,4 +110,4 @@ Feature: Workflow Condition product completeness
   Scenario: Get conditions from transition in workflow
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions"
     Then the response status code should be 200
-    And the JSON node "[0].type" should contain "USER_IS_CONDITION"
+    And the JSON node "[0].type" should contain "ROLE_IS_CONDITION"

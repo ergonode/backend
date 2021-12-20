@@ -19,7 +19,7 @@ use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 /**
  * @Route(
- *     name="ergonode_workflow_transition_cindition/read",
+ *     name="ergonode_workflow_transition_cindition_read",
  *     path="/workflow/default/transitions/{from}/{to}/conditions",
  *     methods={"GET"},
  *     requirements={

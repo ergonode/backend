@@ -21,7 +21,11 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  * @Route(
  *     name="ergonode_workflow_transition_read",
  *     path="/workflow/default/transitions/{from}/{to}",
- *     methods={"GET"}
+ *     methods={"GET"},
+ *     requirements={
+ *        "from"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *        "to"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *     }
  * )
  */
 class TransitionReadAction

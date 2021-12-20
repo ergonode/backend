@@ -19,6 +19,11 @@ class ProductCompletenessWorkflowCondition implements WorkflowConditionInterface
     public const COMPLETE = 'complete';
     public const NOT_COMPLETE = 'not complete';
 
+    public const OPTIONS = [
+        self::COMPLETE,
+        self::NOT_COMPLETE,
+    ];
+
     public const PRODUCT_COMPLETE = 'PRODUCT_COMPLETE';
     public const PRODUCT_NOT_COMPLETE = 'PRODUCT_NOT_COMPLETE';
 

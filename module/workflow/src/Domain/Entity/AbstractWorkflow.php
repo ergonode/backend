@@ -237,7 +237,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         return $this->transitions;
     }
 
-    /**
+    /*
      * @return Transition[]
      */
     public function getTransitionsFromStatus(StatusId $id): array
@@ -405,7 +405,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     ): void {
         $transition = $this->getTransition($event->getFrom(), $event->getTo());
 
-        $this->transitions[$transition->getTo()->getValue()] = new Transition(
+        $this->transitions[$transition->getId()->getValue()] = new Transition(
             $transition->getId(),
             $transition->getFrom(),
             $transition->getTo(),
