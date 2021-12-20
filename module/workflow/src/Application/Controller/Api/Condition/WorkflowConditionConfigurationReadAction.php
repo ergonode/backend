@@ -19,7 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_workflow_condition_configuration_read",
- *     path="/condition/{condition}",
+ *     path="/{condition}",
+ *     requirements={"condition"="[A-Z_]+"},
  *     methods={"GET"}
  * )
  */
