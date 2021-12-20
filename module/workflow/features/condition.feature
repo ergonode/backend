@@ -5,8 +5,12 @@ Feature: Workflow Condition
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Get condition configuration (not found)
-    When I send a GET request to "/api/v1/en_GB/workflow/condition/asd"
+  Scenario: Get condition list
+    When I send a GET request to "/api/v1/en_GB/workflow/condition/dictionary"
+    Then the response status code should be 200
+
+  Scenario: Get condition (not found)
+    When I send a GET request to "/api/v1/en_GB/workflow/condition/ASD"
     Then the response status code should be 404
 
   Scenario Outline: Get condition configuration (<type>)
