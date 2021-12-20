@@ -25,9 +25,6 @@ use Ergonode\Workflow\Domain\Condition\WorkflowConditionValidatorInterface;
 
 class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {
-    public const CONDITION_GROUP_NAME = 'workflow';
-    public const CONDITION_PARAMETER_NAME = 'ergonode_workflow.conditions';
-
     /**
      * @param array $configs
      *
@@ -69,6 +66,7 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(WorkflowConditionValidatorInterface::class)
             ->addTag('workflow.workflow_condition_validator_interface');
+
 
         $configuration = new Configuration();
         $processedConfig = $this->processConfiguration($configuration, $configs);
