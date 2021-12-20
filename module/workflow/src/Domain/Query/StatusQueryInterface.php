@@ -32,4 +32,9 @@ interface StatusQueryInterface
      * @return mixed[][]
      */
     public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array;
+
+    /**
+     * @return array
+     */
+    public function getAllStatusIds(): array;
 }
