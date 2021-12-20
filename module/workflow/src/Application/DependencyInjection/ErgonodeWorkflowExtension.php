@@ -66,12 +66,6 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(WorkflowConditionValidatorInterface::class)
             ->addTag('workflow.workflow_condition_validator_interface');
-
-
-        $configuration = new Configuration();
-        $processedConfig = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter(self::CONDITION_PARAMETER_NAME, $processedConfig['conditions']);
     }
 
     /**
