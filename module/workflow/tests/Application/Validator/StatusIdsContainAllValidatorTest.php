@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Application\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Application\Validator\StatusIdsContainAll;
 use Ergonode\Workflow\Application\Validator\StatusIdsContainAllValidator;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
@@ -43,7 +42,7 @@ class StatusIdsContainAllValidatorTest extends ConstraintValidatorTestCase
 
     public function testStatusIdsContainAllValidation(): void
     {
-        $value = [new StatusId('f3b39ae7-cf4c-4f6d-bb03-bf70f5f19c35')];
+        $value = ['f3b39ae7-cf4c-4f6d-bb03-bf70f5f19c35'];
         $this->query->method('getAllStatusIds')->willReturn(['f3b39ae7-cf4c-4f6d-bb03-bf70f5f19c35']);
         $this->validator->validate($value, new StatusIdsContainAll());
 
@@ -52,8 +51,8 @@ class StatusIdsContainAllValidatorTest extends ConstraintValidatorTestCase
 
     public function testStatusIdsContainAllInvalidValidation(): void
     {
-        $value = [new StatusId('f3b39ae7-cf4c-4f6d-bb03-bf70f5f19c35')];
-        $this->query->method('getDictionary')->willReturn(['ecf32584-0c38-467a-b101-ee2a75435532']);
+        $value = ['f3b39ae7-cf4c-4f6d-bb03-bf70f5f19c35'];
+        $this->query->method('getAllStatusIds')->willReturn(['ecf32584-0c38-467a-b101-ee2a75435532']);
         $constraint = new StatusIdsContainAll();
         $this->validator->validate($value, $constraint);
         $assertion = $this->buildViolation($constraint->message);
