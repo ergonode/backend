@@ -57,7 +57,7 @@ Feature: Workflow
     And the JSON nodes should contain:
       | errors.statusIds.element-0[0] | cfdf2acf-db2f-553f-9ae1-0e2809e572c1 is not valid Status Id |
 
-  Scenario: Set status order (one invalid UUID
+  Scenario: Set status order (one invalid UUID)
     When I send a POST request to "/api/v1/en_GB/status/order" with body:
       """
    {
