@@ -9,36 +9,29 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
-use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 /**
  * @Route(
- *     name="ergonode_workflow_transition_delete",
- *     path="/workflow/default/transitions/{from}/{to}",
- *     methods={"DELETE"},
+ *     name="ergonode_workflow_transition_cindition_read",
+ *     path="/workflow/default/transitions/{from}/{to}/conditions",
+ *     methods={"GET"},
  *     requirements={
  *        "from"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
  *        "to"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     }
  * )
  */
-class TransitionDeleteAction
+class TransitionConditionsReadAction
 {
-    private CommandBusInterface $commandBus;
-
-    public function __construct(CommandBusInterface $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
     /**
-     * @IsGranted("ERGONODE_ROLE_WORKFLOW_DELETE_TRANSITION")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
@@ -59,25 +52,27 @@ class TransitionDeleteAction
      *     name="language",
      *     in="path",
      *     type="string",
-     *     description="Language code",
-     *     default="en_GB"
+     *     required=true,
+     *     default="en_GB",
+     *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=204,
-     *     description="Success"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Request status parameter not correct"
+     *     response=200,
+     *     description="Returns status",
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Status not found"
+     *     description="Not found",
      * )
+     *
+     * @return WorkflowConditionInterface[]
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $from, Status $to): void
+    public function __invoke(AbstractWorkflow $workflow, Status $from, Status $to): array
     {
-        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $from->getId(), $to->getId());
-        $this->commandBus->dispatch($command);
+        if ($workflow->hasTransition($from->getId(), $to->getId())) {
+            return $workflow->getTransition($from->getId(), $to->getId())->getConditions();
+        }
+
+        throw new NotFoundHttpException();
     }
 }

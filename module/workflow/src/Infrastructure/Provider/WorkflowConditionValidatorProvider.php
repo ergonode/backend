@@ -18,7 +18,7 @@ class WorkflowConditionValidatorProvider
      */
     private iterable $strategies;
 
-    public function __construct(iterable ...$strategies)
+    public function __construct(iterable $strategies)
     {
         Assert::allIsInstanceOf($strategies, WorkflowConditionValidatorInterface::class);
 

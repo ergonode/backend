@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Ergonode\Workflow\Infrastructure\Condition\ProductCompletenessWorkflowCondition;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class ProductCompletenessWorkflowConditionValidator implements WorkflowConditionValidatorInterface
 {
@@ -26,6 +27,7 @@ class ProductCompletenessWorkflowConditionValidator implements WorkflowCondition
         return new Collection([
             'completeness' => [
                 new NotBlank(),
+                new Choice(ProductCompletenessWorkflowCondition::OPTIONS),
             ],
         ]);
     }

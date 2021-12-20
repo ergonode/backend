@@ -15,6 +15,8 @@ use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
+use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionConditionsChangedEvent;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -85,6 +87,10 @@ final class Version20211208071117 extends AbstractErgonodeMigration
                 WHERE aggregate_id IN (SELECT id FROM workflow)
                 ',
         );
+
+        $this->createEventStoreEvents([
+            WorkflowTransitionConditionsChangedEvent::class => 'Change transition conditions',
+        ]);
     }
 
     private function getConditionSetIds(): array
@@ -144,5 +150,20 @@ final class Version20211208071117 extends AbstractErgonodeMigration
                 'aggregateIds' => Connection::PARAM_STR_ARRAY,
             ]
         );
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
+        }
     }
 }

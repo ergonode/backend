@@ -39,18 +39,26 @@ class WorkflowConditionValidatorBuilder
                     throw new \InvalidArgumentException('Type not found in condition');
                 }
 
-                $constraint = $this->provider->provide($condition['type'])->build();
-                unset($condition['type']);
-                $violations = $context->getValidator()->validate($condition, $constraint);
-                if (0 !== $violations->count()) {
-                    /** @var ConstraintViolation $violation */
-                    foreach ($violations as $violation) {
-                        $path = sprintf('[%d]%s', $index, $violation->getPropertyPath());
-                        $context
-                            ->buildViolation($violation->getMessage(), $violation->getParameters())
-                            ->atPath($path)
-                            ->addViolation();
+                try {
+                    $builder = $this->provider->provide($condition['type']);
+                    unset($condition['type']);
+                    $violations = $context->getValidator()->validate($condition, $builder->build());
+                    if (0 !== $violations->count()) {
+                        /** @var ConstraintViolation $violation */
+                        foreach ($violations as $violation) {
+                            $path = sprintf('[%d]%s', $index, $violation->getPropertyPath());
+                            $context
+                                ->buildViolation($violation->getMessage(), $violation->getParameters())
+                                ->atPath($path)
+                                ->addViolation();
+                        }
                     }
+                } catch (\OutOfBoundsException $exception) {
+                    $path = sprintf('[element-%d].%s', $index, 'type');
+                    $context
+                        ->buildViolation('Invalid type')
+                        ->atPath($path)
+                        ->addViolation();
                 }
             }
         };
