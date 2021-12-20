@@ -44,14 +44,11 @@ class StatusIdsContainAllValidator extends ConstraintValidator
         }
 
         $allStatusIds = $this->query->getAllStatusIds();
-        $statusIdsValues = array_map(function ($item) {
-            return $item->getValue();
-        }, $value);
 
         sort($allStatusIds);
-        sort($statusIdsValues);
+        sort($value);
 
-        if ($statusIdsValues !== $allStatusIds) {
+        if ($value !== $allStatusIds) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

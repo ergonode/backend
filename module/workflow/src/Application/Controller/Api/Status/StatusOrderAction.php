@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Status;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Application\Form\Model\StatusOrderSetFormModel;
 use Ergonode\Workflow\Application\Form\StatusOrderSetForm;
@@ -81,10 +82,11 @@ class StatusOrderAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var StatusOrderSetFormModel $data */
                 $data = $form->getData();
+                $statusIds = array_map(function ($item) {
+                    return new StatusId($item);
+                }, $data->statusIds);
 
-                $command = new SetStatusOrderCommand(
-                    $data->statusIds
-                );
+                $command = new SetStatusOrderCommand($statusIds);
 
                 $this->commandBus->dispatch($command);
             } else {

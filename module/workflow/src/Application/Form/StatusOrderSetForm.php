@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Form;
 
 use Ergonode\Workflow\Application\Form\Model\StatusOrderSetFormModel;
-use Ergonode\Workflow\Application\Form\Type\StatusIdsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,7 +30,7 @@ class StatusOrderSetForm extends AbstractType
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => StatusIdsType::class,
+                    'entry_type' => TextType::class,
                 ]
             );
     }
