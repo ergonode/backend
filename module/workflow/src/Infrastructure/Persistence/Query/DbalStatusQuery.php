@@ -109,6 +109,17 @@ class DbalStatusQuery implements StatusQueryInterface
         return array_values($result);
     }
 
+    public function getAllStatusIds(): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id')
+            ->from(self::STATUS_TABLE, 'a')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

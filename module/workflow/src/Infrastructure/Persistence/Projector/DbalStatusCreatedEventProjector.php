@@ -33,22 +33,17 @@ class DbalStatusCreatedEventProjector
      */
     public function __invoke(StatusCreatedEvent $event): void
     {
-        $maxIndex = $this->connection->createQueryBuilder()
-            ->select('max(index)')
-            ->from(self::TABLE)
-            ->execute()
-            ->fetchOne();
-
-        $this->connection->insert(
-            self::TABLE,
+        $sql = 'INSERT INTO '.self::TABLE.'(id, code, name, description, color, index)
+                VALUES(:id, :code, :name, :description, :color, COALESCE((SELECT MAX(index) + 1 FROM status),0))';
+        $this->connection->executeQuery(
+            $sql,
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
                 'name' => $this->serializer->serialize($event->getName()->getTranslations()),
                 'description' => $this->serializer->serialize($event->getDescription()->getTranslations()),
                 'color' => $event->getColor()->getValue(),
-                'index' => $maxIndex + 1,
-            ]
+            ],
         );
     }
 }
