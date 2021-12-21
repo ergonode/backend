@@ -34,14 +34,8 @@ final class Version20211122120000 extends AbstractErgonodeMigration
         $this->cleanAfter();
 
 
-        $this->addSql(
-            'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
-            [
-                Uuid::uuid4()->toString(),
-                WorkflowTransitionConditionsChangedEvent::class,
-                'Change transition conditions',
-            ]
-        );
+        $this->addNewEvent();
+        $this->addNewPrivilege();
     }
 
     private function cleanConditionSet(): void
@@ -423,5 +417,93 @@ final class Version20211122120000 extends AbstractErgonodeMigration
         ];
 
         return $this->workflow;
+    }
+
+    private function addNewEvent(): void
+    {
+        $this->addSql(
+            'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+            [
+                Uuid::uuid4()->toString(),
+                WorkflowTransitionConditionsChangedEvent::class,
+                'Change transition conditions',
+            ]
+        );
+    }
+
+    private function addNewPrivilege(): void
+    {
+        $this->insertEndpointPrivileges(
+            [
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION_DICTIONARY',
+                'ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_CONDITION',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'WORKFLOW_READ',
+            [
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION_DICTIONARY',
+                'ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_CONDITION',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'WORKFLOW_CREATE',
+            [
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION_DICTIONARY',
+                'ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_CONDITION',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'WORKFLOW_UPDATE',
+            [
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_CONDITION_DICTIONARY',
+                'ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION_CONDITION',
+                'ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_CONDITION',
+            ]
+        );
+    }
+
+    /**
+     * @param string[] $privileges
+     */
+    private function insertEndpointPrivileges(array $privileges): void
+    {
+        foreach ($privileges as $privilege) {
+            $this->addSql(
+                'INSERT INTO privileges_endpoint (id, name) VALUES (?, ?)',
+                [Uuid::uuid4()->toString(), $privilege]
+            );
+        }
+    }
+
+    /**
+     * @param string[] $endpoints
+     */
+    private function insertPrivileges(string $privilege, array $endpoints): void
+    {
+        $this->addSql(
+            'INSERT INTO privileges_endpoint_privileges (privileges_id, privileges_endpoint_id)
+                    SELECT p.id, pe.id 
+                    FROM privileges_endpoint pe, "privileges" p 
+                    WHERE p.code = :privilege
+                    AND pe."name" IN(:endpoints)
+            ',
+            [
+                ':privilege' => $privilege,
+                ':endpoints' => $endpoints,
+            ],
+            [
+                ':endpoints' => Connection::PARAM_STR_ARRAY,
+            ]
+        );
     }
 }

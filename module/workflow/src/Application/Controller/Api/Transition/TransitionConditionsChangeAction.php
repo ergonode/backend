@@ -56,7 +56,7 @@ class TransitionConditionsChangeAction
     }
 
     /**
-     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_PUT_TRANSITION_CONDITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
