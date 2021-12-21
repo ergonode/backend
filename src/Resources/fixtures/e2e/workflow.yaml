@@ -1,0 +1,6 @@
+Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
+    add_status_new:
+        __construct:
+            - '<workflowId(default)>'
+            - '<statusId(new)>'
+            - '<statusId(draft)>'
