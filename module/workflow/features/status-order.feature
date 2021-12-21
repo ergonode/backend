@@ -74,3 +74,33 @@ Feature: Workflow
     Then the response status code should be 400
     And the JSON nodes should contain:
       | errors.statusIds.element-4[0] | This is not a valid UUID |
+
+  Scenario: Get status grid
+    When I send a GET request to "/api/v1/en_GB/status"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].id | cfdf2acf-db2e-553f-9ae1-0e2809e572c1 |
+      | collection[1].id | b63f2345-3679-5eb6-a013-f41d41b62f66 |
+
+  Scenario: Set status order (changing order)
+    When I send a POST request to "/api/v1/en_GB/status/order" with body:
+      """
+   {
+  "statusIds": [
+    "b63f2345-3679-5eb6-a013-f41d41b62f66",
+    "5d47ce05-9008-517c-a9ac-58c93ac0924b",
+    "380ea12b-2f03-59ae-a625-702a165ff1ca",
+    "163081ad-1ea6-5c1a-b3aa-92cebf07a179",
+    "c32f967b-1cb2-56a6-8873-e8af9d20f0e6",
+    "cfdf2acf-db2e-553f-9ae1-0e2809e572c1"
+            ]
+  }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get status grid
+    When I send a GET request to "/api/v1/en_GB/status"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].id | b63f2345-3679-5eb6-a013-f41d41b62f66 |
+      | collection[5].id | cfdf2acf-db2e-553f-9ae1-0e2809e572c1 |
