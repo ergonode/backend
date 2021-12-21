@@ -66,7 +66,7 @@ class StatusGridBuilder implements GridBuilderInterface
                     'method' => Request::METHOD_DELETE,
                 ],
             ]))
-            ->orderBy('code', 'DESC');
+            ->orderBy('index', 'ASC');
 
         return $grid;
     }
