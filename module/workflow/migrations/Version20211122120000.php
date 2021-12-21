@@ -95,8 +95,8 @@ final class Version20211122120000 extends AbstractErgonodeMigration
                 'event' => [
                     'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent',
                     'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent',
-                    'Ergonode\Workflow\Domain\Event\Workflow\TransitionConditionSetChangedEvent',
-                    'Ergonode\Workflow\Domain\Event\Workflow\TransitionRoleIdsChangedEvent',
+                    'Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent',
+                    'Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent'
 
                 ],
             ],
