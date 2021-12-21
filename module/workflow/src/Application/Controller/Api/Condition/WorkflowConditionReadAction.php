@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Application\Controller\Api\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionDictionaryProvider;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,6 +32,8 @@ class WorkflowConditionReadAction
     }
 
     /**
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_CONDITION_DICTIONARY")
+     *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
      *     name="language",
