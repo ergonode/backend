@@ -119,6 +119,7 @@ class DbalStatusQuery implements StatusQueryInterface
 
         return $qb->select('id')
             ->from(self::STATUS_TABLE, 'a')
+            ->orderBy('index', 'ASC')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
