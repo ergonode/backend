@@ -31,7 +31,7 @@ use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 class TransitionConditionsReadAction
 {
     /**
-     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_TRANSITION")
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_TRANSITION_CONDITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
