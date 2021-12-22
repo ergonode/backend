@@ -46,6 +46,7 @@ class DbalStatusQuery implements StatusQueryInterface
 
         $records = $qb->select(sprintf('id, code, color, name->>\'%s\' as name', $language->getCode()))
             ->from(self::STATUS_TABLE, 'a')
+            ->orderBy('index', 'ASC')
             ->execute()
             ->fetchAll();
 
