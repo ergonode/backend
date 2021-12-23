@@ -19,7 +19,7 @@ class UpdateAttributeGroupFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *       max=32,
+     *       max=128,
      *       maxMessage="Attribute group name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })

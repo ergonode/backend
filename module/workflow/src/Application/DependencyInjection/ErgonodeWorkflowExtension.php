@@ -79,5 +79,6 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');
+        $loader->load('messenger.yaml');
     }
 }
