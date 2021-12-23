@@ -10,6 +10,8 @@ namespace Ergonode\Workflow\Infrastructure\Query;
 
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Entity\Transition;
+use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
@@ -27,14 +29,18 @@ class ProductWorkflowQuery
 
     private AttributeQueryInterface $attributeQuery;
 
+    private StatusQueryInterface $statusQuery;
+
     public function __construct(
         StatusRepositoryInterface $statusRepository,
         StatusCalculationService $service,
-        AttributeQueryInterface $attributeQuery
+        AttributeQueryInterface $attributeQuery,
+        StatusQueryInterface $statusQuery
     ) {
         $this->statusRepository = $statusRepository;
         $this->service = $service;
         $this->attributeQuery = $attributeQuery;
+        $this->statusQuery = $statusQuery;
     }
 
     /**
@@ -66,8 +72,9 @@ class ProductWorkflowQuery
             ];
 
             $transitions = $workflow->getTransitionsFromStatus($statusId);
+            $sortedTransitions = $this->sortTransitions($transitions);
             $result['workflow'] = [];
-            foreach ($transitions as $transition) {
+            foreach ($sortedTransitions as $transition) {
                 if ($this->service->available($transition, $product)) {
                     $fromStatus = $this->statusRepository->load($transition->getTo());
                     Assert::notNull($fromStatus);
@@ -82,5 +89,23 @@ class ProductWorkflowQuery
         }
 
         return $result;
+    }
+
+    /**
+     * @param Transition[] $transitions
+     *
+     * @return Transition[]
+     */
+    private function sortTransitions(array $transitions): array
+    {
+        $sortedStatusIds = $this->statusQuery->getAllStatusIds();
+        $sortedTransitions = [];
+        foreach ($transitions as $transition) {
+            $position = array_search($transition->getTo()->getValue(), $sortedStatusIds, true);
+            $sortedTransitions[$position] = $transition;
+        }
+        ksort($sortedTransitions);
+
+        return $sortedTransitions;
     }
 }
