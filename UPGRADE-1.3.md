@@ -32,10 +32,6 @@ Workflow
 * The signature of constructor `CreateWorkflowCommand` has changed
 * The signature of constructor `UpdateWorkflowCommand` has changed
 * Limitation of conditions in Workflow Transition.
-* `Transition` class has change to simple ValueObject, 
-* methods `getConditionSetId`, `changeConditionSetId` and `changeRoleIds` of class `Transition` was removed  
-* The signature of constructor `Transition` has changed
-* method `changeTransitionConditionSetId` of class `AbstractWorkflow` was removed
 * New messenger transport `StatusTransport` was added, `status` receiver is required for setting product statuses for new added languages
 
 Value
