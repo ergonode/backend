@@ -33,7 +33,7 @@ class CategoryFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *       max=32,
+     *       max=128,
      *       maxMessage="Category name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
