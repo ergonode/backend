@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Migration;
 
@@ -68,11 +68,8 @@ final class Version20211219110000 extends AbstractErgonodeMigration
     private function removeEvents(string $eventId, string $code): void
     {
         $this->connection->executeQuery(
-            'DELETE FROM event_store WHERE event_id = :event and payload::TEXT ilike \'%:code%\'',
-            [
-                ':event' => $eventId,
-                ':code' => $code,
-            ]
+            'DELETE FROM event_store WHERE event_id = ? and payload::TEXT ilike \'%'.$code.'%\'',
+            [$eventId]
         );
     }
 
@@ -86,19 +83,14 @@ final class Version20211219110000 extends AbstractErgonodeMigration
         )->fetchOne();
 
         if ($attributeId) {
-            $this->connection->executeQuery(
+            $this->addSql(
                 'DELETE FROM value_translation WHERE value_id IN 
-                    (SELECT value_id FROM product_value WHERE attribute_id = :attribute)',
-                [
-                    ':attribute' => $attributeId,
-                ]
+                    (SELECT value_id FROM product_value WHERE attribute_id = ?)',
+                [$attributeId,]
             );
 
-            $this->connection->executeQuery(
-                'DELETE FROM product_value WHERE attribute_id = :attribute',
-                [
-                    ':attribute' => $attributeId,
-                ]
+            $this->addSql(
+                'DELETE FROM product_value WHERE attribute_id = ?', [$attributeId]
             );
         }
     }
