@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
+use Ergonode\Workflow\Application\Validator\StatusExists;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -34,6 +35,7 @@ class StatusAttributeValueConstraintStrategy implements AttributeValueConstraint
             'value' => [
                 new NotBlank(['message' => 'Status Must be set']),
                 new Length(['max' => 255]),
+                new StatusExists(),
             ],
         ]);
     }

@@ -17,7 +17,6 @@ use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuil
 
 class CompletenessSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
-
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof CompletenessSystemAttribute;
@@ -25,12 +24,11 @@ class CompletenessSystemAttributeDataSetQueryBuilder implements AttributeDataSet
 
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-
         $sql = sprintf(
             '(
-                SELECT completeness->>\'%s\'
+                SELECT COALESCE(completeness->>\'%s\',\'0\')::NUMERIC
                 FROM public.product pp
-                         LEFT JOIN public.product_completeness ppc ON ppc.product_id = pp.id
+                LEFT JOIN public.product_completeness ppc ON ppc.product_id = pp.id
                 WHERE pp.id = p.id     
                 LIMIT 1) as "%s"',
             $language->getCode(),
