@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Application\Controller\Api\Condition;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfiguration;
 use Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionConfigurationProvider;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route(
  *     name="ergonode_workflow_condition_configuration_read",
  *     path="/{condition}",
+ *     requirements={"condition"="[A-Z_]+"},
  *     methods={"GET"}
  * )
  */
@@ -33,6 +35,8 @@ class WorkflowConditionConfigurationReadAction
     }
 
     /**
+     * @IsGranted("ERGONODE_ROLE_WORKFLOW_GET_CONDITION")
+     *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
      *     name="language",

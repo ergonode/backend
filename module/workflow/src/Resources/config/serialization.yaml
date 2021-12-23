@@ -2,8 +2,10 @@ Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
     discriminator_map:
         type_property: 'type'
         mapping:
-            ATTRIBUTE_EXISTS_WORKFLOW_CONDITION: Ergonode\Workflow\Domain\Condition\AttributeExistsWorkflowCondition
-
+            ATTRIBUTE_EXISTS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\AttributeExistsWorkflowCondition
+            PRODUCT_COMPLETENESS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\ProductCompletenessWorkflowCondition
+            ROLE_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition
+            USER_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\userIsWorkflowCondition
 
 Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
     discriminator_map:
