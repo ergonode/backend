@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            status: "status://"
+        routing:
+            Ergonode\Workflow\Domain\Command\Product\SetProductDefaultWorkflowStatusCommand: 'status'
