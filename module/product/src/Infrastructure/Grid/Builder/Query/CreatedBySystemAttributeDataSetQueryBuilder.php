@@ -22,7 +22,15 @@ class CreatedBySystemAttributeDataSetQueryBuilder extends AbstractAttributeDataS
 
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $sql = sprintf('(SELECT id, created_by AS "%s" FROM audit)', $key);
+        $sql = sprintf(
+            '(
+            SELECT 
+                a.id, 
+                COALESCE(u.first_name || \' \' || u.last_name, \'System\') AS "%s" 
+            FROM audit a 
+            LEFT JOIN users u ON u.id = a.created_by)',
+            $key
+        );
         $query->addSelect(sprintf('"%s"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".id = p.id', $key));
     }
