@@ -11,6 +11,7 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -33,8 +34,7 @@ final class Version20211219110000 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('INSERT INTO audit (id, created_at, edited_at) SELECT id, created_at, updated_at FROM product');
-
+        $this->updateAudit();
         $eventId = $this->getEventId(ProductValueAddedEvent::class);
         $this->removeEvents($eventId, 'esa_created_at');
         $this->removeEvents($eventId, 'esa_created_by');
@@ -93,5 +93,29 @@ final class Version20211219110000 extends AbstractErgonodeMigration
                 'DELETE FROM product_value WHERE attribute_id = ?', [$attributeId]
             );
         }
+    }
+
+    private function updateAudit():void
+    {
+        $eventId = $this->getEventId(ProductCreatedEvent::class);
+
+        $this->addSql('INSERT INTO audit (id, created_at, edited_at) SELECT id, created_at, updated_at FROM product');
+
+        foreach ($this->getProducts() as $product) {
+            $this->addSql('UPDATE audit SET created_by = 
+                (SELECT recorded_by FROM event_store WHERE aggregate_id = ? AND event_id = ?)',
+                [$product, $eventId]
+            );
+
+            $this->addSql('UPDATE audit SET edited_by = 
+                (SELECT recorded_by FROM event_store WHERE aggregate_id = ? ORDER BY sequence DESC LIMIT 1)',
+                [$product]
+            );
+        }
+    }
+
+    private function getProducts(): array
+    {
+        return $this->connection->executeQuery('SELECT id FROM product')->fetchFirstColumn();
     }
 }
