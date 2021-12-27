@@ -4,14 +4,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
-use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -86,36 +85,31 @@ final class Version20211219110000 extends AbstractErgonodeMigration
             $this->addSql(
                 'DELETE FROM value_translation WHERE value_id IN 
                     (SELECT value_id FROM product_value WHERE attribute_id = ?)',
-                [$attributeId,]
+                [$attributeId]
             );
 
             $this->addSql(
-                'DELETE FROM product_value WHERE attribute_id = ?', [$attributeId]
+                'DELETE FROM product_value WHERE attribute_id = ?',
+                [$attributeId]
             );
         }
     }
 
-    private function updateAudit():void
+    private function updateAudit(): void
     {
-        $eventId = $this->getEventId(ProductCreatedEvent::class);
+        $this->addSql('INSERT INTO audit (id, created_at, edited_at) 
+                                SELECT id, created_at, updated_at FROM product');
 
-        $this->addSql('INSERT INTO audit (id, created_at, edited_at) SELECT id, created_at, updated_at FROM product');
+        $this->addSql('UPDATE audit 
+                           SET created_by = t.recorded_by
+                           FROM (SELECT aggregate_id, recorded_by FROM event_store 
+                                 WHERE id IN (SELECT min(id) FROM event_store group by aggregate_id)) AS t
+                           WHERE audit.id = t.aggregate_id');
 
-        foreach ($this->getProducts() as $product) {
-            $this->addSql('UPDATE audit SET created_by = 
-                (SELECT recorded_by FROM event_store WHERE aggregate_id = ? AND event_id = ?)',
-                [$product, $eventId]
-            );
-
-            $this->addSql('UPDATE audit SET edited_by = 
-                (SELECT recorded_by FROM event_store WHERE aggregate_id = ? ORDER BY sequence DESC LIMIT 1)',
-                [$product]
-            );
-        }
-    }
-
-    private function getProducts(): array
-    {
-        return $this->connection->executeQuery('SELECT id FROM product')->fetchFirstColumn();
+        $this->addSql('UPDATE audit 
+                           SET edited_by = t.recorded_by
+                           FROM (SELECT aggregate_id, recorded_by FROM event_store 
+                                 WHERE id IN (SELECT max(id) FROM event_store group by aggregate_id)) AS t
+                           WHERE audit.id = t.aggregate_id');
     }
 }
