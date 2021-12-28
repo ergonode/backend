@@ -40,6 +40,5 @@ class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
         if (StatusSystemAttribute::CODE !== $code->getValue()) {
             $this->insertValue($productId->getValue(), $attributeId->getValue(), $event->getValue());
         }
-        $this->updateAudit($event->getAggregateId());
     }
 }

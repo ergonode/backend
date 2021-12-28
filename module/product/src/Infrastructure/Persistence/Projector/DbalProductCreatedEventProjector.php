@@ -29,15 +29,12 @@ class DbalProductCreatedEventProjector
      */
     public function __invoke(ProductCreatedEvent $event): void
     {
-        $createdAt = (new \DateTime())->format(\DateTime::W3C);
         $this->connection->insert(
             self::TABLE_PRODUCT,
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
                 'template_id' => $event->getTemplateId()->getValue(),
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt,
                 'type' => $event->getType(),
             ]
         );

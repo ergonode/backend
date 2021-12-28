@@ -36,6 +36,5 @@ class DbalProductValueRemovedEventProjector extends AbstractProductValueProjecto
         Assert::notNull($attributeId);
 
         $this->delete($productId, $attributeId->getValue());
-        $this->updateAudit($event->getAggregateId());
     }
 }
