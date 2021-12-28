@@ -29,7 +29,5 @@ class DbalBindRemovedFromProductEventProjector extends AbstractProductProjector
                 'attribute_id' => $event->getAttributeId()->getValue(),
             ]
         );
-
-        $this->updateAudit($event->getAggregateId());
     }
 }

@@ -29,7 +29,5 @@ class DbalChildAddedToProductEventProjector extends AbstractProductProjector
                 'child_id' => $event->getChildId()->getValue(),
             ]
         );
-
-        $this->updateAudit($event->getAggregateId());
     }
 }
