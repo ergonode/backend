@@ -15,21 +15,15 @@ use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 
 class CreatedAtSystemAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof CreatedAtSystemAttribute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $sql = sprintf('p.created_at AS "%s"', $key);
-
-        $query->addSelect($sql);
+        $sql = sprintf('(SELECT id, created_at AS "%s" FROM audit)', $key);
+        $query->addSelect(sprintf('"%s"', $key));
+        $query->join('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".id = p.id', $key));
     }
 }

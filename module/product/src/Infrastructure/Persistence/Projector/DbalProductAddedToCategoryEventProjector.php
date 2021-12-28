@@ -28,7 +28,5 @@ class DbalProductAddedToCategoryEventProjector extends AbstractProductProjector
                 'category_id' => $event->getCategoryId()->getValue(),
             ]
         );
-
-        $this->updateAudit($event->getAggregateId());
     }
 }

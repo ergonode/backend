@@ -30,7 +30,5 @@ class DbalProductTemplateChangedEventProjector extends AbstractProductProjector
                 'id' => $event->getAggregateId(),
             ]
         );
-
-        $this->updateAudit($event->getAggregateId());
     }
 }

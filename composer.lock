@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b685720ae428655eacfc555452139005",
+    "content-hash": "8e2befd3a2e7347353ba17b8e7d170a3",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1193,16 +1193,16 @@
         },
         {
             "name": "ergonode/exporter-shopware-6",
-            "version": "dev-main",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergonode/exporter-shopware-6-backend.git",
-                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd"
+                "reference": "b3b6a79b44861e62d8c515212f038997e9df1591"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
-                "reference": "7345e435cc11d9c08c16ed5c59a94361c3a9fcbd",
+                "url": "https://api.github.com/repos/ergonode/exporter-shopware-6-backend/zipball/b3b6a79b44861e62d8c515212f038997e9df1591",
+                "reference": "b3b6a79b44861e62d8c515212f038997e9df1591",
                 "shasum": ""
             },
             "require": {
@@ -1230,7 +1230,6 @@
                 "symfony/monolog-bundle": "^3.5",
                 "symfony/phpunit-bridge": "^4.4"
             },
-            "default-branch": true,
             "type": "ergonode-module",
             "autoload": {
                 "psr-4": {
@@ -1245,9 +1244,9 @@
             "homepage": "https://ergonode.com",
             "support": {
                 "issues": "https://github.com/ergonode/exporter-shopware-6-backend/issues",
-                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/main"
+                "source": "https://github.com/ergonode/exporter-shopware-6-backend/tree/1.0.2"
             },
-            "time": "2021-04-30T09:14:27+00:00"
+            "time": "2021-11-15T14:01:41+00:00"
         },
         {
             "name": "ergonode/importer-magento-1",
@@ -13141,7 +13140,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ergonode/exporter-shopware-6": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,
