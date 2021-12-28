@@ -24,6 +24,5 @@ class DbalProductValueRemovedEventProjector extends AbstractProductValueProjecto
         $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
 
         $this->delete($productId, $attributeId);
-        $this->updateAudit($event->getAggregateId());
     }
 }

@@ -1,4 +1,7 @@
 ## CHANGELOG FOR 1.1.x
+#### 1.1.7
+- bugfix [#1816](https://github.com/ergonode/backend/issues/1816) Fixed product audits (rprzedzik)
+
 #### 1.1.6
 - bugfix [#1776](https://github.com/ergonode/backend/issues/1776) Fixed not recalculating segment for product on completeness update (piotrkreft)
 
