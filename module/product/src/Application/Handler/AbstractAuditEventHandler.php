@@ -11,7 +11,7 @@ namespace Ergonode\Product\Application\Handler;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\User\UserInterface;
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Application\Security\Security;
+use Symfony\Component\Security\Core\Security;
 
 abstract class AbstractAuditEventHandler
 {
