@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -28,6 +28,7 @@ class DbalProductQuery implements ProductQueryInterface, ProductWithVariantsQuer
     private const PRODUCT_TABLE = 'public.product';
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const VALUE_TABLE = 'public.product_value';
+    private const AUDIT_TABLE = 'audit';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
 
     private Connection $connection;
@@ -94,12 +95,13 @@ class DbalProductQuery implements ProductQueryInterface, ProductWithVariantsQuer
     {
         $qb = $this->connection->createQueryBuilder();
         $qb
-            ->select('id')
-            ->from(self::PRODUCT_TABLE);
+            ->select('p.id')
+            ->from(self::PRODUCT_TABLE, 'p')
+            ->join('p', self::AUDIT_TABLE, 'a', 'a.id = p.id');
         if ($dateTime) {
             $qb
-                ->where($qb->expr()->gte('updated_at', ':updatedAt'))
-                ->setParameter(':updatedAt', $dateTime, Types::DATETIMETZ_MUTABLE);
+                ->where($qb->expr()->gte('edited_at', ':editedAt'))
+                ->setParameter(':editedAt', $dateTime, Types::DATETIMETZ_MUTABLE);
         }
 
         $result = $qb

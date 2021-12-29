@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,13 +9,20 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Update;
 
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
-use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 
-class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
+class UpdateVariableProductCommandHandler
 {
+    private ProductRepositoryInterface $productRepository;
+
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     /**
      * @throws \Exception
      */
@@ -27,7 +34,6 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
 
         $product->changeTemplate($command->getTemplateId());
         $product->changeCategories($command->getCategories());
-        $product = $this->updateAudit($product);
 
         $this->productRepository->save($product);
     }
