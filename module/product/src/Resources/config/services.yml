@@ -53,6 +53,10 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Product\Application\Handler\:
+        resource: '../../Application/Handler/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Product\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']

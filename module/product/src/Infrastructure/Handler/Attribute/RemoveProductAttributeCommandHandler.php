@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Core\Application\Security\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Command\Attribute\RemoveProductAttributeCommand;
@@ -24,18 +23,14 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
 
     private ProductAttributeUpdater $updater;
 
-    private Security $security;
-
     public function __construct(
         ProductRepositoryInterface $repository,
         AttributeRepositoryInterface $attributeRepository,
-        ProductAttributeUpdater $updater,
-        Security $security
+        ProductAttributeUpdater $updater
     ) {
         $this->repository = $repository;
         $this->attributeRepository = $attributeRepository;
         $this->updater = $updater;
-        $this->security = $security;
     }
 
     /**
@@ -58,11 +53,6 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
         $value[$language->getCode()] = null;
 
         $this->updater->remove($product, $attribute, $value);
-
-        $user = $this->security->getUser();
-        if ($user) {
-            $this->updateAudit($user, $product);
-        }
 
         $this->repository->save($product);
     }
