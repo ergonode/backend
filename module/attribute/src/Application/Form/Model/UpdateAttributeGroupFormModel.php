@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -19,7 +19,7 @@ class UpdateAttributeGroupFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *       max=32,
+     *       max=128,
      *       maxMessage="Attribute group name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
