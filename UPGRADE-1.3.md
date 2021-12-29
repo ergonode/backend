@@ -32,6 +32,7 @@ Workflow
 * The signature of constructor `CreateWorkflowCommand` has changed
 * The signature of constructor `UpdateWorkflowCommand` has changed
 * Limitation of conditions in Workflow Transition.
+* New messenger transport `StatusTransport` was added, `status` receiver is required for setting product statuses for new added languages
 * `getAllStatusIds` method is added to `Ergonode\Workflow\Domain\Query\StatusQueryInterface`
 
 Value
