@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 
 class TransitionTest extends TestCase
 {
@@ -26,14 +24,15 @@ class TransitionTest extends TestCase
 
     private StatusId $to;
 
-    private ConditionSetId $conditionSetId;
+    /**
+     * @var WorkflowConditionInterface[]
+     */
+    private array $conditions;
 
     /**
      * @var RoleId[]
      */
     private array $roleIds;
-
-    private AbstractAggregateRoot $aggregateRoot;
 
     protected function setUp(): void
     {
@@ -42,55 +41,31 @@ class TransitionTest extends TestCase
         $this->from = $this->createMock(StatusId::class);
         $this->to = $this->createMock(StatusId::class);
         $this->roleIds = [$this->createMock(RoleId::class), $this->createMock(RoleId::class)];
-        $this->conditionSetId = $this->createMock(ConditionSetId::class);
-        $this->aggregateRoot = $this->createMock(AbstractAggregateRoot::class);
-        $this->aggregateRoot->method('getId')->willReturn($this->createMock(WorkflowId::class));
+        $this->conditions = [$this->createMock(WorkflowConditionInterface::class)];
     }
 
     public function testTransitionCreation(): void
     {
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
+        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditions);
+
         self::assertSame($this->id, $transition->getId());
         self::assertSame($this->from, $transition->getFrom());
         self::assertSame($this->to, $transition->getTo());
         self::assertSame($this->roleIds, $transition->getRoleIds());
-        self::assertContainsOnlyInstancesOf(RoleId::class, $this->roleIds);
-        self::assertSame($this->conditionSetId, $transition->getConditionSetId());
+        self::assertSame($this->conditions, $transition->getConditions());
     }
 
-    public function testChangingConditionSetNull(): void
-    {
-        $this->aggregateRoot->expects($this->once())->method('apply');
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
-        $transition->changeConditionSetId();
-    }
-
-    public function testChangingConditionSetForTheSame(): void
-    {
-        $this->aggregateRoot->expects($this->never())->method('apply');
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $conditionSetId = $this->createMock(ConditionSetId::class);
-        $conditionSetId->method('isEqual')->willReturn(true);
-        $transition->changeConditionSetId($conditionSetId);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function testChangingRoleIds(): void
-    {
-        $this->aggregateRoot->expects($this->once())->method('apply');
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
-        $transition->changeRoleIds($this->roleIds);
-    }
-
-    public function testChangingRoleIdsException(): void
+    public function testTransitionCreationInvalidRoleIds(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->aggregateRoot);
-        $transition->changeRoleIds(['example', 'example2']);
+
+         new Transition($this->id, $this->from, $this->to, [new \stdClass()], $this->conditions);
+    }
+
+    public function testTransitionCreationInvalidConditions(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Transition($this->id, $this->from, $this->to, $this->roleIds, [new \stdClass()]);
     }
 }

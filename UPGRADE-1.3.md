@@ -23,6 +23,7 @@ Workflow
 * Instead of using `Ergonode\Workflow\Domain\Provider\WorkflowProvider`, services now use `Ergonode\Workflow\Domain\Provider\WorkflowProviderinterface`
 * Endpoint `[GET] api/v1/en_GB/workflow/default/transitions` grid column name `source` change to `from`, `destination` change to `to`
 * Endpoint `[POST] api/v1/en_GB/workflow/default/transitions` property `source` change to `from`, `destination` change to `to`
+* Endpoint `[POST] api/v1/workflow` property `condition_set_id` was removed
 * Column `source_id` in table `workflow_transition` was change to `from_id`
 * Column `destination_id` in table `workflow_transition` was change to `to_id`
 * method `getSource` and `getDestination` of class `AddWorkflowTransitionCommand` become deprecated
