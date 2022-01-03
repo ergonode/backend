@@ -23,12 +23,13 @@ class CompletenessManager
         $this->connection = $connection;
     }
 
-    public function addProduct(ProductId $productId): void
+    public function addProduct(ProductId $productId, array $completeness = []): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'product_id' => $productId->getValue(),
+                'completeness' => json_encode($completeness, JSON_THROW_ON_ERROR),
             ]
         );
     }

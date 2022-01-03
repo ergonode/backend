@@ -5,6 +5,7 @@
 - bugfix [#1740](https://github.com/ergonode/backend/issues/1740) Incorrect transition property naming (rprzedzik)
 - feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
 - refactor [#1752](https://github.com/ergonode/backend/issues/1752) Separation of workflow calculation mechanism from Segments (rprzedzik)
+- refactor [#1831](https://github.com/ergonode/backend/issues/1831) Change completeness first save after create new product (wfajczyk)
 - feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
 - feature [#1756](https://github.com/ergonode/backend/issues/1756) Extension of ValueInterface and unification of implemented classes (rprzedzik)
 
