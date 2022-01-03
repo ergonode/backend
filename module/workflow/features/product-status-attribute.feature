@@ -42,16 +42,16 @@ Feature: Workflow
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario Outline: Get status for product in <language> language
-    When I send a GET request to "/api/v1/en_GB/products/@product_id@/workflow/<language>"
-    Then the response status code should be 200
-    And the JSON node "status.code" should exist
-    Examples:
-      | language |
-      | en_GB    |
-      | pl_PL    |
-      | fr_FR    |
-      | de_DE    |
+#  Scenario Outline: Get status for product in <language> language
+#    When I send a GET request to "/api/v1/en_GB/products/@product_id@/workflow/<language>"
+#    Then the response status code should be 200
+#    And the JSON node "status.code" should exist
+#    Examples:
+#      | language |
+#      | en_GB    |
+#      | pl_PL    |
+#      | fr_FR    |
+#      | de_DE    |
 
   Scenario: Delete status has transition
     When I send a DELETE request to "/api/v1/en/status/@new_status_id@"
