@@ -3,6 +3,7 @@
 - bugfix [#1785](https://github.com/ergonode/backend/issues/1785) Fixing incorrect attributeGroupCode and CategoryName Assertions (wiewiurdp)
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
 - bugfix [#1740](https://github.com/ergonode/backend/issues/1740) Incorrect transition property naming (rprzedzik)
+- bugfix [#1829](https://github.com/ergonode/backend/issues/1829) Slow request GET products/{product} for many select attributes (rprzedzik)
 - feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
 - refactor [#1752](https://github.com/ergonode/backend/issues/1752) Separation of workflow calculation mechanism from Segments (rprzedzik)
 - feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
