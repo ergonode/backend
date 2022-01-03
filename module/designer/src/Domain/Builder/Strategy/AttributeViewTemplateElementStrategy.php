@@ -17,8 +17,8 @@ use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
+use Ergonode\Attribute\Domain\Query\OptionTranslationQueryInterface;
 
 class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStrategyInterface
 {
@@ -26,12 +26,12 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
 
     private AttributeParametersProvider $provider;
 
-    private OptionQueryInterface $query;
+    private OptionTranslationQueryInterface $query;
 
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         AttributeParametersProvider $provider,
-        OptionQueryInterface $query
+        OptionTranslationQueryInterface $query
     ) {
         $this->attributeRepository = $attributeRepository;
         $this->provider = $provider;
@@ -72,13 +72,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         }
 
         if ($attribute instanceof AbstractOptionAttribute) {
-            $options = [];
-            foreach ($this->query->getAll($attribute->getId()) as $option) {
-                $options[$option['id']] = [
-                    'code' => $option['code'],
-                    'label' => $option['label'][$language->getCode()] ?? null,
-                ];
-            }
+            $options = $this->query->getLabels($attribute->getId(), $language);
 
             if (!empty($options)) {
                 $properties['options'] = $options;
