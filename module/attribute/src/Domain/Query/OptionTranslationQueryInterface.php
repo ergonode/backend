@@ -14,8 +14,5 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 interface OptionTranslationQueryInterface
 {
-    /**
-     * @return array<string, string>
-     */
     public function getLabels(AttributeId $attributeId, Language $language): array;
 }
