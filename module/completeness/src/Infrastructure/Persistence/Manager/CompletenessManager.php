@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Infrastructure\Persistence\Manager;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
@@ -64,6 +65,19 @@ class CompletenessManager
             SET calculated_at = null 
             WHERE product_id IN (SELECT id FROM product WHERE template_id = ?)',
             [$templateId->getValue()],
+        );
+    }
+
+    public function recalculateLanguage(Language $language): void
+    {
+        $this->connection->executeQuery(
+            'UPDATE product_completeness 
+            SET calculated_at = null,
+            completeness = COALESCE(completeness, \'{}\') || \'{"'.$language->getCode().'": 0}\'
+            WHERE completeness->>:language IS NULL ',
+            [
+                ':language' => $language->getCode(),
+            ],
         );
     }
 
