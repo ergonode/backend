@@ -13,6 +13,10 @@ Attribute:
 * The signature of constructor `ProductWorkflowQuery` has changed
 * The signature of constructor `AbstractOption` has changed
 * The signature of constructor `OptionCreatedEvent` has changed
+ 
+Completeness
+* The signature of constructor `ProductCreatedEventHandler` has changed
+* Signature of method `CompletenessManager::addProduct` has changed
 
 Core
 * `DownloaderInterface::download` throws exception rather than returning `null` value
