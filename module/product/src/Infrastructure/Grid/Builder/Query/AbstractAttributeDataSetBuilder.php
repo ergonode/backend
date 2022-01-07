@@ -33,7 +33,8 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
         $sql = sprintf(
             '(SELECT 	
 			            DISTINCT ON (product_id) product_id, 
-			            value AS "%s" 
+			            value AS "%s",
+			            CASE WHEN %s = lt.lft THEN true ELSE false END AS "%s-assigned" 
 		            FROM value_translation vt 
 		            JOIN product_value pv ON pv.value_id = vt.value_id
 		            LEFT JOIN language_tree lt ON lt.code = vt.language
@@ -42,12 +43,15 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
 		            ORDER BY product_id, lft DESC NULLS LAST
 		        )',
             $key,
+            $info['lft'],
+            $key,
             $attribute->getId()->getValue(),
             $info['lft'],
             $info['rgt'],
         );
 
         $query->addSelect(sprintf('"%s"', $key));
+        $query->addSelect(sprintf('"%s-assigned"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
     }
 }

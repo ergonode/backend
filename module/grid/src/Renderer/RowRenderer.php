@@ -44,6 +44,9 @@ class RowRenderer implements RowRendererInterface
                 if ($renderer->supports($column)) {
                     if ($configuration->isExtended()) {
                         $result[$columnId]['value'] = $renderer->render($column, $id, $row);
+                        if (array_key_exists($id.':assigned', $row)) {
+                            $result[$columnId]['assigned'] = $row[$id.':assigned'];
+                        }
                         if ($column->getPrefix()) {
                             $result[$columnId]['prefix'] = $column->getPrefix();
                         }

@@ -66,7 +66,7 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
 
     public function testAddQuerySelect(): void
     {
-        $this->queryBuilder->expects($this->once())->method('addSelect');
+        $this->queryBuilder->expects($this->atLeast(1))->method('addSelect');
         $builder = new PriceAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $builder->addSelect($this->queryBuilder, 'any key', $this->attribute, $this->language);
     }

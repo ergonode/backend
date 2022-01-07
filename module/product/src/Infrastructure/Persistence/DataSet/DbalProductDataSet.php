@@ -83,7 +83,10 @@ class DbalProductDataSet extends AbstractDbalDataSet
             foreach ($record as $key => $value) {
                 if (isset($this->names[$key])) {
                     $result[$row][$this->names[$key]] = $value;
-                } else {
+                    if (array_key_exists($key.'-assigned', $record)) {
+                        $result[$row][$this->names[$key].':assigned'] = $record[$key.'-assigned'];
+                    }
+                } elseif (false === strpos($key, '-assigned')) {
                     $result[$row][$key] = $value;
                 }
             }
