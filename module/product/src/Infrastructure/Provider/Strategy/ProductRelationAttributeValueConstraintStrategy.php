@@ -11,6 +11,7 @@ namespace Ergonode\Product\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Application\Validator\NotTheSameProduct;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraint;
@@ -36,8 +37,11 @@ class ProductRelationAttributeValueConstraintStrategy implements ContextAwareAtt
         return $attribute instanceof ProductRelationAttribute;
     }
 
-    public function get(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
-    {
+    public function get(
+        AbstractAttribute $attribute,
+        ?AggregateId $aggregateId = null,
+        ?Language $language = null
+    ): Constraint {
         $constraints = [
             new NotBlank(),
             new Uuid(['strict' => true]),

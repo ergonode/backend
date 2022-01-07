@@ -34,6 +34,11 @@ Workflow
 * The signature of constructor `UpdateWorkflowCommand` has changed
 * Limitation of conditions in Workflow Transition.
 * New messenger transport `StatusTransport` was added, `status` receiver is required for setting product statuses for new added languages
+* Signature of method `Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider:provide` has changed
+* Signature of method `Ergonode\Attribute\Infrastructure\Provider\ContextAwareAttributeValueConstraintStrategyInterface::get` has changed
+* Signature of method `Ergonode\Product\Infrastructure\Provider\Strategy\ProductRelationAttributeValueConstraintStrategy::get` has changed
+* Signature of method `Ergonode\Workflow\Infrastructure\Provider\Strategy\StatusAttributeValueConstraintStrategy::get` has changed
+* Class `Ergonode\Workflow\Infrastructure\Mapper\Strategy\StatusAttributeMapperStrategy` has been moved from `attribute` to `workflow` module
 
 Value
 * `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`

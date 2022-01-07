@@ -10,11 +10,7 @@ namespace Ergonode\Product\Application\Model\Product\Attribute\Update;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Attribute\Application\Validator as AttributeAssert;
-use Ergonode\Product\Application\Validator as ProductAssert;
 
-/**
- * @ProductAssert\ProductAttribute()
- */
 class UpdateAttributeValueFormModel
 {
     /**

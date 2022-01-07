@@ -107,7 +107,7 @@ class UpdateProductAttributeAction
         $value = $request->request->get('value');
         $value = $value === '' ? null : $value;
 
-        $constraint = $this->provider->provide($attribute, $product->getId());
+        $constraint = $this->provider->provide($attribute, $product->getId(), $language);
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();
             if (!$root->isEqual($language)) {
