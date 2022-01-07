@@ -23,7 +23,7 @@ class CacheDownloaderDecorator implements DownloaderInterface
         $this->directory = sprintf('%s/var/downloader', $appKernel->getProjectDir());
     }
 
-    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string
     {
         $data = parse_url($url);
 

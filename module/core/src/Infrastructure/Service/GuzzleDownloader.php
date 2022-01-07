@@ -38,7 +38,7 @@ class GuzzleDownloader implements DownloaderInterface
      *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string
     {
         try {
             $response = $this->client->get(
@@ -48,8 +48,8 @@ class GuzzleDownloader implements DownloaderInterface
                     'headers' => $this->mapHeaders($headers),
                 ]
             );
-            if (null !== $acceptedHeaderTypes && $response->getHeader('Content-Type')[0] !== $acceptedHeaderTypes) {
-                throw new NotAcceptedHeaderTypeException($response->getHeader('Content-Type')[0]);
+            if (null !== $acceptedHeaderTypes && $response->getHeader('Content-Type') !== $acceptedHeaderTypes) {
+                throw new NotAcceptedHeaderTypeException($response->getHeader('Content-Type'));
             }
 
             $code = $response->getStatusCode();

@@ -24,7 +24,7 @@ class TestDownloaderDecorator implements DownloaderInterface
     }
 
 
-    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string
     {
         if (false === strpos($url, 'file://')) {
             return $this->downloader->download($url, $headers, $acceptedHeaderTypes);

@@ -13,8 +13,8 @@ class NotAcceptedHeaderTypeException extends DownloaderException
 {
     private const MESSAGE = 'Unacceptable header Type "%s"';
 
-    public function __construct(string $headerType)
+    public function __construct(array $headerType)
     {
-        parent::__construct(sprintf(self::MESSAGE, $headerType));
+        parent::__construct(sprintf(self::MESSAGE, implode(', ', $headerType)));
     }
 }

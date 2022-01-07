@@ -35,7 +35,7 @@ class CurlDownloader implements DownloaderInterface
      *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string
     {
         if (null !== $acceptedHeaderTypes) {
             throw new DownloaderException('CurlDownloader not supported param `acceptedHeaderTypes`');
