@@ -97,3 +97,4 @@ Feature: Workflow Condition product attribute
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions"
     Then the response status code should be 200
     And the JSON node "[0].type" should contain "ATTRIBUTE_EXISTS_CONDITION"
+    And the JSON node "[0].attribute" should contain "@attribute_id@"

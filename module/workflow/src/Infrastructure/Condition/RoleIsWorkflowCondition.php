@@ -16,11 +16,11 @@ class RoleIsWorkflowCondition implements WorkflowConditionInterface
     public const TYPE = 'ROLE_IS_CONDITION';
     public const PHRASE = 'ROLE_IS_CONDITION_PHRASE';
 
-    private RoleId $roleId;
+    private RoleId $role;
 
-    public function __construct(RoleId $roleId)
+    public function __construct(RoleId $role)
     {
-        $this->roleId = $roleId;
+        $this->role = $role;
     }
 
     public function getType(): string
@@ -30,6 +30,6 @@ class RoleIsWorkflowCondition implements WorkflowConditionInterface
 
     public function getRoleId(): RoleId
     {
-        return $this->roleId;
+        return $this->role;
     }
 }

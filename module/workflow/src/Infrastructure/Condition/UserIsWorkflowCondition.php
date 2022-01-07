@@ -16,11 +16,11 @@ class UserIsWorkflowCondition implements WorkflowConditionInterface
     public const TYPE = 'USER_IS_CONDITION';
     public const PHRASE = 'USER_IS_CONDITION_PHRASE';
 
-    private UserId $userId;
+    private UserId $user;
 
-    public function __construct(UserId $userId)
+    public function __construct(UserId $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     public function getType(): string
@@ -30,6 +30,6 @@ class UserIsWorkflowCondition implements WorkflowConditionInterface
 
     public function getUserId(): UserId
     {
-        return $this->userId;
+        return $this->user;
     }
 }
