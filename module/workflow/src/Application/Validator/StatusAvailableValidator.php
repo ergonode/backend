@@ -13,7 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\Product\Application\Validator\ProductExists;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Workflow\Domain\Provider\ProductStatusProvider;
 use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Symfony\Component\Validator\Constraint;
@@ -26,19 +25,15 @@ class StatusAvailableValidator extends ConstraintValidator
 
     private ProductWorkflowQuery $query;
 
-    private ProductStatusProvider $statusProvider;
-
     private WorkflowProviderInterface $workflowProvider;
 
     public function __construct(
         EventStoreManagerInterface $manager,
         ProductWorkflowQuery $query,
-        ProductStatusProvider $statusProvider,
         WorkflowProviderInterface $workflowProvider
     ) {
         $this->manager = $manager;
         $this->query = $query;
-        $this->statusProvider = $statusProvider;
         $this->workflowProvider = $workflowProvider;
     }
 
@@ -74,8 +69,7 @@ class StatusAvailableValidator extends ConstraintValidator
         }
 
         $workflow = $this->workflowProvider->provide($constraint->language);
-        $product = $this->statusProvider->getProduct($aggregate, $workflow, $constraint->language);
-        $statusIds = $this->query->getAvailableStatuses($product, $workflow, $constraint->language);
+        $statusIds = $this->query->getAvailableStatuses($aggregate, $workflow, $constraint->language);
 
         if (!in_array($value, $statusIds, true)) {
             $this->context->buildViolation($constraint->messageNotAvailableStatus)

@@ -17,7 +17,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Provider\ProductStatusProvider;
 use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Webmozart\Assert\Assert;
@@ -29,19 +28,15 @@ class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrate
 
     private ProductWorkflowQuery $query;
 
-    private ProductStatusProvider $statusProvider;
-
     private WorkflowProviderInterface $workflowProvider;
 
     public function __construct(
         EventStoreManagerInterface $manager,
         ProductWorkflowQuery $query,
-        ProductStatusProvider $statusProvider,
         WorkflowProviderInterface $workflowProvider
     ) {
         $this->manager = $manager;
         $this->query = $query;
-        $this->statusProvider = $statusProvider;
         $this->workflowProvider = $workflowProvider;
     }
 
@@ -75,8 +70,7 @@ class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrate
     {
         $language = new Language($key);
         $workflow = $this->workflowProvider->provide($language);
-        $product = $this->statusProvider->getProduct($aggregate, $workflow, $language);
-        $statusIds = $this->query->getAvailableStatuses($product, $workflow, $language);
+        $statusIds = $this->query->getAvailableStatuses($aggregate, $workflow, $language);
 
         if (!in_array($value, $statusIds, true)) {
             throw new \InvalidArgumentException();
