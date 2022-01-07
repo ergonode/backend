@@ -15,5 +15,5 @@ interface DownloaderInterface
     /**
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = []): string;
+    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string;
 }

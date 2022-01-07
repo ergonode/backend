@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Infrastructure\Service;
 
 use Ergonode\Core\Infrastructure\Exception\DownloaderException;
+use Ergonode\Core\Infrastructure\Exception\NotAcceptedHeaderTypeException;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class GuzzleDownloader implements DownloaderInterface
      *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = []): string
+    public function download(string $url, array $headers = [], string $acceptedHeaderTypes = null): string
     {
         try {
             $response = $this->client->get(
@@ -47,6 +48,9 @@ class GuzzleDownloader implements DownloaderInterface
                     'headers' => $this->mapHeaders($headers),
                 ]
             );
+            if (null !== $acceptedHeaderTypes && $response->getHeader('Content-Type')[0] !== $acceptedHeaderTypes) {
+                throw new NotAcceptedHeaderTypeException($response->getHeader('Content-Type')[0]);
+            }
 
             $code = $response->getStatusCode();
             $content = $response->getBody()->getContents();
