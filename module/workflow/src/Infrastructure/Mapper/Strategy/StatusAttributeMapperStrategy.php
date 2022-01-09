@@ -73,7 +73,7 @@ class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrate
         $statusIds = $this->query->getAvailableStatuses($aggregate, $workflow, $language);
 
         if (!in_array($value, $statusIds, true)) {
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException('This status can\'t be set.');
         }
     }
 }
