@@ -5,7 +5,7 @@ Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
             ATTRIBUTE_EXISTS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\AttributeExistsWorkflowCondition
             PRODUCT_COMPLETENESS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\ProductCompletenessWorkflowCondition
             ROLE_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition
-            USER_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\userIsWorkflowCondition
+            USER_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\UserIsWorkflowCondition
 
 Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
     discriminator_map:
