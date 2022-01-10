@@ -11,6 +11,7 @@ namespace Ergonode\BatchAction\Application\DependencyInjection;
 
 use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Ergonode\BatchAction\Domain\Count\CountInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -44,6 +45,10 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(BatchActionReprocessFormInterface::class)
             ->addTag('ergonode.batch_action.reprocessing_form_provider');
+
+        $container
+            ->registerForAutoconfiguration(BatchActionFilterIdsInterface::class)
+            ->addTag('batch_action.filter_provider.interface');
 
         $configuration = $this->processConfiguration(new Configuration(), $configs);
 
