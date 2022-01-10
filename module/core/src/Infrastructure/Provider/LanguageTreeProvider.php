@@ -14,6 +14,9 @@ use Ergonode\Core\Domain\User\LanguageCollectionAwareInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Mapper\LanguageTreeMapper;
 
+/**
+ * @deprecated Will be remove in 2.0 version
+ */
 class LanguageTreeProvider implements LanguageTreeProviderInterface
 {
     private LanguageTreeQueryInterface $query;
@@ -35,6 +38,11 @@ class LanguageTreeProvider implements LanguageTreeProviderInterface
      */
     public function getActiveLanguages(Language $language): array
     {
+        @trigger_error(
+            sprintf('%s::getActiveLanguages is deprecated and will be removed in 2.0.', self::class),
+            \E_USER_DEPRECATED
+        );
+
         $user = $this->security->getUser();
 
         if (!$user instanceof LanguageCollectionAwareInterface) {

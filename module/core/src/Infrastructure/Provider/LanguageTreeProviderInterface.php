@@ -10,6 +10,9 @@ namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
+/**
+ * @deprecated Will be remove in 2.0 version
+ */
 interface LanguageTreeProviderInterface
 {
     /**
