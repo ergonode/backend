@@ -103,7 +103,7 @@ class AttributeValidationAction
                 throw new BadRequestHttpException($e->getMessage());
             }
         }
-        $constraint = $this->provider->provide($attribute, $aggregateId);
+        $constraint = $this->provider->provide($attribute, $aggregateId, $language);
 
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();
