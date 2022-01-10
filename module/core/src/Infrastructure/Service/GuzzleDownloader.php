@@ -34,11 +34,11 @@ class GuzzleDownloader implements DownloaderInterface
     }
 
     /**
-     * @param Header[] $headers
-     *
      * @throws DownloaderException
+     *
+     * @param Header[] $headers
      */
-    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = null): string
     {
         try {
             $response = $this->client->get(
@@ -48,9 +48,8 @@ class GuzzleDownloader implements DownloaderInterface
                     'headers' => $this->mapHeaders($headers),
                 ]
             );
-            if (null !== $acceptedHeaderTypes && $response->getHeader('Content-Type') !== $acceptedHeaderTypes) {
-                throw new NotAcceptedHeaderTypeException($response->getHeader('Content-Type'));
-            }
+
+            $this->validateContentType($response->getHeader('Content-Type'), $acceptedContentTypes);
 
             $code = $response->getStatusCode();
             $content = $response->getBody()->getContents();
@@ -94,5 +93,30 @@ class GuzzleDownloader implements DownloaderInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[]      $mimeTypes
+     * @param string[]|null $acceptedContentTypes
+     *
+     * @throws NotAcceptedHeaderTypeException
+     */
+    private function validateContentType(array $mimeTypes, ?array $acceptedContentTypes): void
+    {
+        if (null === $acceptedContentTypes) {
+            return;
+        }
+
+        foreach ($mimeTypes as $mimeType) {
+            $pos = strpos($mimeType, ';');
+            $canonicalMimeType = trim(substr($mimeType, 0, $pos));
+            foreach ($acceptedContentTypes as $acceptedContentType) {
+                if ($acceptedContentType === $canonicalMimeType) {
+                    return;
+                }
+            }
+        }
+
+        throw new NotAcceptedHeaderTypeException($mimeTypes);
     }
 }

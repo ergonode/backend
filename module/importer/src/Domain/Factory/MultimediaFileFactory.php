@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Domain\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Symfony\Component\HttpFoundation\File\File;
@@ -31,14 +32,18 @@ class MultimediaFileFactory
 
     private DownloaderInterface $downloader;
 
+    private MultimediaExtensionProvider $provider;
+
     public function __construct(
         FilesystemInterface $multimediaStorage,
         HashCalculationServiceInterface $hashService,
-        DownloaderInterface $downloader
+        DownloaderInterface $downloader,
+        MultimediaExtensionProvider $provider
     ) {
         $this->multimediaStorage = $multimediaStorage;
         $this->hashService = $hashService;
         $this->downloader = $downloader;
+        $this->provider = $provider;
     }
 
     /**
@@ -51,7 +56,7 @@ class MultimediaFileFactory
         $tmpFile = tempnam(sys_get_temp_dir(), Uuid::uuid4()->toString());
 
         try {
-            $content = $this->downloader->download($url, $headers);
+            $content = $this->downloader->download($url, $headers, $this->provider->mimeDictionary());
         } catch (FileNotFoundDownloaderException $exception) {
             throw new ImportException('Can\'t download media from url {url}, file not found', ['{url}' => $url]);
         } catch (AccessDeniedDownloaderException $exception) {

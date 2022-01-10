@@ -13,7 +13,10 @@ use Ergonode\Core\Infrastructure\Exception\DownloaderException;
 interface DownloaderInterface
 {
     /**
+     * @param Header[]      $headers
+     * @param string[]|null $acceptedContentTypes
+     *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = [], array $acceptedHeaderTypes = null): string;
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = null): string;
 }

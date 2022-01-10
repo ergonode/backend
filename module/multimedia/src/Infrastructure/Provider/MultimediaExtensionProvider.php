@@ -12,7 +12,7 @@ namespace Ergonode\Multimedia\Infrastructure\Provider;
 class MultimediaExtensionProvider
 {
     /**
-     * @return array
+     * @return string[]
      */
     public function dictionary(): array
     {
@@ -33,7 +33,6 @@ class MultimediaExtensionProvider
             'tiff',
             'txt',
             'csv',
-            'svg',
             'xlsx',
             'xls',
             'png',
@@ -41,6 +40,36 @@ class MultimediaExtensionProvider
             'key',
             'ppt',
             'pptx',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function mimeDictionary(): array
+    {
+        return [
+            'application/msword', //doc
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', //docx
+            'image/gif',
+            'image/jpeg',
+            'image/webp',
+            'image/svg+xml',
+            'application/postscript', //eps
+            'application/vnd.oasis.opendocument.spreadsheet', //ods
+            'application/vnd.oasis.opendocument.text', //odt
+            'application/pdf',
+            'image/bmp',
+            'image/tiff',
+            'text/plain',
+            'text/csv',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'image/png',
+            'application/zip',
+            'application/pkcs8', //key
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
         ];
     }
 }
