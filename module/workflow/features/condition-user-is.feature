@@ -127,3 +127,4 @@ Feature: Workflow Condition user is
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@status_from_id@/@status_to_id@/conditions"
     Then the response status code should be 200
     And the JSON node "[0].type" should contain "USER_IS_CONDITION"
+    And the JSON node "[0].user" should contain "@user_id@"

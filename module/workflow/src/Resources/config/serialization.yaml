@@ -7,11 +7,11 @@ Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
             ROLE_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition
             USER_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\userIsWorkflowCondition
 
-Ergonode\Workflow\Infrastructure\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
+Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
     discriminator_map:
         type_property: 'type'
         mapping:
-            'SELECT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter
-            'MULTi_SELECT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\MultiSelectWorkflowConditionConfigurationParameter
-            'TEXT': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter
-            'NUMERIC': Ergonode\Workflow\Infrastructure\Condition\Configuration\Parameter\NumericWorkflowConditionConfigurationParameter
+            'SELECT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter
+            'MULTI_SELECT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\MultiSelectWorkflowConditionConfigurationParameter
+            'TEXT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter
+            'NUMERIC': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\NumericWorkflowConditionConfigurationParameter
