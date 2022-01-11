@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\DependencyInjection;
 
-use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataSetQueryBuilderCompilerPass;
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
@@ -74,10 +73,6 @@ class ErgonodeProductExtension extends Extension implements PrependExtensionInte
         $container
             ->registerForAutoconfiguration(ProductFactoryStrategyInterface::class)
             ->addTag('component.product.product_factory_strategy');
-
-        $container
-            ->registerForAutoconfiguration(BatchActionFilterIdsInterface::class)
-            ->addTag('batch_action.filter_provider.interface');
 
         $loader->load('services.yml');
     }
