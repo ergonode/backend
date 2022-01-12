@@ -35,10 +35,10 @@ class CurlDownloader implements DownloaderInterface
      *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = [], array $acceptedContentTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = []): string
     {
-        if (null !== $acceptedContentTypes) {
-            throw new DownloaderException('CurlDownloader not supported param `acceptedHeaderTypes`');
+        if (!empty($acceptedContentTypes)) {
+            throw new DownloaderException('CurlDownloader not supported param `acceptedContentTypes`');
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);

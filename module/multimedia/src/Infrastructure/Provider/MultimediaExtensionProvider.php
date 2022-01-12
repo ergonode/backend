@@ -11,36 +11,38 @@ namespace Ergonode\Multimedia\Infrastructure\Provider;
 
 class MultimediaExtensionProvider
 {
+    private array $extension = [
+        'bmp' =>  'image/bmp',
+        'csv' => 'text/csv',
+        'doc' => 'application/msword',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'eps' => 'application/postscript',
+        'gif' => 'image/gif',
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'key' => 'application/pkcs8',
+        'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
+        'odt' => 'application/vnd.oasis.opendocument.text',
+        'pdf' => 'application/pdf',
+        'png' => 'image/png',
+        'ppt' => 'application/vnd.ms-powerpoint',
+        'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'svg' => 'image/svg+xml',
+        'tif' => 'image/tiff',
+        'tiff' => 'image/tiff',
+        'txt' => 'text/plain',
+        'webp' => 'image/webp',
+        'xls' => 'application/vnd.ms-excel',
+        'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'zip' => 'application/zip',
+    ];
+
     /**
      * @return string[]
      */
     public function dictionary(): array
     {
-        return [
-            'doc',
-            'docx',
-            'gif',
-            'jpeg',
-            'jpg',
-            'webp',
-            'svg',
-            'eps',
-            'ods',
-            'odt',
-            'pdf',
-            'bmp',
-            'tif',
-            'tiff',
-            'txt',
-            'csv',
-            'xlsx',
-            'xls',
-            'png',
-            'zip',
-            'key',
-            'ppt',
-            'pptx',
-        ];
+        return array_keys($this->extension);
     }
 
     /**
@@ -48,28 +50,9 @@ class MultimediaExtensionProvider
      */
     public function mimeDictionary(): array
     {
-        return [
-            'application/msword', //doc
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', //docx
-            'image/gif',
-            'image/jpeg',
-            'image/webp',
-            'image/svg+xml',
-            'application/postscript', //eps
-            'application/vnd.oasis.opendocument.spreadsheet', //ods
-            'application/vnd.oasis.opendocument.text', //odt
-            'application/pdf',
-            'image/bmp',
-            'image/tiff',
-            'text/plain',
-            'text/csv',
-            'application/vnd.ms-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'image/png',
-            'application/zip',
-            'application/pkcs8', //key
-            'application/vnd.ms-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        ];
+        $values = array_unique(array_values($this->extension));
+        sort($values);
+
+        return $values;
     }
 }

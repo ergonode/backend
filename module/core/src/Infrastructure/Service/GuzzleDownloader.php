@@ -34,11 +34,11 @@ class GuzzleDownloader implements DownloaderInterface
     }
 
     /**
-     * @throws DownloaderException
-     *
      * @param Header[] $headers
+     *
+     * @throws DownloaderException
      */
-    public function download(string $url, array $headers = [], array $acceptedContentTypes = null): string
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = []): string
     {
         try {
             $response = $this->client->get(
@@ -96,14 +96,14 @@ class GuzzleDownloader implements DownloaderInterface
     }
 
     /**
-     * @param string[]      $mimeTypes
-     * @param string[]|null $acceptedContentTypes
+     * @param string[] $mimeTypes
+     * @param string[] $acceptedContentTypes
      *
      * @throws NotAcceptedHeaderTypeException
      */
-    private function validateContentType(array $mimeTypes, ?array $acceptedContentTypes): void
+    private function validateContentType(array $mimeTypes, array $acceptedContentTypes): void
     {
-        if (null === $acceptedContentTypes) {
+        if (empty($acceptedContentTypes)) {
             return;
         }
 
