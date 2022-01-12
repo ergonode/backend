@@ -146,7 +146,7 @@ Feature: Product collection module
       | null                                                                     | System name is required                                   |
       | ""                                                                       | System name is required                                   |
       | "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" | System name is too long. It should contain 64 characters or less.          |
-      | "TEXT/. .,.]"                                                            | Product collection System Name can have only letters, digits or underscore symbol |
+      | "TEXT/. .,.]"                                                            | Product collection system name can have only letters, digits or underscore symbol. |
 
 
   Scenario: Update product collection (not found)
