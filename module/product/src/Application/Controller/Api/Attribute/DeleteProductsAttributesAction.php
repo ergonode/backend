@@ -64,7 +64,7 @@ class DeleteProductsAttributesAction
      *     name="body",
      *     in="body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attributes")
+     *     @SWG\Schema(ref="#/definitions/attribute_values")
      * )
      *
      * @SWG\Response(

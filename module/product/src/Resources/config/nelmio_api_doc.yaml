@@ -57,7 +57,7 @@ nelmio_api_doc:
                         required: true
                         description: Category Id
                         example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
-            attributes:
+            attribute_values:
                 type: object
                 properties:
                     data:
