@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Category\Tests\Infrastructure\Condition\Calculator;
+namespace Ergonode\Workflow\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Workflow\Infrastructure\Condition\Calculator\AttributeExistsWorkflowConditionCalculator;
 use PHPUnit\Framework\TestCase;
