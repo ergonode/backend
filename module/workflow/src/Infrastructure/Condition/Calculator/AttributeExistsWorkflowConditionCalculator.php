@@ -17,14 +17,21 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Infrastructure\Exception\WorkflowConditionCalculatorException;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 class AttributeExistsWorkflowConditionCalculator implements WorkflowConditionCalculatorInterface
 {
     private AttributeRepositoryInterface $repository;
 
-    public function __construct(AttributeRepositoryInterface $repository)
-    {
+    private LanguageQueryInterface $languageQuery;
+
+    public function __construct(
+        AttributeRepositoryInterface $repository,
+        LanguageQueryInterface $languageQuery
+    ) {
         $this->repository = $repository;
+        $this->languageQuery = $languageQuery;
     }
 
     public function supports(WorkflowConditionInterface $condition): bool
@@ -53,6 +60,29 @@ class AttributeExistsWorkflowConditionCalculator implements WorkflowConditionCal
 
         Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-        return $product->hasAttribute($attribute->getCode());
+        if ($product->hasAttribute($attribute->getCode())) {
+            $value = $product->getAttribute($attribute->getCode());
+            if ($value->hasTranslation($language)) {
+                return true;
+            }
+
+            if ($this->hasAncestorValue($value, $language)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function hasAncestorValue(ValueInterface $value, Language $language): bool
+    {
+        $ancestorLanguages = $this->languageQuery->getInheritancePath($language);
+        foreach ($ancestorLanguages as $ancestorLanguage) {
+            if ($value->hasTranslation($ancestorLanguage)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
