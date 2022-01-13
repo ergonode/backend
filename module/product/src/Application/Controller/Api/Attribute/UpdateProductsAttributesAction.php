@@ -53,12 +53,6 @@ class UpdateProductsAttributesAction
      * @SWG\Tag(name="Product")
      *
      * @SWG\Parameter(
-     *     name="product",
-     *     in="path",
-     *     type="string",
-     *     description="Product ID",
-     * )
-     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -70,7 +64,7 @@ class UpdateProductsAttributesAction
      *     name="body",
      *     in="body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute")
+     *     @SWG\Schema(ref="#/definitions/attributes")
      * )
      *
      * @SWG\Response(
