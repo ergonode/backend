@@ -17,7 +17,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Infrastructure\Exception\WorkflowConditionCalculatorException;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
@@ -25,17 +24,13 @@ class AttributeExistsWorkflowConditionCalculator implements WorkflowConditionCal
 {
     private AttributeRepositoryInterface $repository;
 
-    private TranslationInheritanceCalculator $calculator;
-
     private LanguageQueryInterface $languageQuery;
 
     public function __construct(
         AttributeRepositoryInterface $repository,
-        TranslationInheritanceCalculator $calculator,
         LanguageQueryInterface $languageQuery
     ) {
         $this->repository = $repository;
-        $this->calculator = $calculator;
         $this->languageQuery = $languageQuery;
     }
 
@@ -68,11 +63,6 @@ class AttributeExistsWorkflowConditionCalculator implements WorkflowConditionCal
         if ($product->hasAttribute($attribute->getCode())) {
             $value = $product->getAttribute($attribute->getCode());
             if ($value->hasTranslation($language)) {
-                return true;
-            }
-
-            $calculated = $this->calculator->calculate($attribute->getScope(), $value, $language);
-            if ($calculated) {
                 return true;
             }
 

@@ -23,7 +23,6 @@ class AttributeExistsWorkflowConditionCalculatorTest extends TestCase
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    private TranslationInheritanceCalculator $inheritanceCalculator;
 
     private LanguageQueryInterface $languageQuery;
 
@@ -36,7 +35,6 @@ class AttributeExistsWorkflowConditionCalculatorTest extends TestCase
         $attribute = $this->createMock(AbstractAttribute::class);
         $this->attributeRepository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attributeRepository->method('load')->willReturn($attribute);
-        $this->inheritanceCalculator = $this->createMock(TranslationInheritanceCalculator::class);
         $this->languageQuery = $this->createMock(LanguageQueryInterface::class);
         $this->product = $this->createMock(AbstractProduct::class);
         $this->workflowCondition = $this->createMock(AttributeExistsWorkflowCondition::class);
@@ -48,7 +46,6 @@ class AttributeExistsWorkflowConditionCalculatorTest extends TestCase
 
         $calculator = new AttributeExistsWorkflowConditionCalculator(
             $this->attributeRepository,
-            $this->inheritanceCalculator,
             $this->languageQuery
         );
 
@@ -68,29 +65,6 @@ class AttributeExistsWorkflowConditionCalculatorTest extends TestCase
 
         $calculator = new AttributeExistsWorkflowConditionCalculator(
             $this->attributeRepository,
-            $this->inheritanceCalculator,
-            $this->languageQuery
-        );
-
-        $result = $calculator->calculate($this->product, $this->workflowCondition, $language);
-
-        self::assertTrue($result);
-    }
-
-    public function testCalculatedValueExists(): void
-    {
-        $language = $this->createMock(Language::class);
-        $value = $this->createMock(ValueInterface::class);
-        $value->expects(self::once())->method('hasTranslation')->willReturn(false);
-        $this->inheritanceCalculator->expects(self::once())->method('calculate')->willReturn(true);
-
-        $this->product->method('hasAttribute')->willReturn(true);
-        $this->product->method('getAttribute')->willReturn($value);
-
-
-        $calculator = new AttributeExistsWorkflowConditionCalculator(
-            $this->attributeRepository,
-            $this->inheritanceCalculator,
             $this->languageQuery
         );
 
