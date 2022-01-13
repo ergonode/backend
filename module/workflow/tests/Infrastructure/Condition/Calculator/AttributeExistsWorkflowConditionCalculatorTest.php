@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Tests\Infrastructure\Condition\Calculator;
 use Ergonode\Workflow\Infrastructure\Condition\Calculator\AttributeExistsWorkflowConditionCalculator;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
