@@ -57,3 +57,44 @@ nelmio_api_doc:
                         required: true
                         description: Category Id
                         example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
+            attributes:
+                type: object
+                properties:
+                    data:
+                        type: array
+                        required: true
+                        items:
+                            type: object
+                            properties:
+                                id:
+                                    type: string
+                                    required: true
+                                    description: Product Id
+                                    example: 9b0ceb29-26ac-4852-a602-6e5680a3a029
+                                payload:
+                                    type: array
+                                    required: true
+                                    items:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                                required: true
+                                                description: Attribute Id
+                                                example: 789ff7ef-3a11-4b6a-ab25-3d262d2a78c3
+                                            values:
+                                                type: array
+                                                required: true
+                                                description: Attribute values per langauge
+                                                items:
+                                                    type: object
+                                                    properties:
+                                                        language:
+                                                            type: string
+                                                            required: true
+                                                            example: en_GB
+                                                        value:
+                                                            type: string
+                                                            required: true
+                                                            description: Attribute value
+                                                            example: test
