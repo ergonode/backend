@@ -68,7 +68,7 @@ class ProductWorkflowQuery
             $transitions = $workflow->getTransitionsFromStatus($statusId);
             $result['workflow'] = [];
             foreach ($transitions as $transition) {
-                if ($this->service->available($transition, $product, $language)) {
+                if ($this->service->available($transition, $product, $productLanguage)) {
                     $fromStatus = $this->statusRepository->load($transition->getTo());
                     Assert::notNull($fromStatus);
                     $result['workflow'][] = [
