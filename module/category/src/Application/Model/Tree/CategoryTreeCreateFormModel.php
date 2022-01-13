@@ -22,7 +22,7 @@ class CategoryTreeCreateFormModel
      * )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$/i",
-     *     message="System name can have only letters, digits or underscore symbol"
+     *     message="System name can have only letters, digits or underscore symbol."
      * )
      * @CategoryAssert\CategoryTreeCodeUnique()
      */

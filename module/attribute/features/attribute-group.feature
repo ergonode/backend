@@ -48,7 +48,7 @@ Feature: Attribute module
       | value                     | message                                                        |
       | null                      | System name is required                                        |
       | ""                        | System name is required                                        |
-      | "invald_code-%$#@!"       | System name can have only letters, digits or underscore symbol |
+      | "invald_code-%$#@!"       | System name can have only letters, digits or underscore symbol. |
       | "@exists_attribute_code@" | The value is not unique.                                       |
 
   Scenario: Get attribute group

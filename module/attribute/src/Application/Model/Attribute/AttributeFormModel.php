@@ -25,7 +25,7 @@ class AttributeFormModel
      * )
      * @Assert\Regex(
      *     pattern="/^(?!esa_).+$/",
-     *     message="The attribute code shouldn't start with esa_"
+     *     message="System name shouldn't start with esa_."
      * )
      * @AttributeAssert\AttributeCodeUnique(
      *     groups={"Create"}
