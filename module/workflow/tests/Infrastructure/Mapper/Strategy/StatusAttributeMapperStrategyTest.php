@@ -22,6 +22,7 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class StatusAttributeMapperStrategyTest extends TestCase
 {
@@ -48,11 +49,41 @@ class StatusAttributeMapperStrategyTest extends TestCase
     /**
      * @dataProvider getValidData
      */
-    public function testValidMapping(array $values, ValueInterface $result, string $value): void
+    public function testValidExistsMapping(array $values, ValueInterface $result, string $uuid): void
     {
-        $this->manager->method('load')->willReturn($this->createMock(AbstractProduct::class));
+        $value = $this->createMock(ValueInterface::class);
+        $value->method('hasTranslation')->willReturn(true);
+        $product = $this->createMock(AbstractProduct::class);
+        $product->method('hasAttribute')->willReturn(true);
+        $product->method('getAttribute')->willReturn($value);
+
+        $this->manager->method('load')->willReturn($product);
         $this->workflowProvider->method('provide')->willReturn($this->createMock(AbstractWorkflow::class));
-        $this->query->method('getAvailableStatuses')->willReturn([$value]);
+        $this->query->expects(self::once())->method('getAvailableStatuses')->willReturn([$uuid]);
+        $strategy = new StatusAttributeMapperStrategy($this->manager, $this->query, $this->workflowProvider);
+        $mapped = $strategy->map($values, $this->createMock(AggregateId::class));
+
+        self::assertEquals($result, $mapped);
+    }
+
+    public function testValidNotExistMapping(): void
+    {
+        $uuid = Uuid::uuid4()->toString();
+        $values = ['en_GB' => $uuid];
+        $result =  new TranslatableStringValue(new TranslatableString($values));
+        $status = new StatusId($uuid);
+
+        $workflow = $this->createMock(AbstractWorkflow::class);
+        $workflow->method('getDefaultStatus')->willReturn($status);
+
+        $product = $this->createMock(AbstractProduct::class);
+        $product->method('hasAttribute')->willReturn(false);
+
+        $this->workflowProvider->method('provide')->willReturn($workflow);
+
+        $this->manager->method('load')->willReturn($product);
+        $this->workflowProvider->method('provide')->willReturn($this->createMock(AbstractWorkflow::class));
+        $this->query->expects(self::never())->method('getAvailableStatuses')->willReturn([$uuid]);
         $strategy = new StatusAttributeMapperStrategy($this->manager, $this->query, $this->workflowProvider);
         $mapped = $strategy->map($values, $this->createMock(AggregateId::class));
 
