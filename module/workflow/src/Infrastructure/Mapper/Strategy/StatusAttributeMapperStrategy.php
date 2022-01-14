@@ -80,7 +80,12 @@ class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrate
 
         if (!in_array($value, $statusIds, true)) {
             throw new \InvalidArgumentException(
-                sprintf('This status can\'t be set to language %s.', $language->getCode())
+                sprintf(
+                    'Can\'t set %s "status" in "%s" language for product "%s".',
+                    $value,
+                    $language->getCode(),
+                    $aggregate->getId()->getValue(),
+                )
             );
         }
     }
