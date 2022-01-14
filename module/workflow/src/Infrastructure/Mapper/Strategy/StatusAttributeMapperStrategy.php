@@ -21,6 +21,7 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProviderInterface;
 use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrategyInterface
 {
@@ -50,30 +51,42 @@ class StatusAttributeMapperStrategy implements ContextAwareAttributeMapperStrate
         Assert::allRegex(array_keys($values), '/^[a-z]{2}_[A-Z]{2}$/');
         Assert::notNull($aggregateId);
 
+        /** @var AbstractProduct $aggregate */
         $aggregate = $this->manager->load($aggregateId);
         Assert::isInstanceOf($aggregate, AbstractProduct::class);
 
-        foreach ($values as $key => $value) {
+        foreach ($values as $code => $value) {
             if (null !== $value) {
                 Assert::stringNotEmpty($value);
                 Assert::uuid($value);
-
-                /** @var AbstractProduct $aggregate */
-                $this->statusValidation($key, $aggregate, $value);
+                $this->statusValidation(new Language($code), $aggregate, $value);
             }
         }
 
         return new TranslatableStringValue(new TranslatableString($values));
     }
 
-    private function statusValidation(string $key, AbstractProduct $aggregate, string $value): void
+    private function statusValidation(Language $language, AbstractProduct $aggregate, string $value): void
     {
-        $language = new Language($key);
+        $attributeCode = new AttributeCode(StatusSystemAttribute::CODE);
         $workflow = $this->workflowProvider->provide($language);
-        $statusIds = $this->query->getAvailableStatuses($aggregate, $workflow, $language);
+
+        if ($aggregate->hasAttribute($attributeCode)
+            && $aggregate->getAttribute($attributeCode)->hasTranslation($language)) {
+            $statusIds = $this->query->getAvailableStatuses($aggregate, $workflow, $language);
+        } else {
+            $statusIds = [$workflow->getDefaultStatus()->getValue()];
+        }
 
         if (!in_array($value, $statusIds, true)) {
-            throw new \InvalidArgumentException('This status can\'t be set.');
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Can\'t set "%s" status in "%s" language for product "%s".',
+                    $value,
+                    $language->getCode(),
+                    $aggregate->getId()->getValue(),
+                )
+            );
         }
     }
 }
