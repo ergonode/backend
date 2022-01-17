@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Domain\Command;
 
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
@@ -21,10 +22,12 @@ class CreateFileExportChannelCommandTest extends TestCase
         $name = 'Name';
         $format = 'Format';
         $exportType = FileExportChannel::EXPORT_INCREMENTAL;
-        $command = new CreateFileExportChannelCommand($id, $name, $format, $exportType);
+        $segmentId = $this->createMock(SegmentId::class);
+        $command = new CreateFileExportChannelCommand($id, $name, $format, $exportType, $segmentId);
         self::assertEquals($id, $command->getId());
         self::assertEquals($name, $command->getName());
         self::assertEquals($exportType, $command->getExportType());
         self::assertEquals($format, $command->getFormat());
+        self::assertEquals($segmentId, $command->getSegmentId());
     }
 }

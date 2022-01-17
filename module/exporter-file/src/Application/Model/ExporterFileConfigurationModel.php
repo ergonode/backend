@@ -36,12 +36,15 @@ class ExporterFileConfigurationModel
      */
     public ?string $format = null;
 
+    public ?string $segmentId = null;
+
     public function __construct(FileExportChannel $channel = null)
     {
         if ($channel) {
             $this->name = $channel->getName();
             $this->format = $channel->getFormat();
             $this->exportType = $channel->getExportType();
+            $this->segmentId =  $channel->getSegmentId() ? $channel->getSegmentId()->getValue() : null;
             $this->languages = $channel->getLanguages();
         }
     }

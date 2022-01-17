@@ -22,4 +22,9 @@ interface SegmentProductsQueryInterface
      * @return array
      */
     public function getProductsByType(SegmentId $segmentId, string $type): array;
+
+    /**
+     * @return array
+     */
+    public function getAllEditedProducts(SegmentId $segmentId, ?\DateTime $dateTime = null): array;
 }

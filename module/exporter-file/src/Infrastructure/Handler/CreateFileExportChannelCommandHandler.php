@@ -31,6 +31,7 @@ class CreateFileExportChannelCommandHandler
             $command->getName(),
             $command->getFormat(),
             $command->getExportType(),
+            $command->getSegmentId(),
             $command->getLanguages()
         );
 

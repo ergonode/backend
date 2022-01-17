@@ -17,6 +17,44 @@ Feature: Export Profile module
     And the JSON node "properties.format" should exist
     And the JSON node "properties.languages" should exist
 
+  Scenario: Create condition set
+    Given I send a POST request to "/api/v1/en_GB/conditionsets" with body:
+      """
+      {
+        "conditions":[
+          {
+            "type":"PRODUCT_SKU_EXISTS_CONDITION",
+            "operator":"=",
+            "value":"@product_sku@"
+          }
+        ]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "condition_set_id"
+
+  Scenario: Create segment 1
+    When I send a POST request to "/api/v1/en_GB/segments" with body:
+      """
+      {
+        "code": "SEG_1_@@random_code@@",
+        "condition_set_id": "@condition_set_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "segment_id_1"
+
+  Scenario: Create segment 2
+    When I send a POST request to "/api/v1/en_GB/segments" with body:
+      """
+      {
+        "code": "SEG_1_@@random_code@@",
+        "condition_set_id": "@condition_set_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "segment_id_2"
+
   Scenario: Create File Channel
     When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
@@ -29,7 +67,22 @@ Feature: Export Profile module
         }
       """
     Then the response status code should be 201
-    And store response param "id" as "channel_id"
+    And store response param "id" as "channel_id_1"
+
+  Scenario: Create File Channel with Segment
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
+      """
+        {
+          "type": "file",
+          "format": "csv",
+          "export_type": "full",
+          "name": "File export",
+          "segmentId": "@segment_id_1@",
+          "languages" : ["pl_PL"]
+        }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "channel_id_2"
 
   Scenario: Create File Channel with empty body
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -40,17 +93,28 @@ Feature: Export Profile module
     Then the response status code should be 400
 
   Scenario: Get channel
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | name         | File export  |
-      | id           | @channel_id@ |
-      | format       | csv          |
-      | languages[0] | pl_PL        |
-      | export_type  | full         |
+      | name         | File export    |
+      | id           | @channel_id_1@ |
+      | format       | csv            |
+      | languages[0] | pl_PL          |
+      | export_type  | full           |
+
+  Scenario: Get channel with segment
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_2@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | name         | File export    |
+      | id           | @channel_id_2@ |
+      | format       | csv            |
+      | segmentId    | @segment_id_1@ |
+      | languages[0] | pl_PL          |
+      | export_type  | full           |
 
   Scenario: Update File Channel
-    When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@" with body:
+    When I send a PUT request to "/api/v1/en_GB/channels/@channel_id_1@" with body:
       """
         {
           "type": "file",
@@ -63,22 +127,47 @@ Feature: Export Profile module
     Then the response status code should be 204
 
   Scenario: Get channel after update
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | name         | File export  |
-      | id           | @channel_id@ |
-      | format       | csv          |
-      | languages[0] | en_GB        |
-      | export_type  | incremental  |
+      | name         | File export    |
+      | id           | @channel_id_1@ |
+      | format       | csv            |
+      | languages[0] | en_GB          |
+      | export_type  | incremental    |
+
+  Scenario: Update File Channel with Segment
+    When I send a PUT request to "/api/v1/en_GB/channels/@channel_id_2@" with body:
+      """
+        {
+          "type": "file",
+          "format": "csv",
+          "export_type": "incremental",
+          "name": "File export",
+          "segmentId": "@segment_id_2@",
+          "languages" : ["en_GB"]
+        }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get channel after update
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_2@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | name         | File export    |
+      | id           | @channel_id_2@ |
+      | format       | csv            |
+      | segmentId    | @segment_id_2@ |
+      | languages[0] | en_GB          |
+      | export_type  | incremental    |
 
   Scenario: Run export for csv
-    When I send a POST request to "/api/v1/en_GB/channels/@channel_id@/exports"
+    When I send a POST request to "/api/v1/en_GB/channels/@channel_id_1@/exports"
     Then the response status code should be 201
     And store response param "id" as "export_id"
 
   Scenario: Get export grid for given channel
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@/exports"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | collection[0].status | ENDED       |
@@ -86,7 +175,7 @@ Feature: Export Profile module
       | info.count           | 1           |
 
   Scenario: Get export information
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@/exports/@export_id@"
     Then the response status code should be 200
     And the JSON node "_links.attachment.href" should exist
     And the JSON node "started_at" should exist
@@ -99,9 +188,9 @@ Feature: Export Profile module
       | errors                   | 0           |
 
   Scenario: Get error list for export
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@/errors"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@/exports/@export_id@/errors"
     Then the response status code should be 200
 
   Scenario: Get download file for export
-    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@/download"
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id_1@/exports/@export_id@/download"
     Then the response status code should be 200

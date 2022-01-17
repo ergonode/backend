@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Command;
 
 use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
@@ -35,6 +36,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
         $name = $data->name;
         $format = $data->format;
         $exportType = $data->exportType;
+        $segmentId = $data->segmentId;
 
         $languages = [];
         foreach ($data->languages as $language) {
@@ -46,6 +48,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
             $name,
             $format,
             $exportType,
+            $segmentId ? new SegmentId($segmentId) : null,
             $languages
         );
     }

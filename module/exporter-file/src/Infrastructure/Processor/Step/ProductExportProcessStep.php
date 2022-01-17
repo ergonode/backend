@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
 use Ergonode\Channel\Domain\ValueObject\ExportLineId;
+use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -28,16 +29,20 @@ class ProductExportProcessStep implements ExportStepProcessInterface
 
     private ExportRepositoryInterface $repository;
 
+    private SegmentProductsQueryInterface $segmentProductsQuery;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ExportQueryInterface $exportQuery,
         CommandBusInterface $commandBus,
-        ExportRepositoryInterface $repository
+        ExportRepositoryInterface $repository,
+        SegmentProductsQueryInterface $segmentProductsQuery
     ) {
         $this->productQuery = $productQuery;
         $this->exportQuery = $exportQuery;
         $this->commandBus = $commandBus;
         $this->repository = $repository;
+        $this->segmentProductsQuery = $segmentProductsQuery;
     }
 
     public function export(ExportId $exportId, FileExportChannel $channel): void
@@ -47,12 +52,24 @@ class ProductExportProcessStep implements ExportStepProcessInterface
             $lastExport = $this->exportQuery->findLastExport($channel->getId());
         }
 
-        foreach ($this->productQuery->getAllEditedIds($lastExport) as $product) {
+        foreach ($this->getProducts($channel, $lastExport) as $product) {
             $productId = new ProductId($product);
             $lineId = ExportLineId::generate();
             $command = new ProcessProductCommand($lineId, $exportId, $productId);
             $this->repository->addLine($lineId, $exportId, $productId);
             $this->commandBus->dispatch($command, true);
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function getProducts(FileExportChannel $channel, ?\DateTime $lastExport): array
+    {
+        if ($channel->getSegmentId()) {
+            return $this->segmentProductsQuery->getAllEditedProducts($channel->getSegmentId(), $lastExport);
+        }
+
+        return $this->productQuery->getAllEditedIds($lastExport);
     }
 }

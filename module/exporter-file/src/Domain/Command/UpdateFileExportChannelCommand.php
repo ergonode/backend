@@ -12,6 +12,7 @@ namespace Ergonode\ExporterFile\Domain\Command;
 use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
@@ -25,6 +26,8 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
 
     protected string $exportType;
 
+    protected ?SegmentId $segmentId;
+
     /**
      * @var Language[]
      */
@@ -33,8 +36,14 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
     /**
      * @param Language[] $languages
      */
-    public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
-    {
+    public function __construct(
+        ChannelId $id,
+        string $name,
+        string $format,
+        string $exportType,
+        ?SegmentId $segmentId,
+        array $languages = []
+    ) {
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::oneOf($exportType, FileExportChannel::EXPORT_TYPES);
 
@@ -42,6 +51,7 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
         $this->name = $name;
         $this->format = $format;
         $this->exportType = $exportType;
+        $this->segmentId = $segmentId;
         $this->languages = $languages;
     }
 
@@ -71,5 +81,10 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
     public function getLanguages(): array
     {
         return $this->languages;
+    }
+
+    public function getSegmentId(): ?SegmentId
+    {
+        return $this->segmentId;
     }
 }
