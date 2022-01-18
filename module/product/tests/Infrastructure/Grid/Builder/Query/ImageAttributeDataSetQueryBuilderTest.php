@@ -49,7 +49,7 @@ class ImageAttributeDataSetQueryBuilderTest extends TestCase
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->language = $this->createMock(Language::class);
         $this->query = $this->createMock(LanguageQueryInterface::class);
-        $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1, 'rgt' => 10]);
+        $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1, 'rgt' => 10, 'code' => 'en_GB']);
         $this->resolver = new ProductAttributeLanguageResolver($this->query);
     }
 
