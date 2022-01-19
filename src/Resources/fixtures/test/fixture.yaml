@@ -7,7 +7,6 @@ include:
     - 'templates.yaml'
     - 'categories.yaml'
     - 'products.yaml'
-    - 'conditions.yaml'
     - 'segments.yaml'
     - 'collections.yaml'
     - 'units.yaml'
