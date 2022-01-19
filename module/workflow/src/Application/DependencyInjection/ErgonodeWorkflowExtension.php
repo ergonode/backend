@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
-use Ergonode\Segment\Application\DependencyInjection\Configuration;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
