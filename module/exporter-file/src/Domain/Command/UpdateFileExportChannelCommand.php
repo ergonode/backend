@@ -41,7 +41,7 @@ class UpdateFileExportChannelCommand implements ChannelCommandInterface
         string $name,
         string $format,
         string $exportType,
-        ?SegmentId $segmentId,
+        ?SegmentId $segmentId = null,
         array $languages = []
     ) {
         Assert::allIsInstanceOf($languages, Language::class);

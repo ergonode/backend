@@ -1,5 +1,6 @@
 ## CHANGELOG FOR 1.3.x
 #### 1.3.0
+- feature [#1170](https://github.com/ergonode/backend/issues/1170) Extend Ergonode CSV export with segments handling (wiewiurdp)
 - bugfix [#1840](https://github.com/ergonode/backend/issues/1840) Change place of configuration tag (wiewiurdp)
 - bugfix [#1835](https://github.com/ergonode/backend/issues/1835) Status change validation (wiewiurdp)
 - bugfix [#1785](https://github.com/ergonode/backend/issues/1785) Fixing incorrect attributeGroupCode and CategoryName Assertions (wiewiurdp)

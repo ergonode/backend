@@ -12,6 +12,7 @@ namespace Ergonode\Channel\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class DbalChannelQuery implements ChannelQueryInterface
 {
@@ -39,6 +40,26 @@ class DbalChannelQuery implements ChannelQueryInterface
         $result = [];
         foreach ($data as $channelId) {
             $result[] = new ChannelId($channelId);
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findIdBySegmentId(SegmentId $segmentId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('id')
+            ->from(self::CHANNEL_TABLE)
+            ->where('configuration ->> \'segment_id\' = :id')
+            ->setParameter(':id', $segmentId->getValue());
+        $result = $queryBuilder->execute()->fetchAllAssociative();
+
+        foreach ($result as &$item) {
+            $item = new ChannelId($item['id']);
         }
 
         return $result;

@@ -87,7 +87,7 @@ class ExporterFileConfigurationForm extends AbstractType
                 'segmentId',
                 ChoiceType::class,
                 [
-                    'label' => 'SegmentId',
+                    'label' => 'Segment',
                     'property_path' => 'segmentId',
                     'choices' => array_flip($segmentDictionary),
                     'required' => false,

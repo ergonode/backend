@@ -47,7 +47,7 @@ class FileExportChannel extends AbstractChannel
         string $name,
         string $format,
         string $exportType,
-        ?SegmentId $segmentId,
+        ?SegmentId $segmentId = null,
         array $languages = []
     ) {
         parent::__construct($id, $name);

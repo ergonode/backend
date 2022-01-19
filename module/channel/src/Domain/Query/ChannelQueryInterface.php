@@ -9,7 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Query;
 
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+
 interface ChannelQueryInterface
 {
     public function findChannelIdsByType(string $type): array;
+
+    /**
+     * @return array
+     */
+    public function findIdBySegmentId(SegmentId $segmentId): array;
 }
