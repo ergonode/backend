@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Segment\Infrastructure\Strategy\Relationship;
+namespace Ergonode\ExporterFile\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
