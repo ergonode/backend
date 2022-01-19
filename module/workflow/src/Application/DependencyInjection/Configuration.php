@@ -23,6 +23,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('ergonode_workflow');
         $rootNode = $treeBuilder->getRootNode();
         AddConditionsNodeSection::addSection($rootNode);
+        /** @phpstan-ignore-next-line */
+        $rootNode
+            ->children()
+                ->booleanNode('test')->defaultFalse()->end()
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }
