@@ -30,8 +30,11 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
-        $sql = sprintf(
-            '(SELECT 	
+        if ($attribute->getScope()->isLocal()) {
+            $sql = sprintf(
+                '
+                (
+                    SELECT 	
 			            DISTINCT ON (product_id) product_id, 
 			            value AS "%s" 
 		            FROM value_translation vt 
@@ -41,11 +44,28 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
                     AND lt.lft <= %s AND lt.rgt >= %s
 		            ORDER BY product_id, lft DESC NULLS LAST
 		        )',
-            $key,
-            $attribute->getId()->getValue(),
-            $info['lft'],
-            $info['rgt'],
-        );
+                $key,
+                $attribute->getId()->getValue(),
+                $info['lft'],
+                $info['rgt'],
+            );
+        } else {
+            $sql = sprintf(
+                '
+                (
+                    SELECT 
+                        product_id, 
+                        value AS "%s"
+		            FROM value_translation vt
+		            JOIN product_value pv ON pv.value_id = vt.value_id
+		            WHERE attribute_id = \'%s\'
+                    AND language = \'%s\'
+		        )',
+                $key,
+                $attribute->getId()->getValue(),
+                $info['code'],
+            );
+        }
 
         $query->addSelect(sprintf('"%s"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
