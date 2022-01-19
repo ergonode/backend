@@ -293,7 +293,6 @@ ruleset:
     - Account
     - Api
     - Attribute
-    - Condition # @todo incorrect relation need fix
     - Completeness
     - Core
     - EventSourcing

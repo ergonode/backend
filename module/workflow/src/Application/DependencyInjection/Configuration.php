@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
-use Ergonode\Condition\Application\DependencyInjection\AddConditionsNodeSection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -22,7 +21,6 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('ergonode_workflow');
         $rootNode = $treeBuilder->getRootNode();
-        AddConditionsNodeSection::addSection($rootNode);
         /** @phpstan-ignore-next-line */
         $rootNode
             ->children()
