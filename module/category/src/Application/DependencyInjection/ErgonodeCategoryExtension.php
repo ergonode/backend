@@ -59,7 +59,6 @@ class ErgonodeCategoryExtension extends Extension implements PrependExtensionInt
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependNelmioApiDoc($container);
-        $this->prependMessenger($container);
     }
 
     private function prependNelmioApiDoc(ContainerBuilder $container): void
@@ -70,25 +69,5 @@ class ErgonodeCategoryExtension extends Extension implements PrependExtensionInt
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');
-    }
-
-    private function prependMessenger(ContainerBuilder $container): void
-    {
-        $configs = $container->getExtensionConfig($this->getAlias());
-        $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
-
-        if (!$this->isConfigEnabled($container, $config['messenger'])) {
-            return;
-        }
-
-        $container->setParameter(
-            'ergonode.category.messenger_transport_name',
-            $config['messenger']['transport_name'],
-        );
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
-
-        $loader->load('messenger.yaml');
     }
 }

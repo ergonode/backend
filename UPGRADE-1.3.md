@@ -22,6 +22,7 @@ Core
 * `DownloaderInterface::download` throws exception rather than returning `null` value
 * Interface `Ergonode\Core\Infrastructure\Provider\LanguageTreeProviderInterface` become deprecated
 * Class `Ergonode\Core\Infrastructure\ProviderLanguageTreeProvider` become deprecated
+* Rabbit queue configuration MESSENGER_TRANSPORT_CORE_DSN is no longer required
 
 Workflow 
 * Signature of method `Ergonode\Workflow\Domain\Provider\WorkflowProvider` has changed 
