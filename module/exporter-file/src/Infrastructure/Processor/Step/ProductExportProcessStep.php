@@ -53,7 +53,7 @@ class ProductExportProcessStep implements ExportStepProcessInterface
         }
 
         foreach ($this->getProducts($channel, $lastExport) as $product) {
-            $productId = new ProductId($product['product_id']);
+            $productId = new ProductId($product);
             $lineId = ExportLineId::generate();
             $command = new ProcessProductCommand($lineId, $exportId, $productId);
             $this->repository->addLine($lineId, $exportId, $productId);
