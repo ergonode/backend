@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
+use Ergonode\Segment\Application\DependencyInjection\Configuration;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -66,6 +67,15 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(WorkflowConditionValidatorInterface::class)
             ->addTag('workflow.workflow_condition_validator_interface');
+
+        $configuration = new Configuration();
+        $processedConfig = $this->processConfiguration($configuration, $configs);
+
+        if (!$processedConfig['test']) {
+            return;
+        }
+
+        $loader->load('test.yaml');
     }
 
     /**
