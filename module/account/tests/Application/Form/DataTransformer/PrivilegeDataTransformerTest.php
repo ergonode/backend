@@ -34,7 +34,7 @@ class PrivilegeDataTransformerTest extends TestCase
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectExceptionMessage("Invalid Privilege object fake");
+        $this->expectExceptionMessage("Invalid Privilege object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
