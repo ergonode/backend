@@ -126,7 +126,6 @@ ruleset:
     - Multimedia
     - SharedKernel
     - Value
-    - Workflow  # @todo incorrect relation need fix
   Authentication:
     - Account
     - Core
