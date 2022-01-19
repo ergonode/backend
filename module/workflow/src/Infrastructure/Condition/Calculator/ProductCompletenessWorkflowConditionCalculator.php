@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface;
 use Ergonode\Workflow\Infrastructure\Exception\WorkflowConditionCalculatorException;
 use Ergonode\Workflow\Infrastructure\Condition\ProductCompletenessWorkflowCondition;
-use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery;
 
 class ProductCompletenessWorkflowConditionCalculator implements WorkflowConditionCalculatorInterface
@@ -49,7 +48,7 @@ class ProductCompletenessWorkflowConditionCalculator implements WorkflowConditio
         $result = true;
 
         $calculation = $this->query->hasCompleteness($product->getId(), $language);
-        if ($condition->getCompleteness() === ProductCompletenessCondition::COMPLETE) {
+        if ($condition->getCompleteness() === ProductCompletenessWorkflowCondition::COMPLETE) {
             if (!$calculation) {
                 $result = false;
             }

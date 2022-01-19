@@ -6,16 +6,7 @@ framework:
         transports:
             import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
             export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
-            core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
             notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
-
-ergonode_category:
-    messenger:
-        transport_name: 'core'
-
-ergonode_designer:
-    messenger:
-        transport_name: 'core'
 
 ergonode_channel:
     messenger:
