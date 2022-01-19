@@ -25,8 +25,9 @@ class ProductRelationAttributeDataSetQueryBuilder extends AbstractAttributeDataS
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
-        $sql = sprintf(
-            '(
+        if ($attribute->getScope()->isLocal()) {
+            $sql = sprintf(
+                '(
                 SELECT 	
                     DISTINCT ON (product_id) product_id, 
                     to_jsonb(regexp_split_to_array(value,\',\')) AS "%s" 
@@ -37,11 +38,28 @@ class ProductRelationAttributeDataSetQueryBuilder extends AbstractAttributeDataS
                 AND lt.lft <= %s AND lt.rgt >= %s
                 ORDER BY product_id, lft DESC NULLS LAST
             )',
-            $key,
-            $attribute->getId()->getValue(),
-            $info['lft'],
-            $info['rgt'],
-        );
+                $key,
+                $attribute->getId()->getValue(),
+                $info['lft'],
+                $info['rgt'],
+            );
+        } else {
+            $sql = sprintf(
+                '
+                (
+                    SELECT
+                        product_id,
+                        to_jsonb(regexp_split_to_array(value,\',\')) AS "%s"
+		            FROM value_translation vt
+		            JOIN product_value pv ON pv.value_id = vt.value_id
+		            WHERE attribute_id = \'%s\'
+                    AND language = \'%s\'
+		        )',
+                $key,
+                $attribute->getId()->getValue(),
+                $info['code'],
+            );
+        }
 
         $query->addSelect(sprintf('"%s"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));

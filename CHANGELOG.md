@@ -1,4 +1,6 @@
 ## CHANGELOG FOR 1.1.x
+#### 1.1.8
+- bugfix [#1848](https://github.com/ergonode/backend/issues/1848) Long response times for product grid endpoint (rprzedzik)
 #### 1.1.7
 - bugfix [#1816](https://github.com/ergonode/backend/issues/1816) Fixed product audits (rprzedzik)
 
