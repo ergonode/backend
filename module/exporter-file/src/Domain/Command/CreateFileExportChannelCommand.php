@@ -12,6 +12,7 @@ namespace Ergonode\ExporterFile\Domain\Command;
 use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
@@ -30,11 +31,19 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
 
     protected string $exportType;
 
+    protected ?SegmentId $segmentId;
+
     /**
      * @param Language[] $languages
      */
-    public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
-    {
+    public function __construct(
+        ChannelId $id,
+        string $name,
+        string $format,
+        string $exportType,
+        array $languages = [],
+        ?SegmentId $segmentId = null
+    ) {
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::oneOf($exportType, FileExportChannel::EXPORT_TYPES);
 
@@ -43,6 +52,7 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
         $this->format = $format;
         $this->exportType = $exportType;
         $this->languages = $languages;
+        $this->segmentId = $segmentId;
     }
 
 
@@ -72,5 +82,10 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
     public function getLanguages(): array
     {
         return $this->languages;
+    }
+
+    public function getSegmentId(): ?SegmentId
+    {
+        return $this->segmentId;
     }
 }

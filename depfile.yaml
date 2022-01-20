@@ -208,6 +208,7 @@ ruleset:
     - Designer
     - EventSourcing
     - Product
+    - Segment
     - SharedKernel
     - Multimedia
   Grid:

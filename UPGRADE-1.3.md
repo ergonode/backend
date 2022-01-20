@@ -49,3 +49,10 @@ Workflow
 
 Value
 * `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`
+
+Exporter-file
+* The signature of constructor `Ergonode\ExporterFile\Application\Form\ExporterFileConfigurationForm` has changed
+* The signature of constructor `Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand` has changed
+* The signature of constructor `Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand` has changed
+* The signature of constructor `Ergonode\ExporterFile\Domain\Entity\FileExportChannel` has changed
+* The signature of constructor `Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep` has changed
