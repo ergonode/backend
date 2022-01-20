@@ -41,8 +41,8 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
         string $name,
         string $format,
         string $exportType,
-        ?SegmentId $segmentId = null,
-        array $languages = []
+        array $languages = [],
+        ?SegmentId $segmentId = null
     ) {
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::oneOf($exportType, FileExportChannel::EXPORT_TYPES);
@@ -51,8 +51,8 @@ class CreateFileExportChannelCommand implements CreateChannelCommandInterface
         $this->name = $name;
         $this->format = $format;
         $this->exportType = $exportType;
-        $this->segmentId = $segmentId;
         $this->languages = $languages;
+        $this->segmentId = $segmentId;
     }
 
 

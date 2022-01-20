@@ -47,8 +47,8 @@ class FileExportChannel extends AbstractChannel
         string $name,
         string $format,
         string $exportType,
-        ?SegmentId $segmentId = null,
-        array $languages = []
+        array $languages = [],
+        ?SegmentId $segmentId = null
     ) {
         parent::__construct($id, $name);
         Assert::allIsInstanceOf($languages, Language::class);

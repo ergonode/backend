@@ -51,8 +51,8 @@ Value
 * `getTransation` and `hasTransation` methods are added to `Ergonode\Value\Domain\ValueObject\ValueInterface`
 
 Exporter-file
-* `findIdBySegmentId` method is added to `Ergonode\Channel\Domain\Query\ChannelQueryInterface`
-* `findIdBySegmentId` method is added to ` Ergonode\Channel\Infrastructure\Persistence\Query\DbalChannelQuery`
+* `findIdBySegmentId` method is added to `Ergonode\ExporterFile\Domain\Query\ExporterFileQueryInterface`
+* `findIdBySegmentId` method is added to ` Ergonode\ExporterFile\Infrastructure\Persistence\Query\DbalExporterFileQuery`
 * The signature of constructor `Ergonode\ExporterFile\Application\Form\ExporterFileConfigurationForm` has changed
 * The signature of constructor `Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand` has changed
 * The signature of constructor `Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand` has changed

@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
+use Ergonode\ExporterFile\Domain\Query\ExporterFileQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
@@ -21,9 +21,9 @@ class SegmentChannelRelationshipStrategy implements RelationshipStrategyInterfac
     private const ONE_MESSAGE = 'Segment has a relation with a channel';
     private const MULTIPLE_MESSAGE = 'Segment has %count% relations with some channels';
 
-    private ChannelQueryInterface $query;
+    private ExporterFileQueryInterface $query;
 
-    public function __construct(ChannelQueryInterface $query)
+    public function __construct(ExporterFileQueryInterface $query)
     {
         $this->query = $query;
     }

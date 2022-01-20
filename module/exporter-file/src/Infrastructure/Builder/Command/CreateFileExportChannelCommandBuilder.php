@@ -48,8 +48,8 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
             $name,
             $format,
             $exportType,
+            $languages,
             $segmentId ? new SegmentId($segmentId) : null,
-            $languages
         );
     }
 }

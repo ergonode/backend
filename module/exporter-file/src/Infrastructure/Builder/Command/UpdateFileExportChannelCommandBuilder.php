@@ -45,8 +45,8 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
             $name,
             $format,
             $exportType,
-            $segmentId ? new SegmentId($segmentId) : null,
             $languages,
+            $segmentId ? new SegmentId($segmentId) : null,
         );
     }
 }

@@ -17,4 +17,9 @@ interface ExporterFileQueryInterface
      * @return array
      */
     public function getAllEditedProductsInChannel(SegmentId $segmentId, ?\DateTime $dateTime = null): array;
+
+    /**
+     * @return array
+     */
+    public function findIdBySegmentId(SegmentId $segmentId): array;
 }
