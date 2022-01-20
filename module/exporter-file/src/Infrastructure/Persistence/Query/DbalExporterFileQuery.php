@@ -48,14 +48,8 @@ class DbalExporterFileQuery implements ExporterFileQueryInterface
                 ->setParameter(':editedAt', $dateTime, Types::DATETIMETZ_MUTABLE);
         }
 
-        $result = $qb
+        return $qb
             ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
-
-        if (false !== $result) {
-            return $result;
-        }
-
-        return [];
+            ->fetchFirstColumn();
     }
 }
