@@ -45,7 +45,7 @@ class ExporterFileConfigurationForm extends AbstractType
         $types = $this->dictionary->dictionary();
         $languages = $this->query->getDictionaryActive();
         $exportType = array_combine(FileExportChannel::EXPORT_TYPES, FileExportChannel::EXPORT_TYPES);
-        $segmentDictionary = array_merge(['' => ''], $this->segmentQuery->getDictionary());
+        $segmentDictionary =  $this->segmentQuery->getDictionary();
 
         $builder
             ->add(
