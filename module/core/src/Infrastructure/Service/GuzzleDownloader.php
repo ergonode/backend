@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Infrastructure\Service;
 
 use Ergonode\Core\Infrastructure\Exception\DownloaderException;
+use Ergonode\Core\Infrastructure\Exception\NotAcceptedHeaderTypeException;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ class GuzzleDownloader implements DownloaderInterface
      *
      * @throws DownloaderException
      */
-    public function download(string $url, array $headers = []): string
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = []): string
     {
         try {
             $response = $this->client->get(
@@ -47,6 +48,8 @@ class GuzzleDownloader implements DownloaderInterface
                     'headers' => $this->mapHeaders($headers),
                 ]
             );
+
+            $this->validateContentType($response->getHeader('Content-Type'), $acceptedContentTypes);
 
             $code = $response->getStatusCode();
             $content = $response->getBody()->getContents();
@@ -90,5 +93,30 @@ class GuzzleDownloader implements DownloaderInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[] $mimeTypes
+     * @param string[] $acceptedContentTypes
+     *
+     * @throws NotAcceptedHeaderTypeException
+     */
+    private function validateContentType(array $mimeTypes, array $acceptedContentTypes): void
+    {
+        if (empty($acceptedContentTypes)) {
+            return;
+        }
+
+        foreach ($mimeTypes as $mimeType) {
+            $pos = strpos($mimeType, ';');
+            $canonicalMimeType = trim(substr($mimeType, 0, $pos));
+            foreach ($acceptedContentTypes as $acceptedContentType) {
+                if ($acceptedContentType === $canonicalMimeType) {
+                    return;
+                }
+            }
+        }
+
+        throw new NotAcceptedHeaderTypeException($mimeTypes);
     }
 }
