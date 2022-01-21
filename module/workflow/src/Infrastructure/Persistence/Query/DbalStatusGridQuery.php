@@ -32,6 +32,7 @@ class DbalStatusGridQuery implements StatusGridQueryInterface
             '(SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM workflow w WHERE '.
             ' w.default_status = a.id AND w.code =\'default\')::BOOLEAN AS is_default '
         );
+        $query->orderBy('index', 'ASC');
 
         return $query;
     }

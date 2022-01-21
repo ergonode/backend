@@ -46,6 +46,7 @@ class DbalStatusQuery implements StatusQueryInterface
 
         $records = $qb->select(sprintf('id, code, color, name->>\'%s\' as name', $language->getCode()))
             ->from(self::STATUS_TABLE, 'a')
+            ->orderBy('index', 'ASC')
             ->execute()
             ->fetchAll();
 
@@ -82,13 +83,16 @@ class DbalStatusQuery implements StatusQueryInterface
             s.name->>:translationLanguage AS label,
             s.id AS status_id,
             count(pws.product_id) AS value,
-            s.color
+            s.color,
+            s.index
             FROM status s
             JOIN product_workflow_status pws ON s.id = pws.status_id
             WHERE pws.language = :workflowLanguage
             GROUP BY s.id, s.code, label
             UNION
-            SELECT s.code, s.name->>:translationLanguage AS label, s.id, 0 AS value, s.color FROM status s
+            SELECT s.code, s.name->>:translationLanguage AS label, s.id, 0 AS value, s.color, s.index 
+            FROM status s 
+            ORDER BY index
         ';
         $stmt = $this->connection->executeQuery(
             $sql,
@@ -97,7 +101,7 @@ class DbalStatusQuery implements StatusQueryInterface
                 'workflowLanguage' => (string) $workflowLanguage,
             ],
         );
-        $statuses = $stmt->fetchAll();
+        $statuses = $stmt->fetchAllAssociative();
 
         $result = [];
         foreach ($statuses as $status) {
@@ -108,6 +112,18 @@ class DbalStatusQuery implements StatusQueryInterface
 
         return array_values($result);
     }
+
+    public function getAllStatusIds(): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id')
+            ->from(self::STATUS_TABLE, 'a')
+            ->orderBy('index', 'ASC')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
 
     private function getQuery(Language $language): QueryBuilder
     {
