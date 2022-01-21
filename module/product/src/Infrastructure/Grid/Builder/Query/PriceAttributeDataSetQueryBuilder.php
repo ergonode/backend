@@ -56,6 +56,7 @@ class PriceAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 		            JOIN product_value pv ON pv.value_id = vt.value_id
 		            WHERE attribute_id = \'%s\'
                     AND language = \'%s\'
+                    AND value ~ \'^\d+(\\.\\d+)?$\'
 		        )',
                 $key,
                 $attribute->getId()->getValue(),
