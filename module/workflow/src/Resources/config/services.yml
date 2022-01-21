@@ -6,7 +6,10 @@ services:
 
     Ergonode\Workflow\Application\:
         resource: '../../Application/*'
-        exclude: '../../Domain/{Model}'
+
+    Ergonode\Workflow\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
 
     Ergonode\Workflow\Domain\:
         resource: '../../Domain/*'
@@ -15,10 +18,6 @@ services:
     Ergonode\Workflow\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
-
-    Ergonode\Workflow\Application\Controller\:
-        resource: '../../Application/Controller'
-        tags: ['controller.service_arguments']
 
     Ergonode\Workflow\Application\Controller\Api\Status\StatusGridReadAction:
         tags: ['controller.service_arguments']
@@ -37,6 +36,10 @@ services:
     Ergonode\Workflow\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
+
+    Ergonode\Workflow\Infrastructure\Condition\Validator\:
+        resource: '../../Infrastructure/Condition/Validator/'
+        tags: ['workflow.workflow_condition_validator_interface']
 
     Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\EventStoreStatusRepository'
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\EventStoreWorkflowRepository'
@@ -59,3 +62,18 @@ services:
         arguments:
             - '@Ergonode\Workflow\Domain\Factory\AddStatusToProductFactoryDecorator.inner'
 
+    Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionConfigurationProvider:
+        arguments:
+            $strategies: !tagged_iterator 'workflow.workflow_condition_configuration_interface'
+
+    Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionDictionaryProvider:
+        arguments:
+            $strategies: !tagged_iterator 'workflow.workflow_condition_configuration_interface'
+
+    Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionCalculatorProvider:
+        arguments:
+            $strategies: !tagged_iterator 'workflow.workflow_condition_calculator_interface'
+
+    Ergonode\Workflow\Infrastructure\Provider\WorkflowConditionValidatorProvider:
+        arguments:
+            $strategies: !tagged_iterator 'workflow.workflow_condition_validator_interface'

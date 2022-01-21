@@ -19,7 +19,7 @@ class ProductCollectionCreateFormModel
      * @Assert\NotBlank(message="System name is required")
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="Product collection System Name can have only letters, digits or underscore symbol"
+     *     message="Product collection system name can have only letters, digits or underscore symbol."
      *  )
      *
      * @SystemCode(max=64)

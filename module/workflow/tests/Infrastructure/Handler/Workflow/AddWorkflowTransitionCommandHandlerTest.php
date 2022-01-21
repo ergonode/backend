@@ -14,7 +14,6 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 class AddWorkflowTransitionCommandHandlerTest extends TestCase
 {
@@ -24,10 +23,8 @@ class AddWorkflowTransitionCommandHandlerTest extends TestCase
     public function testCommandHandling(): void
     {
         $roleId = $this->createMock(RoleId::class);
-        $conditionSetId = $this->createMock(ConditionSetId::class);
         $command = $this->createMock(AddWorkflowTransitionCommand::class);
         $command->expects(self::once())->method('getRoleIds')->willReturn([$roleId]);
-        $command->expects(self::once())->method('getConditionSetId')->willReturn($conditionSetId);
         $workflow = $this->createMock(Workflow::class);
 
         $repository = $this->createMock(WorkflowRepositoryInterface::class);

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Command;
 
 use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
@@ -32,6 +33,7 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
         $name = $data->name;
         $format = $data->format;
         $exportType = $data->exportType;
+        $segmentId = $data->segmentId;
 
         $languages = [];
         foreach ($data->languages as $language) {
@@ -44,6 +46,7 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
             $format,
             $exportType,
             $languages,
+            $segmentId ? new SegmentId($segmentId) : null,
         );
     }
 }

@@ -42,20 +42,56 @@ Feature: Workflow
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario Outline: Get status for product in <language> language
-    When I send a GET request to "/api/v1/en_GB/products/@product_id@/workflow/<language>"
-    Then the response status code should be 200
-    And the JSON node "status.code" should exist
-    Examples:
-      | language |
-      | en_GB    |
-      | pl_PL    |
-      | fr_FR    |
-      | de_DE    |
+#  Scenario Outline: Get status for product in <language> language
+#    When I send a GET request to "/api/v1/en_GB/products/@product_id@/workflow/<language>"
+#    Then the response status code should be 200
+#    And the JSON node "status.code" should exist
+#    Examples:
+#      | language |
+#      | en_GB    |
+#      | pl_PL    |
+#      | fr_FR    |
+#      | de_DE    |
 
   Scenario: Delete status has transition
     When I send a DELETE request to "/api/v1/en/status/@new_status_id@"
     Then the response status code should be 409
+
+  Scenario: Create transition to workflow
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions"
+      """
+      {
+        "from": "@new_status_id@",
+        "to": "@test_status_id@",
+        "name": {
+          "pl_PL": "Translated name PL",
+          "en_GB": "Translated name en"
+        },
+        "description": {
+          "pl_PL": "Translated description PL",
+          "en_GB": "Translated description en"
+        }
+      }
+      """
+    Then the response status code should be 201
+
+  Scenario: Create transition to workflow
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions"
+      """
+      {
+        "from": "@test_status_id@",
+        "to": "@new_status_id@",
+        "name": {
+          "pl_PL": "Translated name PL",
+          "en_GB": "Translated name en"
+        },
+        "description": {
+          "pl_PL": "Translated description PL",
+          "en_GB": "Translated description en"
+        }
+      }
+      """
+    Then the response status code should be 201
 
   Scenario: Edit product status
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -107,6 +143,14 @@ Feature: Workflow
         ]
       }
       """
+    Then the response status code should be 204
+
+  Scenario: Delete transition
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@new_status_id@/@test_status_id@"
+    Then the response status code should be 204
+
+  Scenario: Delete transition
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@test_status_id@/@new_status_id@"
     Then the response status code should be 204
 
   Scenario: Delete status has transition

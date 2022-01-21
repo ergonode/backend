@@ -1,0 +1,7 @@
+services:
+    Ergonode\Workflow\Test\TestStatusEventHandler:
+        arguments:
+            $statusTransport: '@messenger.transport.status'
+            $commandBus: '@messenger.bus.sync'
+        tags:
+            - { name: 'messenger.message_handler', priority: -1000 }

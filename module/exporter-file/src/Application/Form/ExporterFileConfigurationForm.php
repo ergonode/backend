@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Application\Form;
 
+use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,10 +25,16 @@ class ExporterFileConfigurationForm extends AbstractType
 
     private LanguageQueryInterface $query;
 
-    public function __construct(WriterTypeDictionary $dictionary, LanguageQueryInterface $query)
-    {
+    private SegmentQueryInterface $segmentQuery;
+
+    public function __construct(
+        WriterTypeDictionary $dictionary,
+        LanguageQueryInterface $query,
+        SegmentQueryInterface $segmentQuery
+    ) {
         $this->dictionary = $dictionary;
         $this->query = $query;
+        $this->segmentQuery = $segmentQuery;
     }
 
     /**
@@ -38,6 +45,7 @@ class ExporterFileConfigurationForm extends AbstractType
         $types = $this->dictionary->dictionary();
         $languages = $this->query->getDictionaryActive();
         $exportType = array_combine(FileExportChannel::EXPORT_TYPES, FileExportChannel::EXPORT_TYPES);
+        $segmentDictionary =  $this->segmentQuery->getDictionary();
 
         $builder
             ->add(
@@ -74,6 +82,16 @@ class ExporterFileConfigurationForm extends AbstractType
                     'label' => 'Format',
                     'choices' => $types,
                 ]
+            )
+            ->add(
+                'segmentId',
+                ChoiceType::class,
+                [
+                    'label' => 'Segment',
+                    'property_path' => 'segmentId',
+                    'choices' => array_flip($segmentDictionary),
+                    'required' => false,
+                ],
             );
     }
 

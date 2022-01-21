@@ -9,10 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
-use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
-use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
@@ -22,18 +18,9 @@ class UpdateWorkflowCommandHandler
 {
     private WorkflowRepositoryInterface $repository;
 
-    private RelationshipsResolverInterface $relationshipsResolver;
-
-    private CommandBusInterface $commandBus;
-
-    public function __construct(
-        WorkflowRepositoryInterface $repository,
-        RelationshipsResolverInterface $relationshipsResolver,
-        CommandBusInterface $commandBus
-    ) {
+    public function __construct(WorkflowRepositoryInterface $repository)
+    {
         $this->repository = $repository;
-        $this->relationshipsResolver = $relationshipsResolver;
-        $this->commandBus = $commandBus;
     }
 
     /**
@@ -46,7 +33,7 @@ class UpdateWorkflowCommandHandler
         Assert::notNull($workflow);
 
         $this->updateStatuses($command->getStatuses(), $workflow);
-        $conditionSetIds = $this->updateTransitions($command->getTransitions(), $workflow);
+        $this->updateTransitions($command->getTransitions(), $workflow);
         $defaultStatus = $command->getDefaultStatus();
 
         if ($defaultStatus) {
@@ -58,7 +45,6 @@ class UpdateWorkflowCommandHandler
         }
 
         $this->repository->save($workflow);
-        $this->deleteConditionSet($conditionSetIds);
     }
 
     private function updateStatuses(array $commandStatuses, AbstractWorkflow $workflow): void
@@ -82,12 +68,8 @@ class UpdateWorkflowCommandHandler
         }
     }
 
-    /**
-     * @return ConditionSetId[]
-     */
-    private function updateTransitions(array $commandTransitions, AbstractWorkflow $workflow): array
+    private function updateTransitions(array $commandTransitions, AbstractWorkflow $workflow): void
     {
-        $conditionSetIds = [];
         foreach ($workflow->getTransitions() as $transition) {
             $contains = false;
             foreach ($commandTransitions as $commandTransition) {
@@ -98,22 +80,12 @@ class UpdateWorkflowCommandHandler
             }
             if (!$contains) {
                 $workflow->removeTransition($transition->getFrom(), $transition->getTo());
-                if ($transition->getConditionSetId()) {
-                    $conditionSetIds[] = $transition->getConditionSetId();
-                }
             }
         }
 
         foreach ($commandTransitions as $transition) {
             if (!$workflow->hasTransition($transition['from'], $transition['to'])) {
                 $workflow->addTransition($transition['from'], $transition['to']);
-                if (isset($transition['condition_set'])) {
-                    $workflow->changeTransitionConditionSetId(
-                        $transition['from'],
-                        $transition['to'],
-                        $transition['condition_set']
-                    );
-                }
                 if (isset($transition['roles'])) {
                     $workflow->changeTransitionRoleIds(
                         $transition['from'],
@@ -121,22 +93,6 @@ class UpdateWorkflowCommandHandler
                         $transition['roles']
                     );
                 }
-            }
-        }
-
-        return array_unique($conditionSetIds);
-    }
-
-    /**
-     * @param ConditionSetId[] $conditionSetIds
-     */
-    private function deleteConditionSet(array $conditionSetIds): void
-    {
-        foreach ($conditionSetIds as $conditionSetId) {
-            if (null === $this->relationshipsResolver->resolve($conditionSetId)) {
-                $this->commandBus->dispatch(
-                    new DeleteConditionSetCommand($conditionSetId),
-                );
             }
         }
     }

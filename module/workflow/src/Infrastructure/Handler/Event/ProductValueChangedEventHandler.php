@@ -97,20 +97,19 @@ class ProductValueChangedEventHandler
         ProductId $productId,
         ?Language $language = null
     ): void {
-        $transition = $workflow->getTransition($from, $to);
-        if (!empty($transition->getRoleIds())) {
+        $roleIds = $workflow->getTransitionRoleIds($from, $to);
+        if (!empty($roleIds)) {
             $product = $this->productRepository->load($productId);
             Assert::notNull($product);
 
-            $roleIds = $transition->getRoleIds();
             $recipients = $this->userIdsProvider->getUserIds($roleIds);
             $user = $this->userProvider->provide();
 
             $notification = new StatusChangedNotification(
                 $productId,
                 $product->getSku(),
-                $this->getStatusCode($transition->getFrom()),
-                $this->getStatusCode($transition->getTo()),
+                $this->getStatusCode($from),
+                $this->getStatusCode($to),
                 $user,
                 $language
             );

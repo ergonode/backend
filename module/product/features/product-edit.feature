@@ -20,7 +20,7 @@ Feature: Product edit feature
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_edit_select_attribute"
 
-  Scenario:  et select option 1 id
+  Scenario: Get select option 1 id
     When I send a GET request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options/grid?filter=code=option_1&view=list"
     Then the response status code should be 200
     And store response param "collection[0].id" as "select_option_1_id"
@@ -35,7 +35,7 @@ Feature: Product edit feature
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_edit_multiselect_attribute"
 
-  Scenario:  et select option 1 id
+  Scenario: Get select option 1 id
     When I send a GET request to "/api/v1/en_GB/attributes/@product_edit_multiselect_attribute@/options/grid?filter=code=option_1&view=list"
     Then the response status code should be 200
     And store response param "collection[0].id" as "multiselect_option_1_id"
@@ -282,7 +282,7 @@ Feature: Product edit feature
       """
     Then the response status code should be 204
 
-  Scenario: Edit status in en_GB
+  Scenario: Edit status in en_GB without transition
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
        {
@@ -304,7 +304,7 @@ Feature: Product edit feature
         ]
       }
       """
-    Then the response status code should be 204
+    Then the response status code should be 400
 
   Scenario: Get status product status
     When I send a GET request to "api/v1/en_GB/products/@edit_product@"

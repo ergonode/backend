@@ -19,13 +19,12 @@ use Ergonode\Workflow\Application\Form\Workflow\WorkflowFormInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionConfigurationInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionCalculatorInterface;
+use Ergonode\Workflow\Domain\Condition\WorkflowConditionValidatorInterface;
 
 class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {
-
-    public const CONDITION_GROUP_NAME = 'workflow';
-    public const CONDITION_PARAMETER_NAME = 'ergonode_workflow.conditions';
-
     /**
      * @param array $configs
      *
@@ -56,12 +55,27 @@ class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInt
             ->registerForAutoconfiguration(UpdateWorkflowCommandFactoryInterface::class)
             ->addTag(CompilerPass\UpdateWorkflowCommandFactoryProviderInterfaceCompilerPass::TAG);
 
+        $container
+            ->registerForAutoconfiguration(WorkflowConditionConfigurationInterface::class)
+            ->addTag('workflow.workflow_condition_configuration_interface');
+
+        $container
+            ->registerForAutoconfiguration(WorkflowConditionCalculatorInterface::class)
+            ->addTag('workflow.workflow_condition_calculator_interface');
+
+        $container
+            ->registerForAutoconfiguration(WorkflowConditionValidatorInterface::class)
+            ->addTag('workflow.workflow_condition_validator_interface');
+
         $configuration = new Configuration();
         $processedConfig = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter(self::CONDITION_PARAMETER_NAME, $processedConfig['conditions']);
-    }
+        if (!$processedConfig['test']) {
+            return;
+        }
 
+        $loader->load('test.yaml');
+    }
 
     /**
      * {@inheritDoc}

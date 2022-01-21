@@ -215,7 +215,7 @@ Feature: Workflow transitions
         }
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Update transition to workflow (to not found)
     When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@workflow_from_status_id@/@@random_code@@" with body:
@@ -231,7 +231,7 @@ Feature: Workflow transitions
         }
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Get transition in default workflow
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_from_status_id@/@workflow_to_status_id@"

@@ -1,0 +1,17 @@
+Ergonode\Workflow\Domain\Condition\WorkflowConditionInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            ATTRIBUTE_EXISTS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\AttributeExistsWorkflowCondition
+            PRODUCT_COMPLETENESS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\ProductCompletenessWorkflowCondition
+            ROLE_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\RoleIsWorkflowCondition
+            USER_IS_CONDITION: Ergonode\Workflow\Infrastructure\Condition\UserIsWorkflowCondition
+
+Ergonode\Workflow\Domain\Condition\Configuration\WorkflowConditionConfigurationParameterInterface:
+    discriminator_map:
+        type_property: 'type'
+        mapping:
+            'SELECT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\SelectWorkflowConditionConfigurationParameter
+            'MULTI_SELECT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\MultiSelectWorkflowConditionConfigurationParameter
+            'TEXT': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\TextWorkflowConditionConfigurationParameter
+            'NUMERIC': Ergonode\Workflow\Domain\Condition\Configuration\Parameter\NumericWorkflowConditionConfigurationParameter

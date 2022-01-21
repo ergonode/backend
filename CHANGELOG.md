@@ -1,10 +1,15 @@
 ## CHANGELOG FOR 1.3.x
 #### 1.3.0
+- feature [#1170](https://github.com/ergonode/backend/issues/1170) Extend Ergonode CSV export with segments handling (wiewiurdp)
+- bugfix [#1840](https://github.com/ergonode/backend/issues/1840) Change place of configuration tag (wiewiurdp)
+- bugfix [#1835](https://github.com/ergonode/backend/issues/1835) Status change validation (wiewiurdp)
 - bugfix [#1785](https://github.com/ergonode/backend/issues/1785) Fixing incorrect attributeGroupCode and CategoryName Assertions (wiewiurdp)
 - refactor [#1736](https://github.com/ergonode/backend/issues/1736) Make AttributeId::fromKey method deprecated (rprzedzik)
 - bugfix [#1740](https://github.com/ergonode/backend/issues/1740) Incorrect transition property naming (rprzedzik)
+- bugfix [#1829](https://github.com/ergonode/backend/issues/1829) Slow request GET products/{product} for many select attributes (rprzedzik)
 - feature [#1749](https://github.com/ergonode/backend/issues/1749) Add guzzleDownloader base on DownloaderInterface (rprzedzik)
 - refactor [#1752](https://github.com/ergonode/backend/issues/1752) Separation of workflow calculation mechanism from Segments (rprzedzik)
+- refactor [#1831](https://github.com/ergonode/backend/issues/1831) Change completeness first save after create new product (wfajczyk)
 - feature [#1747](https://github.com/ergonode/backend/issues/1747) Test modules configuration (piotrkreft)
 - feature [#1756](https://github.com/ergonode/backend/issues/1756) Extension of ValueInterface and unification of implemented classes (rprzedzik)
 
@@ -34,6 +39,8 @@
 - build [#1513](https://github.com/ergonode/backend/issues/1513) Removed dependency on `behat/symfony2-extension` (piotrkreft)
 
 ## CHANGELOG FOR 1.1.x
+#### 1.1.8
+- bugfix [#1848](https://github.com/ergonode/backend/issues/1848) Long response times for product grid endpoint (rprzedzik)
 #### 1.1.7
 - bugfix [#1816](https://github.com/ergonode/backend/issues/1816) Fixed product audits (rprzedzik)
 

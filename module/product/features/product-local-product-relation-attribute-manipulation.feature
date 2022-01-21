@@ -205,7 +205,7 @@ Feature: Product edit and inheritance value for product product with product rel
                   "values" : [
                     {
                       "language": "pl_PL",
-                      "value": ["@product_id@", "@product_2_id@"]
+                      "value": ["@product_3_id@", "@product_2_id@"]
                     },
                      {
                       "language": "en_GB",
@@ -225,8 +225,8 @@ Feature: Product edit and inheritance value for product product with product rel
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @product_2_id@ |
-    And the JSON node "attributes.@attribute_code@[1]" should not exist
+      | attributes.@attribute_code@[0] | @product_3_id@ |
+    And the JSON node "attributes.@attribute_code@[2]" should not exist
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
