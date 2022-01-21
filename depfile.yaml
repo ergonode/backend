@@ -126,7 +126,6 @@ ruleset:
     - Multimedia
     - SharedKernel
     - Value
-    - Workflow  # @todo incorrect relation need fix
   Authentication:
     - Account
     - Core
@@ -209,6 +208,7 @@ ruleset:
     - Designer
     - EventSourcing
     - Product
+    - Segment
     - SharedKernel
     - Multimedia
   Grid:
@@ -293,7 +293,7 @@ ruleset:
     - Account
     - Api
     - Attribute
-    - Condition # @todo incorrect relation need fix
+    - Completeness
     - Core
     - EventSourcing
     - Grid

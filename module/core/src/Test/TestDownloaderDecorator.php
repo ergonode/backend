@@ -24,10 +24,10 @@ class TestDownloaderDecorator implements DownloaderInterface
     }
 
 
-    public function download(string $url, array $headers = []): string
+    public function download(string $url, array $headers = [], array $acceptedContentTypes = []): string
     {
         if (false === strpos($url, 'file://')) {
-            return $this->downloader->download($url, $headers);
+            return $this->downloader->download($url, $headers, $acceptedContentTypes);
         }
 
         $path = $this->kernel->getProjectDir().'/'.substr($url, 6);

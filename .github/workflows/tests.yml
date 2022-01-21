@@ -58,6 +58,14 @@ jobs:
         env:
           DATABASE_URL: pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8
 
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: artifacts
+          path: |
+            ./var/log
+
   code_analysis:
     runs-on: ubuntu-latest
 

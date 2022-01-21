@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Infrastructure\Provider;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraint;
 
@@ -25,11 +26,14 @@ class AttributeValueConstraintProvider
         $this->strategies = $strategies;
     }
 
-    public function provide(AbstractAttribute $attribute, ?AggregateId $aggregateId = null): Constraint
-    {
+    public function provide(
+        AbstractAttribute $attribute,
+        ?AggregateId $aggregateId = null,
+        ?Language $language = null
+    ): Constraint {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($attribute)) {
-                return $strategy->get($attribute, $aggregateId);/* @phpstan-ignore-line */
+                return $strategy->get($attribute, $aggregateId, $language);/* @phpstan-ignore-line */
             }
         }
 

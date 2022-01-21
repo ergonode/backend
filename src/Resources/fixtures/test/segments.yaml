@@ -1,0 +1,19 @@
+parameters:
+  segment_name:
+    'pl_PL': 'Polish_segment_name'
+    'en_GB': 'English_segment_name'
+  segment_description:
+    'pl_PL': 'Polish_segment_name'
+    'en_GB': 'English_segment_name'
+
+Ergonode\Segment\Domain\Command\CreateSegmentCommand:
+  test_segment_1:
+    __construct:
+      - '<segmentCode("test_segment_1")>'
+      - '<translation(<{segment_name}>)>'
+      - '<translation(<{segment_description}>)>'
+  test_segment_2:
+    __construct:
+      - '<segmentCode("test_segment_2")>'
+      - '<translation(<{segment_name}>)>'
+      - '<translation(<{segment_description}>)>'

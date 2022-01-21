@@ -1,6 +1,0 @@
-ergonode_workflow:
-  conditions:
-    - Ergonode\Condition\Domain\Condition\AttributeTranslationExistsCondition
-    - Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition
-    - Ergonode\Condition\Domain\Condition\RoleExactlyCondition
-    - Ergonode\Condition\Domain\Condition\UserExactlyCondition

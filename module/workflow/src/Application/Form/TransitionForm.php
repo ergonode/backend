@@ -40,13 +40,6 @@ class TransitionForm extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => TextType::class,
                 ]
-            )
-            ->add(
-                'condition_set',
-                TextType::class,
-                [
-                    'property_path' => 'conditionSet',
-                ]
             );
     }
 

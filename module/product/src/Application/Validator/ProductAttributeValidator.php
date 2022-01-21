@@ -10,8 +10,11 @@ namespace Ergonode\Product\Application\Validator;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateAttributeValueFormModel;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateProductAttributeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -50,32 +53,47 @@ class ProductAttributeValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value instanceof UpdateAttributeValueFormModel) {
+        if (!$value instanceof UpdateProductAttributeFormModel) {
             return; //maybe Exception
         }
 
-        if ($value->id === null || !AttributeId::isValid($value->id)) {
+        if ($value->id === null || !ProductId::isValid($value->id)) {
             return;
         }
 
-        $attribute = $this->attributeRepository->load(new AttributeId($value->id));
-        if (null === $attribute) {
-            return;
-        }
-
-        $secondConstraint = $this->provider->provide($attribute);
         $i = 0;
-        foreach ($value->values as $valueRow) {
-            $violations = $this->validator->validate(['value' => $valueRow->value], $secondConstraint);
-            if (0 < $violations->count()) {
-                /** @var ConstraintViolation $violation */
-                foreach ($violations as $violation) {
-                    $this->context
-                        ->buildViolation($violation->getMessage())
-                        ->atPath('values['.$i.'].value')
-                        ->addViolation();
-                }
+        foreach ($value->payload as $payloadValues) {
+            if ($payloadValues->id === null || !AttributeId::isValid($payloadValues->id)) {
+                continue;
             }
+            $attribute = $this->attributeRepository->load(new AttributeId($payloadValues->id));
+            if (null === $attribute) {
+                continue;
+            }
+            $j = 0;
+            foreach ($payloadValues->values as $valueRow) {
+                if (null === $valueRow->language || !Language::isValid($valueRow->language)) {
+                    continue;
+                }
+                $secondConstraint = $this->provider->provide(
+                    $attribute,
+                    new ProductId($value->id),
+                    new Language($valueRow->language)
+                );
+                $violations = $this->validator->validate(['value' => $valueRow->value], $secondConstraint);
+                if (0 < $violations->count()) {
+                    /** @var ConstraintViolation $violation */
+                    foreach ($violations as $violation) {
+                        $this->context
+                            ->buildViolation($violation->getMessage())
+                            ->atPath('payload['.$i.'].values['.$j.'].value')
+                            ->addViolation();
+                    }
+                }
+                $j++;
+                $secondConstraint = null;
+            }
+            $attribute = null;
             $i++;
         }
     }

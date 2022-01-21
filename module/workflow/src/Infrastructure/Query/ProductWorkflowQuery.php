@@ -75,7 +75,7 @@ class ProductWorkflowQuery
             $sortedTransitions = $this->sortTransitions($transitions);
             $result['workflow'] = [];
             foreach ($sortedTransitions as $transition) {
-                if ($this->service->available($transition, $product)) {
+                if ($this->service->available($transition, $product, $productLanguage)) {
                     $fromStatus = $this->statusRepository->load($transition->getTo());
                     Assert::notNull($fromStatus);
                     $result['workflow'][] = [
@@ -84,6 +84,35 @@ class ProductWorkflowQuery
                         'code' => $fromStatus->getCode(),
                         'color' => $fromStatus->getColor(),
                     ];
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     *
+     * @throws \ReflectionException
+     */
+    public function getAvailableStatuses(
+        AbstractProduct $product,
+        AbstractWorkflow $workflow,
+        Language $productLanguage
+    ): array {
+        $code = new AttributeCode(StatusSystemAttribute::CODE);
+        $result = [];
+        if ($product->hasAttribute($code)) {
+            $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
+            Assert::notNull($attributeId, sprintf('attribute %s not exists', $attributeId->getValue()));
+            $value = $product->getAttribute($code)->getValue();
+            $statusId = new StatusId($value[$productLanguage->getCode()]);
+
+            $transitions = $workflow->getTransitionsFromStatus($statusId);
+            foreach ($transitions as $transition) {
+                if ($this->service->available($transition, $product, $productLanguage)) {
+                    $result[] = $transition->getTo()->getValue();
                 }
             }
         }

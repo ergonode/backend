@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator as AccountAssert;
 use Ergonode\Workflow\Application\Validator as WorkflowAssert;
-use Ergonode\Condition\Application\Validator as ConditionAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,12 +33,6 @@ class TransitionFormModel
     public ?string $to;
 
     /**
-     * @Assert\Uuid(strict=true),
-     * @ConditionAssert\ConditionSetExists()
-     */
-    public ?string $conditionSet;
-
-    /**
      * @var array
      *
      * @Assert\All({
@@ -55,7 +48,6 @@ class TransitionFormModel
     {
         $this->from = null;
         $this->to = null;
-        $this->conditionSet = null;
         $this->roles = [];
     }
 }

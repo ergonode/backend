@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Tests\Application\Form;
 
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
+use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\ExporterFile\Application\Form\ExporterFileConfigurationForm;
 use Symfony\Component\Form\PreloadedExtension;
@@ -27,12 +28,19 @@ class ExportFileChannelFormFactoryTest extends TypeTestCase
      * @var LanguageQueryInterface|MockObject
      */
     private LanguageQueryInterface $query;
+
+    /**
+     * @var SegmentQueryInterface|MockObject
+     */
+    private SegmentQueryInterface $segmentQuery;
+
     public function setUp(): void
     {
         $this->dictionary = $this->createMock(WriterTypeDictionary::class);
         $this->dictionary->method('dictionary')->willReturn(['Any format']);
         $this->query = $this->createMock(LanguageQueryInterface::class);
         $this->query->method('getDictionaryActive')->willReturn(['language']);
+        $this->segmentQuery = $this->createMock(SegmentQueryInterface::class);
 
         parent::setUp();
     }
@@ -69,7 +77,7 @@ class ExportFileChannelFormFactoryTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $types[] = new ExporterFileConfigurationForm($this->dictionary, $this->query);
+        $types[] = new ExporterFileConfigurationForm($this->dictionary, $this->query, $this->segmentQuery);
 
         return [
             new PreloadedExtension($types, []),

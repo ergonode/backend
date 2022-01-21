@@ -39,8 +39,10 @@ class ExportFileChannelFormFactory implements ChannelFormFactoryInterface
     {
         Assert::nullOrIsInstanceOf($channel, FileExportChannel::class);
         $model = new ExporterFileConfigurationModel($channel);
-        $method = $channel ? Request::METHOD_PUT : Request::METHOD_POST;
+        $options = $channel ?
+            ['method' => Request::METHOD_PUT, 'validation_groups' => ['Update']] :
+            ['method' => Request::METHOD_POST];
 
-        return $this->formFactory->create(ExporterFileConfigurationForm::class, $model, ['method' => $method]);
+        return $this->formFactory->create(ExporterFileConfigurationForm::class, $model, $options);
     }
 }
