@@ -82,7 +82,7 @@ class AccountGridBuilder implements GridBuilderInterface
     {
         $result = [];
         foreach ($this->languageProvider->getLanguages($language) as $code => $value) {
-            $languages[] = new LabelFilterOption($code, $value);
+            $result[] = new LabelFilterOption($code, $value);
         }
 
         return $result;
