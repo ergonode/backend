@@ -71,6 +71,7 @@
         "behatch/contexts": "^3.3",
         "dama/doctrine-test-bundle": "^6.6",
         "escapestudios/symfony2-coding-standard": "^3.10",
+        "fakerphp/faker": "1.17",
         "friends-of-behat/symfony-extension": "^2.0.5",
         "friendsofphp/proxy-manager-lts": "^1.0",
         "infection/infection": "^0.17.5",
