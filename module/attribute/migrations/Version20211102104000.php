@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -22,7 +22,8 @@ final class Version20211102104000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         // clear redundant snapshots
-        $this->addSql('
+        $this->addSql(
+            '
             DELETE 
             FROM event_store_snapshot 
             WHERE aggregate_id IN (
@@ -34,7 +35,8 @@ final class Version20211102104000 extends AbstractErgonodeMigration
         );
 
         // clean database from redundant option events (options without projection)
-        $this->addSql('
+        $this->addSql(
+            '
             DELETE 
             FROM event_store 
             WHERE aggregate_id IN (
