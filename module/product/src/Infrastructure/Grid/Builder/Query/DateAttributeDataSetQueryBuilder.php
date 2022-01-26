@@ -56,6 +56,7 @@ class DateAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 		            JOIN product_value pv ON pv.value_id = vt.value_id
 		            WHERE attribute_id = \'%s\'
                     AND language = \'%s\'
+                    AND value ~ \'^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$\'
 		        )',
                 $key,
                 $attribute->getId()->getValue(),
