@@ -12,7 +12,7 @@
   <a href="https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w">
      <img src="https://img.shields.io/badge/chat-on%20slack-e51670.svg" alt="Chat">
   </a>
-  <a href="https://docs.ergonode.com" target="_blank">
+  <a href="https://devs.ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/docs-read-ffc108.svg" alt="Docs">
   </a>
   <a href="https://github.com/ergonode/backend/blob/master/LICENSE.txt" target="_blank">
@@ -73,7 +73,7 @@ For more information check our [installation][installation] section in the docum
 
 The project is in early stage and we have got a lot of milestones to develop.  We do our best to deliver great documentation, but - to be honest -  it is the hardest thing in open-source projects :)
 
-**Please find out what we've already prepared on [docs.ergonode.com][docs]**
+**Please find out what we've already prepared on [devs.ergonode.com][docs]**
 
 #### Backend Technologies
 
@@ -112,11 +112,11 @@ Ergonode is open-source, and it can be brought to you only by great community an
 Ergonode source code is released under the [OSL 3.0 License][license].
 
 [slack]: https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w
-[contribut]: http://docs.ergonode.com/#/community/contribution
+[contribut]: https://devs.ergonode.com/#/community/contribution
 [license]: ./LICENSE.txt
 [roadmap]: https://trello.com/b/DSWyaTlL/ergonode-product-roadmap
-[docs]: https://docs.ergonode.com
-[installation]: https://docs.ergonode.com/#/installation
+[docs]: https://devs.ergonode.com
+[installation]: https://devs.ergonode.com/#/installation
 [ddd]: https://en.wikipedia.org/wiki/Domain-driven_design
 [cqrs]: https://en.wikipedia.org/wiki/Command%E2%80%93query_separation
 [es]: https://dev.to/barryosull/event-sourcing-what-it-is-and-why-its-awesome
